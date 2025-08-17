@@ -1,0 +1,20 @@
+{
+  "size": 25000,
+  "price": "$1",
+  "slug": "test-warehouse",
+  "featured": false,
+  "address": "123 red st",
+  "location": "Hollywood",
+  "title": "testing cms warehouse",
+  "images": [
+    "/images/warehouses/download-1.jpg"
+  ],
+  "createdAt": "2025-08-17",
+  "availability": "available",
+  "description": "t﻿esting cms",
+  "features": [
+    "Loading Docks",
+    "24/7 Access",
+    "Security System"
+  ]
+}

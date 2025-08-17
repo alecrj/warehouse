@@ -51,7 +51,7 @@
         },
         "createdAt": {
           "type": "string",
-          "default": "2025-08-17T19:36:11.795Z"
+          "default": "2025-08-17T20:16:16.711Z"
         },
         "metaTitle": {
           "type": "string"

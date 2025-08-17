@@ -2,8 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-const leads = await getCollection('leads');
-const sortedLeads = leads.sort((a, b) => 
+// Get leads from CMS (these are manually added)
+const cmsLeads = await getCollection('leads');
+
+// Note: Netlify Forms submissions don't automatically appear in the CMS
+// They need to be manually added or we need to fetch them via API
+const sortedLeads = cmsLeads.sort((a, b) => 
   new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
 );
 
@@ -42,6 +46,13 @@ const thisWeekLeads = sortedLeads.filter(l => {
         <div class="flex justify-between items-center py-6">
           <h1 class="text-3xl font-bold text-gray-900">Lead Management Dashboard</h1>
           <div class="space-x-4">
+            <a 
+              href="https://app.netlify.com/sites/laec/forms" 
+              target="_blank"
+              class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold"
+            >
+              View All Form Submissions
+            </a>
             <button 
               id="exportCSV" 
               class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold"
@@ -59,13 +70,33 @@ const thisWeekLeads = sortedLeads.filter(l => {
       </div>
     </div>
 
+    <!-- Important Notice -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-yellow-800">Lead Sources</h3>
+            <div class="mt-2 text-sm text-yellow-700">
+              <p>This dashboard shows leads manually added to the CMS. Form submissions are stored in Netlify Forms.</p>
+              <p class="mt-1">To see all form submissions: <a href="https://app.netlify.com/sites/laec/forms" target="_blank" class="underline font-medium">View Netlify Forms Dashboard →</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Stats Cards -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-lg shadow p-6">
           <div class="flex items-center">
             <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600">Total Leads</p>
+              <p class="text-sm font-medium text-gray-600">CMS Leads</p>
               <p class="text-3xl font-bold text-gray-900">{sortedLeads.length}</p>
             </div>
             <div class="p-3 bg-blue-100 rounded-full">
@@ -119,6 +150,49 @@ const thisWeekLeads = sortedLeads.filter(l => {
         </div>
       </div>
 
+      <!-- Lead Conversion Funnel -->
+      <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h3 class="text-lg font-semibold mb-4">Lead Conversion Funnel</h3>
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <div class="w-24 text-sm text-gray-600">New</div>
+            <div class="flex-1 bg-gray-200 rounded-full h-8 relative overflow-hidden">
+              <div class="bg-green-500 h-full rounded-full flex items-center justify-end pr-2" 
+                   style={`width: ${sortedLeads.length > 0 ? (newLeads.length / sortedLeads.length * 100) : 0}%`}>
+                <span class="text-white text-sm font-semibold">{newLeads.length}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="w-24 text-sm text-gray-600">Contacted</div>
+            <div class="flex-1 bg-gray-200 rounded-full h-8 relative overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full flex items-center justify-end pr-2" 
+                   style={`width: ${sortedLeads.length > 0 ? (contactedLeads.length / sortedLeads.length * 100) : 0}%`}>
+                <span class="text-white text-sm font-semibold">{contactedLeads.length}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="w-24 text-sm text-gray-600">Qualified</div>
+            <div class="flex-1 bg-gray-200 rounded-full h-8 relative overflow-hidden">
+              <div class="bg-yellow-500 h-full rounded-full flex items-center justify-end pr-2" 
+                   style={`width: ${sortedLeads.length > 0 ? (qualifiedLeads.length / sortedLeads.length * 100) : 0}%`}>
+                <span class="text-white text-sm font-semibold">{qualifiedLeads.length}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center">
+            <div class="w-24 text-sm text-gray-600">Closed</div>
+            <div class="flex-1 bg-gray-200 rounded-full h-8 relative overflow-hidden">
+              <div class="bg-gray-600 h-full rounded-full flex items-center justify-end pr-2" 
+                   style={`width: ${sortedLeads.length > 0 ? (closedLeads.length / sortedLeads.length * 100) : 0}%`}>
+                <span class="text-white text-sm font-semibold">{closedLeads.length}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Filters -->
       <div class="bg-white rounded-lg shadow p-6 mb-8">
         <div class="flex flex-wrap gap-4">
@@ -150,6 +224,18 @@ const thisWeekLeads = sortedLeads.filter(l => {
             Clear Filters
           </button>
         </div>
+        
+        <!-- Bulk Actions -->
+        <div class="mt-4 flex items-center space-x-4 border-t pt-4">
+          <input type="checkbox" id="selectAll" class="rounded border-gray-300">
+          <label for="selectAll" class="text-sm text-gray-600">Select All</label>
+          <button id="bulkEmail" class="text-sm bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-50" disabled>
+            Email Selected
+          </button>
+          <button id="bulkExport" class="text-sm bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded disabled:opacity-50" disabled>
+            Export Selected
+          </button>
+        </div>
       </div>
 
       <!-- Leads Table -->
@@ -158,6 +244,9 @@ const thisWeekLeads = sortedLeads.filter(l => {
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <input type="checkbox" class="hidden">
+                </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Date
                 </th>
@@ -189,6 +278,9 @@ const thisWeekLeads = sortedLeads.filter(l => {
                     data-email={lead.data.email.toLowerCase()}
                     data-company={(lead.data.company || '').toLowerCase()}
                     data-date={lead.data.createdAt}>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <input type="checkbox" class="lead-checkbox rounded border-gray-300">
+                  </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(lead.data.createdAt).toLocaleDateString('en-US', { 
                       month: 'short', 
@@ -218,12 +310,12 @@ const thisWeekLeads = sortedLeads.filter(l => {
                     {lead.data.propertyInterested || '-'}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full cursor-pointer ${
                       lead.data.status === 'new' ? 'bg-green-100 text-green-800' :
                       lead.data.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
                       lead.data.status === 'qualified' ? 'bg-yellow-100 text-yellow-800' :
                       'bg-gray-100 text-gray-800'
-                    }`}>
+                    }`} title="Click to change status">
                       {lead.data.status}
                     </span>
                   </td>
@@ -231,17 +323,60 @@ const thisWeekLeads = sortedLeads.filter(l => {
                     {lead.data.source}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button 
-                      class="text-indigo-600 hover:text-indigo-900 view-details"
-                      data-lead={JSON.stringify(lead.data)}
-                    >
-                      View Details
-                    </button>
+                    <div class="flex items-center space-x-3">
+                      <a 
+                        href={`mailto:${lead.data.email}`}
+                        class="text-blue-600 hover:text-blue-800"
+                        title="Send Email"
+                      >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                      </a>
+                      <a 
+                        href={`tel:${lead.data.phone}`}
+                        class="text-green-600 hover:text-green-800"
+                        title="Call"
+                      >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                      </a>
+                      <a 
+                        href={`https://wa.me/${lead.data.phone.replace(/\D/g, '')}?text=Hi ${lead.data.name}, thanks for your interest in ${lead.data.propertyInterested || 'our warehouse'}`}
+                        target="_blank"
+                        class="text-green-500 hover:text-green-700"
+                        title="WhatsApp"
+                      >
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
+                      </a>
+                      <button 
+                        class="text-indigo-600 hover:text-indigo-800 view-details"
+                        data-lead={JSON.stringify(lead.data)}
+                        title="View Details"
+                      >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          
+          {sortedLeads.length === 0 && (
+            <div class="text-center py-12 text-gray-500">
+              <p class="mb-4">No leads in CMS yet.</p>
+              <a href="https://app.netlify.com/sites/laec/forms" target="_blank" class="text-blue-600 hover:text-blue-800 underline">
+                View form submissions in Netlify →
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -312,6 +447,8 @@ const thisWeekLeads = sortedLeads.filter(l => {
         (row as HTMLElement).style.display = 
           matchesStatus && matchesSearch && matchesDate ? '' : 'none';
       });
+      
+      updateBulkButtons();
     }
 
     statusFilter?.addEventListener('change', filterLeads);
@@ -324,20 +461,59 @@ const thisWeekLeads = sortedLeads.filter(l => {
       filterLeads();
     });
 
+    // Bulk actions
+    const selectAll = document.getElementById('selectAll') as HTMLInputElement;
+    const bulkEmail = document.getElementById('bulkEmail') as HTMLButtonElement;
+    const bulkExport = document.getElementById('bulkExport') as HTMLButtonElement;
+
+    function updateBulkButtons() {
+      const visibleCheckboxes = Array.from(document.querySelectorAll('.lead-row:not([style*="display: none"]) .lead-checkbox'));
+      const checkedCount = visibleCheckboxes.filter(cb => (cb as HTMLInputElement).checked).length;
+      
+      if (bulkEmail) bulkEmail.disabled = checkedCount === 0;
+      if (bulkExport) bulkExport.disabled = checkedCount === 0;
+    }
+
+    selectAll?.addEventListener('change', (e) => {
+      const isChecked = (e.target as HTMLInputElement).checked;
+      const visibleCheckboxes = document.querySelectorAll('.lead-row:not([style*="display: none"]) .lead-checkbox');
+      visibleCheckboxes.forEach(cb => {
+        (cb as HTMLInputElement).checked = isChecked;
+      });
+      updateBulkButtons();
+    });
+
+    document.querySelectorAll('.lead-checkbox').forEach(cb => {
+      cb.addEventListener('change', updateBulkButtons);
+    });
+
+    // Bulk email
+    bulkEmail?.addEventListener('click', () => {
+      const checkedLeads = Array.from(document.querySelectorAll('.lead-row .lead-checkbox:checked'))
+        .map(cb => {
+          const row = cb.closest('.lead-row');
+          const viewBtn = row?.querySelector('.view-details') as HTMLButtonElement;
+          return JSON.parse(viewBtn?.getAttribute('data-lead') || '{}');
+        });
+      
+      const emails = checkedLeads.map(lead => lead.email).join(',');
+      window.location.href = `mailto:${emails}?subject=Warehouse Inquiry Follow-up`;
+    });
+
     // CSV Export
-    document.getElementById('exportCSV')?.addEventListener('click', () => {
+    function exportToCSV(leadsToExport?: any[]) {
       const rows = [
         ['Date', 'Name', 'Email', 'Phone', 'Company', 'Property', 'Status', 'Source', 'Message']
       ];
 
-      const visibleRows = Array.from(leadRows).filter(
-        row => (row as HTMLElement).style.display !== 'none'
-      );
+      const dataToExport = leadsToExport || Array.from(leadRows)
+        .filter(row => (row as HTMLElement).style.display !== 'none')
+        .map(row => {
+          const viewButton = row.querySelector('.view-details') as HTMLButtonElement;
+          return JSON.parse(viewButton.getAttribute('data-lead') || '{}');
+        });
 
-      visibleRows.forEach(row => {
-        const viewButton = row.querySelector('.view-details') as HTMLButtonElement;
-        const leadData = JSON.parse(viewButton.getAttribute('data-lead') || '{}');
-        
+      dataToExport.forEach(leadData => {
         rows.push([
           new Date(leadData.createdAt).toLocaleDateString(),
           leadData.name,
@@ -364,6 +540,19 @@ const thisWeekLeads = sortedLeads.filter(l => {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+    }
+
+    document.getElementById('exportCSV')?.addEventListener('click', () => exportToCSV());
+    
+    bulkExport?.addEventListener('click', () => {
+      const checkedLeads = Array.from(document.querySelectorAll('.lead-row .lead-checkbox:checked'))
+        .map(cb => {
+          const row = cb.closest('.lead-row');
+          const viewBtn = row?.querySelector('.view-details') as HTMLButtonElement;
+          return JSON.parse(viewBtn?.getAttribute('data-lead') || '{}');
+        });
+      
+      exportToCSV(checkedLeads);
     });
 
     // Lead Details Modal
@@ -373,7 +562,7 @@ const thisWeekLeads = sortedLeads.filter(l => {
 
     document.querySelectorAll('.view-details').forEach(button => {
       button.addEventListener('click', (e) => {
-        const leadData = JSON.parse((e.target as HTMLButtonElement).getAttribute('data-lead') || '{}');
+        const leadData = JSON.parse((e.target as HTMLButtonElement).closest('.view-details')?.getAttribute('data-lead') || '{}');
         
         if (modalContent) {
           modalContent.innerHTML = `
@@ -474,6 +663,43 @@ const thisWeekLeads = sortedLeads.filter(l => {
       if (e.target === modal) {
         modal?.classList.add('hidden');
       }
+    });
+
+    // Quick status update
+    document.querySelectorAll('td span[class*="rounded-full"]').forEach(statusBadge => {
+      statusBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        const currentStatus = (statusBadge.textContent || '').trim().toLowerCase();
+        const statuses = ['new', 'contacted', 'qualified', 'closed'];
+        const currentIndex = statuses.indexOf(currentStatus);
+        const nextStatus = statuses[(currentIndex + 1) % statuses.length];
+        
+        // Update badge
+        statusBadge.textContent = nextStatus;
+        statusBadge.className = `px-2 inline-flex text-xs leading-5 font-semibold rounded-full cursor-pointer ${
+          nextStatus === 'new' ? 'bg-green-100 text-green-800' :
+          nextStatus === 'contacted' ? 'bg-blue-100 text-blue-800' :
+          nextStatus === 'qualified' ? 'bg-yellow-100 text-yellow-800' :
+          'bg-gray-100 text-gray-800'
+        }`;
+        
+        // Update data attribute
+        const row = statusBadge.closest('tr');
+        if (row) {
+          row.setAttribute('data-status', nextStatus);
+        }
+        
+        // Show notification
+        const notification = document.createElement('div');
+        notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+        notification.textContent = 'Status updated! Remember to save changes in CMS.';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+      });
     });
   </script>
 </BaseLayout>

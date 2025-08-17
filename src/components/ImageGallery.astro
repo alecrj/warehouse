@@ -1,4 +1,5 @@
 ---
+// src/components/ImageGallery.astro
 export interface Props {
   images: string[];
   title: string;
@@ -11,15 +12,17 @@ const { images, title, availability } = Astro.props;
 <div class="image-gallery" data-images={JSON.stringify(images)}>
   {images && images.length > 0 ? (
     <>
-      <div class="relative">
+      <div class="relative group">
         <img
           id="mainImage"
           src={images[0]}
           alt={title}
-          class="w-full h-96 object-cover rounded-lg"
+          class="w-full h-96 object-cover rounded-lg transition-opacity duration-300"
           loading="eager"
           decoding="async"
         />
+        
+        {/* Status Badge */}
         {availability !== 'available' && (
           <div class={`absolute top-4 right-4 px-4 py-2 rounded-full text-white font-semibold ${
             availability === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
@@ -27,26 +30,102 @@ const { images, title, availability } = Astro.props;
             {availability === 'pending' ? 'Pending' : 'Leased'}
           </div>
         )}
+        
+        {/* Image Counter */}
+        {images.length > 1 && (
+          <div class="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded-full text-sm">
+            <span id="imageCounter">1</span> / {images.length}
+          </div>
+        )}
+        
+        {/* Navigation Arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              id="prevBtn"
+              type="button"
+              class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-opacity-75"
+              aria-label="Previous image"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <button
+              id="nextBtn"
+              type="button"
+              class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-opacity-75"
+              aria-label="Next image"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </>
+        )}
+        
+        {/* Fullscreen Button */}
+        <button
+          id="fullscreenBtn"
+          type="button"
+          class="absolute top-4 left-4 bg-black bg-opacity-50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-opacity-75"
+          aria-label="View fullscreen"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+          </svg>
+        </button>
       </div>
       
+      {/* Thumbnail Grid */}
       {images.length > 1 && (
-        <div class="grid grid-cols-4 gap-2 mt-4">
-          {images.map((image, index) => (
+        <div class="mt-4">
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+            {images.map((image, index) => (
+              <button
+                class="thumbnail-btn relative overflow-hidden rounded-lg hover:opacity-80 transition-opacity border-2 border-transparent hover:border-blue-500 focus:border-blue-500 aspect-square"
+                data-image={image}
+                data-index={index}
+                type="button"
+                aria-label={`View image ${index + 1}`}
+              >
+                <img
+                  src={image}
+                  alt={`${title} - Image ${index + 1}`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            ))}
+          </div>
+          
+          {/* Slideshow Controls */}
+          <div class="flex items-center justify-center mt-4 space-x-4">
             <button
-              class="thumbnail-btn relative overflow-hidden rounded-lg hover:opacity-80 transition-opacity border-2 border-transparent hover:border-blue-500 focus:border-blue-500"
-              data-image={image}
+              id="playPauseBtn"
               type="button"
-              aria-label={`View image ${index + 1}`}
+              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2"
             >
-              <img
-                src={image}
-                alt={`${title} - Image ${index + 1}`}
-                class="w-full h-20 object-cover"
-                loading="lazy"
-                decoding="async"
-              />
+              <svg id="playIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <svg id="pauseIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span id="playPauseText">Start Slideshow</span>
             </button>
-          ))}
+            
+            <div class="text-sm text-gray-600">
+              Speed: 
+              <select id="slideshowSpeed" class="ml-2 px-2 py-1 border border-gray-300 rounded">
+                <option value="2000">Fast (2s)</option>
+                <option value="3000" selected>Normal (3s)</option>
+                <option value="5000">Slow (5s)</option>
+              </select>
+            </div>
+          </div>
         </div>
       )}
     </>
@@ -57,31 +136,295 @@ const { images, title, availability } = Astro.props;
   )}
 </div>
 
+<!-- Fullscreen Modal -->
+<div id="fullscreenModal" class="hidden fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center">
+  <button
+    id="closeFullscreen"
+    type="button"
+    class="absolute top-4 right-4 text-white hover:text-gray-300"
+  >
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+  
+  <button
+    id="fullscreenPrev"
+    type="button"
+    class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300"
+  >
+    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+  
+  <button
+    id="fullscreenNext"
+    type="button"
+    class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300"
+  >
+    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+    </svg>
+  </button>
+  
+  <img
+    id="fullscreenImage"
+    src=""
+    alt=""
+    class="max-w-full max-h-full object-contain"
+  />
+  
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-lg">
+    <span id="fullscreenCounter">1</span> / <span id="fullscreenTotal">1</span>
+  </div>
+</div>
+
+<style>
+  .image-gallery {
+    user-select: none;
+  }
+  
+  /* Smooth image transitions */
+  #mainImage, #fullscreenImage {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Keyboard navigation hint */
+  .image-gallery:focus-within #mainImage {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const galleries = document.querySelectorAll('.image-gallery');
     
     galleries.forEach(gallery => {
+      const images = JSON.parse(gallery.getAttribute('data-images') || '[]');
+      if (images.length === 0) return;
+      
+      let currentIndex = 0;
+      let slideshowInterval: number | null = null;
+      let isPlaying = false;
+      
       const mainImage = gallery.querySelector('#mainImage') as HTMLImageElement;
+      const imageCounter = gallery.querySelector('#imageCounter');
+      const prevBtn = gallery.querySelector('#prevBtn');
+      const nextBtn = gallery.querySelector('#nextBtn');
       const thumbnailBtns = gallery.querySelectorAll('.thumbnail-btn');
+      const playPauseBtn = gallery.querySelector('#playPauseBtn');
+      const playIcon = gallery.querySelector('#playIcon');
+      const pauseIcon = gallery.querySelector('#pauseIcon');
+      const playPauseText = gallery.querySelector('#playPauseText');
+      const slideshowSpeed = gallery.querySelector('#slideshowSpeed') as HTMLSelectElement;
+      const fullscreenBtn = gallery.querySelector('#fullscreenBtn');
+      
+      // Fullscreen elements
+      const fullscreenModal = document.getElementById('fullscreenModal');
+      const fullscreenImage = document.getElementById('fullscreenImage') as HTMLImageElement;
+      const fullscreenCounter = document.getElementById('fullscreenCounter');
+      const fullscreenTotal = document.getElementById('fullscreenTotal');
+      const closeFullscreen = document.getElementById('closeFullscreen');
+      const fullscreenPrev = document.getElementById('fullscreenPrev');
+      const fullscreenNext = document.getElementById('fullscreenNext');
+      
+      // Update image function
+      function updateImage(index: number, smooth = true) {
+        if (!mainImage || index < 0 || index >= images.length) return;
+        
+        currentIndex = index;
+        
+        if (smooth) {
+          mainImage.style.opacity = '0';
+          setTimeout(() => {
+            mainImage.src = images[currentIndex];
+            mainImage.style.opacity = '1';
+          }, 150);
+        } else {
+          mainImage.src = images[currentIndex];
+        }
+        
+        // Update counter
+        if (imageCounter) imageCounter.textContent = (currentIndex + 1).toString();
+        
+        // Update active thumbnail
+        thumbnailBtns.forEach((btn, i) => {
+          if (i === currentIndex) {
+            btn.classList.add('border-blue-500', 'ring-2', 'ring-blue-500');
+          } else {
+            btn.classList.remove('border-blue-500', 'ring-2', 'ring-blue-500');
+          }
+        });
+        
+        // Update fullscreen if open
+        if (fullscreenModal && !fullscreenModal.classList.contains('hidden')) {
+          fullscreenImage.src = images[currentIndex];
+          if (fullscreenCounter) fullscreenCounter.textContent = (currentIndex + 1).toString();
+        }
+      }
+      
+      // Navigation functions
+      function goToPrevious() {
+        updateImage((currentIndex - 1 + images.length) % images.length);
+      }
+      
+      function goToNext() {
+        updateImage((currentIndex + 1) % images.length);
+      }
+      
+      // Slideshow functions
+      function startSlideshow() {
+        if (isPlaying || images.length <= 1) return;
+        
+        isPlaying = true;
+        const speed = parseInt(slideshowSpeed?.value || '3000');
+        
+        slideshowInterval = window.setInterval(() => {
+          goToNext();
+        }, speed);
+        
+        // Update UI
+        playIcon?.classList.add('hidden');
+        pauseIcon?.classList.remove('hidden');
+        if (playPauseText) playPauseText.textContent = 'Stop Slideshow';
+      }
+      
+      function stopSlideshow() {
+        if (!isPlaying) return;
+        
+        isPlaying = false;
+        if (slideshowInterval) {
+          clearInterval(slideshowInterval);
+          slideshowInterval = null;
+        }
+        
+        // Update UI
+        playIcon?.classList.remove('hidden');
+        pauseIcon?.classList.add('hidden');
+        if (playPauseText) playPauseText.textContent = 'Start Slideshow';
+      }
+      
+      // Event listeners
+      prevBtn?.addEventListener('click', () => {
+        stopSlideshow();
+        goToPrevious();
+      });
+      
+      nextBtn?.addEventListener('click', () => {
+        stopSlideshow();
+        goToNext();
+      });
       
       thumbnailBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
-          const newSrc = btn.getAttribute('data-image');
-          if (mainImage && newSrc) {
-            mainImage.src = newSrc;
-            
-            // Update active thumbnail
-            thumbnailBtns.forEach(b => b.classList.remove('border-blue-500'));
-            btn.classList.add('border-blue-500');
-          }
+          const index = parseInt(btn.getAttribute('data-index') || '0');
+          stopSlideshow();
+          updateImage(index);
         });
       });
       
-      // Set first thumbnail as active
-      if (thumbnailBtns.length > 0) {
-        thumbnailBtns[0].classList.add('border-blue-500');
+      playPauseBtn?.addEventListener('click', () => {
+        if (isPlaying) {
+          stopSlideshow();
+        } else {
+          startSlideshow();
+        }
+      });
+      
+      slideshowSpeed?.addEventListener('change', () => {
+        if (isPlaying) {
+          stopSlideshow();
+          startSlideshow();
+        }
+      });
+      
+      // Fullscreen functionality
+      fullscreenBtn?.addEventListener('click', () => {
+        if (fullscreenModal && fullscreenImage) {
+          fullscreenModal.classList.remove('hidden');
+          fullscreenImage.src = images[currentIndex];
+          if (fullscreenCounter) fullscreenCounter.textContent = (currentIndex + 1).toString();
+          if (fullscreenTotal) fullscreenTotal.textContent = images.length.toString();
+        }
+      });
+      
+      closeFullscreen?.addEventListener('click', () => {
+        fullscreenModal?.classList.add('hidden');
+      });
+      
+      fullscreenPrev?.addEventListener('click', goToPrevious);
+      fullscreenNext?.addEventListener('click', goToNext);
+      
+      // Keyboard navigation
+      gallery.setAttribute('tabindex', '0');
+      gallery.addEventListener('keydown', (e) => {
+        const event = e as KeyboardEvent;
+        switch(event.key) {
+          case 'ArrowLeft':
+            e.preventDefault();
+            goToPrevious();
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            goToNext();
+            break;
+          case ' ':
+            e.preventDefault();
+            if (isPlaying) {
+              stopSlideshow();
+            } else {
+              startSlideshow();
+            }
+            break;
+          case 'f':
+          case 'F':
+            e.preventDefault();
+            (fullscreenBtn as HTMLButtonElement)?.click();
+            break;
+          case 'Escape':
+            if (fullscreenModal && !fullscreenModal.classList.contains('hidden')) {
+              fullscreenModal.classList.add('hidden');
+            }
+            break;
+        }
+      });
+      
+      // Close fullscreen on backdrop click
+      fullscreenModal?.addEventListener('click', (e) => {
+        if (e.target === fullscreenModal) {
+          fullscreenModal.classList.add('hidden');
+        }
+      });
+      
+      // Touch/swipe support for mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      mainImage?.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+      
+      mainImage?.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      });
+      
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) goToNext();
+        if (touchEndX > touchStartX + 50) goToPrevious();
       }
+      
+      // Initialize first thumbnail as active
+      updateImage(0, false);
+      
+      // Clean up on page hide
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopSlideshow();
+        }
+      });
     });
   });
 </script>

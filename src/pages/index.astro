@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
@@ -128,9 +130,9 @@ const featuredWarehouses = warehouses
         method="POST" 
         data-netlify="true"
         data-netlify-honeypot="bot-field"
+        action="/success"
         class="bg-gray-50 rounded-lg p-8"
       >
-	  <input type="hidden" name="form-name" value="general-inquiry" />
         <input type="hidden" name="form-name" value="general-inquiry" />
         <input type="hidden" name="source" value="homepage" />
         <div class="hidden">

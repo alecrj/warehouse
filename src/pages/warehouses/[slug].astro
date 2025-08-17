@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImageGallery from '../../components/ImageGallery.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
@@ -104,7 +106,6 @@ const { title, price, size, location, address, features, images, description, av
                 data-netlify-honeypot="bot-field"
                 action="/success"
               >
-                <input type="hidden" name="form-name" value="property-inquiry" />
                 <input type="hidden" name="form-name" value="property-inquiry" />
                 <input type="hidden" name="propertyInterested" value={title} />
                 <input type="hidden" name="source" value={`property-page-${warehouse.data.slug}`} />

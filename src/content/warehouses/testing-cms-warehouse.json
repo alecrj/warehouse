@@ -2,7 +2,7 @@
   "size": 25000,
   "price": "$1",
   "slug": "test-warehouse",
-  "featured": false,
+  "featured": true,
   "address": "123 red st",
   "location": "Hollywood",
   "title": "testing cms warehouse",

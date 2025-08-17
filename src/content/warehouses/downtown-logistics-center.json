@@ -1,18 +1,22 @@
 {
-  "title": "Downtown Logistics Center",
-  "slug": "downtown-logistics-center",
-  "price": "$12/sq ft/year",
   "size": 25000,
-  "location": "Miami, FL",
+  "price": "$12/sq ft/year",
+  "slug": "downtown-logistics-center",
+  "featured": true,
   "address": "1234 Industrial Blvd, Miami, FL 33101",
+  "location": "Miami, FL",
+  "title": "Downtown Logistics Center",
+  "images": [
+    "/images/warehouses/download-2.jpg",
+    "/images/warehouses/download.jpg"
+  ],
+  "createdAt": "2025-08-17",
+  "availability": "available",
+  "description": "Modern logistics facility in Miami",
   "features": [
     "24 Loading Docks",
     "30ft Clear Height",
     "ESFR Sprinkler System",
     "LED Lighting Throughout"
-  ],
-  "images": ["/images/uploads/placeholder.svg"],
-  "description": "Modern logistics facility in Miami",
-  "availability": "available",
-  "featured": true
+  ]
 }

@@ -1,0 +1,60 @@
+{
+  "$ref": "#/definitions/leads",
+  "definitions": {
+    "leads": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "propertyInterested": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "default": "website"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "new",
+            "contacted",
+            "qualified",
+            "closed"
+          ],
+          "default": "new"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "2025-08-17T16:41:44.483Z"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "phone",
+        "message"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

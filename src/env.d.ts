@@ -1,3 +1,4 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
@@ -7,6 +8,26 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+// Netlify Identity Widget
+interface NetlifyIdentity {
+  on(event: 'init', callback: (user: any) => void): void;
+  on(event: 'login', callback: () => void): void;
+  on(event: 'logout', callback: () => void): void;
+  on(event: 'error', callback: (err: Error) => void): void;
+  on(event: 'open', callback: () => void): void;
+  on(event: 'close', callback: () => void): void;
+  open(): void;
+  close(): void;
+  currentUser(): any;
+  logout(): void;
+}
+
+declare global {
+  interface Window {
+    netlifyIdentity: NetlifyIdentity;
+  }
 }
 
 // Warehouse listing type

@@ -1,0 +1,82 @@
+{
+  "$ref": "#/definitions/warehouses",
+  "definitions": {
+    "warehouses": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "location": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "string",
+          "enum": [
+            "available",
+            "leased",
+            "pending"
+          ]
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "createdAt": {
+          "type": "string",
+          "default": "2025-08-17T16:41:44.485Z"
+        },
+        "metaTitle": {
+          "type": "string"
+        },
+        "metaDescription": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "slug",
+        "price",
+        "size",
+        "location",
+        "address",
+        "features",
+        "images",
+        "description",
+        "availability"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

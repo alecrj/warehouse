@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImageGallery from '../../components/ImageGallery.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const warehouses = await getCollection('warehouses');
-  return warehouses.map((warehouse) => ({
+  return warehouses.map((warehouse: CollectionEntry<'warehouses'>) => ({
     params: { slug: warehouse.data.slug },
     props: { warehouse },
   }));
@@ -39,48 +40,12 @@ const { title, price, size, location, address, features, images, description, av
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <!-- Image Gallery -->
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-            {images && images.length > 0 ? (
-              <>
-                <div class="relative">
-                  <div class="aspect-w-16 aspect-h-9">
-                    <img 
-                      id="mainImage"
-                      src={images[0]} 
-                      alt={title}
-                      class="w-full h-96 object-cover"
-                    />
-                  </div>
-                  {availability !== 'available' && (
-                    <div class={`absolute top-4 right-4 px-4 py-2 rounded-full text-white font-semibold ${
-                      availability === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
-                    }`}>
-                      {availability === 'pending' ? 'Pending' : 'Leased'}
-                    </div>
-                  )}
-                </div>
-                {images.length > 1 && (
-                  <div class="p-4 grid grid-cols-4 gap-2">
-                    {images.map((image: string, index: number) => (
-                      <button
-                        data-image={image}
-                        class="image-thumb relative overflow-hidden rounded-lg hover:opacity-80 transition-opacity"
-                      >
-                        <img 
-                          src={image} 
-                          alt={`${title} ${index + 1}`}
-                          class="w-full h-20 object-cover"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div class="h-96 bg-gray-300 flex items-center justify-center">
-                <span class="text-gray-500">No images available</span>
-              </div>
-            )}
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8 p-4">
+            <ImageGallery 
+              images={images} 
+              title={title}
+              availability={availability}
+            />
           </div>
 
           <!-- Property Details -->
@@ -248,21 +213,4 @@ const { title, price, size, location, address, features, images, description, av
       </div>
     </div>
   </section>
-
-  <script>
-    // Image gallery functionality
-    document.addEventListener('DOMContentLoaded', () => {
-      const mainImage = document.getElementById('mainImage') as HTMLImageElement;
-      const thumbButtons = document.querySelectorAll('.image-thumb');
-      
-      thumbButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const imageUrl = button.getAttribute('data-image');
-          if (mainImage && imageUrl) {
-            mainImage.src = imageUrl;
-          }
-        });
-      });
-    });
-  </script>
 </BaseLayout>

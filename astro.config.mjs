@@ -4,9 +4,9 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   integrations: [tailwind()],
-  output: 'hybrid',
+  output: 'server', // Changed from 'hybrid' to 'server'
   adapter: netlify({
     edgeMiddleware: false
   }),
-  site: 'https://laec.netlify.app', // Update this with your Netlify URL
+  site: 'https://laec.netlify.app', 
 });

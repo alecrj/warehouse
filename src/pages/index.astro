@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 // Get featured warehouses
 const warehouses = await getCollection('warehouses');
 const featuredWarehouses = warehouses
-  .filter(w => w.data.featured && w.data.availability === 'available')
+  .filter((w: CollectionEntry<'warehouses'>) => w.data.featured && w.data.availability === 'available')
   .slice(0, 3);
 ---
 
@@ -79,7 +79,7 @@ const featuredWarehouses = warehouses
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-12">Featured Properties</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featuredWarehouses.map((warehouse) => (
+          {featuredWarehouses.map((warehouse: CollectionEntry<'warehouses'>) => (
             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div class="h-48 bg-gray-300 relative">
                 {warehouse.data.images && warehouse.data.images[0] && (
@@ -186,7 +186,7 @@ const featuredWarehouses = warehouses
             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="">Select a property (optional)</option>
-            {warehouses.filter(w => w.data.availability === 'available').map(warehouse => (
+            {warehouses.filter((w: CollectionEntry<'warehouses'>) => w.data.availability === 'available').map((warehouse: CollectionEntry<'warehouses'>) => (
               <option value={warehouse.data.title}>{warehouse.data.title} - {warehouse.data.location}</option>
             ))}
           </select>

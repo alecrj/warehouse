@@ -1,0 +1,87 @@
+---
+export interface Props {
+  images: string[];
+  title: string;
+  availability?: string;
+}
+
+const { images, title, availability } = Astro.props;
+---
+
+<div class="image-gallery" data-images={JSON.stringify(images)}>
+  {images && images.length > 0 ? (
+    <>
+      <div class="relative">
+        <img
+          id="mainImage"
+          src={images[0]}
+          alt={title}
+          class="w-full h-96 object-cover rounded-lg"
+          loading="eager"
+          decoding="async"
+        />
+        {availability !== 'available' && (
+          <div class={`absolute top-4 right-4 px-4 py-2 rounded-full text-white font-semibold ${
+            availability === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
+          }`}>
+            {availability === 'pending' ? 'Pending' : 'Leased'}
+          </div>
+        )}
+      </div>
+      
+      {images.length > 1 && (
+        <div class="grid grid-cols-4 gap-2 mt-4">
+          {images.map((image, index) => (
+            <button
+              class="thumbnail-btn relative overflow-hidden rounded-lg hover:opacity-80 transition-opacity border-2 border-transparent hover:border-blue-500 focus:border-blue-500"
+              data-image={image}
+              type="button"
+              aria-label={`View image ${index + 1}`}
+            >
+              <img
+                src={image}
+                alt={`${title} - Image ${index + 1}`}
+                class="w-full h-20 object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </>
+  ) : (
+    <div class="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
+      <span class="text-gray-500 text-lg">No images available</span>
+    </div>
+  )}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleries = document.querySelectorAll('.image-gallery');
+    
+    galleries.forEach(gallery => {
+      const mainImage = gallery.querySelector('#mainImage') as HTMLImageElement;
+      const thumbnailBtns = gallery.querySelectorAll('.thumbnail-btn');
+      
+      thumbnailBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const newSrc = btn.getAttribute('data-image');
+          if (mainImage && newSrc) {
+            mainImage.src = newSrc;
+            
+            // Update active thumbnail
+            thumbnailBtns.forEach(b => b.classList.remove('border-blue-500'));
+            btn.classList.add('border-blue-500');
+          }
+        });
+      });
+      
+      // Set first thumbnail as active
+      if (thumbnailBtns.length > 0) {
+        thumbnailBtns[0].classList.add('border-blue-500');
+      }
+    });
+  });
+</script>

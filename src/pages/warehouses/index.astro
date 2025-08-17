@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const warehouses = await getCollection('warehouses');
-const sortedWarehouses = warehouses.sort((a, b) => {
+const sortedWarehouses = warehouses.sort((a: CollectionEntry<'warehouses'>, b: CollectionEntry<'warehouses'>) => {
   // Sort by availability (available first), then by featured status
   if (a.data.availability === 'available' && b.data.availability !== 'available') return -1;
   if (a.data.availability !== 'available' && b.data.availability === 'available') return 1;
@@ -84,7 +84,7 @@ const sortedWarehouses = warehouses.sort((a, b) => {
 
       <!-- Warehouse Grid -->
       <div id="warehouseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {sortedWarehouses.map((warehouse) => (
+        {sortedWarehouses.map((warehouse: CollectionEntry<'warehouses'>) => (
           <div 
             class="warehouse-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             data-location={warehouse.data.location.toLowerCase()}
@@ -127,7 +127,7 @@ const sortedWarehouses = warehouses.sort((a, b) => {
                 <span class="text-gray-500">{warehouse.data.size.toLocaleString()} sq ft</span>
               </div>
               <div class="mb-4">
-                {warehouse.data.features.slice(0, 3).map((feature) => (
+                {warehouse.data.features.slice(0, 3).map((feature: string) => (
                   <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm text-gray-700 mr-2 mb-2">
                     {feature}
                   </span>

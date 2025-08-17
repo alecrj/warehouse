@@ -41,7 +41,7 @@
         },
         "createdAt": {
           "type": "string",
-          "default": "2025-08-17T16:41:44.483Z"
+          "default": "2025-08-17T17:50:07.292Z"
         },
         "$schema": {
           "type": "string"

@@ -4,9 +4,7 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   integrations: [tailwind()],
-  output: 'hybrid',
-  adapter: netlify({
-    edgeMiddleware: false
-  }),
+  output: 'static', // This is the fix - changed from 'hybrid'
+  adapter: netlify(),
   site: 'https://laec.netlify.app',
 });

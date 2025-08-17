@@ -1,14 +1,6 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
-// Protect this page - redirect if not logged in
-const isAuthenticated = Astro.cookies.get('netlify-cms-user')?.value;
-if (!isAuthenticated && import.meta.env.PROD) {
-  return Astro.redirect('/admin');
-}
 
 const leads = await getCollection('leads');
 const sortedLeads = leads.sort((a, b) => 
@@ -31,7 +23,19 @@ const thisWeekLeads = sortedLeads.filter(l => {
 ---
 
 <BaseLayout title="Lead Management Dashboard | WarehouseHub">
-  <div class="min-h-screen bg-gray-50">
+  <div id="authCheck" class="hidden">
+    <div class="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold mb-4">Authentication Required</h2>
+        <p class="mb-4">Please login through the CMS first.</p>
+        <a href="/admin" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Go to Admin Login
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboard" class="min-h-screen bg-gray-50">
     <!-- Header -->
     <div class="bg-white shadow">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -261,6 +265,24 @@ const thisWeekLeads = sortedLeads.filter(l => {
   </div>
 
   <script>
+    // Check authentication on client side
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if user is logged in via Netlify Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', user => {
+          if (!user) {
+            // Not logged in, show auth message
+            document.getElementById('dashboard')?.classList.add('hidden');
+            document.getElementById('authCheck')?.classList.remove('hidden');
+          } else {
+            // Logged in, show dashboard
+            document.getElementById('dashboard')?.classList.remove('hidden');
+            document.getElementById('authCheck')?.classList.add('hidden');
+          }
+        });
+      }
+    });
+
     // Lead filtering
     const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
     const searchFilter = document.getElementById('searchFilter') as HTMLInputElement;

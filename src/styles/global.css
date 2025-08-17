@@ -1,6 +1,62 @@
-/* Global styles */
+/* Global styles and image placeholders */
+
+/* Placeholder background for hero section */
+.hero-placeholder {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Placeholder pattern for missing warehouse images */
+.warehouse-placeholder {
+  background-color: #e2e8f0;
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(0,0,0,.03) 35px, rgba(0,0,0,.03) 70px);
+  background-size: 100px 100px;
+  position: relative;
+}
+
+.warehouse-placeholder::after {
+  content: "Warehouse Image";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #718096;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* Smooth transitions */
 * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* Form focus styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

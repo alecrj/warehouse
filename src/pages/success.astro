@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Thank You | WarehouseHub">
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="bg-white rounded-lg shadow-lg p-12">
+        <div class="mb-6">
+          <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <h1 class="text-3xl font-bold mb-4">Thank You for Your Inquiry!</h1>
+        
+        <p class="text-gray-600 mb-8">
+          We've received your message and will get back to you within 24 hours. 
+          Our team is excited to help you find the perfect warehouse space for your needs.
+        </p>
+
+        <div class="bg-gray-50 rounded-lg p-6 mb-8">
+          <h2 class="text-lg font-semibold mb-3">What Happens Next?</h2>
+          <ol class="text-left text-gray-600 space-y-2">
+            <li class="flex items-start">
+              <span class="text-blue-600 font-semibold mr-2">1.</span>
+              Our team will review your inquiry and property preferences
+            </li>
+            <li class="flex items-start">
+              <span class="text-blue-600 font-semibold mr-2">2.</span>
+              We'll contact you within 24 hours to discuss your requirements
+            </li>
+            <li class="flex items-start">
+              <span class="text-blue-600 font-semibold mr-2">3.</span>
+              We can schedule property tours at your convenience
+            </li>
+          </ol>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/warehouses" 
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold"
+          >
+            Browse More Properties
+          </a>
+          <a 
+            href="/" 
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-semibold"
+          >
+            Return to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

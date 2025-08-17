@@ -1,0 +1,84 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Premium Warehouse Listings | Find Your Perfect Space', 
+  description = 'Browse available warehouse and industrial spaces for lease. Professional storage solutions with flexible terms.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <nav class="bg-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <a href="/" class="flex items-center">
+              <span class="text-2xl font-bold text-gray-900">WarehouseHub</span>
+            </a>
+          </div>
+          <div class="flex items-center space-x-8">
+            <a href="/" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            <a href="/warehouses" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">All Listings</a>
+            <a href="/#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4">WarehouseHub</h3>
+            <p class="text-gray-300">Your trusted partner in finding the perfect warehouse space.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/warehouses" class="hover:text-white">View All Listings</a></li>
+              <li><a href="/#contact" class="hover:text-white">Contact Us</a></li>
+              <li><a href="/admin" class="hover:text-white">Admin Login</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+            <p class="text-gray-300">Email: info@warehousehub.com</p>
+            <p class="text-gray-300">Phone: (555) 123-4567</p>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+          <p>&copy; 2024 WarehouseHub. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

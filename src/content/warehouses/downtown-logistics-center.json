@@ -9,10 +9,21 @@
     "24 Loading Docks",
     "30ft Clear Height",
     "ESFR Sprinkler System",
-    "LED Lighting Throughout"
+    "LED Lighting Throughout",
+    "Ample Parking",
+    "24/7 Security",
+    "Climate Controlled Areas",
+    "Office Space Included"
   ],
-  "images": [],
-  "description": "Modern logistics facility in Miami",
+  "images": [
+    "/images/uploads/warehouse-1.jpg",
+    "/images/uploads/warehouse-2.jpg",
+    "/images/uploads/warehouse-3.jpg"
+  ],
+  "description": "Modern logistics facility located in the heart of Miami's industrial district. This state-of-the-art warehouse offers 25,000 square feet of premium storage space with 30-foot clear heights and 24 loading docks for efficient operations.\n\nThe facility features ESFR sprinkler systems, LED lighting throughout, and climate-controlled areas perfect for sensitive inventory. The property includes 2,500 sq ft of office space, conference rooms, and employee amenities.\n\nStrategically located with easy access to I-95 and major transportation routes, this warehouse is ideal for distribution, logistics, or light manufacturing operations. The secure, gated facility offers 24/7 access and monitoring.",
   "availability": "available",
-  "featured": true
+  "featured": true,
+  "createdAt": "2024-01-15T08:00:00Z",
+  "metaTitle": "Downtown Miami Warehouse for Lease - 25,000 sq ft",
+  "metaDescription": "Premium 25,000 sq ft warehouse space for lease in Miami. Features 24 loading docks, 30ft ceilings, climate control. Perfect for logistics and distribution."
 }

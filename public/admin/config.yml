@@ -13,6 +13,8 @@ collections:
     slug: "{{slug}}"
     extension: "json"
     format: "json"
+    summary: "{{title}} - {{location}} - {{availability}}"
+    sortable_fields: ['title', 'price', 'size', 'createdAt']
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "URL Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use lowercase and hyphens only"]}
@@ -48,5 +50,59 @@ collections:
         options: ["available", "leased", "pending"]
         default: "available"
       - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Created Date", name: "createdAt", widget: "datetime", default: "", format: "YYYY-MM-DD", time_format: false}
       - {label: "Meta Title (SEO)", name: "metaTitle", widget: "string", required: false}
       - {label: "Meta Description (SEO)", name: "metaDescription", widget: "text", required: false}
+
+  - name: "leads"
+    label: "Lead Management"
+    folder: "src/content/leads"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{hour}}{{minute}}{{second}}-{{name}}"
+    extension: "json"
+    format: "json"
+    identifier_field: "name"
+    summary: "{{name}} - {{status}} - {{createdAt}}"
+    sortable_fields: ['createdAt', 'status', 'name']
+    view_filters:
+      - label: "New Leads"
+        field: status
+        pattern: new
+      - label: "Contacted"
+        field: status
+        pattern: contacted
+      - label: "Qualified"
+        field: status
+        pattern: qualified
+      - label: "This Week"
+        field: createdAt
+        pattern: "2025"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Email", name: "email", widget: "string"}
+      - {label: "Phone", name: "phone", widget: "string"}
+      - {label: "Company", name: "company", widget: "string", required: false}
+      - {label: "Property Interested", name: "propertyInterested", widget: "string", required: false}
+      - {label: "Message", name: "message", widget: "text"}
+      - {label: "Source", name: "source", widget: "string", default: "website"}
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: 
+          - {label: "New", value: "new"}
+          - {label: "Contacted", value: "contacted"}
+          - {label: "Qualified", value: "qualified"}
+          - {label: "Closed", value: "closed"}
+        default: "new"
+      - {label: "Internal Notes", name: "notes", widget: "text", required: false, hint: "Add follow-up notes here"}
+      - {label: "Created Date", name: "createdAt", widget: "datetime", format: "YYYY-MM-DD HH:mm", default: ""}
+      - {label: "Last Contact Date", name: "lastContactDate", widget: "datetime", format: "YYYY-MM-DD", required: false}
+      - {label: "Next Follow Up", name: "nextFollowUp", widget: "datetime", format: "YYYY-MM-DD", required: false}
+
+# Add custom styles for better CMS experience
+site_url: https://laec.netlify.app
+display_url: https://laec.netlify.app
+logo_url: /images/logo.png
+
+# Enable editorial workflow for drafts
+publish_mode: editorial_workflow

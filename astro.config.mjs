@@ -1,6 +1,8 @@
 export default defineConfig({
   integrations: [tailwind()],
-  output: 'hybrid', // Change back to hybrid
-  adapter: netlify(),
+  output: 'hybrid', // Changed from 'server'
+  adapter: netlify({
+    edgeMiddleware: false
+  }),
   site: 'https://laec.netlify.app',
 });

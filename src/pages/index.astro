@@ -297,7 +297,7 @@ const uniqueLocations = new Set(availableWarehouses.map(w => w.data.location.spl
 
         <!-- FIXED: Equal Height Grid with proper alignment -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          {featuredWarehouses.map((warehouse: CollectionEntry<'warehouses'>, index: number) => (
+          {featuredWarehouses.map((warehouse: CollectionEntry<'warehouses'>) => (
             <div class="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden h-full flex flex-col">
               <!-- Enhanced Image Container - FIXED HEIGHT -->
               <div class="relative h-72 overflow-hidden flex-shrink-0">

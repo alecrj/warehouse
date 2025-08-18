@@ -51,7 +51,7 @@ const {
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
       "@type": "RealEstateAgent",
@@ -423,7 +423,7 @@ const {
         });
 
         // FIXED: Enhanced smooth scrolling with proper offset for fixed header
-        function smoothScrollToElement(targetId) {
+        function smoothScrollToElement(targetId: string) {
           const target = document.querySelector(targetId);
           if (target) {
             const headerHeight = 80; // Height of fixed navigation

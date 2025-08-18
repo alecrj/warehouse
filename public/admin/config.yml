@@ -2,107 +2,204 @@ backend:
   name: git-gateway
   branch: main
 
+# Mobile-optimized media settings
 media_folder: "public/images/warehouses"
 public_folder: "/images/warehouses"
 
+# Enhanced site settings for mobile
+site_url: https://laec.netlify.app
+display_url: https://laec.netlify.app
+logo_url: /images/logo.png
+
+# Enable editorial workflow for better content management
+publish_mode: editorial_workflow
+
+# Mobile-optimized editor settings
+editor:
+  preview: true
+
 collections:
   - name: "warehouses"
-    label: "Warehouses"
+    label: "Warehouse Properties"
+    label_singular: "Property"
     folder: "src/content/warehouses"
     create: true
     slug: "{{slug}}"
     extension: "json"
     format: "json"
     summary: "{{title}} - {{location}} - {{availability}}"
-    sortable_fields: ['title', 'price', 'size', 'createdAt']
+    sortable_fields: ['title', 'price', 'size', 'createdAt', 'availability']
+    view_groups:
+      - label: "Status"
+        field: availability
+        pattern: available
+      - label: "Featured"
+        field: featured
+        pattern: true
+      - label: "Location"
+        field: location
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "URL Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use lowercase and hyphens only"]}
+      - {label: "Property Title", name: "title", widget: "string", hint: "e.g. Downtown Logistics Center"}
+      - {label: "URL Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use lowercase and hyphens only"], hint: "Used in the website URL"}
       - {label: "Price", name: "price", widget: "string", hint: "e.g. $12/sq ft/year or $5,000/month"}
-      - {label: "Size (sq ft)", name: "size", widget: "number", value_type: "int", min: 100}
-      - {label: "Location", name: "location", widget: "string", hint: "City, State"}
-      - {label: "Full Address", name: "address", widget: "string"}
-      - label: "Features"
+      - {label: "Size (sq ft)", name: "size", widget: "number", value_type: "int", min: 100, hint: "Total square footage"}
+      - {label: "City, State", name: "location", widget: "string", hint: "e.g. Miami, FL"}
+      - {label: "Full Address", name: "address", widget: "string", hint: "Complete street address"}
+      - label: "Key Features"
         name: "features"
         widget: "list"
         allow_add: true
+        collapsed: false
+        summary: '{{fields.feature}}'
         field: {label: "Feature", name: "feature", widget: "string"}
         default: ["Loading Docks", "24/7 Access", "Security System"]
-      - label: "Images"
+        hint: "Add key property features that tenants care about"
+      - label: "Property Images"
         name: "images"
         widget: "list"
         allow_add: true
-        summary: '{{fields.image}}'
+        collapsed: false
+        summary: 'Image {{index}}'
         field:
-          label: "Image"
+          label: "Upload Image"
           name: "image"
           widget: "image"
           choose_url: false
-      - label: "Description"
+          media_library:
+            config:
+              multiple: false
+        hint: "Upload high-quality property photos. First image will be the main photo."
+      - label: "Property Description"
         name: "description"
         widget: "markdown"
         minimal: true
-        buttons: ["bold", "italic", "heading-three", "bulleted-list", "numbered-list"]
+        buttons: ["bold", "italic", "heading-three", "bulleted-list", "numbered-list", "link"]
         editor_components: []
-      - label: "Availability"
+        hint: "Detailed description of the property, amenities, and location benefits"
+      - label: "Availability Status"
         name: "availability"
         widget: "select"
-        options: ["available", "leased", "pending"]
+        options: 
+          - {label: "✅ Available Now", value: "available"}
+          - {label: "⏳ Pending Lease", value: "pending"}
+          - {label: "🔒 Leased", value: "leased"}
         default: "available"
-      - {label: "Featured", name: "featured", widget: "boolean", default: false}
-      - {label: "Created Date", name: "createdAt", widget: "datetime", default: "", format: "YYYY-MM-DD", time_format: false}
-      - {label: "Meta Title (SEO)", name: "metaTitle", widget: "string", required: false}
-      - {label: "Meta Description (SEO)", name: "metaDescription", widget: "text", required: false}
+      - {label: "Featured Property", name: "featured", widget: "boolean", default: false, hint: "Show this property prominently on homepage"}
+      - {label: "Date Listed", name: "createdAt", widget: "datetime", default: "", format: "YYYY-MM-DD", time_format: false}
+      - {label: "SEO Title", name: "metaTitle", widget: "string", required: false, hint: "Custom page title for search engines"}
+      - {label: "SEO Description", name: "metaDescription", widget: "text", required: false, hint: "Brief description for search results (150-160 characters)"}
 
   - name: "leads"
-    label: "Lead Management"
+    label: "📋 Lead Management"
+    label_singular: "Lead"
     folder: "src/content/leads"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{hour}}{{minute}}{{second}}-{{name}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{hour}}{{minute}}{{second}}-{{fields.name}}"
     extension: "json"
     format: "json"
     identifier_field: "name"
-    summary: "{{name}} - {{status}} - {{createdAt}}"
-    sortable_fields: ['createdAt', 'status', 'name']
+    summary: "{{name}} - {{company}} - {{status}} - {{createdAt}}"
+    sortable_fields: ['createdAt', 'status', 'name', 'lastContactDate', 'score']
     view_filters:
-      - label: "New Leads"
+      - label: "🆕 New Leads"
         field: status
         pattern: new
-      - label: "Contacted"
+      - label: "📞 Contacted"
         field: status
         pattern: contacted
-      - label: "Qualified"
+      - label: "⭐ Qualified"
         field: status
         pattern: qualified
-      - label: "This Week"
+      - label: "✅ Closed Won"
+        field: status
+        pattern: closed-won
+      - label: "❌ Closed Lost"
+        field: status
+        pattern: closed-lost
+      - label: "🔥 Hot Leads"
+        field: score
+        pattern: hot
+      - label: "📅 This Week"
         field: createdAt
         pattern: "2025"
-    fields:
-      - {label: "Name", name: "name", widget: "string"}
-      - {label: "Email", name: "email", widget: "string"}
-      - {label: "Phone", name: "phone", widget: "string"}
-      - {label: "Company", name: "company", widget: "string", required: false}
-      - {label: "Property Interested", name: "propertyInterested", widget: "string", required: false}
-      - {label: "Message", name: "message", widget: "text"}
-      - {label: "Source", name: "source", widget: "string", default: "website"}
+      - label: "🏢 Has Company"
+        field: company
+        pattern: ".+"
+    view_groups:
       - label: "Status"
+        field: status
+      - label: "Lead Source"
+        field: source
+      - label: "Lead Score"
+        field: score
+    fields:
+      - {label: "👤 Contact Name", name: "name", widget: "string", hint: "Full name of the contact person"}
+      - {label: "📧 Email Address", name: "email", widget: "string", hint: "Primary email for communication"}
+      - {label: "📱 Phone Number", name: "phone", widget: "string", hint: "Best contact number"}
+      - {label: "🏢 Company Name", name: "company", widget: "string", required: false, hint: "Company or organization name"}
+      - {label: "🏗️ Property Interested", name: "propertyInterested", widget: "string", required: false, hint: "Specific property they inquired about"}
+      - {label: "💬 Initial Message", name: "message", widget: "text", hint: "Their original inquiry or requirements"}
+      - label: "📍 Lead Source"
+        name: "source"
+        widget: "select"
+        options:
+          - {label: "🌐 Website Contact Form", value: "website"}
+          - {label: "🏠 Property Page", value: "property-page"}
+          - {label: "📞 Phone Call", value: "phone"}
+          - {label: "📧 Email", value: "email"}
+          - {label: "🔗 Referral", value: "referral"}
+          - {label: "🎯 Google Ads", value: "google-ads"}
+          - {label: "📱 Social Media", value: "social"}
+          - {label: "🤝 Walk-in", value: "walk-in"}
+          - {label: "📰 Other", value: "other"}
+        default: "website"
+      - label: "📊 Lead Status"
         name: "status"
         widget: "select"
         options: 
-          - {label: "New", value: "new"}
-          - {label: "Contacted", value: "contacted"}
-          - {label: "Qualified", value: "qualified"}
-          - {label: "Closed", value: "closed"}
+          - {label: "🆕 New Lead", value: "new"}
+          - {label: "📞 Contacted", value: "contacted"}
+          - {label: "⭐ Qualified", value: "qualified"}
+          - {label: "💼 Proposal Sent", value: "proposal"}
+          - {label: "🤝 Negotiating", value: "negotiating"}
+          - {label: "✅ Closed Won", value: "closed-won"}
+          - {label: "❌ Closed Lost", value: "closed-lost"}
+          - {label: "❄️ Cold/Unresponsive", value: "cold"}
         default: "new"
-      - {label: "Internal Notes", name: "notes", widget: "text", required: false, hint: "Add follow-up notes here"}
-      - {label: "Created Date", name: "createdAt", widget: "datetime", format: "YYYY-MM-DD HH:mm", default: ""}
-      - {label: "Last Contact Date", name: "lastContactDate", widget: "datetime", format: "YYYY-MM-DD", required: false}
-      - {label: "Next Follow Up", name: "nextFollowUp", widget: "datetime", format: "YYYY-MM-DD", required: false}
+      - label: "🌡️ Lead Temperature"
+        name: "score"
+        widget: "select"
+        options:
+          - {label: "🔥 Hot - Ready to Move", value: "hot"}
+          - {label: "🟡 Warm - Interested", value: "warm"}
+          - {label: "❄️ Cold - Just Browsing", value: "cold"}
+        default: "warm"
+        hint: "How likely are they to lease?"
+      - label: "📝 Internal Notes"
+        name: "notes"
+        widget: "markdown"
+        required: false
+        minimal: true
+        buttons: ["bold", "italic", "bulleted-list", "numbered-list"]
+        hint: "Private notes for your team - timeline, requirements, follow-up needed, etc."
+      - {label: "📅 Lead Created", name: "createdAt", widget: "datetime", format: "YYYY-MM-DD HH:mm", default: ""}
+      - {label: "📞 Last Contact Date", name: "lastContactDate", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "When did you last speak with them?"}
+      - {label: "⏰ Next Follow Up", name: "nextFollowUp", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "When should you contact them next?"}
+      - {label: "💰 Potential Value", name: "estimatedValue", widget: "string", required: false, hint: "e.g. $50,000/year - estimated annual lease value"}
+      - {label: "📏 Space Needed (sq ft)", name: "spaceRequired", widget: "number", required: false, hint: "How much space do they need?"}
+      - {label: "📍 Preferred Location", name: "preferredLocation", widget: "string", required: false, hint: "Where do they want to be located?"}
+      - {label: "⏱️ Timeline", name: "timeline", widget: "select", required: false, options: ["Immediate", "1-3 months", "3-6 months", "6+ months", "Just browsing"], hint: "When do they need to move?"}
+      - label: "📎 Attachments"
+        name: "attachments"
+        widget: "list"
+        required: false
+        allow_add: true
+        collapsed: true
+        summary: 'File: {{fields.file}}'
+        fields:
+          - {label: "File", name: "file", widget: "file"}
+          - {label: "Description", name: "description", widget: "string"}
+        hint: "Upload contracts, floor plans, or other relevant documents"
 
-# Add custom styles for better CMS experience
-site_url: https://laec.netlify.app
-display_url: https://laec.netlify.app
-logo_url: /images/logo.png
-
-# Enable editorial workflow for drafts
-publish_mode: editorial_workflow
+# Custom mobile-optimized styling
+local_backend: true

@@ -251,11 +251,11 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
         </div>
       </div>
 
-      <!-- Enhanced Properties Grid -->
-      <div id="warehouseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-16">
+      <!-- Enhanced Properties Grid with Consistent Sizing -->
+      <div id="warehouseGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
         {sortedWarehouses.map((warehouse: CollectionEntry<'warehouses'>) => (
           <div 
-            class="warehouse-card group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden"
+            class="warehouse-card group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100 overflow-hidden h-full flex flex-col"
             data-location={warehouse.data.location.toLowerCase()}
             data-size={warehouse.data.size}
             data-status={warehouse.data.availability}
@@ -264,8 +264,8 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
             data-title={warehouse.data.title.toLowerCase()}
             data-price={warehouse.data.price.toLowerCase()}
           >
-            <!-- Enhanced Image Container -->
-            <div class="relative h-72 overflow-hidden">
+            <!-- Enhanced Image Container with Fixed Height -->
+            <div class="relative h-72 overflow-hidden flex-shrink-0">
               {warehouse.data.images && warehouse.data.images[0] ? (
                 <img 
                   src={warehouse.data.images[0]} 
@@ -329,17 +329,20 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
               </div>
             </div>
             
-            <!-- Enhanced Content -->
-            <div class="p-8 lg:p-10">
-              <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-                {warehouse.data.title}
-              </h3>
-              
-              <div class="flex items-center text-gray-600 mb-6">
-                <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <span class="font-semibold text-lg">{warehouse.data.location}</span>
+            <!-- Enhanced Content with Consistent Height -->
+            <div class="p-8 lg:p-10 flex-grow flex flex-col">
+              <!-- Title and Location -->
+              <div class="mb-6">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
+                  {warehouse.data.title}
+                </h3>
+                
+                <div class="flex items-center text-gray-600">
+                  <svg class="w-5 h-5 mr-3 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  <span class="font-semibold text-lg">{warehouse.data.location}</span>
+                </div>
               </div>
               
               <!-- Enhanced Stats Grid -->
@@ -354,8 +357,8 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
                 </div>
               </div>
 
-              <!-- Enhanced Features -->
-              <div class="mb-8">
+              <!-- Enhanced Features with Consistent Height -->
+              <div class="mb-8 flex-grow">
                 <div class="flex flex-wrap gap-2">
                   {warehouse.data.features.slice(0, 3).map((feature: string) => (
                     <span class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-colors duration-300">
@@ -371,7 +374,7 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
               </div>
               
               <!-- Enhanced CTA Buttons -->
-              <div class="flex gap-3">
+              <div class="flex gap-3 mt-auto">
                 <a 
                   href={`/warehouses/${warehouse.data.slug}`}
                   class="flex-1 text-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 transform group-hover:scale-105"
@@ -461,6 +464,7 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
 
     .warehouse-card {
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 600px; /* Ensure consistent height */
     }
 
     .warehouse-card:hover {
@@ -488,6 +492,14 @@ const allFeatures = [...new Set(warehouses.flatMap(w => w.data.features))].sort(
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Text line clamping for consistent layout */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   </style>
 

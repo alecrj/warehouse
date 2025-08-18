@@ -395,8 +395,9 @@ const availableWarehouses = warehouses.filter(w => w.data.availability === 'avai
       setTimeout(createConfetti, 2000);
 
       // Professional page analytics (placeholder)
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', {
+      // Only call if gtag is available
+      if (typeof (window as any).gtag !== 'undefined') {
+        (window as any).gtag('event', 'conversion', {
           'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL',
           'value': 1.0,
           'currency': 'USD'

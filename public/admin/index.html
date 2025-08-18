@@ -2,35 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Warehouse CMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>📱 Warehouse CMS</title>
   
-  <!-- Mobile Optimization -->
+  <!-- Mobile PWA Setup -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Warehouse CMS">
+  <meta name="theme-color" content="#1f2937">
+  
+  <!-- Disable zoom and enable touch -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
   
   <!-- Icon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
-    /* Clean, Mobile-First Styles */
+    /* MOBILE-FIRST DESIGN SYSTEM */
+    :root {
+      /* Colors optimized for mobile screens */
+      --primary: #3b82f6;
+      --primary-dark: #1e40af;
+      --secondary: #6366f1;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --background: #f8fafc;
+      --surface: #ffffff;
+      --surface-2: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-focus: #3b82f6;
+      
+      /* Mobile-optimized spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      
+      /* Mobile touch targets */
+      --touch-target: 48px;
+      --touch-target-sm: 40px;
+      
+      /* Mobile typography */
+      --text-xs: 12px;
+      --text-sm: 14px;
+      --text-base: 16px;
+      --text-lg: 18px;
+      --text-xl: 20px;
+      --text-2xl: 24px;
+      --text-3xl: 30px;
+      
+      /* Mobile-friendly radius */
+      --radius-sm: 6px;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      
+      /* Mobile shadows */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* MOBILE-FIRST RESET */
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      background: #f8fafc;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: var(--text-base);
+      line-height: 1.5;
+      color: var(--text-primary);
+      background: var(--background);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
     }
     
-    /* Loading Screen */
-    .cms-loading {
+    /* MOBILE LOADING SCREEN */
+    .mobile-loading {
       position: fixed;
       top: 0;
       left: 0;
@@ -41,24 +118,31 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
       z-index: 9999;
-      transition: opacity 0.5s ease;
+      transition: all 0.5s ease;
+      padding: var(--space-lg);
     }
     
-    .cms-loading.hidden {
+    .mobile-loading.hide {
       opacity: 0;
+      transform: scale(0.95);
       pointer-events: none;
     }
     
+    .loading-content {
+      text-align: center;
+      color: white;
+      max-width: 300px;
+    }
+    
     .loading-spinner {
-      width: 48px;
-      height: 48px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-top: 3px solid white;
+      width: 56px;
+      height: 56px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid white;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-bottom: 24px;
+      margin: 0 auto var(--space-lg);
     }
     
     @keyframes spin {
@@ -66,21 +150,20 @@
       100% { transform: rotate(360deg); }
     }
     
-    .loading-text {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
+    .loading-title {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
     }
     
     .loading-subtitle {
-      font-size: 14px;
-      opacity: 0.8;
-      text-align: center;
-      max-width: 280px;
+      font-size: var(--text-base);
+      opacity: 0.9;
+      line-height: 1.4;
     }
     
-    /* Login Screen */
-    .login-screen {
+    /* MOBILE LOGIN SCREEN */
+    .mobile-login {
       position: fixed;
       top: 0;
       left: 0;
@@ -91,223 +174,657 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
-      padding: 20px;
-      text-align: center;
+      padding: var(--space-lg);
+      z-index: 9998;
     }
     
     .login-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 400px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
       width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
+    .login-icon {
+      font-size: 48px;
+      margin-bottom: var(--space-md);
+    }
+    
     .login-title {
-      font-size: 24px;
+      font-size: var(--text-2xl);
       font-weight: 700;
-      margin-bottom: 8px;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
     }
     
     .login-subtitle {
-      font-size: 16px;
-      opacity: 0.9;
-      margin-bottom: 32px;
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xl);
+      line-height: 1.4;
     }
     
     .login-btn {
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 100%;
+      height: var(--touch-target);
+      background: var(--primary);
       color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 16px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: var(--text-base);
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
     }
     
     .login-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: var(--primary-dark);
       transform: translateY(-1px);
     }
     
-    /* Mobile-Responsive CMS Overrides */
-    .nc-app-container {
-      min-height: 100vh;
+    .login-btn:active {
+      transform: translateY(0);
     }
     
-    /* Mobile Navigation Improvements */
-    @media (max-width: 768px) {
-      .nc-app-container .css-1x5jdmq,
-      .nc-app-container .css-1isemmb {
-        padding: 12px !important;
-      }
-      
-      .nc-app-container .css-1x5jdmq h1,
-      .nc-app-container .css-1isemmb h1 {
-        font-size: 20px !important;
-      }
-      
-      /* Better mobile form spacing */
-      .nc-app-container .css-1rr4qq7 {
-        padding: 16px !important;
-      }
-      
-      /* Improved mobile buttons */
-      .nc-app-container button {
-        min-height: 44px !important;
-        font-size: 16px !important;
-      }
-      
-      /* Better mobile sidebar */
-      .nc-app-container .css-1dbjc4n {
-        min-width: 250px !important;
-      }
-    }
-    
-    /* Success Toast */
-    .success-toast {
+    /* MOBILE NAVIGATION */
+    .mobile-nav {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #10b981;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 500;
-      z-index: 10000;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-md);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
     }
     
-    .success-toast.show {
+    .nav-title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .nav-menu-btn {
+      width: var(--touch-target);
+      height: var(--touch-target);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      transition: background 0.2s ease;
+    }
+    
+    .nav-menu-btn:hover {
+      background: var(--surface-2);
+    }
+    
+    .nav-menu-btn svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-primary);
+    }
+    
+    /* MOBILE SIDEBAR */
+    .mobile-sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      bottom: 0;
+      width: 280px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .mobile-sidebar.open {
       transform: translateX(0);
     }
     
-    /* Hide elements during loading */
-    .cms-hidden {
+    .sidebar-overlay {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 998;
+    }
+    
+    .sidebar-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .sidebar-content {
+      padding: var(--space-lg);
+    }
+    
+    .sidebar-section {
+      margin-bottom: var(--space-xl);
+    }
+    
+    .sidebar-title {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-md);
+    }
+    
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background 0.2s ease;
+      margin-bottom: var(--space-xs);
+      min-height: var(--touch-target);
+    }
+    
+    .sidebar-item:hover {
+      background: var(--surface-2);
+    }
+    
+    .sidebar-item.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .sidebar-item svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    
+    /* MOBILE MAIN CONTENT */
+    .mobile-main {
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+      transition: margin-left 0.3s ease;
+    }
+    
+    /* MOBILE SUCCESS TOAST */
+    .mobile-toast {
+      position: fixed;
+      top: 80px;
+      left: var(--space-md);
+      right: var(--space-md);
+      background: var(--success);
+      color: white;
+      padding: var(--space-md);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-weight: 500;
+      transform: translateY(-100px);
+      transition: transform 0.3s ease;
+      z-index: 10000;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .mobile-toast.show {
+      transform: translateY(0);
+    }
+    
+    .mobile-toast svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    
+    /* MOBILE CMS OVERRIDES */
+    .nc-app-container {
+      font-family: 'Inter', sans-serif !important;
+    }
+    
+    /* Mobile-specific CMS improvements */
+    @media (max-width: 768px) {
+      .nc-app-container {
+        padding-top: 0 !important;
+      }
+      
+      /* Hide desktop sidebar */
+      .nc-app-container .css-1dbjc4n:first-child {
+        display: none !important;
+      }
+      
+      /* Main content full width */
+      .nc-app-container .css-1rr4qq7 {
+        margin-left: 0 !important;
+        padding: var(--space-md) !important;
+      }
+      
+      /* Mobile form improvements */
+      .nc-app-container input,
+      .nc-app-container textarea,
+      .nc-app-container select {
+        min-height: var(--touch-target) !important;
+        font-size: var(--text-base) !important;
+        border-radius: var(--radius) !important;
+        border: 2px solid var(--border) !important;
+        padding: var(--space-md) !important;
+      }
+      
+      .nc-app-container input:focus,
+      .nc-app-container textarea:focus,
+      .nc-app-container select:focus {
+        border-color: var(--border-focus) !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+      }
+      
+      /* Mobile button improvements */
+      .nc-app-container button {
+        min-height: var(--touch-target) !important;
+        font-size: var(--text-base) !important;
+        border-radius: var(--radius) !important;
+        font-weight: 600 !important;
+        padding: var(--space-md) var(--space-lg) !important;
+      }
+      
+      /* Mobile list improvements */
+      .nc-app-container .css-1x5jdmq {
+        padding: var(--space-md) !important;
+      }
+      
+      /* Mobile card improvements */
+      .nc-app-container .css-1isemmb {
+        margin-bottom: var(--space-md) !important;
+        border-radius: var(--radius-lg) !important;
+        box-shadow: var(--shadow) !important;
+        border: 1px solid var(--border) !important;
+      }
+      
+      /* Mobile typography */
+      .nc-app-container h1 {
+        font-size: var(--text-2xl) !important;
+        margin-bottom: var(--space-lg) !important;
+      }
+      
+      .nc-app-container h2 {
+        font-size: var(--text-xl) !important;
+        margin-bottom: var(--space-md) !important;
+      }
+      
+      /* Mobile spacing */
+      .nc-app-container .css-1rr4qq7 > * {
+        margin-bottom: var(--space-lg) !important;
+      }
+    }
+    
+    /* TABLET OPTIMIZATIONS */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .mobile-sidebar {
+        width: 320px;
+      }
+      
+      .mobile-main {
+        margin-left: 0;
+      }
+      
+      .login-card {
+        max-width: 420px;
+      }
+    }
+    
+    /* DESKTOP OPTIMIZATIONS */
+    @media (min-width: 1025px) {
+      .mobile-nav {
+        display: none;
+      }
+      
+      .mobile-sidebar {
+        position: relative;
+        top: 0;
+        transform: translateX(0);
+        width: 280px;
+        height: 100vh;
+      }
+      
+      .mobile-main {
+        margin-top: 0;
+        margin-left: 280px;
+      }
+      
+      .sidebar-overlay {
+        display: none;
+      }
+    }
+    
+    /* UTILITY CLASSES */
+    .hidden {
       display: none !important;
+    }
+    
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="cms-loading" id="cmsLoading">
-    <div class="loading-spinner"></div>
-    <div class="loading-text">Loading CMS</div>
-    <div class="loading-subtitle">Initializing your warehouse management system...</div>
+  <!-- MOBILE LOADING SCREEN -->
+  <div class="mobile-loading" id="mobileLoading">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <div class="loading-title">🏢 Warehouse CMS</div>
+      <div class="loading-subtitle">Mobile-optimized content management system loading...</div>
+    </div>
   </div>
   
-  <!-- Login Screen -->
-  <div class="login-screen cms-hidden" id="loginScreen">
+  <!-- MOBILE LOGIN SCREEN -->
+  <div class="mobile-login hidden" id="mobileLogin">
     <div class="login-card">
-      <div class="login-title">🏢 Warehouse CMS</div>
-      <div class="login-subtitle">Sign in to manage your property listings</div>
+      <div class="login-icon">🏢</div>
+      <div class="login-title">Warehouse CMS</div>
+      <div class="login-subtitle">Sign in to manage your property listings on any device</div>
       <button class="login-btn" onclick="netlifyIdentity.open()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+        </svg>
         Sign In
       </button>
     </div>
   </div>
   
-  <!-- Success Toast -->
-  <div class="success-toast" id="successToast">
-    ✅ CMS Ready! You can now manage your warehouses.
+  <!-- MOBILE NAVIGATION -->
+  <div class="mobile-nav hidden" id="mobileNav">
+    <div class="nav-title">🏢 Warehouse CMS</div>
+    <button class="nav-menu-btn" id="navMenuBtn">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <span class="sr-only">Open menu</span>
+    </button>
   </div>
   
-  <!-- Netlify CMS Container -->
-  <div id="nc-root" class="cms-hidden"></div>
+  <!-- MOBILE SIDEBAR -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Content</div>
+        <a href="#" class="sidebar-item" data-collection="warehouses">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          <span>Warehouse Properties</span>
+        </a>
+        <a href="#" class="sidebar-item" data-collection="leads">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <span>Lead Management</span>
+        </a>
+      </div>
+      
+      <div class="sidebar-section">
+        <div class="sidebar-title">Account</div>
+        <a href="#" class="sidebar-item" onclick="netlifyIdentity.logout()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </div>
+  </div>
   
-  <!-- Scripts -->
+  <!-- SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <!-- MOBILE MAIN CONTENT -->
+  <div class="mobile-main hidden" id="mobileMain">
+    <div id="nc-root"></div>
+  </div>
+  
+  <!-- MOBILE SUCCESS TOAST -->
+  <div class="mobile-toast" id="mobileToast">
+    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span>🎉 Mobile CMS ready! Manage warehouses on any device.</span>
+  </div>
+  
+  <!-- SCRIPTS -->
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   
   <script>
-    // Simple, Clean CMS Initialization
-    let isInitialized = false;
-    
-    function showToast() {
-      const toast = document.getElementById('successToast');
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-    
-    function initializeCMS() {
-      if (isInitialized) return;
-      isInitialized = true;
-      
-      console.log('🚀 Initializing Warehouse CMS...');
-      
-      // Hide loading screen
-      setTimeout(() => {
-        document.getElementById('cmsLoading').classList.add('hidden');
-        document.getElementById('nc-root').classList.remove('cms-hidden');
-        showToast();
-        console.log('✅ CMS Ready!');
-      }, 1000);
-    }
-    
-    function showLogin() {
-      document.getElementById('cmsLoading').classList.add('hidden');
-      document.getElementById('loginScreen').classList.remove('cms-hidden');
-    }
-    
-    // Netlify Identity Event Handlers
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on('init', user => {
-        console.log('🔐 Identity initialized', user ? 'with user' : 'without user');
-        
-        if (!user) {
-          showLogin();
-        } else {
-          initializeCMS();
-        }
-      });
-      
-      window.netlifyIdentity.on('login', () => {
-        console.log('✅ User logged in');
-        document.getElementById('loginScreen').classList.add('cms-hidden');
-        initializeCMS();
-      });
-      
-      window.netlifyIdentity.on('logout', () => {
-        console.log('👋 User logged out');
-        document.location.href = '/admin/';
-      });
-      
-      window.netlifyIdentity.on('error', err => {
-        console.error('❌ Identity error:', err);
-        showLogin();
-      });
-    } else {
-      console.error('❌ Netlify Identity not loaded');
-      showLogin();
-    }
-    
-    // Ensure CMS loads even if identity is slow
-    setTimeout(() => {
-      if (!isInitialized && window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-        console.log('🔄 Force initializing CMS...');
-        initializeCMS();
+    // MOBILE-FIRST CMS CONTROLLER
+    class MobileCMS {
+      constructor() {
+        this.isInitialized = false;
+        this.sidebarOpen = false;
+        this.init();
       }
-    }, 3000);
+      
+      init() {
+        console.log('🚀 Initializing Mobile-First Warehouse CMS...');
+        this.setupEventListeners();
+        this.setupNetlifyIdentity();
+        this.setupSwipeGestures();
+      }
+      
+      setupEventListeners() {
+        // Menu button
+        document.getElementById('navMenuBtn')?.addEventListener('click', () => {
+          this.toggleSidebar();
+        });
+        
+        // Sidebar overlay
+        document.getElementById('sidebarOverlay')?.addEventListener('click', () => {
+          this.closeSidebar();
+        });
+        
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-item[data-collection]').forEach(item => {
+          item.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.navigateToCollection(item.dataset.collection);
+            this.closeSidebar();
+          });
+        });
+        
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+          const now = (new Date()).getTime();
+          if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, false);
+      }
+      
+      setupSwipeGestures() {
+        let startX = 0;
+        let currentX = 0;
+        let isTracking = false;
+        
+        document.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+          isTracking = true;
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', (e) => {
+          if (!isTracking) return;
+          currentX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        document.addEventListener('touchend', () => {
+          if (!isTracking) return;
+          isTracking = false;
+          
+          const deltaX = currentX - startX;
+          const minSwipeDistance = 100;
+          
+          // Swipe right from left edge to open sidebar
+          if (startX < 50 && deltaX > minSwipeDistance && !this.sidebarOpen) {
+            this.openSidebar();
+          }
+          
+          // Swipe left to close sidebar
+          if (deltaX < -minSwipeDistance && this.sidebarOpen) {
+            this.closeSidebar();
+          }
+        }, { passive: true });
+      }
+      
+      setupNetlifyIdentity() {
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on('init', user => {
+            console.log('🔐 Identity initialized:', user ? 'with user' : 'no user');
+            
+            if (!user) {
+              this.showLogin();
+            } else {
+              this.initializeCMS();
+            }
+          });
+          
+          window.netlifyIdentity.on('login', () => {
+            console.log('✅ User logged in');
+            this.hideLogin();
+            this.initializeCMS();
+          });
+          
+          window.netlifyIdentity.on('logout', () => {
+            console.log('👋 User logged out');
+            location.reload();
+          });
+          
+          window.netlifyIdentity.on('error', err => {
+            console.error('❌ Identity error:', err);
+            this.showLogin();
+          });
+        } else {
+          console.error('❌ Netlify Identity not loaded');
+          setTimeout(() => this.showLogin(), 2000);
+        }
+      }
+      
+      showLogin() {
+        document.getElementById('mobileLoading').classList.add('hidden');
+        document.getElementById('mobileLogin').classList.remove('hidden');
+      }
+      
+      hideLogin() {
+        document.getElementById('mobileLogin').classList.add('hidden');
+      }
+      
+      initializeCMS() {
+        if (this.isInitialized) return;
+        this.isInitialized = true;
+        
+        console.log('🏗️ Building mobile CMS interface...');
+        
+        // Smooth transition to CMS
+        setTimeout(() => {
+          document.getElementById('mobileLoading').classList.add('hidden');
+          document.getElementById('mobileNav').classList.remove('hidden');
+          document.getElementById('mobileMain').classList.remove('hidden');
+          
+          // Show success toast
+          this.showToast();
+          
+          console.log('✅ Mobile CMS ready!');
+        }, 1000);
+      }
+      
+      showToast() {
+        const toast = document.getElementById('mobileToast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 4000);
+      }
+      
+      toggleSidebar() {
+        if (this.sidebarOpen) {
+          this.closeSidebar();
+        } else {
+          this.openSidebar();
+        }
+      }
+      
+      openSidebar() {
+        document.getElementById('mobileSidebar').classList.add('open');
+        document.getElementById('sidebarOverlay').classList.add('active');
+        this.sidebarOpen = true;
+      }
+      
+      closeSidebar() {
+        document.getElementById('mobileSidebar').classList.remove('open');
+        document.getElementById('sidebarOverlay').classList.remove('active');
+        this.sidebarOpen = false;
+      }
+      
+      navigateToCollection(collection) {
+        console.log(`📂 Navigating to ${collection}`);
+        
+        // Update active sidebar item
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        document.querySelector(`[data-collection="${collection}"]`)?.classList.add('active');
+        
+        // Let Netlify CMS handle the navigation
+        // This is just visual feedback
+      }
+    }
     
-    // Clean error handling
-    window.addEventListener('error', (e) => {
-      console.error('🐛 CMS Error:', e.error);
+    // Initialize Mobile CMS
+    document.addEventListener('DOMContentLoaded', () => {
+      new MobileCMS();
     });
     
-    // Mobile-specific optimizations
+    // Failsafe initialization
+    setTimeout(() => {
+      if (!window.mobileCMS && window.netlifyIdentity?.currentUser()) {
+        console.log('🔄 Failsafe: Force initializing CMS...');
+        new MobileCMS();
+      }
+    }, 5000);
+    
+    // Service Worker Registration
     if ('serviceWorker' in navigator) {
-      // Simple service worker for offline support
-      navigator.serviceWorker.register('/sw.js').catch(() => {
-        // Silent fail for service worker
-      });
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('📱 Service Worker registered'))
+        .catch(err => console.log('Service Worker registration failed'));
     }
   </script>
 </body>

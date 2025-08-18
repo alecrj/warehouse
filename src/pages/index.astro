@@ -1,109 +1,177 @@
 ---
-
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-// Get featured warehouses
+// Get all warehouses for stats and featured listings
 const warehouses = await getCollection('warehouses');
-const featuredWarehouses = warehouses
-  .filter((w: CollectionEntry<'warehouses'>) => w.data.featured && w.data.availability === 'available')
+const availableWarehouses = warehouses.filter((w: CollectionEntry<'warehouses'>) => w.data.availability === 'available');
+const featuredWarehouses = availableWarehouses
+  .filter((w: CollectionEntry<'warehouses'>) => w.data.featured)
   .slice(0, 3);
+
+// Calculate dynamic stats
+const totalProperties = availableWarehouses.length;
+const totalSquareFootage = availableWarehouses.reduce((sum, w) => sum + w.data.size, 0);
+const uniqueLocations = new Set(availableWarehouses.map(w => w.data.location.split(',')[0].trim())).size;
 ---
 
 <BaseLayout>
-  <!-- Hero Section -->
-  <section class="relative bg-gray-900 text-white">
-    <div class="absolute inset-0 overflow-hidden">
-      <img 
-        src="/images/warehouse-hero.jpg" 
-        alt="Warehouse" 
-        class="w-full h-full object-cover opacity-40"
-      />
-    </div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-bold mb-6">Find Your Perfect Warehouse Space</h1>
-        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-          Premium industrial and storage facilities available for lease. 
-          Flexible terms, prime locations, and professional service.
+  <!-- Clean Hero Section -->
+  <section class="bg-white pt-16 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+          Industrial Real Estate Solutions
+        </h1>
+        <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+          Connect with premier warehouse and distribution facilities. 
+          Strategic locations, modern infrastructure, flexible terms.
         </p>
-        <div class="space-x-4">
-          <a href="/warehouses" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold inline-block">
-            Browse All Listings
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/warehouses" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            View Properties
           </a>
-          <a href="#contact" class="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold inline-block">
-            Get In Touch
+          <a href="#contact" class="border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            Contact Sales
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="py-16 bg-white">
+  <!-- Clean Stats Section -->
+  <section class="bg-gray-50 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Prime Locations</h3>
-          <p class="text-gray-600">Strategic locations with easy access to major highways and transportation hubs.</p>
+          <div class="text-4xl font-bold text-blue-600 mb-2">{totalProperties}+</div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Available Properties</h3>
+          <p class="text-gray-600">Premium facilities ready for lease</p>
         </div>
         <div class="text-center">
-          <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+          <div class="text-4xl font-bold text-blue-600 mb-2">{Math.round(totalSquareFootage / 1000000 * 10) / 10}M+</div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Square Feet</h3>
+          <p class="text-gray-600">Total available warehouse space</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-600 mb-2">{uniqueLocations}+</div>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Market Locations</h3>
+          <p class="text-gray-600">Strategic distribution centers</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Propositions -->
+  <section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">
+          Why Leading Companies Choose Us
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          We provide institutional-grade warehouse solutions with the flexibility and service your business demands.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="text-center">
+          <div class="bg-blue-100 rounded-lg w-16 h-16 flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Prime Locations</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Strategically positioned near major transportation networks, ports, and distribution hubs for optimal supply chain efficiency.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="bg-blue-100 rounded-lg w-16 h-16 flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Secure Facilities</h3>
-          <p class="text-gray-600">24/7 security monitoring, gated access, and modern safety features.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Modern Infrastructure</h3>
+          <p class="text-gray-600 leading-relaxed">
+            State-of-the-art facilities with advanced security, climate control, and technology infrastructure designed for today's operations.
+          </p>
         </div>
+
         <div class="text-center">
-          <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+          <div class="bg-blue-100 rounded-lg w-16 h-16 flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Flexible Terms</h3>
-          <p class="text-gray-600">Competitive rates with flexible lease terms to match your business needs.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Flexible Terms</h3>
+          <p class="text-gray-600 leading-relaxed">
+            Competitive rates with customizable lease agreements that scale with your business requirements and growth objectives.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Listings -->
+  <!-- Featured Properties -->
   {featuredWarehouses.length > 0 && (
-    <section class="py-16 bg-gray-100">
+    <section class="bg-gray-50 py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center mb-12">Featured Properties</h2>
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-6">
+            Featured Properties
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Explore our premium warehouse and distribution facilities available for immediate occupancy.
+          </p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredWarehouses.map((warehouse: CollectionEntry<'warehouses'>) => (
             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div class="h-48 bg-gray-300 relative">
-                {warehouse.data.images && warehouse.data.images[0] && (
+              <div class="h-48 bg-gray-200 relative">
+                {warehouse.data.images && warehouse.data.images[0] ? (
                   <img 
                     src={warehouse.data.images[0]} 
                     alt={warehouse.data.title}
                     class="w-full h-full object-cover"
+                    loading="lazy"
                   />
+                ) : (
+                  <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                  </div>
                 )}
-                <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <div class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded text-sm font-semibold">
                   Available
                 </div>
               </div>
+              
               <div class="p-6">
-                <h3 class="text-xl font-semibold mb-2">{warehouse.data.title}</h3>
-                <p class="text-gray-600 mb-4">{warehouse.data.location}</p>
-                <div class="flex justify-between items-center mb-4">
-                  <span class="text-2xl font-bold text-blue-600">{warehouse.data.price}</span>
-                  <span class="text-gray-500">{warehouse.data.size.toLocaleString()} sq ft</span>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">{warehouse.data.title}</h3>
+                <p class="text-gray-600 mb-4 flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  {warehouse.data.location}
+                </p>
+                
+                <div class="flex justify-between items-center mb-6">
+                  <div>
+                    <div class="text-2xl font-bold text-blue-600">{warehouse.data.price}</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-lg font-semibold text-gray-900">{warehouse.data.size.toLocaleString()}</div>
+                    <div class="text-sm text-gray-500">sq ft</div>
+                  </div>
                 </div>
+
                 <a 
                   href={`/warehouses/${warehouse.data.slug}`}
-                  class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold"
+                  class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
                 >
                   View Details
                 </a>
@@ -111,7 +179,8 @@ const featuredWarehouses = warehouses
             </div>
           ))}
         </div>
-        <div class="text-center mt-8">
+
+        <div class="text-center mt-12">
           <a href="/warehouses" class="text-blue-600 hover:text-blue-700 font-semibold text-lg">
             View All Properties →
           </a>
@@ -120,100 +189,127 @@ const featuredWarehouses = warehouses
     </section>
   )}
 
-  <!-- Contact Form -->
-  <section id="contact" class="py-16 bg-white">
+  <!-- Contact Section -->
+  <section id="contact" class="bg-white py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-center mb-12">Get In Touch</h2>
-      <form 
-        name="general-inquiry" 
-        method="POST" 
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        action="/success"
-        class="bg-gray-50 rounded-lg p-8"
-      >
-        <input type="hidden" name="form-name" value="general-inquiry" />
-        <input type="hidden" name="source" value="homepage" />
-        <div class="hidden">
-          <label>Don't fill this out: <input name="bot-field" /></label>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name" 
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Ready to Find Your Space?</h2>
+        <p class="text-xl text-gray-600">
+          Connect with our team to discuss your warehouse and distribution requirements.
+        </p>
+      </div>
+
+      <div class="bg-gray-50 rounded-lg p-8">
+        <form 
+          name="general-inquiry" 
+          method="POST" 
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          action="/success"
+        >
+          <input type="hidden" name="form-name" value="general-inquiry" />
+          <input type="hidden" name="source" value="homepage" />
+          <div class="hidden">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+              <input 
+                type="text" 
+                id="company" 
+                name="company" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <label for="property" class="block text-sm font-medium text-gray-700 mb-2">Property Interest</label>
+            <select 
+              id="property" 
+              name="propertyInterested"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="">Select a property (optional)</option>
+              {warehouses.filter((w: CollectionEntry<'warehouses'>) => w.data.availability === 'available').map((warehouse: CollectionEntry<'warehouses'>) => (
+                <option value={warehouse.data.title}>{warehouse.data.title} - {warehouse.data.location}</option>
+              ))}
+            </select>
+          </div>
+          
+          <div class="mb-8">
+            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Requirements *</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="4" 
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+              placeholder="Tell us about your space requirements, timeline, and any specific needs..."
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            ></textarea>
           </div>
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
-            <input 
-              type="tel" 
-              id="phone" 
-              name="phone" 
-              required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company</label>
-            <input 
-              type="text" 
-              id="company" 
-              name="company" 
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-        </div>
-        
-        <div class="mt-6">
-          <label for="property" class="block text-sm font-medium text-gray-700 mb-2">Property Interest</label>
-          <select 
-            id="property" 
-            name="propertyInterested"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Select a property (optional)</option>
-            {warehouses.filter((w: CollectionEntry<'warehouses'>) => w.data.availability === 'available').map((warehouse: CollectionEntry<'warehouses'>) => (
-              <option value={warehouse.data.title}>{warehouse.data.title} - {warehouse.data.location}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div class="mt-6">
-          <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-          <textarea 
-            id="message" 
-            name="message" 
-            rows="4" 
-            required
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          ></textarea>
-        </div>
-        
-        <div class="mt-8">
+          
           <button 
             type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold text-lg"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
           >
-            Send Inquiry
+            Submit Inquiry
           </button>
+        </form>
+
+        <!-- Contact Info -->
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Phone</h4>
+              <p class="text-gray-600">(555) 123-4567</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Email</h4>
+              <p class="text-gray-600">info@warehousehub.com</p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900 mb-2">Response Time</h4>
+              <p class="text-gray-600">Within 2 business hours</p>
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   </section>
 </BaseLayout>

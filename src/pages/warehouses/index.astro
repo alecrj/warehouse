@@ -11,131 +11,224 @@ const sortedWarehouses = warehouses.sort((a: CollectionEntry<'warehouses'>, b: C
   if (!a.data.featured && b.data.featured) return 1;
   return 0;
 });
+
+// Calculate stats
+const availableWarehouses = warehouses.filter(w => w.data.availability === 'available');
+const totalSquareFootage = availableWarehouses.reduce((sum, w) => sum + w.data.size, 0);
+const uniqueLocations = new Set(availableWarehouses.map(w => w.data.location.split(',')[0].trim())).size;
 ---
 
-<BaseLayout title="All Warehouse Listings | WarehouseHub">
-  <section class="py-12 bg-gray-50">
+<BaseLayout title="All Warehouse Listings | WarehouseHub - Premium Industrial Spaces">
+  <!-- Clean Header -->
+  <section class="bg-white pt-16 pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-center mb-8">All Warehouse Listings</h1>
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Available Properties
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Browse our portfolio of premium warehouse and distribution facilities available for lease.
+        </p>
+      </div>
       
-      <!-- Filter Section -->
-      <div class="bg-white rounded-lg shadow p-6 mb-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="text-center p-6 bg-gray-50 rounded-lg">
+          <div class="text-3xl font-bold text-blue-600 mb-2">{availableWarehouses.length}</div>
+          <p class="text-gray-600 font-medium">Available Properties</p>
+        </div>
+        <div class="text-center p-6 bg-gray-50 rounded-lg">
+          <div class="text-3xl font-bold text-blue-600 mb-2">{Math.round(totalSquareFootage / 1000000 * 10) / 10}M+</div>
+          <p class="text-gray-600 font-medium">Total Square Feet</p>
+        </div>
+        <div class="text-center p-6 bg-gray-50 rounded-lg">
+          <div class="text-3xl font-bold text-blue-600 mb-2">{uniqueLocations}+</div>
+          <p class="text-gray-600 font-medium">Market Locations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-lg shadow p-8">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-semibold text-gray-900">Filter Properties</h2>
+          <button 
+            id="clearFilters"
+            class="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            Clear Filters
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
             <input 
               type="text" 
               id="locationFilter" 
-              placeholder="Filter by location..."
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter city or state..."
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+          
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Min Size (sq ft)</label>
             <input 
               type="number" 
               id="minSizeFilter" 
               placeholder="0"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+          
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Max Size (sq ft)</label>
             <input 
               type="number" 
               id="maxSizeFilter" 
-              placeholder="Any"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Any size"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+          
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
             <select 
               id="statusFilter" 
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">All</option>
+              <option value="">All Properties</option>
               <option value="available">Available</option>
-              <option value="leased">Leased</option>
               <option value="pending">Pending</option>
+              <option value="leased">Leased</option>
             </select>
           </div>
         </div>
-        <div class="mt-4 flex justify-end">
-          <button 
-            id="clearFilters"
-            class="text-gray-600 hover:text-gray-800 mr-4"
-          >
-            Clear Filters
-          </button>
+        
+        <div class="mt-6 text-center">
           <button 
             id="applyFilters"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
           >
             Apply Filters
           </button>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Results Count -->
-      <p class="text-gray-600 mb-6">
-        Showing <span id="resultsCount">{sortedWarehouses.length}</span> properties
-      </p>
+  <!-- Properties Grid -->
+  <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Results Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-2">Properties</h3>
+          <p class="text-gray-600">
+            Showing <span id="resultsCount" class="font-semibold">{sortedWarehouses.length}</span> of {sortedWarehouses.length} properties
+          </p>
+        </div>
+        
+        <div class="mt-4 md:mt-0">
+          <select 
+            id="sortFilter" 
+            class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
+          >
+            <option value="featured">Featured First</option>
+            <option value="size-large">Size: Largest First</option>
+            <option value="size-small">Size: Smallest First</option>
+          </select>
+        </div>
+      </div>
 
-      <!-- Warehouse Grid -->
       <div id="warehouseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {sortedWarehouses.map((warehouse: CollectionEntry<'warehouses'>) => (
           <div 
-            class="warehouse-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+            class="warehouse-card bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden border border-gray-200"
             data-location={warehouse.data.location.toLowerCase()}
             data-size={warehouse.data.size}
             data-status={warehouse.data.availability}
+            data-featured={warehouse.data.featured}
           >
-            <div class="h-56 bg-gray-300 relative">
-              {warehouse.data.images && warehouse.data.images[0] && (
+            <div class="relative h-56">
+              {warehouse.data.images && warehouse.data.images[0] ? (
                 <img 
                   src={warehouse.data.images[0]} 
                   alt={warehouse.data.title}
                   class="w-full h-full object-cover"
+                  loading="lazy"
                 />
-              )}
-              {warehouse.data.featured && (
-                <div class="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  Featured
+              ) : (
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                  </svg>
                 </div>
               )}
-              <div class={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold ${
-                warehouse.data.availability === 'available' ? 'bg-green-500 text-white' :
-                warehouse.data.availability === 'pending' ? 'bg-yellow-500 text-white' :
-                'bg-red-500 text-white'
-              }`}>
-                {warehouse.data.availability === 'available' ? 'Available' :
-                 warehouse.data.availability === 'pending' ? 'Pending' : 'Leased'}
+              
+              {/* Badges */}
+              <div class="absolute top-4 left-4">
+                {warehouse.data.featured && (
+                  <div class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold mb-2">
+                    Featured
+                  </div>
+                )}
+              </div>
+              
+              <div class="absolute top-4 right-4">
+                <div class={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  warehouse.data.availability === 'available' ? 'bg-green-600 text-white' :
+                  warehouse.data.availability === 'pending' ? 'bg-yellow-500 text-white' :
+                  'bg-red-600 text-white'
+                }`}>
+                  {warehouse.data.availability === 'available' ? 'Available' :
+                   warehouse.data.availability === 'pending' ? 'Pending' : 'Leased'}
+                </div>
               </div>
             </div>
+            
             <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">{warehouse.data.title}</h3>
-              <p class="text-gray-600 mb-2">
-                <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">{warehouse.data.title}</h3>
+              
+              <div class="flex items-center text-gray-600 mb-4">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-                {warehouse.data.location}
-              </p>
-              <div class="flex justify-between items-center mb-4">
-                <span class="text-2xl font-bold text-blue-600">{warehouse.data.price}</span>
-                <span class="text-gray-500">{warehouse.data.size.toLocaleString()} sq ft</span>
+                <span class="text-sm">{warehouse.data.location}</span>
               </div>
-              <div class="mb-4">
-                {warehouse.data.features.slice(0, 3).map((feature: string) => (
-                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm text-gray-700 mr-2 mb-2">
-                    {feature}
-                  </span>
-                ))}
+              
+              <div class="flex justify-between items-center mb-6 p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <div class="text-2xl font-bold text-blue-600">{warehouse.data.price}</div>
+                  <div class="text-sm text-gray-500">per sq ft/year</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xl font-bold text-gray-900">{warehouse.data.size.toLocaleString()}</div>
+                  <div class="text-sm text-gray-500">sq ft</div>
+                </div>
               </div>
+
+              <div class="mb-6">
+                <div class="flex flex-wrap gap-2">
+                  {warehouse.data.features.slice(0, 3).map((feature: string) => (
+                    <span class="bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1 rounded-full">
+                      {feature}
+                    </span>
+                  ))}
+                  {warehouse.data.features.length > 3 && (
+                    <span class="bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1 rounded-full">
+                      +{warehouse.data.features.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+              
               <a 
                 href={`/warehouses/${warehouse.data.slug}`}
-                class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold"
+                class="block text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
               >
                 View Details
               </a>
@@ -144,33 +237,51 @@ const sortedWarehouses = warehouses.sort((a: CollectionEntry<'warehouses'>, b: C
         ))}
       </div>
 
-      <!-- No Results Message -->
-      <div id="noResults" class="hidden text-center py-12">
-        <p class="text-xl text-gray-600">No warehouses match your filters. Try adjusting your search criteria.</p>
+      <!-- No Results -->
+      <div id="noResults" class="hidden text-center py-16">
+        <div class="max-w-md mx-auto">
+          <div class="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.56 1.01-6.05 2.773M15 17a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">No properties match your criteria</h3>
+          <p class="text-gray-600 mb-6">Try adjusting your filters or contact us for additional options.</p>
+          <button 
+            onclick="clearAllFilters()" 
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+          >
+            View All Properties
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
   <script>
-    // Client-side filtering
+    // Clean filtering functionality
     const locationFilter = document.getElementById('locationFilter') as HTMLInputElement;
     const minSizeFilter = document.getElementById('minSizeFilter') as HTMLInputElement;
     const maxSizeFilter = document.getElementById('maxSizeFilter') as HTMLInputElement;
     const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
+    const sortFilter = document.getElementById('sortFilter') as HTMLSelectElement;
     const applyButton = document.getElementById('applyFilters');
     const clearButton = document.getElementById('clearFilters');
+    const warehouseGrid = document.getElementById('warehouseGrid');
     const warehouseCards = document.querySelectorAll('.warehouse-card');
     const resultsCount = document.getElementById('resultsCount');
     const noResults = document.getElementById('noResults');
 
-    function filterWarehouses() {
-      const location = locationFilter.value.toLowerCase();
+    function filterAndSortWarehouses() {
+      const location = locationFilter.value.toLowerCase().trim();
       const minSize = parseInt(minSizeFilter.value) || 0;
       const maxSize = parseInt(maxSizeFilter.value) || Infinity;
       const status = statusFilter.value;
+      const sortBy = sortFilter.value;
 
-      let visibleCount = 0;
+      let visibleCards: Element[] = [];
 
+      // Filter cards
       warehouseCards.forEach((card) => {
         const cardLocation = card.getAttribute('data-location') || '';
         const cardSize = parseInt(card.getAttribute('data-size') || '0');
@@ -181,33 +292,66 @@ const sortedWarehouses = warehouses.sort((a: CollectionEntry<'warehouses'>, b: C
         const matchesStatus = !status || cardStatus === status;
 
         if (matchesLocation && matchesSize && matchesStatus) {
+          visibleCards.push(card);
           (card as HTMLElement).style.display = 'block';
-          visibleCount++;
         } else {
           (card as HTMLElement).style.display = 'none';
         }
       });
 
-      if (resultsCount) resultsCount.textContent = visibleCount.toString();
-      if (noResults) noResults.classList.toggle('hidden', visibleCount > 0);
+      // Sort visible cards
+      visibleCards.sort((a, b) => {
+        const aSize = parseInt(a.getAttribute('data-size') || '0');
+        const bSize = parseInt(b.getAttribute('data-size') || '0');
+        const aFeatured = a.getAttribute('data-featured') === 'true';
+        const bFeatured = b.getAttribute('data-featured') === 'true';
+        
+        switch (sortBy) {
+          case 'featured':
+            if (aFeatured && !bFeatured) return -1;
+            if (!aFeatured && bFeatured) return 1;
+            return 0;
+          case 'size-large':
+            return bSize - aSize;
+          case 'size-small':
+            return aSize - bSize;
+          default:
+            return 0;
+        }
+      });
+
+      // Reorder DOM elements
+      visibleCards.forEach(card => {
+        warehouseGrid?.appendChild(card);
+      });
+
+      // Update results count
+      if (resultsCount) resultsCount.textContent = visibleCards.length.toString();
+      if (noResults) noResults.classList.toggle('hidden', visibleCards.length > 0);
     }
 
-    function clearFilters() {
+    function clearAllFilters() {
       locationFilter.value = '';
       minSizeFilter.value = '';
       maxSizeFilter.value = '';
       statusFilter.value = '';
-      filterWarehouses();
+      sortFilter.value = 'featured';
+      filterAndSortWarehouses();
     }
 
-    applyButton?.addEventListener('click', filterWarehouses);
-    clearButton?.addEventListener('click', clearFilters);
+    // Add event listeners
+    applyButton?.addEventListener('click', filterAndSortWarehouses);
+    clearButton?.addEventListener('click', clearAllFilters);
+    sortFilter?.addEventListener('change', filterAndSortWarehouses);
 
     // Enable Enter key for filters
     [locationFilter, minSizeFilter, maxSizeFilter].forEach(input => {
       input?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') filterWarehouses();
+        if (e.key === 'Enter') filterAndSortWarehouses();
       });
     });
+
+    // Initial sort
+    filterAndSortWarehouses();
   </script>
 </BaseLayout>

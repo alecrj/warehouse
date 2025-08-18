@@ -6,29 +6,48 @@ backend:
 media_folder: "public/images/warehouses"
 public_folder: "/images/warehouses"
 
-# Enhanced site settings for mobile
+# Enhanced site settings
 site_url: https://laec.netlify.app
 display_url: https://laec.netlify.app
-logo_url: /images/logo.png
+logo_url: /favicon.svg
 
-# Enable editorial workflow for better content management
+# Enable editorial workflow for better mobile content management
 publish_mode: editorial_workflow
 
-# Mobile-optimized editor settings
+# Mobile-first editor settings
 editor:
   preview: true
 
+# Enhanced mobile search
+search: true
+
 collections:
   - name: "warehouses"
-    label: "Warehouse Properties"
+    label: "🏢 Warehouse Properties"
     label_singular: "Property"
     folder: "src/content/warehouses"
     create: true
     slug: "{{slug}}"
     extension: "json"
     format: "json"
-    summary: "{{title}} - {{location}} - {{availability}}"
-    sortable_fields: ['title', 'price', 'size', 'createdAt', 'availability']
+    summary: "{{title}} • {{location}} • {{availability}}"
+    sortable_fields: ['title', 'price', 'size', 'createdAt', 'availability', 'featured']
+    view_filters:
+      - label: "✅ Available Now"
+        field: availability
+        pattern: "available"
+      - label: "⏳ Pending"
+        field: availability  
+        pattern: "pending"
+      - label: "🔒 Leased"
+        field: availability
+        pattern: "leased"
+      - label: "⭐ Featured"
+        field: featured
+        pattern: true
+      - label: "📅 Recent (This Week)"
+        field: createdAt
+        pattern: "2025"
     view_groups:
       - label: "Status"
         field: availability
@@ -39,167 +58,419 @@ collections:
       - label: "Location"
         field: location
     fields:
-      - {label: "Property Title", name: "title", widget: "string", hint: "e.g. Downtown Logistics Center"}
-      - {label: "URL Slug", name: "slug", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use lowercase and hyphens only"], hint: "Used in the website URL"}
-      - {label: "Price", name: "price", widget: "string", hint: "e.g. $12/sq ft/year or $5,000/month"}
-      - {label: "Size (sq ft)", name: "size", widget: "number", value_type: "int", min: 100, hint: "Total square footage"}
-      - {label: "City, State", name: "location", widget: "string", hint: "e.g. Miami, FL"}
-      - {label: "Full Address", name: "address", widget: "string", hint: "Complete street address"}
-      - label: "Key Features"
+      # BASIC INFO SECTION
+      - label: "📋 Basic Information"
+        name: "basicInfo"
+        widget: "object"
+        collapsed: false
+        summary: "{{fields.title}} - {{fields.location}}"
+        fields:
+          - label: "Property Title"
+            name: "title"
+            widget: "string"
+            hint: "e.g., 'Downtown Logistics Center' or 'Miami Distribution Hub'"
+            pattern: [".{3,}", "Must be at least 3 characters"]
+          - label: "URL Slug"
+            name: "slug"
+            widget: "string"
+            pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use lowercase letters, numbers, and hyphens only"]
+            hint: "This creates the web address: yoursite.com/warehouses/[slug]"
+          - label: "City, State"
+            name: "location"
+            widget: "string"
+            hint: "e.g., 'Miami, FL' or 'Los Angeles, CA'"
+            pattern: [".+,.+", "Please use format: City, State"]
+          - label: "Full Street Address"
+            name: "address"
+            widget: "text"
+            hint: "Complete address including street, city, state, ZIP"
+
+      # PRICING & SPECS SECTION  
+      - label: "💰 Pricing & Specifications"
+        name: "specs"
+        widget: "object"
+        collapsed: false
+        summary: "{{fields.price}} • {{fields.size}} sq ft"
+        fields:
+          - label: "Rental Price"
+            name: "price"
+            widget: "string"
+            hint: "e.g., '$12/sq ft/year', '$5,000/month', or 'Contact for pricing'"
+          - label: "Total Size (Square Feet)"
+            name: "size"
+            widget: "number"
+            value_type: "int"
+            min: 100
+            max: 10000000
+            step: 100
+            hint: "Total warehouse square footage"
+          - label: "Availability Status"
+            name: "availability"
+            widget: "select"
+            options: 
+              - label: "✅ Available Now"
+                value: "available"
+              - label: "⏳ Pending Lease"
+                value: "pending"
+              - label: "🔒 Leased"
+                value: "leased"
+            default: "available"
+            hint: "Current leasing status"
+
+      # FEATURES SECTION
+      - label: "⚡ Property Features"
         name: "features"
         widget: "list"
         allow_add: true
         collapsed: false
-        summary: '{{fields.feature}}'
-        field: {label: "Feature", name: "feature", widget: "string"}
-        default: ["Loading Docks", "24/7 Access", "Security System"]
-        hint: "Add key property features that tenants care about"
-      - label: "Property Images"
+        min: 1
+        max: 20
+        summary: "{{fields.feature}}"
+        field: 
+          label: "Feature"
+          name: "feature"
+          widget: "string"
+          hint: "Key selling point (e.g., '24/7 Security', 'Loading Docks', 'Climate Control')"
+        default: 
+          - "Loading Docks"
+          - "24/7 Access"
+          - "Security System"
+          - "LED Lighting"
+        hint: "Add the most important features that tenants care about"
+
+      # IMAGES SECTION
+      - label: "📸 Property Images"
         name: "images"
         widget: "list"
         allow_add: true
         collapsed: false
-        summary: 'Image {{index}}'
+        min: 1
+        max: 20
+        summary: "Image {{index}} - {{fields.image}}"
         field:
-          label: "Upload Image"
+          label: "Upload High-Quality Image"
           name: "image"
           widget: "image"
           choose_url: false
           media_library:
             config:
               multiple: false
-        hint: "Upload high-quality property photos. First image will be the main photo."
-      - label: "Property Description"
+              max_file_size: 5242880
+        hint: "📱 Mobile tip: First image is the main photo. Use high-quality, well-lit photos."
+
+      # DESCRIPTION SECTION
+      - label: "📝 Property Description"
         name: "description"
         widget: "markdown"
         minimal: true
-        buttons: ["bold", "italic", "heading-three", "bulleted-list", "numbered-list", "link"]
+        buttons: 
+          - "bold"
+          - "italic"
+          - "heading-three"
+          - "bulleted-list"
+          - "numbered-list"
+          - "link"
         editor_components: []
-        hint: "Detailed description of the property, amenities, and location benefits"
-      - label: "Availability Status"
-        name: "availability"
-        widget: "select"
-        options: 
-          - {label: "✅ Available Now", value: "available"}
-          - {label: "⏳ Pending Lease", value: "pending"}
-          - {label: "🔒 Leased", value: "leased"}
-        default: "available"
-      - {label: "Featured Property", name: "featured", widget: "boolean", default: false, hint: "Show this property prominently on homepage"}
-      - {label: "Date Listed", name: "createdAt", widget: "datetime", default: "", format: "YYYY-MM-DD", time_format: false}
-      - {label: "SEO Title", name: "metaTitle", widget: "string", required: false, hint: "Custom page title for search engines"}
-      - {label: "SEO Description", name: "metaDescription", widget: "text", required: false, hint: "Brief description for search results (150-160 characters)"}
+        hint: "Write a compelling description highlighting location benefits, nearby amenities, and unique selling points. Think: Why would someone want to lease here?"
+
+      # ADMIN SETTINGS SECTION
+      - label: "⚙️ Admin Settings"
+        name: "adminSettings"
+        widget: "object"
+        collapsed: true
+        summary: "Featured: {{fields.featured}} • Listed: {{fields.createdAt}}"
+        fields:
+          - label: "Featured Property"
+            name: "featured"
+            widget: "boolean"
+            default: false
+            hint: "Featured properties appear prominently on the homepage"
+          - label: "Date Listed"
+            name: "createdAt"
+            widget: "datetime"
+            default: ""
+            format: "YYYY-MM-DD"
+            time_format: false
+            hint: "When was this property first listed?"
+
+      # SEO SECTION
+      - label: "🔍 SEO Settings (Optional)"
+        name: "seoSettings"
+        widget: "object"
+        collapsed: true
+        summary: "{{fields.metaTitle}}"
+        fields:
+          - label: "Custom Page Title"
+            name: "metaTitle"
+            widget: "string"
+            required: false
+            hint: "Custom title for search engines (leave blank to auto-generate)"
+          - label: "Search Description"
+            name: "metaDescription"
+            widget: "text"
+            required: false
+            hint: "Brief description for Google search results (150-160 characters max)"
 
   - name: "leads"
-    label: "📋 Lead Management"
+    label: "🎯 Lead Management"
     label_singular: "Lead"
     folder: "src/content/leads"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{hour}}{{minute}}{{second}}-{{fields.name}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{hour}}{{minute}}-{{fields.contactInfo.name}}"
     extension: "json"
     format: "json"
-    identifier_field: "name"
-    summary: "{{name}} - {{company}} - {{status}} - {{createdAt}}"
-    sortable_fields: ['createdAt', 'status', 'name', 'lastContactDate', 'score']
+    identifier_field: "contactInfo.name"
+    summary: "{{contactInfo.name}} • {{contactInfo.company}} • {{leadStatus.status}} • {{leadStatus.score}}"
+    sortable_fields: ['createdAt', 'leadStatus.status', 'contactInfo.name', 'leadStatus.score', 'followUp.nextFollowUp']
     view_filters:
       - label: "🆕 New Leads"
-        field: status
-        pattern: new
+        field: leadStatus.status
+        pattern: "new"
       - label: "📞 Contacted"
-        field: status
-        pattern: contacted
+        field: leadStatus.status
+        pattern: "contacted"
       - label: "⭐ Qualified"
-        field: status
-        pattern: qualified
+        field: leadStatus.status
+        pattern: "qualified"
+      - label: "💼 Proposal Sent"
+        field: leadStatus.status
+        pattern: "proposal"
+      - label: "🤝 Negotiating"
+        field: leadStatus.status
+        pattern: "negotiating"
       - label: "✅ Closed Won"
-        field: status
-        pattern: closed-won
+        field: leadStatus.status
+        pattern: "closed-won"
       - label: "❌ Closed Lost"
-        field: status
-        pattern: closed-lost
+        field: leadStatus.status
+        pattern: "closed-lost"
       - label: "🔥 Hot Leads"
-        field: score
-        pattern: hot
-      - label: "📅 This Week"
-        field: createdAt
+        field: leadStatus.score
+        pattern: "hot"
+      - label: "🟡 Warm Leads"
+        field: leadStatus.score
+        pattern: "warm"
+      - label: "❄️ Cold Leads"
+        field: leadStatus.score
+        pattern: "cold"
+      - label: "📅 Need Follow-up"
+        field: followUp.nextFollowUp
         pattern: "2025"
-      - label: "🏢 Has Company"
-        field: company
-        pattern: ".+"
+      - label: "📱 Mobile Leads"
+        field: source.source
+        pattern: "mobile"
+      - label: "🌐 Website Leads"
+        field: source.source
+        pattern: "website"
     view_groups:
       - label: "Status"
-        field: status
-      - label: "Lead Source"
-        field: source
-      - label: "Lead Score"
-        field: score
+        field: leadStatus.status
+      - label: "Temperature"
+        field: leadStatus.score
+      - label: "Source"
+        field: source.source
     fields:
-      - {label: "👤 Contact Name", name: "name", widget: "string", hint: "Full name of the contact person"}
-      - {label: "📧 Email Address", name: "email", widget: "string", hint: "Primary email for communication"}
-      - {label: "📱 Phone Number", name: "phone", widget: "string", hint: "Best contact number"}
-      - {label: "🏢 Company Name", name: "company", widget: "string", required: false, hint: "Company or organization name"}
-      - {label: "🏗️ Property Interested", name: "propertyInterested", widget: "string", required: false, hint: "Specific property they inquired about"}
-      - {label: "💬 Initial Message", name: "message", widget: "text", hint: "Their original inquiry or requirements"}
-      - label: "📍 Lead Source"
-        name: "source"
-        widget: "select"
-        options:
-          - {label: "🌐 Website Contact Form", value: "website"}
-          - {label: "🏠 Property Page", value: "property-page"}
-          - {label: "📞 Phone Call", value: "phone"}
-          - {label: "📧 Email", value: "email"}
-          - {label: "🔗 Referral", value: "referral"}
-          - {label: "🎯 Google Ads", value: "google-ads"}
-          - {label: "📱 Social Media", value: "social"}
-          - {label: "🤝 Walk-in", value: "walk-in"}
-          - {label: "📰 Other", value: "other"}
-        default: "website"
-      - label: "📊 Lead Status"
-        name: "status"
-        widget: "select"
-        options: 
-          - {label: "🆕 New Lead", value: "new"}
-          - {label: "📞 Contacted", value: "contacted"}
-          - {label: "⭐ Qualified", value: "qualified"}
-          - {label: "💼 Proposal Sent", value: "proposal"}
-          - {label: "🤝 Negotiating", value: "negotiating"}
-          - {label: "✅ Closed Won", value: "closed-won"}
-          - {label: "❌ Closed Lost", value: "closed-lost"}
-          - {label: "❄️ Cold/Unresponsive", value: "cold"}
-        default: "new"
-      - label: "🌡️ Lead Temperature"
-        name: "score"
-        widget: "select"
-        options:
-          - {label: "🔥 Hot - Ready to Move", value: "hot"}
-          - {label: "🟡 Warm - Interested", value: "warm"}
-          - {label: "❄️ Cold - Just Browsing", value: "cold"}
-        default: "warm"
-        hint: "How likely are they to lease?"
-      - label: "📝 Internal Notes"
-        name: "notes"
-        widget: "markdown"
-        required: false
-        minimal: true
-        buttons: ["bold", "italic", "bulleted-list", "numbered-list"]
-        hint: "Private notes for your team - timeline, requirements, follow-up needed, etc."
-      - {label: "📅 Lead Created", name: "createdAt", widget: "datetime", format: "YYYY-MM-DD HH:mm", default: ""}
-      - {label: "📞 Last Contact Date", name: "lastContactDate", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "When did you last speak with them?"}
-      - {label: "⏰ Next Follow Up", name: "nextFollowUp", widget: "datetime", format: "YYYY-MM-DD", required: false, hint: "When should you contact them next?"}
-      - {label: "💰 Potential Value", name: "estimatedValue", widget: "string", required: false, hint: "e.g. $50,000/year - estimated annual lease value"}
-      - {label: "📏 Space Needed (sq ft)", name: "spaceRequired", widget: "number", required: false, hint: "How much space do they need?"}
-      - {label: "📍 Preferred Location", name: "preferredLocation", widget: "string", required: false, hint: "Where do they want to be located?"}
-      - {label: "⏱️ Timeline", name: "timeline", widget: "select", required: false, options: ["Immediate", "1-3 months", "3-6 months", "6+ months", "Just browsing"], hint: "When do they need to move?"}
-      - label: "📎 Attachments"
+      # CONTACT INFO SECTION
+      - label: "👤 Contact Information"
+        name: "contactInfo"
+        widget: "object"
+        collapsed: false
+        summary: "{{fields.name}} • {{fields.company}}"
+        fields:
+          - label: "Full Name"
+            name: "name"
+            widget: "string"
+            hint: "Contact person's full name"
+            pattern: [".{2,}", "Name must be at least 2 characters"]
+          - label: "Email Address"
+            name: "email"
+            widget: "string"
+            hint: "Primary email for communication"
+            pattern: ["^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", "Please enter a valid email address"]
+          - label: "Phone Number"
+            name: "phone"
+            widget: "string"
+            hint: "Best contact number (include area code)"
+            pattern: ["^[+]?[0-9\\s\\-\\(\\)]{10,}$", "Please enter a valid phone number"]
+          - label: "Company Name"
+            name: "company"
+            widget: "string"
+            required: false
+            hint: "Company or organization name (if applicable)"
+
+      # LEAD STATUS SECTION
+      - label: "📊 Lead Status & Priority"
+        name: "leadStatus"
+        widget: "object"
+        collapsed: false
+        summary: "{{fields.status}} • {{fields.score}}"
+        fields:
+          - label: "Current Status"
+            name: "status"
+            widget: "select"
+            options: 
+              - label: "🆕 New Lead"
+                value: "new"
+              - label: "📞 Contacted"
+                value: "contacted"
+              - label: "⭐ Qualified"
+                value: "qualified"
+              - label: "💼 Proposal Sent"
+                value: "proposal"
+              - label: "🤝 Negotiating"
+                value: "negotiating"
+              - label: "✅ Closed Won"
+                value: "closed-won"
+              - label: "❌ Closed Lost"
+                value: "closed-lost"
+              - label: "❄️ Cold/Unresponsive"
+                value: "cold"
+            default: "new"
+            hint: "Current stage in your sales process"
+          - label: "Lead Temperature"
+            name: "score"
+            widget: "select"
+            options:
+              - label: "🔥 Hot - Ready to Move"
+                value: "hot"
+              - label: "🟡 Warm - Interested"
+                value: "warm"
+              - label: "❄️ Cold - Just Browsing"
+                value: "cold"
+            default: "warm"
+            hint: "How likely are they to lease soon?"
+
+      # PROPERTY INTEREST SECTION
+      - label: "🏢 Property Interest & Requirements"
+        name: "propertyInterest"
+        widget: "object"
+        collapsed: false
+        summary: "{{fields.propertyInterested}} • {{fields.spaceRequired}} sq ft"
+        fields:
+          - label: "Property They Inquired About"
+            name: "propertyInterested"
+            widget: "string"
+            required: false
+            hint: "Specific property name they're interested in"
+          - label: "Space Needed (sq ft)"
+            name: "spaceRequired"
+            widget: "number"
+            required: false
+            min: 100
+            max: 10000000
+            step: 100
+            hint: "How much warehouse space do they need?"
+          - label: "Preferred Location"
+            name: "preferredLocation"
+            widget: "string"
+            required: false
+            hint: "Geographic area they prefer (e.g., 'Miami area', 'Near I-95')"
+          - label: "Move-in Timeline"
+            name: "timeline"
+            widget: "select"
+            required: false
+            options: 
+              - "Immediate (ASAP)"
+              - "1-3 months"
+              - "3-6 months"
+              - "6+ months"
+              - "Just browsing"
+            hint: "When do they need to move?"
+          - label: "Estimated Budget"
+            name: "estimatedValue"
+            widget: "string"
+            required: false
+            hint: "e.g., '$50,000/year' - estimated annual lease value"
+
+      # INITIAL INQUIRY SECTION
+      - label: "💬 Initial Inquiry"
+        name: "inquiry"
+        widget: "object"
+        collapsed: false
+        summary: "{{fields.source}} • {{fields.createdAt}}"
+        fields:
+          - label: "Original Message"
+            name: "message"
+            widget: "text"
+            hint: "Their original inquiry or requirements"
+          - label: "Lead Source"
+            name: "source"
+            widget: "select"
+            options:
+              - label: "🌐 Website Contact Form"
+                value: "website"
+              - label: "🏠 Property Detail Page"
+                value: "property-page"
+              - label: "📱 Mobile Website"
+                value: "mobile"
+              - label: "📞 Phone Call"
+                value: "phone"
+              - label: "📧 Direct Email"
+                value: "email"
+              - label: "🔗 Referral"
+                value: "referral"
+              - label: "🎯 Google Ads"
+                value: "google-ads"
+              - label: "📱 Social Media"
+                value: "social"
+              - label: "🚶 Walk-in"
+                value: "walk-in"
+              - label: "📰 Other/Unknown"
+                value: "other"
+            default: "website"
+            hint: "How did they find you?"
+          - label: "Date of Inquiry"
+            name: "createdAt"
+            widget: "datetime"
+            format: "YYYY-MM-DD HH:mm"
+            default: ""
+            hint: "When did they first contact you?"
+
+      # FOLLOW-UP SECTION
+      - label: "📅 Follow-up & Notes"
+        name: "followUp"
+        widget: "object"
+        collapsed: true
+        summary: "Last: {{fields.lastContactDate}} • Next: {{fields.nextFollowUp}}"
+        fields:
+          - label: "Last Contact Date"
+            name: "lastContactDate"
+            widget: "datetime"
+            format: "YYYY-MM-DD"
+            required: false
+            hint: "When did you last speak with them?"
+          - label: "Next Follow-up Date"
+            name: "nextFollowUp"
+            widget: "datetime"
+            format: "YYYY-MM-DD"
+            required: false
+            hint: "When should you contact them next?"
+          - label: "Internal Notes"
+            name: "notes"
+            widget: "markdown"
+            required: false
+            minimal: true
+            buttons: ["bold", "italic", "bulleted-list", "numbered-list"]
+            hint: "Private notes for your team - call summaries, specific requirements, follow-up actions needed, etc."
+
+      # ATTACHMENTS SECTION
+      - label: "📎 Documents & Attachments"
         name: "attachments"
         widget: "list"
         required: false
-        allow_add: true
         collapsed: true
-        summary: 'File: {{fields.file}}'
+        allow_add: true
+        summary: "{{fields.description}}"
         fields:
-          - {label: "File", name: "file", widget: "file"}
-          - {label: "Description", name: "description", widget: "string"}
-        hint: "Upload contracts, floor plans, or other relevant documents"
+          - label: "Upload File"
+            name: "file"
+            widget: "file"
+            hint: "Contracts, floor plans, or other relevant documents"
+          - label: "File Description"
+            name: "description"
+            widget: "string"
+            hint: "What is this file? (e.g., 'Signed lease', 'Floor plan request')"
 
-# Custom mobile-optimized styling
-local_backend: true
+# Mobile-optimized local development
+local_backend: 
+  url: http://localhost:8081/api/v1

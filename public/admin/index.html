@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>📱 Warehouse CRM</title>
+  <title>📱 Warehouse CMS</title>
   
   <!-- PWA Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -23,620 +23,418 @@
   
   <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: flex; align-items: center; justify-content: center; z-index: 10000; color: white; font-family: Inter, sans-serif;">
+    <div style="text-align: center;">
+      <div style="width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+      <div style="font-size: 24px; font-weight: 700; margin-bottom: 8px;">🏢 Warehouse CMS</div>
+      <div style="font-size: 16px; opacity: 0.9;">Optimizing for mobile...</div>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div id="toast" style="position: fixed; top: 20px; left: 16px; right: 16px; background: #10b981; color: white; padding: 16px; border-radius: 12px; display: none; align-items: center; font-weight: 600; z-index: 10001; font-family: Inter, sans-serif;">
+    ✅ Mobile CMS optimized successfully!
+  </div>
+
   <style>
-    /* CRITICAL: MOBILE-FIRST CRM DESIGN SYSTEM */
-    :root {
-      /* CRM Colors */
-      --crm-primary: #3b82f6;
-      --crm-primary-dark: #1d4ed8;
-      --crm-primary-light: #dbeafe;
-      --crm-success: #10b981;
-      --crm-warning: #f59e0b;
-      --crm-danger: #ef4444;
-      --crm-white: #ffffff;
-      --crm-gray-50: #f9fafb;
-      --crm-gray-100: #f3f4f6;
-      --crm-gray-200: #e5e7eb;
-      --crm-gray-300: #d1d5db;
-      --crm-gray-400: #9ca3af;
-      --crm-gray-500: #6b7280;
-      --crm-gray-600: #4b5563;
-      --crm-gray-700: #374151;
-      --crm-gray-800: #1f2937;
-      --crm-gray-900: #111827;
-      
-      /* CRM Spacing - Touch-Friendly */
-      --crm-space-1: 4px;
-      --crm-space-2: 8px;
-      --crm-space-3: 12px;
-      --crm-space-4: 16px;
-      --crm-space-5: 20px;
-      --crm-space-6: 24px;
-      --crm-space-8: 32px;
-      --crm-space-10: 40px;
-      --crm-space-12: 48px;
-      
-      /* CRM Typography - Mobile Optimized */
-      --crm-text-xs: 14px;
-      --crm-text-sm: 16px;
-      --crm-text-base: 18px;
-      --crm-text-lg: 20px;
-      --crm-text-xl: 24px;
-      --crm-text-2xl: 32px;
-      
-      /* CRM Touch Targets */
-      --crm-touch-sm: 44px;
-      --crm-touch-md: 52px;
-      --crm-touch-lg: 60px;
-      
-      /* CRM Radius */
-      --crm-radius: 12px;
-      --crm-radius-lg: 16px;
-      --crm-radius-xl: 20px;
-      
-      /* CRM Shadows */
-      --crm-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --crm-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-
-    /* FORCE MOBILE-FIRST RESET */
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--crm-gray-50);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* HIDE ALL DEFAULT NETLIFY CMS UI ON MOBILE */
-    @media (max-width: 768px) {
-      
-      /* CRITICAL: Aggressive hiding of default CMS elements */
-      .nc-app-container nav,
-      .nc-app-container aside,
-      .nc-app-container [role="navigation"],
-      .nc-app-container [data-testid="sidebar"],
-      .nc-app-container .css-1dbjc4n:first-child,
-      .nc-app-container > div:first-child:not([id="nc-root"]),
-      .nc-app-container header:not(.mobile-header),
-      .nc-app-container .sidebar,
-      .nc-app-container .nav,
-      .nc-app-container .navigation {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        height: 0 !important;
-        width: 0 !important;
-        overflow: hidden !important;
-        position: absolute !important;
-        left: -9999px !important;
-      }
-      
-      /* FORCE FULL-WIDTH MOBILE LAYOUT */
-      .nc-app-container,
-      .nc-app-container *,
-      .nc-app-container main,
-      .nc-app-container [role="main"],
-      .nc-app-container .css-1rr4qq7,
-      .nc-app-container > div,
-      .nc-app-container > div > div {
-        margin: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: var(--crm-space-4) !important;
-        padding-right: var(--crm-space-4) !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 100% !important;
-        box-sizing: border-box !important;
-      }
-
-      /* CRM-STYLE TYPOGRAPHY */
-      .nc-app-container h1 {
-        font-size: var(--crm-text-2xl) !important;
-        font-weight: 700 !important;
-        color: var(--crm-gray-900) !important;
-        margin: var(--crm-space-6) 0 !important;
-        padding: var(--crm-space-4) 0 !important;
-        line-height: 1.2 !important;
-        text-align: left !important;
-      }
-      
-      .nc-app-container h2 {
-        font-size: var(--crm-text-xl) !important;
-        font-weight: 600 !important;
-        color: var(--crm-gray-800) !important;
-        margin: var(--crm-space-5) 0 var(--crm-space-3) 0 !important;
-        line-height: 1.3 !important;
-      }
-      
-      .nc-app-container h3 {
-        font-size: var(--crm-text-lg) !important;
-        font-weight: 600 !important;
-        color: var(--crm-gray-700) !important;
-        margin: var(--crm-space-4) 0 var(--crm-space-2) 0 !important;
-      }
-
-      /* CRM-STYLE FORM ELEMENTS */
-      .nc-app-container input,
-      .nc-app-container textarea,
-      .nc-app-container select {
-        min-height: var(--crm-touch-md) !important;
-        font-size: var(--crm-text-base) !important;
-        font-family: 'Inter', sans-serif !important;
-        border: 2px solid var(--crm-gray-300) !important;
-        border-radius: var(--crm-radius) !important;
-        padding: var(--crm-space-4) var(--crm-space-5) !important;
-        background: var(--crm-white) !important;
-        color: var(--crm-gray-900) !important;
-        width: 100% !important;
-        margin-bottom: var(--crm-space-4) !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-        transition: all 0.2s ease !important;
-      }
-      
-      .nc-app-container input:focus,
-      .nc-app-container textarea:focus,
-      .nc-app-container select:focus {
-        border-color: var(--crm-primary) !important;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
-        outline: none !important;
-        transform: none !important;
-      }
-
-      /* CRM-STYLE BUTTONS */
-      .nc-app-container button {
-        min-height: var(--crm-touch-md) !important;
-        font-size: var(--crm-text-base) !important;
-        font-weight: 600 !important;
-        font-family: 'Inter', sans-serif !important;
-        border-radius: var(--crm-radius) !important;
-        padding: var(--crm-space-4) var(--crm-space-6) !important;
-        margin: var(--crm-space-2) var(--crm-space-1) !important;
-        transition: all 0.2s ease !important;
-        border: none !important;
-        cursor: pointer !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        white-space: nowrap !important;
-      }
-      
-      /* Primary CRM Buttons */
-      .nc-app-container button[color="primary"],
-      .nc-app-container button[type="submit"],
-      .nc-app-container .css-button-primary {
-        background: var(--crm-primary) !important;
-        color: var(--crm-white) !important;
-        box-shadow: var(--crm-shadow) !important;
-      }
-      
-      .nc-app-container button[color="primary"]:hover,
-      .nc-app-container button[type="submit"]:hover {
-        background: var(--crm-primary-dark) !important;
-        transform: translateY(-1px) !important;
-        box-shadow: var(--crm-shadow-lg) !important;
-      }
-      
-      /* Secondary CRM Buttons */
-      .nc-app-container button:not([color="primary"]):not([type="submit"]) {
-        background: var(--crm-white) !important;
-        color: var(--crm-gray-700) !important;
-        border: 2px solid var(--crm-gray-300) !important;
-      }
-      
-      .nc-app-container button:not([color="primary"]):not([type="submit"]):hover {
-        background: var(--crm-gray-50) !important;
-        border-color: var(--crm-gray-400) !important;
-      }
-
-      /* CRM-STYLE LISTS */
-      .nc-app-container ul,
-      .nc-app-container ol {
-        padding: 0 !important;
-        margin: var(--crm-space-4) 0 !important;
-        list-style: none !important;
-      }
-      
-      .nc-app-container li {
-        background: var(--crm-white) !important;
-        border: 1px solid var(--crm-gray-200) !important;
-        border-radius: var(--crm-radius) !important;
-        padding: var(--crm-space-5) !important;
-        margin-bottom: var(--crm-space-3) !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-        transition: all 0.2s ease !important;
-      }
-      
-      .nc-app-container li:hover {
-        transform: translateY(-1px) !important;
-        box-shadow: var(--crm-shadow) !important;
-        border-color: var(--crm-primary) !important;
-      }
-
-      /* CRM-STYLE LABELS */
-      .nc-app-container label {
-        font-size: var(--crm-text-base) !important;
-        font-weight: 600 !important;
-        color: var(--crm-gray-700) !important;
-        margin-bottom: var(--crm-space-2) !important;
-        display: block !important;
-        line-height: 1.4 !important;
-      }
-
-      /* CRM-STYLE CARDS */
-      .nc-app-container .card,
-      .nc-app-container .panel,
-      .nc-app-container .section {
-        background: var(--crm-white) !important;
-        border: 1px solid var(--crm-gray-200) !important;
-        border-radius: var(--crm-radius-lg) !important;
-        padding: var(--crm-space-6) !important;
-        margin-bottom: var(--crm-space-6) !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-      }
-
-      /* CRM-STYLE TABLES */
-      .nc-app-container table {
-        width: 100% !important;
-        border-collapse: separate !important;
-        border-spacing: 0 !important;
-        background: var(--crm-white) !important;
-        border-radius: var(--crm-radius) !important;
-        overflow: hidden !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-      }
-      
-      .nc-app-container th,
-      .nc-app-container td {
-        padding: var(--crm-space-4) !important;
-        text-align: left !important;
-        border-bottom: 1px solid var(--crm-gray-200) !important;
-        font-size: var(--crm-text-base) !important;
-      }
-      
-      .nc-app-container th {
-        background: var(--crm-gray-50) !important;
-        font-weight: 600 !important;
-        color: var(--crm-gray-700) !important;
-      }
-
-      /* FORCE CRM SPACING */
-      .nc-app-container .css-1rr4qq7 > *,
-      .nc-app-container main > *,
-      .nc-app-container [role="main"] > * {
-        margin-bottom: var(--crm-space-6) !important;
-      }
-
-      /* CRM SEARCH & FILTERS */
-      .nc-app-container input[type="search"],
-      .nc-app-container .search-input {
-        background: var(--crm-white) !important;
-        border: 2px solid var(--crm-gray-300) !important;
-        border-radius: var(--crm-radius-lg) !important;
-        padding: var(--crm-space-4) var(--crm-space-5) !important;
-        font-size: var(--crm-text-base) !important;
-        width: 100% !important;
-        margin-bottom: var(--crm-space-6) !important;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3e%3c/svg%3e") !important;
-        background-position: right 12px center !important;
-        background-repeat: no-repeat !important;
-        background-size: 20px !important;
-        padding-right: 48px !important;
-      }
-
-      /* CRM PAGINATION */
-      .nc-app-container .pagination {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: var(--crm-space-2) !important;
-        margin: var(--crm-space-8) 0 !important;
-      }
-      
-      .nc-app-container .pagination button {
-        min-width: var(--crm-touch-md) !important;
-        min-height: var(--crm-touch-md) !important;
-        margin: 0 !important;
-      }
-
-      /* CRM LOADING STATES */
-      .nc-app-container .loading {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: var(--crm-space-12) !important;
-        text-align: center !important;
-        font-size: var(--crm-text-base) !important;
-        color: var(--crm-gray-600) !important;
-      }
-
-      /* CRM SUCCESS/ERROR STATES */
-      .nc-app-container .success,
-      .nc-app-container .error {
-        padding: var(--crm-space-4) !important;
-        border-radius: var(--crm-radius) !important;
-        margin: var(--crm-space-4) 0 !important;
-        font-size: var(--crm-text-base) !important;
-        font-weight: 500 !important;
-      }
-      
-      .nc-app-container .success {
-        background: #f0fdf4 !important;
-        color: #166534 !important;
-        border: 1px solid #bbf7d0 !important;
-      }
-      
-      .nc-app-container .error {
-        background: #fef2f2 !important;
-        color: #dc2626 !important;
-        border: 1px solid #fecaca !important;
-      }
-
-      /* FINAL MOBILE OPTIMIZATIONS */
-      .nc-app-container {
-        font-family: 'Inter', sans-serif !important;
-        -webkit-overflow-scrolling: touch !important;
-        overflow-x: hidden !important;
-      }
-      
-      .nc-app-container * {
-        font-family: 'Inter', sans-serif !important;
-        transition: all 0.2s ease !important;
-      }
-      
-      .nc-app-container button:active {
-        transform: scale(0.98) !important;
-      }
-    }
-
-    /* TABLET OPTIMIZATIONS */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .nc-app-container input,
-      .nc-app-container textarea,
-      .nc-app-container select,
-      .nc-app-container button {
-        min-height: var(--crm-touch-lg) !important;
-      }
-    }
-
-    /* LOADING SCREEN */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, var(--crm-primary), var(--crm-primary-dark));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      transition: opacity 0.5s ease;
-    }
-
-    .loading-screen.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .loading-content {
-      text-align: center;
-      color: white;
-    }
-
-    .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid white;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto var(--crm-space-4);
-    }
-
-    .loading-title {
-      font-size: var(--crm-text-xl);
-      font-weight: 700;
-      margin-bottom: var(--crm-space-2);
-    }
-
-    .loading-subtitle {
-      font-size: var(--crm-text-base);
-      opacity: 0.9;
-    }
-
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-
-    /* SUCCESS TOAST */
-    .toast {
-      position: fixed;
-      top: 20px;
-      left: var(--crm-space-4);
-      right: var(--crm-space-4);
-      background: var(--crm-success);
-      color: white;
-      padding: var(--crm-space-4);
-      border-radius: var(--crm-radius);
-      display: flex;
-      align-items: center;
-      gap: var(--crm-space-3);
-      font-weight: 600;
-      transform: translateY(-100px);
-      transition: transform 0.3s ease;
-      z-index: 10001;
-      box-shadow: var(--crm-shadow-lg);
-    }
-
-    .toast.show {
-      transform: translateY(0);
-    }
-
-    /* UTILITY CLASSES */
-    .hidden {
-      display: none !important;
-    }
   </style>
-</head>
-<body>
-  <!-- LOADING SCREEN -->
-  <div class="loading-screen" id="loadingScreen">
-    <div class="loading-content">
-      <div class="loading-spinner"></div>
-      <div class="loading-title">🏢 Warehouse CRM</div>
-      <div class="loading-subtitle">Loading your mobile-optimized workspace...</div>
-    </div>
-  </div>
-
-  <!-- SUCCESS TOAST -->
-  <div class="toast" id="toast">
-    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-    </svg>
-    <span>🎉 Welcome to your Mobile Warehouse CRM!</span>
-  </div>
 
   <!-- Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   
   <script>
-    class MobileCRM {
-      constructor() {
-        this.init();
+    function ForceMobileCMS() {
+      this.initializationAttempts = 0;
+      this.maxAttempts = 50;
+      this.init();
+    }
+    
+    ForceMobileCMS.prototype.init = function() {
+      console.log('🚀 Force Mobile CMS initializing...');
+      this.setupAuthentication();
+      this.waitForCMSAndApplyStyles();
+    };
+    
+    ForceMobileCMS.prototype.setupAuthentication = function() {
+      var self = this;
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function(user) {
+          if (!user) {
+            console.log('🔐 Waiting for authentication...');
+          } else {
+            console.log('✅ User authenticated');
+          }
+        });
+        
+        window.netlifyIdentity.on('login', function() {
+          console.log('🎉 Login successful');
+          self.showToast();
+        });
+        
+        window.netlifyIdentity.on('logout', function() {
+          window.location.reload();
+        });
       }
+    };
+    
+    ForceMobileCMS.prototype.waitForCMSAndApplyStyles = function() {
+      var self = this;
       
-      init() {
-        console.log('🚀 Initializing Mobile CRM...');
-        this.setupAuthentication();
-        this.setupMobileOptimizations();
-      }
-      
-      setupAuthentication() {
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.on('init', user => {
-            if (!user) {
-              console.log('🔐 Awaiting authentication...');
-            } else {
-              this.initializeCRM();
-            }
-          });
-          
-          window.netlifyIdentity.on('login', () => {
-            console.log('✅ User authenticated successfully');
-            this.initializeCRM();
-          });
-          
-          window.netlifyIdentity.on('logout', () => {
-            window.location.reload();
-          });
+      function checkAndApply() {
+        self.initializationAttempts++;
+        
+        var cmsContainer = document.querySelector('#nc-root') || 
+                          document.querySelector('[class*="nc-app"]') ||
+                          document.querySelector('.nc-app-container');
+        
+        if (cmsContainer) {
+          console.log('📱 CMS detected, applying mobile optimizations...');
+          self.applyForcedMobileStyles();
+          self.hideLoading();
+          return;
+        }
+        
+        if (self.initializationAttempts < self.maxAttempts) {
+          setTimeout(checkAndApply, 100);
+        } else {
+          console.warn('⚠️ CMS not detected, applying styles anyway...');
+          self.applyForcedMobileStyles();
+          self.hideLoading();
         }
       }
       
-      setupMobileOptimizations() {
-        // Prevent zoom
-        document.addEventListener('gesturestart', e => e.preventDefault());
-        document.addEventListener('gesturechange', e => e.preventDefault());
-        
-        // Smooth scrolling
-        document.documentElement.style.scrollBehavior = 'smooth';
-        
-        // Optimize touch
-        document.body.style.touchAction = 'manipulation';
-      }
-      
-      initializeCRM() {
-        console.log('🏗️ Building CRM interface...');
-        
-        setTimeout(() => {
-          this.hideLoading();
-          this.showSuccessToast();
-          this.enhanceCMSInterface();
-        }, 1500);
-      }
-      
-      hideLoading() {
-        const loading = document.getElementById('loadingScreen');
-        loading.classList.add('hide');
-        setTimeout(() => loading.classList.add('hidden'), 500);
-      }
-      
-      showSuccessToast() {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 4000);
-      }
-      
-      enhanceCMSInterface() {
-        // Wait for CMS to load, then apply final enhancements
-        const checkCMS = setInterval(() => {
-          const cmsContainer = document.querySelector('.nc-app-container');
-          if (cmsContainer) {
-            clearInterval(checkCMS);
-            console.log('🎨 Applying final CRM enhancements...');
-            
-            // Add mobile-specific classes
-            cmsContainer.classList.add('mobile-crm');
-            
-            // Force mobile layout
-            this.forceMobileLayout();
-            
-            console.log('✅ Mobile CRM ready!');
-          }
-        }, 100);
-      }
-      
-      forceMobileLayout() {
-        // Additional aggressive mobile layout fixes
-        const style = document.createElement('style');
-        style.textContent = `
-          @media (max-width: 768px) {
-            /* Ultra-aggressive mobile layout enforcement */
-            .nc-app-container * {
-              max-width: 100vw !important;
-              box-sizing: border-box !important;
-            }
-            
-            /* Hide any remaining desktop elements */
-            .nc-app-container [class*="sidebar"],
-            .nc-app-container [class*="nav"]:not(.mobile),
-            .nc-app-container [class*="desktop"] {
-              display: none !important;
-            }
-            
-            /* Ensure proper mobile spacing */
-            .nc-app-container .css-1rr4qq7 {
-              padding: 16px !important;
-              margin: 0 !important;
-              width: 100% !important;
-            }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-    }
+      checkAndApply();
+    };
     
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      new MobileCRM();
+    ForceMobileCMS.prototype.applyForcedMobileStyles = function() {
+      console.log('🎨 Injecting aggressive mobile styles...');
+      
+      var mobileStyles = document.createElement('style');
+      mobileStyles.id = 'force-mobile-cms';
+      
+      var cssRules = '';
+      
+      // CSS Variables
+      cssRules += ':root {';
+      cssRules += '--mobile-primary: #3b82f6 !important;';
+      cssRules += '--mobile-primary-dark: #1d4ed8 !important;';
+      cssRules += '--mobile-success: #10b981 !important;';
+      cssRules += '--mobile-white: #ffffff !important;';
+      cssRules += '--mobile-gray-50: #f9fafb !important;';
+      cssRules += '--mobile-gray-100: #f3f4f6 !important;';
+      cssRules += '--mobile-gray-200: #e5e7eb !important;';
+      cssRules += '--mobile-gray-300: #d1d5db !important;';
+      cssRules += '--mobile-gray-400: #9ca3af !important;';
+      cssRules += '--mobile-gray-500: #6b7280 !important;';
+      cssRules += '--mobile-gray-600: #4b5563 !important;';
+      cssRules += '--mobile-gray-700: #374151 !important;';
+      cssRules += '--mobile-gray-800: #1f2937 !important;';
+      cssRules += '--mobile-gray-900: #111827 !important;';
+      cssRules += '--mobile-space-1: 4px !important;';
+      cssRules += '--mobile-space-2: 8px !important;';
+      cssRules += '--mobile-space-3: 12px !important;';
+      cssRules += '--mobile-space-4: 16px !important;';
+      cssRules += '--mobile-space-5: 20px !important;';
+      cssRules += '--mobile-space-6: 24px !important;';
+      cssRules += '--mobile-space-8: 32px !important;';
+      cssRules += '--mobile-text-xs: 14px !important;';
+      cssRules += '--mobile-text-sm: 16px !important;';
+      cssRules += '--mobile-text-base: 18px !important;';
+      cssRules += '--mobile-text-lg: 20px !important;';
+      cssRules += '--mobile-text-xl: 24px !important;';
+      cssRules += '--mobile-text-2xl: 32px !important;';
+      cssRules += '--mobile-touch-target: 52px !important;';
+      cssRules += '--mobile-radius: 12px !important;';
+      cssRules += '--mobile-radius-lg: 16px !important;';
+      cssRules += '}';
+      
+      // Mobile Media Query
+      cssRules += '@media screen and (max-width: 768px) {';
+      
+      // Hide desktop navigation
+      cssRules += 'html body div#nc-root div nav,';
+      cssRules += 'html body div#nc-root div aside,';
+      cssRules += 'html body div#nc-root div [role="navigation"],';
+      cssRules += 'html body div#nc-root div [data-testid="sidebar"],';
+      cssRules += 'html body div#nc-root div .css-1dbjc4n:first-child,';
+      cssRules += 'html body div#nc-root div > div:first-child:not(#nc-root),';
+      cssRules += 'html body .nc-app-container nav,';
+      cssRules += 'html body .nc-app-container aside,';
+      cssRules += 'html body .nc-app-container [role="navigation"],';
+      cssRules += 'html body .nc-app-container [data-testid="sidebar"],';
+      cssRules += 'html body .nc-app-container .css-1dbjc4n:first-child,';
+      cssRules += 'html body .nc-app-container > div:first-child:not(#nc-root) {';
+      cssRules += 'display: none !important;';
+      cssRules += 'visibility: hidden !important;';
+      cssRules += 'opacity: 0 !important;';
+      cssRules += 'position: absolute !important;';
+      cssRules += 'left: -9999px !important;';
+      cssRules += 'width: 0 !important;';
+      cssRules += 'height: 0 !important;';
+      cssRules += 'overflow: hidden !important;';
+      cssRules += 'z-index: -1 !important;';
+      cssRules += '}';
+      
+      // Force full width layout
+      cssRules += 'html body div#nc-root,';
+      cssRules += 'html body div#nc-root > div,';
+      cssRules += 'html body div#nc-root > div > div,';
+      cssRules += 'html body div#nc-root main,';
+      cssRules += 'html body div#nc-root [role="main"],';
+      cssRules += 'html body .nc-app-container,';
+      cssRules += 'html body .nc-app-container > div,';
+      cssRules += 'html body .nc-app-container > div > div,';
+      cssRules += 'html body .nc-app-container main,';
+      cssRules += 'html body .nc-app-container [role="main"],';
+      cssRules += 'html body .nc-app-container .css-1rr4qq7 {';
+      cssRules += 'margin: 0 !important;';
+      cssRules += 'margin-left: 0 !important;';
+      cssRules += 'margin-right: 0 !important;';
+      cssRules += 'padding: var(--mobile-space-4) !important;';
+      cssRules += 'width: 100% !important;';
+      cssRules += 'max-width: 100% !important;';
+      cssRules += 'min-width: 100% !important;';
+      cssRules += 'box-sizing: border-box !important;';
+      cssRules += 'position: static !important;';
+      cssRules += 'transform: none !important;';
+      cssRules += 'left: auto !important;';
+      cssRules += 'right: auto !important;';
+      cssRules += '}';
+      
+      // Mobile typography
+      cssRules += 'html body #nc-root h1,';
+      cssRules += 'html body .nc-app-container h1 {';
+      cssRules += 'font-size: var(--mobile-text-2xl) !important;';
+      cssRules += 'font-weight: 700 !important;';
+      cssRules += 'color: var(--mobile-gray-900) !important;';
+      cssRules += 'margin: var(--mobile-space-6) 0 !important;';
+      cssRules += 'padding: var(--mobile-space-4) 0 !important;';
+      cssRules += 'line-height: 1.2 !important;';
+      cssRules += 'font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;';
+      cssRules += '}';
+      
+      cssRules += 'html body #nc-root h2,';
+      cssRules += 'html body .nc-app-container h2 {';
+      cssRules += 'font-size: var(--mobile-text-xl) !important;';
+      cssRules += 'font-weight: 600 !important;';
+      cssRules += 'color: var(--mobile-gray-800) !important;';
+      cssRules += 'margin: var(--mobile-space-5) 0 var(--mobile-space-3) 0 !important;';
+      cssRules += 'line-height: 1.3 !important;';
+      cssRules += 'font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;';
+      cssRules += '}';
+      
+      // Mobile form elements
+      cssRules += 'html body #nc-root input,';
+      cssRules += 'html body #nc-root textarea,';
+      cssRules += 'html body #nc-root select,';
+      cssRules += 'html body .nc-app-container input,';
+      cssRules += 'html body .nc-app-container textarea,';
+      cssRules += 'html body .nc-app-container select {';
+      cssRules += 'min-height: var(--mobile-touch-target) !important;';
+      cssRules += 'font-size: var(--mobile-text-base) !important;';
+      cssRules += 'font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;';
+      cssRules += 'border: 2px solid var(--mobile-gray-300) !important;';
+      cssRules += 'border-radius: var(--mobile-radius) !important;';
+      cssRules += 'padding: var(--mobile-space-4) var(--mobile-space-5) !important;';
+      cssRules += 'background: var(--mobile-white) !important;';
+      cssRules += 'color: var(--mobile-gray-900) !important;';
+      cssRules += 'width: 100% !important;';
+      cssRules += 'margin-bottom: var(--mobile-space-4) !important;';
+      cssRules += 'box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;';
+      cssRules += 'transition: all 0.2s ease !important;';
+      cssRules += 'box-sizing: border-box !important;';
+      cssRules += '}';
+      
+      cssRules += 'html body #nc-root input:focus,';
+      cssRules += 'html body #nc-root textarea:focus,';
+      cssRules += 'html body #nc-root select:focus,';
+      cssRules += 'html body .nc-app-container input:focus,';
+      cssRules += 'html body .nc-app-container textarea:focus,';
+      cssRules += 'html body .nc-app-container select:focus {';
+      cssRules += 'border-color: var(--mobile-primary) !important;';
+      cssRules += 'box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;';
+      cssRules += 'outline: none !important;';
+      cssRules += 'transform: none !important;';
+      cssRules += '}';
+      
+      // Mobile buttons
+      cssRules += 'html body #nc-root button,';
+      cssRules += 'html body .nc-app-container button {';
+      cssRules += 'min-height: var(--mobile-touch-target) !important;';
+      cssRules += 'font-size: var(--mobile-text-base) !important;';
+      cssRules += 'font-weight: 600 !important;';
+      cssRules += 'font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;';
+      cssRules += 'border-radius: var(--mobile-radius) !important;';
+      cssRules += 'padding: var(--mobile-space-4) var(--mobile-space-6) !important;';
+      cssRules += 'margin: var(--mobile-space-2) var(--mobile-space-1) !important;';
+      cssRules += 'transition: all 0.2s ease !important;';
+      cssRules += 'cursor: pointer !important;';
+      cssRules += 'display: inline-flex !important;';
+      cssRules += 'align-items: center !important;';
+      cssRules += 'justify-content: center !important;';
+      cssRules += 'white-space: nowrap !important;';
+      cssRules += 'box-sizing: border-box !important;';
+      cssRules += '}';
+      
+      // Primary buttons
+      cssRules += 'html body #nc-root button[color="primary"],';
+      cssRules += 'html body #nc-root button[type="submit"],';
+      cssRules += 'html body .nc-app-container button[color="primary"],';
+      cssRules += 'html body .nc-app-container button[type="submit"] {';
+      cssRules += 'background: var(--mobile-primary) !important;';
+      cssRules += 'color: var(--mobile-white) !important;';
+      cssRules += 'border: none !important;';
+      cssRules += 'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;';
+      cssRules += '}';
+      
+      // Secondary buttons
+      cssRules += 'html body #nc-root button:not([color="primary"]):not([type="submit"]),';
+      cssRules += 'html body .nc-app-container button:not([color="primary"]):not([type="submit"]) {';
+      cssRules += 'background: var(--mobile-white) !important;';
+      cssRules += 'color: var(--mobile-gray-700) !important;';
+      cssRules += 'border: 2px solid var(--mobile-gray-300) !important;';
+      cssRules += '}';
+      
+      // Mobile lists
+      cssRules += 'html body #nc-root ul,';
+      cssRules += 'html body #nc-root ol,';
+      cssRules += 'html body .nc-app-container ul,';
+      cssRules += 'html body .nc-app-container ol {';
+      cssRules += 'padding: 0 !important;';
+      cssRules += 'margin: var(--mobile-space-4) 0 !important;';
+      cssRules += 'list-style: none !important;';
+      cssRules += '}';
+      
+      cssRules += 'html body #nc-root li,';
+      cssRules += 'html body .nc-app-container li {';
+      cssRules += 'background: var(--mobile-white) !important;';
+      cssRules += 'border: 1px solid var(--mobile-gray-200) !important;';
+      cssRules += 'border-radius: var(--mobile-radius) !important;';
+      cssRules += 'padding: var(--mobile-space-5) !important;';
+      cssRules += 'margin-bottom: var(--mobile-space-3) !important;';
+      cssRules += 'box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;';
+      cssRules += 'transition: all 0.2s ease !important;';
+      cssRules += 'cursor: pointer !important;';
+      cssRules += '}';
+      
+      // Mobile labels
+      cssRules += 'html body #nc-root label,';
+      cssRules += 'html body .nc-app-container label {';
+      cssRules += 'font-size: var(--mobile-text-base) !important;';
+      cssRules += 'font-weight: 600 !important;';
+      cssRules += 'color: var(--mobile-gray-700) !important;';
+      cssRules += 'margin-bottom: var(--mobile-space-2) !important;';
+      cssRules += 'display: block !important;';
+      cssRules += 'line-height: 1.4 !important;';
+      cssRules += 'font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;';
+      cssRules += '}';
+      
+      // Force font family everywhere
+      cssRules += 'html body #nc-root,';
+      cssRules += 'html body #nc-root *,';
+      cssRules += 'html body .nc-app-container,';
+      cssRules += 'html body .nc-app-container * {';
+      cssRules += 'font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;';
+      cssRules += '}';
+      
+      // Prevent zoom
+      cssRules += 'html body * {';
+      cssRules += '-webkit-text-size-adjust: 100% !important;';
+      cssRules += '-ms-text-size-adjust: 100% !important;';
+      cssRules += 'text-size-adjust: 100% !important;';
+      cssRules += '}';
+      
+      // Smooth scrolling
+      cssRules += 'html body {';
+      cssRules += '-webkit-overflow-scrolling: touch !important;';
+      cssRules += 'overflow-x: hidden !important;';
+      cssRules += '}';
+      
+      // Button active states
+      cssRules += 'html body #nc-root button:active,';
+      cssRules += 'html body .nc-app-container button:active {';
+      cssRules += 'transform: scale(0.98) !important;';
+      cssRules += '}';
+      
+      // Close media query
+      cssRules += '}';
+      
+      mobileStyles.innerHTML = cssRules;
+      document.head.appendChild(mobileStyles);
+      
+      document.body.style.fontFamily = '"Inter", -apple-system, BlinkMacSystemFont, sans-serif';
+      document.body.style.overflow = 'hidden auto';
+      
+      console.log('✅ Mobile styles injected successfully!');
+      this.monitorAndReapply();
+    };
+    
+    ForceMobileCMS.prototype.monitorAndReapply = function() {
+      var self = this;
+      var reapplyCount = 0;
+      var maxReapplies = 5;
+      
+      var reapplyInterval = setInterval(function() {
+        reapplyCount++;
+        console.log('🔄 Re-checking mobile styles (' + reapplyCount + '/' + maxReapplies + ')...');
+        
+        var existingStyles = document.getElementById('force-mobile-cms');
+        if (!existingStyles) {
+          console.log('⚠️ Mobile styles were removed, re-applying...');
+          self.applyForcedMobileStyles();
+        }
+        
+        if (reapplyCount >= maxReapplies) {
+          clearInterval(reapplyInterval);
+          console.log('✅ Mobile style monitoring complete');
+        }
+      }, 2000);
+    };
+    
+    ForceMobileCMS.prototype.hideLoading = function() {
+      setTimeout(function() {
+        var loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.opacity = '0';
+          loading.style.pointerEvents = 'none';
+          setTimeout(function() {
+            loading.style.display = 'none';
+          }, 500);
+        }
+      }, 1000);
+    };
+    
+    ForceMobileCMS.prototype.showToast = function() {
+      setTimeout(function() {
+        var toast = document.getElementById('toast');
+        if (toast) {
+          toast.style.display = 'flex';
+          setTimeout(function() {
+            toast.style.display = 'none';
+          }, 4000);
+        }
+      }, 2000);
+    };
+    
+    // Initialize
+    var mobileCMS = new ForceMobileCMS();
+    
+    // Backup initialization
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (!document.getElementById('force-mobile-cms')) {
+          console.log('🔄 Backup: Re-initializing mobile CMS...');
+          new ForceMobileCMS();
+        }
+      }, 1000);
     });
-    
-    // Fallback initialization
-    setTimeout(() => {
-      if (!window.mobileCRM) {
-        window.mobileCRM = new MobileCRM();
-      }
-    }, 3000);
   </script>
 </body>
 </html>

@@ -97,7 +97,7 @@ const {
                 <span>Properties</span>
                 <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></div>
               </a>
-              <a href="/#contact" class="nav-link group relative text-gray-700 hover:text-gray-900 px-4 py-2 text-sm font-semibold transition-all duration-300">
+              <a href="#contact-section" class="nav-link group relative text-gray-700 hover:text-gray-900 px-4 py-2 text-sm font-semibold transition-all duration-300 smooth-scroll">
                 <span>Contact</span>
                 <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></div>
               </a>
@@ -118,8 +118,8 @@ const {
               </a>
               
               <a 
-                href="/#contact" 
-                class="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl text-sm font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                href="#contact-section" 
+                class="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl text-sm font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 smooth-scroll"
               >
                 <span class="relative z-10">Get Quote</span>
                 <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
@@ -188,7 +188,7 @@ const {
               <span class="font-semibold text-lg">Properties</span>
             </a>
             
-            <a href="/#contact" class="mobile-nav-link flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
+            <a href="#contact-section" class="mobile-nav-link smooth-scroll flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
               <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
               </svg>
@@ -211,8 +211,8 @@ const {
                   Call Now
                 </a>
                 <a 
-                  href="/#contact"
-                  class="flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 w-full group"
+                  href="#contact-section"
+                  class="flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 w-full group smooth-scroll"
                 >
                   <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
@@ -297,7 +297,7 @@ const {
                 </svg>
                 All Properties
               </a></li>
-              <li><a href="/#contact" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group text-lg">
+              <li><a href="#contact-section" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group text-lg smooth-scroll">
                 <svg class="w-4 h-4 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -422,21 +422,41 @@ const {
           link.addEventListener('click', closeMobileMenu);
         });
 
-        // Enhanced smooth scrolling - FIXED: Use currentTarget instead of this
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // FIXED: Enhanced smooth scrolling with proper offset for fixed header
+        function smoothScrollToElement(targetId) {
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = 80; // Height of fixed navigation
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+
+        // Enhanced smooth scrolling for all contact links
+        document.querySelectorAll('.smooth-scroll, a[href^="#contact"]').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-            const target = href ? document.querySelector(href) : null;
-            if (target) {
-              closeMobileMenu();
-              setTimeout(() => {
-                target.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }, 300);
+            
+            // Close mobile menu if open
+            closeMobileMenu();
+            
+            // Handle different contact link formats
+            let targetId = '#contact-section';
+            if (href === '#contact' || href === '/#contact') {
+              targetId = '#contact-section';
+            } else if (href?.startsWith('#')) {
+              targetId = href;
             }
+            
+            // Add slight delay for mobile menu close animation
+            setTimeout(() => {
+              smoothScrollToElement(targetId);
+            }, 100);
           });
         });
 

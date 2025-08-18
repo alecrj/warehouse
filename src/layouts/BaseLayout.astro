@@ -422,11 +422,11 @@ const {
           link.addEventListener('click', closeMobileMenu);
         });
 
-        // Enhanced smooth scrolling
+        // Enhanced smooth scrolling - FIXED: Use currentTarget instead of this
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const href = this.getAttribute('href');
+            const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
             const target = href ? document.querySelector(href) : null;
             if (target) {
               closeMobileMenu();

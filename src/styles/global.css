@@ -761,12 +761,14 @@ p {
   font-weight: 500;
 }
 
-/* Line Clamping for Consistent Card Heights */
+/* FIXED: Line Clamping for Consistent Card Heights with Standard Properties */
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* Standard properties for better compatibility */
+  line-clamp: 1;
 }
 
 .line-clamp-2 {
@@ -774,6 +776,8 @@ p {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* Standard properties for better compatibility */
+  line-clamp: 2;
 }
 
 .line-clamp-3 {
@@ -781,6 +785,8 @@ p {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* Standard properties for better compatibility */
+  line-clamp: 3;
 }
 
 /* Professional Focus Management */

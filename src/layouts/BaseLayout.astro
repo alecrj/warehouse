@@ -5,8 +5,8 @@ export interface Props {
 }
 
 const { 
-  title = 'Premium Warehouse Listings | WarehouseHub - Industrial Real Estate Solutions', 
-  description = 'Leading provider of premium warehouse and industrial space solutions. Browse available facilities, connect with experts, and find the perfect space for your business growth.'
+  title = 'Find Your Perfect Warehouse in South Florida | Ariel Realty Group', 
+  description = 'Free tenant representation for your next warehouse lease, powered by Ariel Realty Group. From 500 SF to 500,000 SF across South Florida.'
 } = Astro.props;
 ---
 
@@ -19,8 +19,8 @@ const {
     <meta name="generator" content={Astro.generator} />
     
     <!-- Enhanced Meta Tags for Professional SEO -->
-    <meta name="keywords" content="warehouse rental, industrial space, logistics facilities, distribution centers, commercial real estate, supply chain solutions" />
-    <meta name="author" content="WarehouseHub" />
+    <meta name="keywords" content="warehouse rental south florida, industrial space miami, logistics facilities broward, distribution centers palm beach, commercial real estate fort lauderdale, tenant representation" />
+    <meta name="author" content="Ariel Realty Group" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#2563eb" />
     
@@ -28,7 +28,7 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:site_name" content="WarehouseHub" />
+    <meta property="og:site_name" content="Ariel Realty Group" />
     <meta property="og:locale" content="en_US" />
     
     <!-- Twitter -->
@@ -55,14 +55,14 @@ const {
     {
       "@context": "https://schema.org",
       "@type": "RealEstateAgent",
-      "name": "WarehouseHub",
-      "description": "Premium warehouse and industrial real estate solutions",
+      "name": "Ariel Realty Group",
+      "description": "South Florida industrial tenant representation specialists. From 500 SF to 500,000 SF warehouse spaces.",
       "url": "https://laec.netlify.app",
-      "telephone": "(555) 123-4567",
-      "email": "info@warehousehub.com",
-      "areaServed": "United States",
-      "serviceType": "Industrial Real Estate",
-      "priceRange": "$$$$"
+      "telephone": "(954) 937-9667",
+      "email": "info@arielrealtygroup.com",
+      "areaServed": ["Miami-Dade County", "Broward County", "Palm Beach County", "South Florida"],
+      "serviceType": "Industrial Real Estate Tenant Representation",
+      "priceRange": "Free for Tenants"
     }
     </script>
   </head>
@@ -80,8 +80,8 @@ const {
                 </svg>
               </div>
               <div>
-                <span class="text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-800 bg-clip-text text-transparent">WarehouseHub</span>
-                <span class="block text-sm text-gray-500 font-semibold">Industrial Real Estate</span>
+                <span class="text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-800 bg-clip-text text-transparent">Ariel Realty Group</span>
+                <span class="block text-sm text-gray-500 font-semibold">South Florida Industrial Experts</span>
               </div>
             </a>
           </div>
@@ -105,7 +105,7 @@ const {
             
             <!-- Enhanced Contact Info & CTA -->
             <div class="flex items-center space-x-6 ml-8 pl-8 border-l border-gray-200">
-              <a href="tel:(555)123-4567" class="flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-300 group">
+              <a href="tel:+19549379667" class="flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-300 group">
                 <div class="bg-emerald-100 group-hover:bg-emerald-200 p-2 rounded-full mr-3 transition-colors duration-300">
                   <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
@@ -113,7 +113,7 @@ const {
                 </div>
                 <div>
                   <div class="text-xs text-gray-500 font-medium">Call Direct</div>
-                  <div class="text-sm font-bold">(555) 123-4567</div>
+                  <div class="text-sm font-bold">(954) 937-9667</div>
                 </div>
               </a>
               
@@ -121,7 +121,7 @@ const {
                 href="#contact-section" 
                 class="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl text-sm font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 smooth-scroll"
               >
-                <span class="relative z-10">Get Quote</span>
+                <span class="relative z-10">Get Free Consultation</span>
                 <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
               </a>
             </div>
@@ -130,14 +130,16 @@ const {
           <!-- Enhanced Mobile Menu Button -->
           <div class="lg:hidden">
             <button 
-              id="mobile-menu-button" 
-              class="relative p-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl transition-all duration-300 group"
-              aria-label="Toggle mobile menu"
+              type="button" 
+              class="relative p-3 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-2xl transition-all duration-300"
+              id="mobile-menu-button"
+              aria-expanded="false"
+              aria-label="Open main menu"
             >
-              <div class="w-6 h-6 relative">
-                <span class="menu-line absolute block w-6 h-0.5 bg-current transform transition-all duration-300 top-2" id="burger-line-1"></span>
-                <span class="menu-line absolute block w-6 h-0.5 bg-current transform transition-all duration-300 top-3" id="burger-line-2"></span>
-                <span class="menu-line absolute block w-6 h-0.5 bg-current transform transition-all duration-300 top-4" id="burger-line-3"></span>
+              <div class="w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                <div class="w-6 h-0.5 bg-current transition-all duration-300" id="burger-line-1"></div>
+                <div class="w-6 h-0.5 bg-current transition-all duration-300" id="burger-line-2"></div>
+                <div class="w-6 h-0.5 bg-current transition-all duration-300" id="burger-line-3"></div>
               </div>
             </button>
           </div>
@@ -146,90 +148,121 @@ const {
     </nav>
 
     <!-- Enhanced Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 invisible transition-all duration-300 lg:hidden"></div>
+    <div 
+      id="mobile-menu-overlay" 
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 invisible transition-all duration-300 lg:hidden"
+    ></div>
 
-    <!-- Premium Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 h-full w-full max-w-sm bg-white z-50 shadow-2xl lg:hidden transform -translate-x-full transition-transform duration-300">
-      <div class="flex flex-col h-full">
-        <!-- Mobile Menu Header -->
-        <div class="flex items-center justify-between p-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <div class="flex items-center">
-            <div class="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-2 mr-3">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+    <!-- Enhanced Mobile Menu -->
+    <div 
+      id="mobile-menu" 
+      class="fixed top-0 left-0 bottom-0 w-80 bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 lg:hidden"
+    >
+      <!-- Mobile Menu Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200">
+        <div class="flex items-center">
+          <div class="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-2 mr-3">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+          </div>
+          <div>
+            <span class="text-lg font-bold text-gray-900">Ariel Realty Group</span>
+            <span class="block text-xs text-gray-500 font-medium">Industrial Experts</span>
+          </div>
+        </div>
+        
+        <button 
+          type="button" 
+          id="mobile-menu-close"
+          class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors duration-300 rounded-lg hover:bg-gray-100"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Enhanced Mobile Menu Navigation -->
+      <div class="flex-1 overflow-y-auto py-6">
+        <div class="space-y-2 px-6">
+          <a href="/" class="mobile-nav-link flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
+            <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span class="font-semibold text-lg">Home</span>
+          </a>
+          
+          <a href="/warehouses" class="mobile-nav-link flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
+            <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+            <span class="font-semibold text-lg">Properties</span>
+          </a>
+          
+          <a href="#contact-section" class="mobile-nav-link smooth-scroll flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
+            <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <span class="font-semibold text-lg">Contact</span>
+          </a>
+        </div>
+
+        <!-- Mobile Contact Info -->
+        <div class="mt-8 px-6">
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6">
+            <h3 class="font-bold text-gray-900 mb-4 text-center">Contact Ariel Realty Group</h3>
+            
+            <a href="tel:+19549379667" class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-xl font-bold text-lg mb-4 transition-colors duration-300">
+              <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
               </svg>
-            </div>
-            <div>
-              <span class="font-bold text-gray-900 text-lg">WarehouseHub</span>
-              <span class="block text-xs text-gray-500 font-medium">Industrial Real Estate</span>
+              (954) 937-9667
+            </a>
+            
+            <div class="text-center text-sm text-gray-600">
+              <p class="font-semibold mb-1">Free Tenant Representation</p>
+              <p>South Florida Industrial Experts</p>
             </div>
           </div>
-          <button id="mobile-menu-close" class="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-300 rounded-lg hover:bg-gray-100">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Contact Popup -->
+    <div id="contactPopup" class="fixed bottom-6 right-6 z-30 transform translate-y-full opacity-0 transition-all duration-500">
+      <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 max-w-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-gray-900">Need Assistance?</h3>
+          <button id="closePopup" class="text-gray-400 hover:text-gray-600 transition-colors duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-
-        <!-- Enhanced Mobile Menu Navigation -->
-        <div class="flex-1 overflow-y-auto py-6">
-          <div class="space-y-2 px-6">
-            <a href="/" class="mobile-nav-link flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
-              <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+        <div class="space-y-3">
+          <div class="flex items-center">
+            <div class="bg-blue-100 p-2 rounded-lg mr-3">
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
               </svg>
-              <span class="font-semibold text-lg">Home</span>
-            </a>
-            
-            <a href="/warehouses" class="mobile-nav-link flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
-              <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-              <span class="font-semibold text-lg">Properties</span>
-            </a>
-            
-            <a href="#contact-section" class="mobile-nav-link smooth-scroll flex items-center py-4 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-300 group">
-              <svg class="w-6 h-6 mr-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-              <span class="font-semibold text-lg">Contact</span>
-            </a>
-          </div>
-
-          <!-- Enhanced Mobile Quick Actions -->
-          <div class="mt-8 px-6">
-            <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 border border-blue-100">
-              <h3 class="font-bold text-gray-900 mb-6 text-lg">Get Started Today</h3>
-              <div class="space-y-4">
-                <a 
-                  href="tel:(555)123-4567"
-                  class="flex items-center justify-center bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 w-full group"
-                >
-                  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                  </svg>
-                  Call Now
-                </a>
-                <a 
-                  href="#contact-section"
-                  class="flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 w-full group smooth-scroll"
-                >
-                  <svg class="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                  </svg>
-                  Get Quote
-                </a>
-              </div>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">Call us directly</p>
+              <p class="text-sm font-bold text-gray-900">(954) 937-9667</p>
             </div>
           </div>
-        </div>
-
-        <!-- Enhanced Mobile Menu Footer -->
-        <div class="border-t border-gray-100 p-6 bg-gray-50">
-          <div class="text-center">
-            <p class="text-sm text-gray-600 mb-2">Questions? We're here to help</p>
-            <p class="text-sm font-bold text-gray-900 mb-1">info@warehousehub.com</p>
-            <p class="text-xs text-gray-500">Mon-Fri: 8AM-6PM EST</p>
+          <div class="flex items-center">
+            <div class="bg-emerald-100 p-2 rounded-lg mr-3">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500">We're here to help</p>
+              <p class="text-sm font-bold text-gray-900">info@arielrealtygroup.com</p>
+              <p class="text-xs text-gray-500">Free Tenant Representation</p>
+            </div>
           </div>
         </div>
       </div>
@@ -261,60 +294,44 @@ const {
                 </svg>
               </div>
               <div>
-                <span class="text-3xl font-bold">WarehouseHub</span>
-                <span class="block text-sm text-gray-400 font-medium">Industrial Real Estate Solutions</span>
+                <span class="text-3xl font-bold">Ariel Realty Group</span>
+                <span class="block text-sm text-gray-400 font-medium">South Florida Industrial Experts</span>
               </div>
             </div>
             <p class="text-gray-300 mb-10 max-w-md leading-relaxed text-lg">
-              Your trusted partner for premium warehouse and industrial space solutions. 
-              We connect businesses with world-class facilities that drive operational excellence and growth.
+              South Florida's premier industrial tenant representation specialists. We provide free, concierge-style service from 500 SF workshops to 500,000 SF distribution centers.
             </p>
             
-            <!-- Professional Service Badges -->
-            <div class="flex flex-wrap gap-4">
-              <div class="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 border border-white/20">
-                <span class="text-xs font-bold text-white">PROFESSIONAL SERVICE</span>
-              </div>
-              <div class="bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 border border-white/20">
-                <span class="text-xs font-bold text-white">LICENSED BROKERS</span>
-              </div>
+            <!-- Professional CTA -->
+            <div class="space-y-4">
+              <a 
+                href="tel:+19549379667"
+                class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+                (954) 937-9667
+              </a>
+              <p class="text-sm text-gray-400">Free tenant representation • Available 7 days a week</p>
             </div>
           </div>
 
-          <!-- Enhanced Quick Links -->
+          <!-- Services -->
           <div>
-            <h3 class="text-xl font-bold mb-8 text-white">Quick Links</h3>
-            <ul class="space-y-4">
-              <li><a href="/" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group text-lg">
-                <svg class="w-4 h-4 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Home
-              </a></li>
-              <li><a href="/warehouses" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group text-lg">
-                <svg class="w-4 h-4 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                All Properties
-              </a></li>
-              <li><a href="#contact-section" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group text-lg smooth-scroll">
-                <svg class="w-4 h-4 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Contact Us
-              </a></li>
-              <li><a href="/admin" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group text-lg">
-                <svg class="w-4 h-4 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Admin Portal
-              </a></li>
-            </ul>
+            <h3 class="text-xl font-bold text-white mb-8">Our Services</h3>
+            <div class="space-y-4">
+              <a href="#" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium">Tenant Representation</a>
+              <a href="#" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium">Market Access</a>
+              <a href="#" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium">Expert Negotiation</a>
+              <a href="#" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium">Market Intelligence</a>
+              <a href="#" class="block text-gray-300 hover:text-white transition-colors duration-300 font-medium">Lease Analysis</a>
+            </div>
           </div>
 
           <!-- Enhanced Contact Info -->
           <div>
-            <h3 class="text-xl font-bold mb-8 text-white">Contact Info</h3>
+            <h3 class="text-xl font-bold text-white mb-8">Contact Info</h3>
             <div class="space-y-6">
               <div class="flex items-start">
                 <div class="bg-blue-600/20 p-3 rounded-xl mr-4 mt-1">
@@ -324,7 +341,7 @@ const {
                 </div>
                 <div>
                   <p class="text-white font-bold text-lg">Phone</p>
-                  <a href="tel:(555)123-4567" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium">(555) 123-4567</a>
+                  <a href="tel:+19549379667" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium text-lg">(954) 937-9667</a>
                 </div>
               </div>
               
@@ -336,19 +353,20 @@ const {
                 </div>
                 <div>
                   <p class="text-white font-bold text-lg">Email</p>
-                  <a href="mailto:info@warehousehub.com" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium">info@warehousehub.com</a>
+                  <a href="mailto:info@arielrealtygroup.com" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium">info@arielrealtygroup.com</a>
                 </div>
               </div>
               
               <div class="flex items-start">
                 <div class="bg-emerald-600/20 p-3 rounded-xl mr-4 mt-1">
                   <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
                 </div>
                 <div>
-                  <p class="text-white font-bold text-lg">Hours</p>
-                  <p class="text-gray-300 font-medium">Mon-Fri: 8AM-6PM EST</p>
+                  <p class="text-white font-bold text-lg">Service Area</p>
+                  <p class="text-gray-300 font-medium">Miami-Dade, Broward & Palm Beach Counties</p>
                 </div>
               </div>
             </div>
@@ -359,23 +377,26 @@ const {
         <div class="border-t border-gray-700 py-10">
           <div class="flex flex-col md:flex-row justify-between items-center">
             <p class="text-gray-400 text-sm mb-4 md:mb-0 font-medium">
-              &copy; 2024 WarehouseHub. All rights reserved.
+              &copy; 2025 Ariel Realty Group. All rights reserved. | South Florida Industrial Real Estate Specialists
             </p>
-            <div class="flex items-center space-x-8 text-sm text-gray-400">
-              <a href="#" class="hover:text-white transition-colors duration-300 font-medium">Privacy Policy</a>
-              <a href="#" class="hover:text-white transition-colors duration-300 font-medium">Terms of Service</a>
-              <div class="text-gray-600">•</div>
-              <span class="text-gray-500 font-medium">Enterprise Grade Solutions</span>
+            <div class="flex items-center space-x-8">
+              <p class="text-gray-400 text-sm">Licensed Real Estate Professionals</p>
+              <div class="flex items-center text-sm text-gray-400">
+                <svg class="w-4 h-4 mr-2 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Free for Tenants
+              </div>
             </div>
           </div>
         </div>
       </div>
     </footer>
 
-    <!-- Enhanced JavaScript with Professional Features -->
-    <script>
-      // Professional mobile menu functionality
+    <!-- Enhanced Professional JavaScript -->
+    <script is:inline>
       document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu elements
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -395,7 +416,7 @@ const {
           document.body.style.overflow = 'hidden';
           
           // Animate burger to X
-          if (burgerLines[0]) burgerLines[0].style.transform = 'rotate(45deg) translate(4px, 4px)';
+          if (burgerLines[0]) burgerLines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
           if (burgerLines[1]) burgerLines[1].style.opacity = '0';
           if (burgerLines[2]) burgerLines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
         }
@@ -423,7 +444,7 @@ const {
         });
 
         // FIXED: Enhanced smooth scrolling with proper offset for fixed header
-        function smoothScrollToElement(targetId: string) {
+        function smoothScrollToElement(targetId) {
           const target = document.querySelector(targetId);
           if (target) {
             const headerHeight = 80; // Height of fixed navigation
@@ -440,7 +461,7 @@ const {
         document.querySelectorAll('.smooth-scroll, a[href^="#contact"]').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+            const href = e.currentTarget.getAttribute('href');
             
             // Close mobile menu if open
             closeMobileMenu();
@@ -517,7 +538,7 @@ const {
 
         // Netlify Identity enhanced integration
         if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", function(user: any) {
+          window.netlifyIdentity.on("init", function(user) {
             if (!user) {
               window.netlifyIdentity.on("login", function() {
                 document.location.href = "/admin/";

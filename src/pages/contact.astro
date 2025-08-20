@@ -78,7 +78,7 @@ const isSuccess = Astro.url.searchParams.get('success') === 'true';
               </div>
               
               <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/properties" class="btn btn-secondary">
+                <a href="/warehouses" class="btn btn-secondary">
                   Browse Properties
                   <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -333,8 +333,8 @@ const isSuccess = Astro.url.searchParams.get('success') === 'true';
   <!-- Form Submission Logic -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('contact-form');
-      const submitBtn = document.getElementById('submit-btn');
+      const form = document.getElementById('contact-form') as HTMLFormElement;
+      const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
       const submitText = document.getElementById('submit-text');
       const submitSpinner = document.getElementById('submit-spinner');
       

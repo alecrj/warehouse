@@ -182,7 +182,7 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
             <!-- Property Details -->
             <div class="card-body">
               <h3 class="mb-3">
-                <a href={`/properties/${warehouse.data.slug}`} class="text-brand hover:text-accent transition-colors">
+                <a href={`/warehouses/${warehouse.data.slug}`} class="text-brand hover:text-accent transition-colors">
                   {warehouse.data.title}
                 </a>
               </h3>
@@ -219,7 +219,7 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
               
               <!-- Actions -->
               <div class="flex gap-3">
-                <a href={`/properties/${warehouse.data.slug}`} class="btn btn-secondary flex-1">
+                <a href={`/warehouses/${warehouse.data.slug}`} class="btn btn-secondary flex-1">
                   View Details
                 </a>
                 <a href="tel:+19549379667" class="btn btn-primary">
@@ -306,7 +306,19 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
 
   <!-- Filter & Sort Logic -->
   <script>
+    interface FilterState {
+      county: string;
+      size: string;
+      budget: string;
+      height: string;
+      features: Set<string>;
+    }
+
     class PropertyFilter {
+      private properties: HTMLElement[];
+      private filters: FilterState;
+      private sortBy: string;
+      
       constructor() {
         this.properties = Array.from(document.querySelectorAll('.property-card'));
         this.filters = {
@@ -324,44 +336,57 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
       
       initEventListeners() {
         // Filter inputs
-        document.getElementById('county-filter')?.addEventListener('change', (e) => {
-          this.filters.county = e.target.value;
+        const countyFilter = document.getElementById('county-filter') as HTMLSelectElement;
+        countyFilter?.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          this.filters.county = target.value;
           this.applyFilters();
         });
         
-        document.getElementById('size-filter')?.addEventListener('change', (e) => {
-          this.filters.size = e.target.value;
+        const sizeFilter = document.getElementById('size-filter') as HTMLSelectElement;
+        sizeFilter?.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          this.filters.size = target.value;
           this.applyFilters();
         });
         
-        document.getElementById('budget-filter')?.addEventListener('change', (e) => {
-          this.filters.budget = e.target.value;
+        const budgetFilter = document.getElementById('budget-filter') as HTMLSelectElement;
+        budgetFilter?.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          this.filters.budget = target.value;
           this.applyFilters();
         });
         
-        document.getElementById('height-filter')?.addEventListener('change', (e) => {
-          this.filters.height = e.target.value;
+        const heightFilter = document.getElementById('height-filter') as HTMLSelectElement;
+        heightFilter?.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          this.filters.height = target.value;
           this.applyFilters();
         });
         
         // Feature chips
         document.querySelectorAll('.feature-chip').forEach(chip => {
           chip.addEventListener('click', (e) => {
-            const feature = e.target.dataset.feature;
-            if (this.filters.features.has(feature)) {
-              this.filters.features.delete(feature);
-              e.target.classList.remove('active');
-            } else {
-              this.filters.features.add(feature);
-              e.target.classList.add('active');
+            const target = e.target as HTMLElement;
+            const feature = target.dataset.feature;
+            if (feature) {
+              if (this.filters.features.has(feature)) {
+                this.filters.features.delete(feature);
+                target.classList.remove('active');
+              } else {
+                this.filters.features.add(feature);
+                target.classList.add('active');
+              }
+              this.applyFilters();
             }
-            this.applyFilters();
           });
         });
         
         // Sort
-        document.getElementById('sort-select')?.addEventListener('change', (e) => {
-          this.sortBy = e.target.value;
+        const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+        sortSelect?.addEventListener('change', (e) => {
+          const target = e.target as HTMLSelectElement;
+          this.sortBy = target.value;
           this.applyFilters();
         });
         
@@ -373,24 +398,32 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
       loadFromURL() {
         const params = new URLSearchParams(window.location.search);
         
-        if (params.get('county')) {
-          this.filters.county = params.get('county');
-          document.getElementById('county-filter').value = this.filters.county;
+        const countyParam = params.get('county');
+        if (countyParam) {
+          this.filters.county = countyParam;
+          const countyFilter = document.getElementById('county-filter') as HTMLSelectElement;
+          if (countyFilter) countyFilter.value = this.filters.county;
         }
         
-        if (params.get('size')) {
-          this.filters.size = params.get('size');
-          document.getElementById('size-filter').value = this.filters.size;
+        const sizeParam = params.get('size');
+        if (sizeParam) {
+          this.filters.size = sizeParam;
+          const sizeFilter = document.getElementById('size-filter') as HTMLSelectElement;
+          if (sizeFilter) sizeFilter.value = this.filters.size;
         }
         
-        if (params.get('budget')) {
-          this.filters.budget = params.get('budget');
-          document.getElementById('budget-filter').value = this.filters.budget;
+        const budgetParam = params.get('budget');
+        if (budgetParam) {
+          this.filters.budget = budgetParam;
+          const budgetFilter = document.getElementById('budget-filter') as HTMLSelectElement;
+          if (budgetFilter) budgetFilter.value = this.filters.budget;
         }
         
-        if (params.get('height')) {
-          this.filters.height = params.get('height');
-          document.getElementById('height-filter').value = this.filters.height;
+        const heightParam = params.get('height');
+        if (heightParam) {
+          this.filters.height = heightParam;
+          const heightFilter = document.getElementById('height-filter') as HTMLSelectElement;
+          if (heightFilter) heightFilter.value = this.filters.height;
         }
         
         this.applyFilters();
@@ -409,7 +442,7 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
       }
       
       applyFilters() {
-        let filtered = this.properties.filter(property => {
+        let filtered = this.properties.filter((property: HTMLElement) => {
           // County filter
           if (this.filters.county && property.dataset.county !== this.filters.county) {
             return false;
@@ -417,20 +450,23 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
           
           // Size filter
           if (this.filters.size) {
-            const size = parseInt(property.dataset.size);
-            const sizeRanges = {
+            const size = parseInt(property.dataset.size || '0');
+            const sizeRanges: { [key: string]: [number, number] } = {
               'under-5000': [0, 4999],
               '5000-25000': [5000, 25000],
               '25000-100000': [25000, 100000],
               'over-100000': [100000, Infinity]
             };
-            const [min, max] = sizeRanges[this.filters.size];
-            if (size < min || size > max) return false;
+            const range = sizeRanges[this.filters.size];
+            if (range) {
+              const [min, max] = range;
+              if (size < min || size > max) return false;
+            }
           }
           
           // Feature filter
           if (this.filters.features.size > 0) {
-            const propertyFeatures = property.dataset.features.toLowerCase();
+            const propertyFeatures = (property.dataset.features || '').toLowerCase();
             for (const feature of this.filters.features) {
               if (!propertyFeatures.includes(feature)) return false;
             }
@@ -440,14 +476,14 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
         });
         
         // Sort
-        filtered.sort((a, b) => {
+        filtered.sort((a: HTMLElement, b: HTMLElement) => {
           switch (this.sortBy) {
             case 'size-asc':
-              return parseInt(a.dataset.size) - parseInt(b.dataset.size);
+              return parseInt(a.dataset.size || '0') - parseInt(b.dataset.size || '0');
             case 'size-desc':
-              return parseInt(b.dataset.size) - parseInt(a.dataset.size);
+              return parseInt(b.dataset.size || '0') - parseInt(a.dataset.size || '0');
             case 'newest':
-              return new Date(b.dataset.date) - new Date(a.dataset.date);
+              return new Date(b.dataset.date || '').getTime() - new Date(a.dataset.date || '').getTime();
             case 'featured':
             default:
               const aFeatured = a.dataset.featured === 'true' ? 1 : 0;
@@ -460,30 +496,32 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
         this.updateURL();
       }
       
-      displayResults(filtered) {
+      displayResults(filtered: HTMLElement[]) {
         // Hide all properties
-        this.properties.forEach(p => p.style.display = 'none');
+        this.properties.forEach((p: HTMLElement) => p.style.display = 'none');
         
         // Show filtered properties
-        filtered.forEach((p, index) => {
+        filtered.forEach((p: HTMLElement, index: number) => {
           p.style.display = 'block';
           p.style.animationDelay = `${index * 50}ms`;
         });
         
         // Update count
         const resultsCount = document.getElementById('results-count');
-        resultsCount.textContent = `${filtered.length} Properties Available`;
+        if (resultsCount) {
+          resultsCount.textContent = `${filtered.length} Properties Available`;
+        }
         
         // Show/hide empty state
         const emptyState = document.getElementById('empty-state');
         const grid = document.getElementById('properties-grid');
         
         if (filtered.length === 0) {
-          emptyState.classList.remove('hidden');
-          grid.classList.add('hidden');
+          emptyState?.classList.remove('hidden');
+          grid?.classList.add('hidden');
         } else {
-          emptyState.classList.add('hidden');
-          grid.classList.remove('hidden');
+          emptyState?.classList.add('hidden');
+          grid?.classList.remove('hidden');
         }
       }
       
@@ -497,7 +535,8 @@ const features = ['Loading Docks', 'Clear Height 24ft+', 'Office Space', 'Dock D
         };
         
         // Reset form
-        document.getElementById('property-filters').reset();
+        const form = document.getElementById('property-filters') as HTMLFormElement;
+        form?.reset();
         document.querySelectorAll('.feature-chip').forEach(chip => {
           chip.classList.remove('active');
         });

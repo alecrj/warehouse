@@ -9,9 +9,7 @@ const sortedLeads = leads.sort((a, b) =>
 
 // Group leads by status
 const newLeads = sortedLeads.filter(l => l.data.status === 'new');
-const contactedLeads = sortedLeads.filter(l => l.data.status === 'contacted');
 const qualifiedLeads = sortedLeads.filter(l => l.data.status === 'qualified');
-const closedLeads = sortedLeads.filter(l => l.data.status === 'closed');
 
 // Calculate stats
 const thisWeekLeads = sortedLeads.filter(l => {
@@ -22,7 +20,7 @@ const thisWeekLeads = sortedLeads.filter(l => {
 });
 ---
 
-<BaseLayout title="Lead Management Dashboard | WarehouseHub">
+<BaseLayout title="Lead Management Dashboard | Warehouse Hub">
   <div id="authCheck" class="hidden">
     <div class="min-h-screen bg-gray-50 flex items-center justify-center">
       <div class="text-center">
@@ -49,10 +47,10 @@ const thisWeekLeads = sortedLeads.filter(l => {
               Export to CSV
             </button>
             <a 
-              href="/admin" 
-              class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold inline-block"
+              href="/admin"
+              class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold"
             >
-              Back to CMS
+              Back to Admin
             </a>
           </div>
         </div>
@@ -63,97 +61,50 @@ const thisWeekLeads = sortedLeads.filter(l => {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600">Total Leads</p>
-              <p class="text-3xl font-bold text-gray-900">{sortedLeads.length}</p>
-            </div>
-            <div class="p-3 bg-blue-100 rounded-full">
-              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-              </svg>
-            </div>
-          </div>
+          <div class="text-2xl font-bold text-blue-600">{sortedLeads.length}</div>
+          <div class="text-gray-600">Total Leads</div>
         </div>
-
         <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600">New Leads</p>
-              <p class="text-3xl font-bold text-green-600">{newLeads.length}</p>
-            </div>
-            <div class="p-3 bg-green-100 rounded-full">
-              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-            </div>
-          </div>
+          <div class="text-2xl font-bold text-green-600">{newLeads.length}</div>
+          <div class="text-gray-600">New Leads</div>
         </div>
-
         <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600">This Week</p>
-              <p class="text-3xl font-bold text-purple-600">{thisWeekLeads.length}</p>
-            </div>
-            <div class="p-3 bg-purple-100 rounded-full">
-              <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-          </div>
+          <div class="text-2xl font-bold text-purple-600">{qualifiedLeads.length}</div>
+          <div class="text-gray-600">Qualified</div>
         </div>
-
         <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-600">Qualified</p>
-              <p class="text-3xl font-bold text-yellow-600">{qualifiedLeads.length}</p>
-            </div>
-            <div class="p-3 bg-yellow-100 rounded-full">
-              <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-          </div>
+          <div class="text-2xl font-bold text-orange-600">{thisWeekLeads.length}</div>
+          <div class="text-gray-600">This Week</div>
         </div>
       </div>
 
-      <!-- Filters -->
-      <div class="bg-white rounded-lg shadow p-6 mb-8">
-        <div class="flex flex-wrap gap-4">
-          <select id="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="">All Status</option>
-            <option value="new">New</option>
-            <option value="contacted">Contacted</option>
-            <option value="qualified">Qualified</option>
-            <option value="closed">Closed</option>
-          </select>
-          
-          <input 
-            type="text" 
-            id="searchFilter" 
-            placeholder="Search by name, email, or company..."
-            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
-          />
-          
-          <input 
-            type="date" 
-            id="dateFilter" 
-            class="px-4 py-2 border border-gray-300 rounded-lg"
-          />
-          
-          <button 
-            id="clearFilters" 
-            class="px-4 py-2 text-gray-600 hover:text-gray-800"
-          >
-            Clear Filters
-          </button>
+      <!-- Filters and Search -->
+      <div class="bg-white rounded-lg shadow mb-6">
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+            <h2 class="text-lg font-semibold text-gray-900">All Leads</h2>
+            <div class="flex space-x-4">
+              <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Search leads..." 
+                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <select 
+                id="statusFilter" 
+                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">All Status</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Leads Table -->
-      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <!-- Leads Table -->
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -162,26 +113,23 @@ const thisWeekLeads = sortedLeads.filter(l => {
                   Date
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name / Company
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Contact
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Property
+                  Details
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Property Interest
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Source
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200" id="leadsTableBody">
+            <tbody id="leadsTableBody" class="bg-white divide-y divide-gray-200">
               {sortedLeads.map((lead: CollectionEntry<'leads'>) => (
                 <tr class="lead-row hover:bg-gray-50" 
                     data-status={lead.data.status}
@@ -221,21 +169,24 @@ const thisWeekLeads = sortedLeads.filter(l => {
                     <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                       lead.data.status === 'new' ? 'bg-green-100 text-green-800' :
                       lead.data.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
-                      lead.data.status === 'qualified' ? 'bg-yellow-100 text-yellow-800' :
+                      lead.data.status === 'qualified' ? 'bg-purple-100 text-purple-800' :
                       'bg-gray-100 text-gray-800'
                     }`}>
-                      {lead.data.status}
+                      {lead.data.status.charAt(0).toUpperCase() + lead.data.status.slice(1)}
                     </span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {lead.data.source}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button 
-                      class="text-indigo-600 hover:text-indigo-900 view-details"
-                      data-lead={JSON.stringify(lead.data)}
+                      class="text-blue-600 hover:text-blue-900 mr-4"
+                      onclick={`updateStatus('${lead.data.id}', 'contacted')`}
                     >
-                      View Details
+                      Mark Contacted
+                    </button>
+                    <button 
+                      class="text-green-600 hover:text-green-900"
+                      onclick={`updateStatus('${lead.data.id}', 'qualified')`}
+                    >
+                      Qualify
                     </button>
                   </td>
                 </tr>
@@ -247,233 +198,112 @@ const thisWeekLeads = sortedLeads.filter(l => {
     </div>
   </div>
 
-  <!-- Lead Details Modal -->
-  <div id="leadModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold text-gray-900" id="modalTitle">Lead Details</h3>
-        <button id="closeModal" class="text-gray-400 hover:text-gray-600">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-      <div id="modalContent" class="space-y-4">
-        <!-- Content will be inserted here -->
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Check authentication on client side
-    document.addEventListener('DOMContentLoaded', () => {
-      // Check if user is logged in via Netlify Identity
+    // Check if user is authenticated
+    function checkAuth() {
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', user => {
-          if (!user) {
-            // Not logged in, show auth message
-            document.getElementById('dashboard')?.classList.add('hidden');
-            document.getElementById('authCheck')?.classList.remove('hidden');
+        const user = window.netlifyIdentity.currentUser();
+        if (!user) {
+          document.getElementById('authCheck')?.classList.remove('hidden');
+          document.getElementById('dashboard')?.classList.add('hidden');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Search and filter functionality
+    function initializeFilters() {
+      const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+      const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
+      const leadRows = document.querySelectorAll('.lead-row');
+
+      function filterLeads() {
+        const searchTerm = searchInput?.value.toLowerCase() || '';
+        const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
+        const selectedStatus = statusFilter?.value || '';
+
+        leadRows.forEach(row => {
+          const rowElement = row as HTMLElement;
+          const name = rowElement.dataset.name || '';
+          const email = rowElement.dataset.email || '';
+          const company = rowElement.dataset.company || '';
+          const status = rowElement.dataset.status || '';
+
+          const matchesSearch = !searchTerm || 
+            name.includes(searchTerm) || 
+            email.includes(searchTerm) || 
+            company.includes(searchTerm);
+          
+          const matchesStatus = !selectedStatus || status === selectedStatus;
+
+          if (matchesSearch && matchesStatus) {
+            rowElement.style.display = '';
           } else {
-            // Logged in, show dashboard
-            document.getElementById('dashboard')?.classList.remove('hidden');
-            document.getElementById('authCheck')?.classList.add('hidden');
+            rowElement.style.display = 'none';
           }
         });
       }
-    });
 
-    // Lead filtering
-    const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
-    const searchFilter = document.getElementById('searchFilter') as HTMLInputElement;
-    const dateFilter = document.getElementById('dateFilter') as HTMLInputElement;
-    const clearButton = document.getElementById('clearFilters');
-    const leadRows = document.querySelectorAll('.lead-row');
-
-    function filterLeads() {
-      const status = statusFilter.value;
-      const search = searchFilter.value.toLowerCase();
-      const date = dateFilter.value;
-
-      leadRows.forEach((row) => {
-        const rowStatus = row.getAttribute('data-status');
-        const rowName = row.getAttribute('data-name') || '';
-        const rowEmail = row.getAttribute('data-email') || '';
-        const rowCompany = row.getAttribute('data-company') || '';
-        const rowDate = row.getAttribute('data-date') || '';
-
-        const matchesStatus = !status || rowStatus === status;
-        const matchesSearch = !search || 
-          rowName.includes(search) || 
-          rowEmail.includes(search) || 
-          rowCompany.includes(search);
-        const matchesDate = !date || rowDate.startsWith(date);
-
-        (row as HTMLElement).style.display = 
-          matchesStatus && matchesSearch && matchesDate ? '' : 'none';
-      });
+      searchInput?.addEventListener('input', filterLeads);
+      statusFilter?.addEventListener('change', filterLeads);
     }
 
-    statusFilter?.addEventListener('change', filterLeads);
-    searchFilter?.addEventListener('input', filterLeads);
-    dateFilter?.addEventListener('change', filterLeads);
-    clearButton?.addEventListener('click', () => {
-      statusFilter.value = '';
-      searchFilter.value = '';
-      dateFilter.value = '';
-      filterLeads();
-    });
-
-    // CSV Export
-    document.getElementById('exportCSV')?.addEventListener('click', () => {
-      const rows = [
-        ['Date', 'Name', 'Email', 'Phone', 'Company', 'Property', 'Status', 'Source', 'Message']
-      ];
-
-      const visibleRows = Array.from(leadRows).filter(
-        row => (row as HTMLElement).style.display !== 'none'
-      );
-
-      visibleRows.forEach(row => {
-        const viewButton = row.querySelector('.view-details') as HTMLButtonElement;
-        const leadData = JSON.parse(viewButton.getAttribute('data-lead') || '{}');
-        
-        rows.push([
-          new Date(leadData.createdAt).toLocaleDateString(),
-          leadData.name,
-          leadData.email,
-          leadData.phone,
-          leadData.company || '',
-          leadData.propertyInterested || '',
-          leadData.status,
-          leadData.source,
-          leadData.message.replace(/"/g, '""') // Escape quotes
-        ]);
+    // Export to CSV
+    function exportToCSV() {
+      const leads = Array.from(document.querySelectorAll('.lead-row')).map(row => {
+        const rowElement = row as HTMLElement;
+        const cells = row.querySelectorAll('td');
+        return {
+          date: cells[0]?.textContent?.trim(),
+          name: rowElement.dataset.name,
+          email: rowElement.dataset.email,
+          company: rowElement.dataset.company,
+          property: cells[3]?.textContent?.trim(),
+          status: rowElement.dataset.status
+        };
       });
 
-      const csvContent = rows.map(row => 
-        row.map(cell => `"${cell}"`).join(',')
-      ).join('\n');
+      const csvContent = [
+        ['Date', 'Name', 'Email', 'Company', 'Property Interest', 'Status'],
+        ...leads.map(lead => [
+          lead.date, lead.name, lead.email, lead.company, lead.property, lead.status
+        ])
+      ].map(row => row.join(',')).join('\n');
 
       const blob = new Blob([csvContent], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.setAttribute('hidden', '');
-      a.setAttribute('href', url);
-      a.setAttribute('download', `leads-export-${new Date().toISOString().split('T')[0]}.csv`);
-      document.body.appendChild(a);
+      a.href = url;
+      a.download = `leads-${new Date().toISOString().split('T')[0]}.csv`;
       a.click();
-      document.body.removeChild(a);
-    });
+      window.URL.revokeObjectURL(url);
+    }
 
-    // Lead Details Modal
-    const modal = document.getElementById('leadModal');
-    const modalContent = document.getElementById('modalContent');
-    const closeModal = document.getElementById('closeModal');
+    // Update lead status (placeholder - would need backend integration)
+    function updateStatus(leadId: string, newStatus: string) {
+      alert(`Would update lead ${leadId} to status: ${newStatus}`);
+      // This would integrate with your CMS or API to update the lead status
+    }
 
-    document.querySelectorAll('.view-details').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const leadData = JSON.parse((e.target as HTMLButtonElement).getAttribute('data-lead') || '{}');
-        
-        if (modalContent) {
-          modalContent.innerHTML = `
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Name</label>
-                <p class="mt-1 text-sm text-gray-900">${leadData.name}</p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Company</label>
-                <p class="mt-1 text-sm text-gray-900">${leadData.company || '-'}</p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Email</label>
-                <p class="mt-1 text-sm">
-                  <a href="mailto:${leadData.email}" class="text-blue-600 hover:text-blue-800">
-                    ${leadData.email}
-                  </a>
-                </p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Phone</label>
-                <p class="mt-1 text-sm">
-                  <a href="tel:${leadData.phone}" class="text-blue-600 hover:text-blue-800">
-                    ${leadData.phone}
-                  </a>
-                </p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Property Interested</label>
-                <p class="mt-1 text-sm text-gray-900">${leadData.propertyInterested || '-'}</p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Source</label>
-                <p class="mt-1 text-sm text-gray-900">${leadData.source}</p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Status</label>
-                <p class="mt-1">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    leadData.status === 'new' ? 'bg-green-100 text-green-800' :
-                    leadData.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
-                    leadData.status === 'qualified' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
-                  }">
-                    ${leadData.status}
-                  </span>
-                </p>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Date Submitted</label>
-                <p class="mt-1 text-sm text-gray-900">
-                  ${new Date(leadData.createdAt).toLocaleString()}
-                </p>
-              </div>
-            </div>
-            <div class="mt-4">
-              <label class="block text-sm font-medium text-gray-700">Message</label>
-              <p class="mt-1 text-sm text-gray-900 bg-gray-50 p-3 rounded">
-                ${leadData.message}
-              </p>
-            </div>
-            ${leadData.notes ? `
-              <div class="mt-4">
-                <label class="block text-sm font-medium text-gray-700">Internal Notes</label>
-                <p class="mt-1 text-sm text-gray-900 bg-yellow-50 p-3 rounded">
-                  ${leadData.notes}
-                </p>
-              </div>
-            ` : ''}
-            <div class="mt-6 flex justify-end space-x-3">
-              <a 
-                href="/admin/#/collections/leads/entries/${leadData.createdAt}-${leadData.name.replace(/\s+/g, '-').toLowerCase()}" 
-                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold"
-              >
-                Edit in CMS
-              </a>
-              <button 
-                onclick="window.open('mailto:${leadData.email}')" 
-                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold"
-              >
-                Send Email
-              </button>
-            </div>
-          `;
-        }
-        
-        modal?.classList.remove('hidden');
-      });
-    });
-
-    closeModal?.addEventListener('click', () => {
-      modal?.classList.add('hidden');
-    });
-
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal?.classList.add('hidden');
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      if (checkAuth()) {
+        initializeFilters();
+        document.getElementById('exportCSV')?.addEventListener('click', exportToCSV);
       }
     });
+
+    // Handle Netlify Identity
+    if (typeof window !== 'undefined' && window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', checkAuth);
+      window.netlifyIdentity.on('login', () => {
+        document.getElementById('authCheck')?.classList.add('hidden');
+        document.getElementById('dashboard')?.classList.remove('hidden');
+      });
+      window.netlifyIdentity.on('logout', () => {
+        window.location.href = '/admin';
+      });
+    }
   </script>
 </BaseLayout>

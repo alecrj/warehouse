@@ -23,7 +23,7 @@ const relatedProperties = allWarehouses
   .filter(w => w.data.slug !== data.slug && w.data.availability === 'available')
   .slice(0, 3);
 
-// Extract city for map
+// Extract city for context
 const city = data.location.split(',')[0]?.trim() || '';
 ---
 
@@ -32,9 +32,9 @@ const city = data.location.split(',')[0]?.trim() || '';
   description={`${data.size.toLocaleString()} SF warehouse for lease in ${data.location}. ${data.price}. ${data.description.substring(0, 150)}...`}
 >
   <!-- Hero Summary Stripe -->
-  <section class="py-8 bg-blue-600 text-white">
+  <section class="py-8 gradient-primary">
     <div class="container mx-auto px-4 max-w-7xl">
-      <div class="grid lg:grid-cols-4 gap-6 items-center">
+      <div class="grid lg:grid-cols-4 gap-6 items-center text-white">
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-2">
             <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
@@ -46,25 +46,25 @@ const city = data.location.split(',')[0]?.trim() || '';
             </span>
           </div>
           
-          <h1 class="text-3xl lg:text-4xl font-bold mb-2">{data.title}</h1>
+          <h1 class="text-heading-xl lg:text-display-lg font-bold mb-2">{data.title}</h1>
           
           <div class="flex items-center text-blue-100">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
             </svg>
-            <span class="text-lg">{data.location}</span>
+            <span class="text-body-lg">{data.location}</span>
           </div>
         </div>
         
         <div class="lg:col-span-2">
           <div class="grid grid-cols-2 gap-4">
-            <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-              <div class="text-2xl font-bold">{data.size.toLocaleString()}</div>
-              <div class="text-blue-100 text-sm">Square Feet</div>
+            <div class="text-center p-4 rounded-2xl" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px);">
+              <div class="text-heading-lg font-bold">{data.size.toLocaleString()}</div>
+              <div class="text-blue-100 text-body-sm">Square Feet</div>
             </div>
-            <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-              <div class="text-xl font-bold">{data.price}</div>
-              <div class="text-blue-100 text-sm">per SF/year</div>
+            <div class="text-center p-4 rounded-2xl" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px);">
+              <div class="text-heading-md font-bold">{data.price}</div>
+              <div class="text-blue-100 text-body-sm">per SF/year</div>
             </div>
           </div>
         </div>
@@ -75,192 +75,200 @@ const city = data.location.split(',')[0]?.trim() || '';
   <!-- Main Content -->
   <div class="container mx-auto px-4 max-w-7xl py-16">
     <div class="grid lg:grid-cols-3 gap-12">
-      <!-- Content Column -->
-      <div class="lg:col-span-2 space-y-12">
-        
+      <!-- Main Content -->
+      <div class="lg:col-span-2">
         <!-- Image Gallery -->
-        {data.images && data.images.length > 0 && (
-          <section>
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Property Gallery</h2>
-            
+        <div class="mb-12">
+          <div class="grid gap-4">
             <!-- Main Image -->
-            <div class="mb-6">
+            <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden">
               <img 
-                src={data.images[0]} 
-                alt={`${data.title} - Main View`}
-                class="w-full h-96 object-cover rounded-2xl shadow-lg"
-                loading="eager"
+                src={data.images?.[0] || '/api/placeholder/800/450'} 
+                alt={data.title}
+                class="w-full h-96 object-cover"
+                id="mainImage"
               />
             </div>
             
-            <!-- Thumbnail Grid -->
-            {data.images.length > 1 && (
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {data.images.slice(1, 5).map((image: string, index: number) => (
-                  <button
-                    type="button"
-                    class="relative group overflow-hidden rounded-xl"
-                    onclick={`showImage('${image}')`}
-                  >
+            <!-- Thumbnail Gallery -->
+            {data.images && data.images.length > 1 && (
+              <div class="grid grid-cols-4 gap-2">
+                {data.images.slice(1, 5).map((image, index) => (
+                  <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
                     <img 
                       src={image} 
-                      alt={`${data.title} - View ${index + 2}`}
-                      class="w-full h-24 object-cover transition-transform duration-300 group-hover:scale-110"
+                      alt={`${data.title} - Image ${index + 2}`}
+                      class="w-full h-20 object-cover"
+                      onclick={`document.getElementById('mainImage').src = '${image}'`}
                     />
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
-                  </button>
+                  </div>
                 ))}
               </div>
             )}
-          </section>
-        )}
-
-        <!-- Property Details Table -->
-        <section>
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Property Details</h2>
-          <div class="bg-gray-50 rounded-2xl overflow-hidden">
-            <table class="w-full">
-              <tbody class="divide-y divide-gray-200">
-                <tr>
-                  <td class="px-6 py-4 font-medium text-gray-900 bg-white">Address</td>
-                  <td class="px-6 py-4 text-gray-700">{data.address}</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-medium text-gray-900">Size</td>
-                  <td class="px-6 py-4 text-gray-700">{data.size.toLocaleString()} SF</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-medium text-gray-900 bg-white">Price</td>
-                  <td class="px-6 py-4 text-gray-700">{data.price}</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-medium text-gray-900">Availability</td>
-                  <td class="px-6 py-4">
-                    <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                      data.availability === 'available' 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {data.availability === 'available' ? 'Available Now' : data.availability}
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-        </section>
+        </div>
+
+        <!-- Property Description -->
+        <div class="mb-12">
+          <h2 class="text-heading-lg font-semibold text-slate-900 mb-6">Property Description</h2>
+          <div class="text-body-md text-slate-700 leading-relaxed space-y-4">
+            <p>{data.description}</p>
+          </div>
+        </div>
 
         <!-- Features -->
         {data.features && data.features.length > 0 && (
-          <section>
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Features & Amenities</h2>
+          <div class="mb-12">
+            <h2 class="text-heading-lg font-semibold text-slate-900 mb-6">Features & Amenities</h2>
             <div class="grid md:grid-cols-2 gap-4">
-              {data.features.map((feature: string) => (
-                <div class="flex items-center p-4 bg-gray-50 rounded-xl">
+              {data.features.map((feature) => (
+                <div class="flex items-center">
                   <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
-                  <span class="font-medium text-gray-900">{feature}</span>
+                  <span class="text-body-md text-slate-700">{feature}</span>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
         )}
 
-        <!-- Description -->
-        <section>
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Property Description</h2>
-          <div class="prose prose-lg max-w-none">
-            <p class="text-gray-700 leading-relaxed text-lg">{data.description}</p>
-          </div>
-        </section>
-
-        <!-- Map -->
-        <section>
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Location & Access</h2>
-          <div class="relative h-96 bg-gray-100 rounded-2xl overflow-hidden">
-            <!-- Static Map Placeholder -->
-            <div class="w-full h-full flex items-center justify-center">
-              <div class="text-center">
-                <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">{data.location}</h3>
-                <p class="text-gray-500">Interactive map will be loaded here</p>
-                <p class="text-sm text-gray-400 mt-2">Showing approximate location in {city}</p>
+        <!-- Location Info -->
+        <div class="mb-12">
+          <h2 class="text-heading-lg font-semibold text-slate-900 mb-6">Location Details</h2>
+          <div class="card-premium p-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 class="text-heading-md font-semibold text-slate-900 mb-3">Address</h3>
+                <p class="text-body-md text-slate-700">{data.address}</p>
+                <p class="text-body-md text-slate-600">{data.location}</p>
+              </div>
+              <div>
+                <h3 class="text-heading-md font-semibold text-slate-900 mb-3">Market Area</h3>
+                <p class="text-body-md text-slate-700">{city} Industrial Corridor</p>
+                <p class="text-body-sm text-slate-600">Prime South Florida location</p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
 
       <!-- Sidebar -->
       <div class="lg:col-span-1">
-        <div class="sticky top-24 space-y-8">
+        <!-- Contact Form -->
+        <div class="card-premium p-6 mb-8 sticky top-8">
+          <h3 class="text-heading-md font-semibold text-slate-900 mb-6">Interested in This Property?</h3>
           
-          <!-- Contact CTA -->
-          <div class="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-8 rounded-2xl">
-            <h3 class="text-xl font-bold mb-4">Interested in This Property?</h3>
-            <p class="text-blue-100 mb-6">
-              Get expert guidance and schedule a showing. Our tenant representation is completely free.
-            </p>
+          <form name="property-inquiry" method="POST" data-netlify="true" class="space-y-4">
+            <input type="hidden" name="form-name" value="property-inquiry" />
+            <input type="hidden" name="property" value={data.title} />
             
-            <div class="space-y-4">
-              <a href="tel:+19549379667" class="block w-full bg-white text-blue-600 px-6 py-4 rounded-xl font-bold text-center hover:bg-gray-50 transition-colors duration-300">
-                <span class="flex items-center justify-center">
-                  <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                  </svg>
-                  Call (954) 937-9667
-                </span>
+            <div>
+              <label for="inquiry-name" class="block text-body-sm font-medium text-slate-700 mb-2">
+                Name *
+              </label>
+              <input 
+                type="text" 
+                id="inquiry-name" 
+                name="name" 
+                required 
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="Your Name"
+              />
+            </div>
+            
+            <div>
+              <label for="inquiry-email" class="block text-body-sm font-medium text-slate-700 mb-2">
+                Email *
+              </label>
+              <input 
+                type="email" 
+                id="inquiry-email" 
+                name="email" 
+                required 
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="your@email.com"
+              />
+            </div>
+            
+            <div>
+              <label for="inquiry-phone" class="block text-body-sm font-medium text-slate-700 mb-2">
+                Phone
+              </label>
+              <input 
+                type="tel" 
+                id="inquiry-phone" 
+                name="phone" 
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="(954) 123-4567"
+              />
+            </div>
+            
+            <div>
+              <label for="inquiry-message" class="block text-body-sm font-medium text-slate-700 mb-2">
+                Message
+              </label>
+              <textarea 
+                id="inquiry-message" 
+                name="message" 
+                rows="4" 
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
+                placeholder="Tell us about your space requirements..."
+              ></textarea>
+            </div>
+            
+            <button 
+              type="submit" 
+              class="w-full btn-primary py-3"
+            >
+              Request Information
+            </button>
+          </form>
+          
+          <!-- Quick Contact -->
+          <div class="mt-6 pt-6 border-t border-slate-200">
+            <div class="space-y-3">
+              <a href="tel:+19549379667" class="flex items-center text-slate-700 hover:text-blue-600 transition-colors">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                <span class="font-medium">(954) 937-9667</span>
               </a>
               
-              <a href="/contact?property=${data.slug}" class="block w-full bg-blue-500 text-white px-6 py-4 rounded-xl font-bold text-center hover:bg-blue-400 transition-colors duration-300">
-                Request Information
+              <a href="mailto:info@arielrealty.com" class="flex items-center text-slate-700 hover:text-blue-600 transition-colors">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <span class="font-medium">info@arielrealty.com</span>
               </a>
             </div>
           </div>
+        </div>
 
-          <!-- Quick Stats -->
-          <div class="bg-gray-50 p-6 rounded-2xl">
-            <h3 class="font-bold text-gray-900 mb-4">Quick Stats</h3>
-            <div class="space-y-3">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Property Type</span>
-                <span class="font-medium text-gray-900">Warehouse/Industrial</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Square Footage</span>
-                <span class="font-medium text-gray-900">{data.size.toLocaleString()} SF</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Rate</span>
-                <span class="font-medium text-gray-900">{data.price}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Status</span>
-                <span class={`font-medium ${
-                  data.availability === 'available' 
-                    ? 'text-green-600' 
-                    : 'text-gray-600'
-                }`}>
-                  {data.availability === 'available' ? 'Available' : data.availability}
-                </span>
-              </div>
+        <!-- Property Stats -->
+        <div class="card-premium p-6">
+          <h3 class="text-heading-md font-semibold text-slate-900 mb-6">Property Details</h3>
+          
+          <div class="space-y-4">
+            <div class="flex justify-between">
+              <span class="text-body-sm text-slate-600">Total Size</span>
+              <span class="text-body-sm font-medium text-slate-900">{data.size.toLocaleString()} SF</span>
             </div>
-          </div>
-
-          <!-- Share Options -->
-          <div class="bg-white border border-gray-200 p-6 rounded-2xl">
-            <h3 class="font-bold text-gray-900 mb-4">Share This Property</h3>
-            <div class="flex gap-3">
-              <button type="button" onclick="copyToClipboard()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-xl font-medium transition-colors duration-300 text-center">
-                Copy Link
-              </button>
-              <button type="button" onclick="printProperty()" class="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 px-4 py-3 rounded-xl font-medium transition-colors duration-300 text-center">
-                Print
-              </button>
+            <div class="flex justify-between">
+              <span class="text-body-sm text-slate-600">Price</span>
+              <span class="text-body-sm font-medium text-slate-900">{data.price}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-body-sm text-slate-600">Availability</span>
+              <span class={`text-body-sm font-medium ${
+                data.availability === 'available' ? 'text-green-600' : 'text-amber-600'
+              }`}>
+                {data.availability === 'available' ? 'Available Now' : 'Coming Soon'}
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-body-sm text-slate-600">Property Type</span>
+              <span class="text-body-sm font-medium text-slate-900">Industrial Warehouse</span>
             </div>
           </div>
         </div>
@@ -270,51 +278,59 @@ const city = data.location.split(',')[0]?.trim() || '';
     <!-- Related Properties -->
     {relatedProperties.length > 0 && (
       <section class="mt-20">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8">Similar Properties</h2>
+        <h2 class="text-heading-xl font-bold text-slate-900 mb-12 text-center">
+          Similar Properties
+        </h2>
+        
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {relatedProperties.map((warehouse) => (
-            <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              {warehouse.data.images && warehouse.data.images[0] && (
-                <div class="h-48 overflow-hidden">
-                  <img 
-                    src={warehouse.data.images[0]} 
-                    alt={warehouse.data.title}
-                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
+          {relatedProperties.map((property) => (
+            <div class="card-premium overflow-hidden hover:shadow-xl transition-all duration-300 group">
+              <div class="relative aspect-w-16 aspect-h-10 overflow-hidden">
+                <img 
+                  src={property.data.images?.[0] || '/api/placeholder/400/250'} 
+                  alt={property.data.title}
+                  class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div class="absolute top-4 left-4">
+                  <span class="px-3 py-1 bg-green-500 text-white text-label-md rounded-full">
+                    Available
+                  </span>
                 </div>
-              )}
+              </div>
               
               <div class="p-6">
-                <h3 class="font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors duration-300">
-                  <a href={`/warehouses/${warehouse.data.slug}`}>
-                    {warehouse.data.title}
-                  </a>
+                <div class="flex items-center text-slate-600 mb-2">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  </svg>
+                  <span class="text-body-sm">{property.data.location}</span>
+                </div>
+                
+                <h3 class="text-heading-md font-semibold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                  {property.data.title}
                 </h3>
                 
-                <p class="text-gray-600 mb-4 flex items-center">
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  </svg>
-                  {warehouse.data.location}
-                </p>
-                
-                <div class="flex items-center justify-between mb-6">
-                  <div>
-                    <div class="text-lg font-semibold text-gray-900">{warehouse.data.size.toLocaleString()} SF</div>
-                    <div class="text-sm text-gray-600">{warehouse.data.price}</div>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="text-center p-3 bg-slate-50 rounded-xl">
+                    <div class="text-heading-md font-bold text-slate-900">
+                      {property.data.size.toLocaleString()}
+                    </div>
+                    <div class="text-body-sm text-slate-600">SF</div>
+                  </div>
+                  <div class="text-center p-3 bg-slate-50 rounded-xl">
+                    <div class="text-heading-md font-bold text-slate-900">
+                      {property.data.price}
+                    </div>
+                    <div class="text-body-sm text-slate-600">per SF/year</div>
                   </div>
                 </div>
                 
-                <div class="flex gap-3">
-                  <a href={`/warehouses/${warehouse.data.slug}`} class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-xl font-medium text-center transition-colors duration-300">
-                    View Details
-                  </a>
-                  <a href="tel:+19549379667" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-colors duration-300">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                    </svg>
-                  </a>
-                </div>
+                <a 
+                  href={`/warehouses/${property.data.slug}`} 
+                  class="w-full btn-secondary text-center py-3 group-hover:border-blue-300 group-hover:text-blue-600 transition-all"
+                >
+                  View Details
+                </a>
               </div>
             </div>
           ))}
@@ -324,40 +340,25 @@ const city = data.location.split(',')[0]?.trim() || '';
   </div>
 </BaseLayout>
 
-<!-- JavaScript for interactivity -->
 <script>
-  function showImage(imageUrl: string): void {
-    const mainImage = document.querySelector('img[loading="eager"]') as HTMLImageElement;
-    if (mainImage) {
-      mainImage.src = imageUrl;
-    }
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-  function copyToClipboard(): void {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      alert('Property link copied to clipboard!');
-    }).catch(() => {
-      alert('Unable to copy link. Please copy manually from your browser address bar.');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, observerOptions);
+
+    // Observe animation elements
+    document.querySelectorAll('.scroll-fade-in, .scroll-slide-right, .scroll-slide-left').forEach(el => {
+      observer.observe(el);
     });
-  }
-
-  function printProperty(): void {
-    window.print();
-  }
+  });
 </script>
-
-<style>
-  @media print {
-    .no-print {
-      display: none;
-    }
-    
-    body {
-      background: white;
-    }
-    
-    .bg-gradient-to-br {
-      background: #2563eb !important;
-    }
-  }
-</style>

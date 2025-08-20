@@ -57,12 +57,12 @@ const services = [
       <div class="absolute inset-0 bg-dot-pattern opacity-5"></div>
       
       <!-- Floating Elements for Depth -->
-      <div class="absolute top-20 left-10 w-32 h-32 bg-white/5 rounded-full blur-xl animate-float"></div>
-      <div class="absolute bottom-20 right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-xl animate-float" style="animation-delay: -2s;"></div>
-      <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-white/5 rounded-full blur-xl animate-float" style="animation-delay: -4s;"></div>
+      <div class="absolute top-20 left-10 w-32 h-32 bg-white rounded-full blur-xl animate-float" style="background-color: rgba(255, 255, 255, 0.05);"></div>
+      <div class="absolute bottom-20 right-10 w-40 h-40 bg-blue-500 rounded-full blur-xl animate-float" style="background-color: rgba(59, 130, 246, 0.1); animation-delay: -2s;"></div>
+      <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-white rounded-full blur-xl animate-float" style="background-color: rgba(255, 255, 255, 0.05); animation-delay: -4s;"></div>
       
       <!-- Gradient Overlay for Professional Depth -->
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/20 via-transparent to-slate-800/20"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(15, 23, 42, 0.2), transparent, rgba(30, 41, 59, 0.2));"></div>
     </div>
 
     <!-- Hero Content -->
@@ -107,7 +107,7 @@ const services = [
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
               </a>
-              <a href="#consultation" class="btn-secondary border-white/30 text-white hover:bg-white/10">
+              <a href="#consultation" class="btn-secondary text-white hover:bg-white hover:text-slate-900" style="border-color: rgba(255, 255, 255, 0.3); background-color: rgba(255, 255, 255, 0.1);">
                 <span>Free Consultation</span>
               </a>
             </div>
@@ -116,10 +116,10 @@ const services = [
           <!-- Right Column - Interactive Stats -->
           <div class="scroll-slide-left">
             <div class="grid grid-cols-2 gap-6">
-              {stats.map((stat, index) => (
+              {stats.map((stat) => (
                 <div 
-                  class="card-glass p-8 text-center transform hover:scale-105 transition-all duration-300"
-                  style={`animation-delay: ${stat.delay};`}
+                  class="bg-white rounded-2xl p-8 text-center transform hover:scale-105 transition-all duration-300 shadow-xl"
+                  style={`background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); animation-delay: ${stat.delay};`}
                 >
                   <div class="text-heading-lg font-bold text-white mb-2">
                     {stat.value}
@@ -378,7 +378,7 @@ const services = [
         
         <!-- Right Column - Contact Form -->
         <div class="scroll-slide-left">
-          <div class="card-glass p-8">
+          <div class="bg-white rounded-2xl p-8 shadow-xl" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2);">
             <h3 class="text-heading-lg font-semibold text-white mb-6">
               Request Free Consultation
             </h3>
@@ -503,7 +503,8 @@ const services = [
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      const href = (this as HTMLAnchorElement).getAttribute('href');
+      const element = e.currentTarget as HTMLAnchorElement;
+      const href = element.getAttribute('href');
       if (!href || href === '#') return;
       
       const target = document.querySelector(href);

@@ -320,7 +320,7 @@ export default {
     require('@tailwindcss/aspect-ratio'),
     
     // Custom plugin for utility classes
-    function({ addUtilities, addComponents, theme }) {
+    function({ addUtilities, addComponents }) {
       // Professional component classes
       const components = {
         // Button styles

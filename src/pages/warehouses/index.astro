@@ -575,7 +575,6 @@ const maxSize = sizes[sizes.length - 1] || 1000000;
     const advancedFilters = document.getElementById('advanced-filters');
     const sizeMin = document.getElementById('size-min') as HTMLInputElement;
     const sizeMinValue = document.getElementById('size-min-value');
-    const sizeMaxValue = document.getElementById('size-max-value');
     const featureCheckboxes = document.querySelectorAll('.feature-checkbox') as NodeListOf<HTMLInputElement>;
     const availabilityFilter = document.getElementById('availability-filter') as HTMLSelectElement;
     const clearFilters = document.getElementById('clear-filters');
@@ -586,7 +585,6 @@ const maxSize = sizes[sizes.length - 1] || 1000000;
     const propertiesList = document.getElementById('properties-list');
     const resultsCount = document.getElementById('results-count');
     const noResults = document.getElementById('no-results');
-    const loadingState = document.getElementById('loading-state');
     
     let properties = Array.from(document.querySelectorAll('.property-card') as NodeListOf<HTMLElement>);
     let isGridView = true;

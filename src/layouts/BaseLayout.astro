@@ -539,7 +539,8 @@ const currentPath = Astro.url.pathname;
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
-          const targetId = (this as HTMLAnchorElement).getAttribute('href');
+          const element = e.currentTarget as HTMLAnchorElement;
+          const targetId = element.getAttribute('href');
           if (targetId === '#' || !targetId) return;
           
           const target = document.querySelector(targetId);

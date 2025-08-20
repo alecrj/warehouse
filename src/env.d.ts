@@ -10,6 +10,19 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
+// GSAP Types - Fix for TypeScript errors
+declare global {
+  interface Window {
+    gsap: typeof import('gsap').gsap;
+    ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
+    ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin;
+  }
+  
+  const gsap: typeof import('gsap').gsap;
+  const ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
+  const ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin;
+}
+
 // Netlify Identity Widget
 interface NetlifyIdentity {
   on(event: 'init', callback: (user: any) => void): void;

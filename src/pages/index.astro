@@ -1,685 +1,682 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
-// Get featured warehouses (simulate with static data for now)
-const featuredWarehouses = [
-  {
-    id: '1',
-    title: 'Modern Distribution Center',
-    location: 'Fort Lauderdale, FL',
-    size: 45000,
-    price: '$12.50/sq ft',
-    image: '/images/warehouse-1.jpg',
-    features: ['Loading Docks', 'Climate Control', 'Security System']
-  },
-  {
-    id: '2', 
-    title: 'Flex Industrial Space',
-    location: 'Miami-Dade, FL',
-    size: 32000,
-    price: '$10.75/sq ft',
-    image: '/images/warehouse-2.jpg',
-    features: ['Office Space', 'High Ceilings', 'Easy Access']
-  },
-  {
-    id: '3',
-    title: 'Cold Storage Facility',
-    location: 'Broward County, FL',
-    size: 28000,
-    price: '$15.25/sq ft', 
-    image: '/images/warehouse-3.jpg',
-    features: ['Temperature Control', 'Loading Bays', 'Rail Access']
-  }
-];
+// Get featured warehouses from CMS
+const allWarehouses = await getCollection('warehouses');
+const featuredWarehouses = allWarehouses
+  .filter(warehouse => warehouse.data.featured && warehouse.data.availability === 'available')
+  .slice(0, 3);
+
+// If no featured warehouses, show first 3 available
+const displayWarehouses = featuredWarehouses.length > 0 
+  ? featuredWarehouses 
+  : allWarehouses.filter(w => w.data.availability === 'available').slice(0, 3);
 ---
 
 <BaseLayout 
-  title="Premium Industrial Real Estate | South Florida Warehouses"
-  description="Discover premium warehouse and industrial spaces in South Florida. Expert tenant representation and cutting-edge technology for your business growth."
+  title="Find Your Perfect Warehouse in South Florida | Ariel Realty Group"
+  description="Free tenant representation for your next warehouse lease, powered by Ariel Realty Group. From 500 SF to 500,000 SF - we've got you covered in South Florida."
 >
-  <!-- Enhanced Loading Animation -->
-  <div class="loading-overlay fixed inset-0 bg-slate-950 z-50 flex items-center justify-center">
-    <div class="loading-content text-center">
-      <div class="loading-spinner w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-6"></div>
-      <div class="loading-text text-white/60 text-lg font-light">Loading Premium Experience...</div>
-    </div>
-  </div>
-
-  <!-- Premium Hero Section -->
-  <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Advanced animated background -->
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div class="hero-grid absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, rgb(255 255 255 / 0.1) 1px, transparent 1px); background-size: 100px 100px;"></div>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 min-h-screen flex items-center">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] bg-repeat"></div>
     </div>
     
-    <!-- Floating elements with premium animations -->
-    <div class="floating-elements absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="floating-orb-1 absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-500/8 to-indigo-500/8 rounded-full blur-3xl"></div>
-      <div class="floating-orb-2 absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-r from-violet-500/8 to-purple-500/8 rounded-full blur-3xl"></div>
-      <div class="floating-orb-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-slate-500/5 to-slate-600/5 rounded-full blur-2xl"></div>
-    </div>
-    
-    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center">
-        <!-- Hero Badge -->
-        <div class="hero-badge inline-flex items-center px-6 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-white/60 text-sm font-medium mb-12">
-          <span class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></span>
-          Premium Industrial Real Estate Solutions
-        </div>
-        
-        <!-- Hero Title with Premium Typography -->
-        <div class="hero-title-container mb-12">
-          <h1 class="hero-title text-6xl md:text-7xl xl:text-8xl font-black text-white leading-[0.85] tracking-tight">
-            <span class="hero-line block">Premium</span>
-            <span class="hero-line block relative">
-              <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">Industrial</span>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Hero Content -->
+        <div class="scroll-fade-in">
+          <div class="mb-8">
+            <span class="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/20 text-blue-300 text-sm font-medium border border-blue-400/30 backdrop-blur-sm">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+              South Florida Industrial Experts
             </span>
-            <span class="hero-line block">Real Estate</span>
+          </div>
+
+          <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight mb-8">
+            Find Your Perfect <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Warehouse</span> in South Florida
           </h1>
-        </div>
-        
-        <!-- Hero Subtitle -->
-        <p class="hero-subtitle text-xl md:text-2xl text-white/60 mb-16 max-w-4xl mx-auto leading-relaxed font-light">
-          Elevating industrial real estate through expert tenant representation and cutting-edge technology solutions across South Florida.
-        </p>
-        
-        <!-- Hero CTAs -->
-        <div class="hero-ctas flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-          <a href="/listings" class="cta-primary group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold text-lg rounded-2xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-500 shadow-2xl hover:shadow-blue-500/25 overflow-hidden">
-            <span class="relative z-10">Explore Properties</span>
-            <svg class="relative z-10 w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </a>
           
-          <a href="/about" class="cta-secondary group inline-flex items-center px-8 py-4 border-2 border-white/20 text-white font-semibold text-lg rounded-2xl hover:border-white/40 hover:bg-white/5 transition-all duration-500 backdrop-blur-xl">
-            <span>Learn More</span>
-            <svg class="w-5 h-5 ml-3 group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-            </svg>
-          </a>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator absolute bottom-12 left-1/2 transform -translate-x-1/2">
-          <div class="scroll-dot w-1 h-8 bg-white/30 rounded-full"></div>
-          <div class="scroll-text text-white/40 text-sm mt-4 font-light">Scroll to explore</div>
-        </div>
-      </div>
-    </div>
-  </section>
+          <p class="text-xl lg:text-2xl text-slate-300 font-light leading-relaxed mb-6">
+            Free tenant representation for your next warehouse lease, powered by <span class="font-semibold text-white">Ariel Realty Group</span>.
+          </p>
 
-  <!-- Premium Features Section -->
-  <section class="features-section py-32 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-20">
-        <h2 class="section-title text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
-          Why Choose <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Premium</span>
-        </h2>
-        <p class="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-          Experience the future of industrial real estate with our technology-driven approach and expert representation.
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-12">
-        <div class="feature-card group">
-          <div class="feature-content p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-700 hover:border-white/20">
-            <div class="feature-icon w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-6">AI-Powered Matching</h3>
-            <p class="text-white/60 leading-relaxed">Advanced algorithms match your specific requirements with the perfect industrial space, saving time and maximizing efficiency.</p>
-          </div>
-        </div>
-        
-        <div class="feature-card group">
-          <div class="feature-content p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-700 hover:border-white/20">
-            <div class="feature-icon w-16 h-16 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-6">Real-Time Analytics</h3>
-            <p class="text-white/60 leading-relaxed">Live market data and predictive analytics provide insights into pricing trends, availability, and optimal timing for your moves.</p>
-          </div>
-        </div>
-        
-        <div class="feature-card group">
-          <div class="feature-content p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-700 hover:border-white/20">
-            <div class="feature-icon w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-6">Expert Representation</h3>
-            <p class="text-white/60 leading-relaxed">Dedicated tenant representatives with decades of combined experience negotiating the best terms and conditions for your business.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+          <p class="text-lg text-slate-400 mb-12 leading-relaxed">
+            Whether you need a small 500 SF workshop or a 500,000 SF distribution space, we've got you covered.
+          </p>
 
-  <!-- Premium Properties Section -->
-  <section class="properties-section py-32 bg-gradient-to-b from-slate-900 to-slate-800 relative">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-20">
-        <h2 class="section-title text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
-          Featured <span class="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Properties</span>
-        </h2>
-        <p class="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-          Discover premium industrial spaces that drive business growth and operational excellence.
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-10">
-        {featuredWarehouses.map((warehouse, index) => (
-          <div class="property-card group">
-            <div class="property-content bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-700 hover:border-white/20">
-              <div class="property-image aspect-video bg-gradient-to-br from-slate-700 to-slate-800 relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div class="absolute bottom-4 left-4">
-                  <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/90 text-white text-sm font-medium">
-                    Available Now
-                  </span>
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-6 mb-12">
+            <a 
+              href="#search" 
+              class="btn-accent text-lg px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-2xl inline-flex items-center justify-center group"
+            >
+              <span>Get Free Tenant Representation</span>
+              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </a>
+            
+            <a 
+              href="tel:954-937-9667" 
+              class="btn-secondary text-lg px-8 py-4 border-2 border-white/30 text-white hover:border-white hover:bg-white/10 font-semibold rounded-2xl transition-all duration-300 backdrop-blur-sm inline-flex items-center justify-center group"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              <span>Call: 954-937-9667</span>
+            </a>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="flex flex-wrap gap-8 text-white/70">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="font-medium">500,000+ SF Leased</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="font-medium">Completely Free Service</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="font-medium">Local Market Experts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual -->
+        <div class="scroll-scale-up">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-3xl blur-3xl"></div>
+            <div class="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center p-4 bg-white/10 rounded-2xl">
+                  <div class="text-3xl font-bold text-white mb-1">500</div>
+                  <div class="text-sm text-slate-300">SF Minimum</div>
+                </div>
+                <div class="text-center p-4 bg-white/10 rounded-2xl">
+                  <div class="text-3xl font-bold text-white mb-1">500K</div>
+                  <div class="text-sm text-slate-300">SF Maximum</div>
+                </div>
+                <div class="text-center p-4 bg-white/10 rounded-2xl">
+                  <div class="text-3xl font-bold text-white mb-1">Free</div>
+                  <div class="text-sm text-slate-300">For Tenants</div>
+                </div>
+                <div class="text-center p-4 bg-white/10 rounded-2xl">
+                  <div class="text-3xl font-bold text-white mb-1">Expert</div>
+                  <div class="text-sm text-slate-300">Negotiation</div>
                 </div>
               </div>
-              
-              <div class="property-details p-8">
-                <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
-                  {warehouse.title}
-                </h3>
-                
-                <div class="property-meta flex items-center text-white/60 mb-6">
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  {warehouse.location}
-                </div>
-                
-                <div class="property-stats grid grid-cols-2 gap-6 mb-8">
-                  <div>
-                    <div class="text-white/50 text-sm mb-1">Size</div>
-                    <div class="text-white font-semibold">{warehouse.size.toLocaleString()} sq ft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Search Section -->
+  <section id="search" class="py-16 bg-white relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          Start Your <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Warehouse Search</span>
+        </h2>
+        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+          Tell us what you need and we'll match you with perfect properties across South Florida
+        </p>
+      </div>
+
+      <!-- Search Form -->
+      <div class="max-w-4xl mx-auto">
+        <form class="card-premium p-8 bg-gradient-to-r from-slate-50 to-blue-50" action="/contact" method="GET">
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div>
+              <label for="size" class="block text-sm font-semibold text-slate-700 mb-2">Square Footage Needed</label>
+              <select name="size" id="size" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none transition-colors">
+                <option value="">Select size range</option>
+                <option value="500-5000">500 - 5,000 SF</option>
+                <option value="5000-25000">5,000 - 25,000 SF</option>
+                <option value="25000-100000">25,000 - 100,000 SF</option>
+                <option value="100000+">100,000+ SF</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="location" class="block text-sm font-semibold text-slate-700 mb-2">Preferred Location</label>
+              <select name="location" id="location" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none transition-colors">
+                <option value="">Any location</option>
+                <option value="miami-dade">Miami-Dade County</option>
+                <option value="broward">Broward County</option>
+                <option value="palm-beach">Palm Beach County</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="budget" class="block text-sm font-semibold text-slate-700 mb-2">Budget per SF/Year</label>
+              <select name="budget" id="budget" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none transition-colors">
+                <option value="">Select budget</option>
+                <option value="0-10">Under $10</option>
+                <option value="10-15">$10 - $15</option>
+                <option value="15-20">$15 - $20</option>
+                <option value="20+">$20+</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <button 
+              type="submit" 
+              class="btn-accent px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl inline-flex items-center group"
+            >
+              <span>Get Matched with Warehouses</span>
+              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Properties -->
+  {displayWarehouses.length > 0 && (
+    <section class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+            Featured <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Properties</span>
+          </h2>
+          <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
+            Premium warehouse spaces with expert representation by Ariel Realty Group
+          </p>
+          <a 
+            href="/warehouses" 
+            class="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group"
+          >
+            <span>View All Properties</span>
+            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayWarehouses.map((warehouse, index) => (
+            <div 
+              class="property-card scroll-scale-up group"
+              style={`animation-delay: ${index * 100}ms;`}
+            >
+              <div class="card-premium overflow-hidden hover:shadow-2xl transition-all duration-500">
+                <!-- Image -->
+                <div class="relative aspect-w-16 aspect-h-10 overflow-hidden">
+                  <img 
+                    src={warehouse.data.images?.[0] || '/images/warehouse-placeholder.jpg'}
+                    alt={warehouse.data.title}
+                    class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                  <div class="absolute top-4 left-4">
+                    <span class={`px-3 py-1 rounded-full text-sm font-medium ${
+                      warehouse.data.availability === 'available' 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-amber-500 text-white'
+                    }`}>
+                      {warehouse.data.availability === 'available' ? 'Available' : 'Coming Soon'}
+                    </span>
                   </div>
-                  <div>
-                    <div class="text-white/50 text-sm mb-1">Price</div>
-                    <div class="text-white font-semibold">{warehouse.price}</div>
-                  </div>
-                </div>
-                
-                <div class="property-features mb-8">
-                  <div class="flex flex-wrap gap-2">
-                    {warehouse.features.map((feature) => (
-                      <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">
-                        {feature}
+                  {warehouse.data.featured && (
+                    <div class="absolute top-4 right-4">
+                      <span class="px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded-full">
+                        Featured
                       </span>
-                    ))}
-                  </div>
+                    </div>
+                  )}
                 </div>
                 
-                <a href={`/listings/${warehouse.id}`} class="property-cta inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 group">
-                  <span>View Details</span>
-                  <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                  </svg>
+                <!-- Content -->
+                <div class="p-6">
+                  <div class="flex items-center text-slate-600 mb-2">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    </svg>
+                    <span class="text-sm">{warehouse.data.location}</span>
+                  </div>
+                  
+                  <h3 class="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                    {warehouse.data.title}
+                  </h3>
+                  
+                  <!-- Stats -->
+                  <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="text-center p-3 bg-slate-50 rounded-lg">
+                      <div class="text-lg font-bold text-slate-900">
+                        {warehouse.data.size.toLocaleString()}
+                      </div>
+                      <div class="text-sm text-slate-600">Square Feet</div>
+                    </div>
+                    <div class="text-center p-3 bg-slate-50 rounded-lg">
+                      <div class="text-lg font-bold text-slate-900">
+                        {warehouse.data.price}
+                      </div>
+                      <div class="text-sm text-slate-600">per SF/year</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Features -->
+                  {warehouse.data.features && warehouse.data.features.length > 0 && (
+                    <div class="mb-6">
+                      <div class="flex flex-wrap gap-2">
+                        {warehouse.data.features.slice(0, 2).map((feature: string) => (
+                          <span class="text-sm px-3 py-1 bg-blue-50 text-blue-700 rounded-full">
+                            {feature}
+                          </span>
+                        ))}
+                        {warehouse.data.features.length > 2 && (
+                          <span class="text-sm px-3 py-1 bg-slate-100 text-slate-600 rounded-full">
+                            +{warehouse.data.features.length - 2} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <!-- Action -->
+                  <a 
+                    href={`/warehouses/${warehouse.data.slug}`} 
+                    class="w-full btn-secondary border-2 border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 font-semibold py-3 rounded-xl transition-colors text-center inline-block group"
+                  >
+                    <span>View Details</span>
+                    <svg class="w-4 h-4 ml-2 inline group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <a 
+            href="/warehouses" 
+            class="btn-accent px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl inline-flex items-center group"
+          >
+            <span>View All Properties</span>
+            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- About Us Section -->
+  <section id="about" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="scroll-fade-in">
+          <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+            About <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ariel Realty Group</span>
+          </h2>
+          <p class="text-xl text-slate-600 mb-8 leading-relaxed">
+            Ariel Realty Group specializes in industrial tenant representation with over 500,000 SF leased for tenants across South Florida.
+          </p>
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900 mb-2">Local Expertise</h3>
+                <p class="text-slate-600">Deep South Florida market knowledge and strong relationships with landlords and developers.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900 mb-2">Completely Free Service</h3>
+                <p class="text-slate-600">Concierge-style tenant representation at no cost to you - landlords pay our fees.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900 mb-2">Proven Track Record</h3>
+                <p class="text-slate-600">Over 500,000 SF successfully leased for tenants with expert negotiation and market guidance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="scroll-scale-up">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-3xl blur-3xl"></div>
+            <div class="relative bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-8 border border-slate-200">
+              <div class="grid grid-cols-2 gap-6">
+                <div class="text-center">
+                  <div class="text-4xl font-bold text-blue-600 mb-2">500K+</div>
+                  <div class="text-sm text-slate-600">SF Leased</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-4xl font-bold text-green-600 mb-2">Free</div>
+                  <div class="text-sm text-slate-600">For Tenants</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-4xl font-bold text-purple-600 mb-2">Expert</div>
+                  <div class="text-sm text-slate-600">Negotiation</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-4xl font-bold text-indigo-600 mb-2">Local</div>
+                  <div class="text-sm text-slate-600">Market Focus</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          Our <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Services</span>
+        </h2>
+        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+          Comprehensive tenant representation from search to signing - provided by Ariel Realty Group at no cost to the tenant
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="scroll-scale-up text-center">
+          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Property Search</h3>
+          <p class="text-slate-600">Access to both on-market & off-market opportunities across South Florida.</p>
+        </div>
+        
+        <div class="scroll-scale-up text-center" style="animation-delay: 100ms;">
+          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Lease Negotiation</h3>
+          <p class="text-slate-600">Expert negotiation to secure the best terms and rental rates for your lease.</p>
+        </div>
+        
+        <div class="scroll-scale-up text-center" style="animation-delay: 200ms;">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Market Analysis</h3>
+          <p class="text-slate-600">Full market knowledge & expert guidance throughout the entire process.</p>
+        </div>
+        
+        <div class="scroll-scale-up text-center" style="animation-delay: 300ms;">
+          <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Full Service</h3>
+          <p class="text-slate-600">Concierge-style service from initial search through lease signing and beyond.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          Why Choose <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ariel Realty Group</span>
+        </h2>
+        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+          From 500 SF to 500,000 SF — we cover every warehouse need with expert local knowledge
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="scroll-fade-in text-center">
+          <div class="w-20 h-20 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Save Time</h3>
+          <p class="text-slate-600 leading-relaxed">Let us handle the search while you focus on your business. We know the market inside and out.</p>
+        </div>
+        
+        <div class="scroll-fade-in text-center" style="animation-delay: 100ms;">
+          <div class="w-20 h-20 bg-gradient-to-r from-green-100 to-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Save Money</h3>
+          <p class="text-slate-600 leading-relaxed">Expert negotiation secures better terms and rates. Our service is completely free for tenants.</p>
+        </div>
+        
+        <div class="scroll-fade-in text-center" style="animation-delay: 200ms;">
+          <div class="w-20 h-20 bg-gradient-to-r from-purple-100 to-violet-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-4">Local Expertise</h3>
+          <p class="text-slate-600 leading-relaxed">Deep South Florida market knowledge with strong relationships across Miami-Dade, Broward, and Palm Beach.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gradient-to-r from-slate-900 to-blue-900">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-white mb-4">
+          Get Matched with <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Warehouses Today</span>
+        </h2>
+        <p class="text-xl text-slate-300 max-w-2xl mx-auto">
+          Ready to find your perfect warehouse? Contact us for free tenant representation.
+        </p>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Contact Form -->
+        <div class="scroll-fade-in">
+          <form class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20" name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact" />
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label for="name" class="block text-sm font-semibold text-white mb-2">Name *</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  required 
+                  class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/60 focus:border-blue-400 focus:outline-none transition-colors"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-semibold text-white mb-2">Email *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required 
+                  class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/60 focus:border-blue-400 focus:outline-none transition-colors"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="phone" class="block text-sm font-semibold text-white mb-2">Phone</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/60 focus:border-blue-400 focus:outline-none transition-colors"
+                placeholder="(954) 123-4567"
+              />
+            </div>
+            
+            <div class="mb-8">
+              <label for="requirements" class="block text-sm font-semibold text-white mb-2">Requirements</label>
+              <textarea 
+                id="requirements" 
+                name="requirements" 
+                rows="4" 
+                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/60 focus:border-blue-400 focus:outline-none transition-colors resize-none"
+                placeholder="Tell us about your warehouse needs - size, location, timeline, special requirements..."
+              ></textarea>
+            </div>
+            
+            <button 
+              type="submit" 
+              class="w-full btn-accent py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl"
+            >
+              Get Free Tenant Representation
+            </button>
+          </form>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="scroll-scale-up">
+          <div class="space-y-8">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mr-6 backdrop-blur-sm border border-blue-400/30">
+                <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Call Us</h3>
+                <p class="text-slate-300 mb-2">Ready to talk? Give us a call for immediate assistance.</p>
+                <a 
+                  href="tel:954-937-9667" 
+                  class="text-blue-400 hover:text-blue-300 font-semibold text-lg transition-colors"
+                >
+                  954-937-9667
                 </a>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-      
-      <div class="text-center mt-16">
-        <a href="/listings" class="inline-flex items-center px-8 py-4 border-2 border-white/20 text-white font-semibold text-lg rounded-2xl hover:border-white/40 hover:bg-white/5 transition-all duration-500 backdrop-blur-xl group">
-          <span>View All Properties</span>
-          <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Premium Contact Section -->
-  <section class="contact-section py-32 bg-gradient-to-b from-slate-800 to-slate-950 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-20">
-        <h2 class="section-title text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
-          Ready to <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Connect?</span>
-        </h2>
-        <p class="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-          Let our experts help you find the perfect industrial space for your business needs.
-        </p>
-      </div>
-      
-      <div class="contact-options grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div class="contact-option group">
-          <div class="contact-content p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 text-center">
-            <div class="contact-icon w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center mr-6 backdrop-blur-sm border border-green-400/30">
+                <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Response Time</h3>
+                <p class="text-slate-300 mb-2">We respond to all inquiries within 24 hours.</p>
+                <span class="text-green-400 font-semibold">Usually within 2 hours</span>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Call Us</h3>
-            <p class="text-white/60 mb-4">Speak directly with our experts</p>
-            <a href="tel:+1234567890" class="text-blue-400 hover:text-blue-300 font-semibold">(123) 456-7890</a>
-          </div>
-        </div>
-        
-        <div class="contact-option group">
-          <div class="contact-content p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 text-center">
-            <div class="contact-icon w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center mr-6 backdrop-blur-sm border border-purple-400/30">
+                <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Ariel Realty Group</h3>
+                <p class="text-slate-300 mb-2">South Florida's industrial real estate experts.</p>
+                <span class="text-purple-400 font-semibold">Backed by proven experience</span>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Email Us</h3>
-            <p class="text-white/60 mb-4">Get detailed information</p>
-            <a href="mailto:info@example.com" class="text-emerald-400 hover:text-emerald-300 font-semibold">info@example.com</a>
-          </div>
-        </div>
-        
-        <div class="contact-option group">
-          <div class="contact-content p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 text-center">
-            <div class="contact-icon w-16 h-16 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-3">Schedule Meeting</h3>
-            <p class="text-white/60 mb-4">Book a consultation</p>
-            <a href="/contact" class="text-violet-400 hover:text-violet-300 font-semibold">Book Now</a>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Enhanced CSS Styles -->
-  <style>
-    /* Premium Loading Animation */
-    .loading-overlay {
-      opacity: 1;
-      transition: opacity 0.8s ease-out;
-    }
-    
-    .page-loaded .loading-overlay {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    /* Premium Floating Animations */
-    .floating-orb-1 {
-      animation: floatSlow1 20s ease-in-out infinite;
-    }
-    
-    .floating-orb-2 {
-      animation: floatSlow2 25s ease-in-out infinite reverse;
-    }
-    
-    .floating-orb-3 {
-      animation: floatSlow3 30s ease-in-out infinite;
-    }
-    
-    @keyframes floatSlow1 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -20px) scale(1.1); }
-      66% { transform: translate(-20px, 15px) scale(0.9); }
-    }
-    
-    @keyframes floatSlow2 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(-25px, -30px) scale(1.05); }
-    }
-    
-    @keyframes floatSlow3 {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); }
-      33% { transform: translate(-50%, -55%) scale(1.1); }
-      66% { transform: translate(-45%, -50%) scale(0.95); }
-    }
-    
-    /* Premium Typography */
-    .hero-title {
-      font-variation-settings: "wght" 900;
-      letter-spacing: -0.04em;
-    }
-    
-    .section-title {
-      font-variation-settings: "wght" 900;
-      letter-spacing: -0.03em;
-    }
-    
-    /* Enhanced Scroll Indicator */
-    .scroll-dot {
-      animation: scrollFloat 3s ease-in-out infinite;
-    }
-    
-    @keyframes scrollFloat {
-      0%, 100% { transform: translateY(0) translateX(-50%); }
-      50% { transform: translateY(20px) translateX(-50%); }
-    }
-    
-    /* Premium Hover Effects */
-    .cta-primary {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .cta-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .cta-primary:hover::before {
-      left: 100%;
-    }
-    
-    /* Premium card hover effects */
-    .feature-card,
-    .property-card,
-    .contact-option {
-      transform-style: preserve-3d;
-      perspective: 1000px;
-    }
-    
-    .feature-content,
-    .property-content,
-    .contact-content {
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-origin: center;
-    }
-    
-    .feature-card:hover .feature-content,
-    .property-card:hover .property-content,
-    .contact-option:hover .contact-content {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-    
-    /* Micro-interactions */
-    .feature-icon,
-    .contact-icon {
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .feature-card:hover .feature-icon,
-    .contact-option:hover .contact-icon {
-      transform: scale(1.1) rotate(5deg);
-    }
-    
-    /* Mobile Optimizations */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: 3rem;
-        line-height: 0.9;
-      }
-      
-      .section-title {
-        font-size: 2.5rem;
-        line-height: 1.1;
-      }
-      
-      .hero-grid {
-        background-size: 50px 50px;
-      }
-      
-      .feature-card:hover .feature-content,
-      .property-card:hover .property-content,
-      .contact-option:hover .contact-content {
-        transform: translateY(-4px) scale(1.01);
-      }
-    }
-    
-    /* Smooth transitions for all interactive elements */
-    * {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    /* Additional premium touches */
-    .hero-line {
-      opacity: 0;
-      animation: slideInUp 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-    
-    .hero-line:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    
-    .hero-line:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(100px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
-
-  <!-- Enhanced TypeScript-Safe GSAP Animations -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Loading animation with proper timing
-      setTimeout(() => {
-        const loadingOverlay = document.querySelector('.loading-overlay') as HTMLElement;
-        if (loadingOverlay) {
-          loadingOverlay.style.opacity = '0';
-          setTimeout(() => {
-            loadingOverlay.remove();
-            document.body.classList.add('page-loaded');
-          }, 800);
-        }
-      }, 1200);
-
-      // Check if GSAP is available
-      if (typeof window !== 'undefined' && window.gsap) {
-        const { gsap } = window;
-        
-        // Register plugins safely
-        if (window.ScrollTrigger) {
-          gsap.registerPlugin(window.ScrollTrigger);
-        }
-        if (window.ScrollToPlugin) {
-          gsap.registerPlugin(window.ScrollToPlugin);
-        }
-
-        // GSAP Configuration
-        gsap.config({
-          nullTargetWarn: false
-        });
-
-        // Premium Hero Animation Timeline
-        const heroTL = gsap.timeline({ delay: 1.5 });
-
-        // Animate hero elements with proper selectors
-        const heroBadge = document.querySelector('.hero-badge') as HTMLElement;
-        const heroSubtitle = document.querySelector('.hero-subtitle') as HTMLElement;
-        const heroCTAs = document.querySelectorAll('.cta-primary, .cta-secondary') as NodeListOf<HTMLElement>;
-        const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
-
-        if (heroBadge) {
-          heroTL.from(heroBadge, {
-            opacity: 0,
-            y: 50,
-            duration: 1.2,
-            ease: 'power4.out'
-          });
-        }
-
-        if (heroSubtitle) {
-          heroTL.from(heroSubtitle, {
-            opacity: 0,
-            y: 40,
-            duration: 1.4,
-            ease: 'power3.out'
-          }, '-=1.2');
-        }
-
-        if (heroCTAs.length > 0) {
-          heroTL.from(Array.from(heroCTAs), {
-            opacity: 0,
-            y: 40,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: 'power3.out'
-          }, '-=0.8');
-        }
-
-        if (scrollIndicator) {
-          heroTL.from(scrollIndicator, {
-            opacity: 0,
-            y: 30,
-            duration: 1,
-            ease: 'power2.out'
-          }, '-=0.5');
-        }
-
-        // Animate sections with scroll triggers
-        if (window.ScrollTrigger) {
-          // Feature cards animation
-          const featureCards = document.querySelectorAll('.feature-card') as NodeListOf<HTMLElement>;
-          featureCards.forEach((card, index) => {
-            gsap.from(card, {
-              opacity: 0,
-              y: 80,
-              duration: 1.5,
-              delay: index * 0.2,
-              ease: 'power4.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-              }
-            });
-          });
-
-          // Property cards animation
-          const propertyCards = document.querySelectorAll('.property-card') as NodeListOf<HTMLElement>;
-          propertyCards.forEach((card, index) => {
-            gsap.from(card, {
-              opacity: 0,
-              y: 100,
-              duration: 1.6,
-              delay: index * 0.15,
-              ease: 'power4.out',
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 90%',
-                toggleActions: 'play none none reverse'
-              }
-            });
-          });
-
-          // Section titles animation
-          const sectionTitles = document.querySelectorAll('.section-title') as NodeListOf<HTMLElement>;
-          sectionTitles.forEach((title) => {
-            gsap.from(title, {
-              opacity: 0,
-              y: 60,
-              duration: 1.4,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: title,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-              }
-            });
-          });
-
-          // Contact options animation
-          const contactOptions = document.querySelectorAll('.contact-option') as NodeListOf<HTMLElement>;
-          contactOptions.forEach((option, index) => {
-            gsap.from(option, {
-              opacity: 0,
-              y: 50,
-              duration: 1.2,
-              delay: index * 0.1,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: '.contact-options',
-                start: 'top 85%',
-                toggleActions: 'play none none reverse'
-              }
-            });
-          });
-
-          // Parallax floating orbs
-          const floatingOrbs = document.querySelectorAll('.floating-orb-1, .floating-orb-2, .floating-orb-3') as NodeListOf<HTMLElement>;
-          floatingOrbs.forEach((orb) => {
-            gsap.to(orb, {
-              y: -100,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: orb,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1.5
-              }
-            });
-          });
-        }
-
-        // Enhanced hover animations
-        const interactiveCards = document.querySelectorAll('.feature-card, .property-card') as NodeListOf<HTMLElement>;
-        interactiveCards.forEach((card) => {
-          const content = card.querySelector('.feature-content, .property-content') as HTMLElement;
-          if (content) {
-            card.addEventListener('mouseenter', () => {
-              gsap.to(content, {
-                y: -8,
-                duration: 0.6,
-                ease: 'power2.out'
-              });
-            });
-
-            card.addEventListener('mouseleave', () => {
-              gsap.to(content, {
-                y: 0,
-                duration: 0.6,
-                ease: 'power2.out'
-              });
-            });
-          }
-        });
-
-        // Smooth scroll for anchor links
-        const anchorLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
-        anchorLinks.forEach((anchor) => {
-          anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            if (href && window.ScrollToPlugin) {
-              const target = document.querySelector(href);
-              if (target) {
-                gsap.to(window, {
-                  scrollTo: { y: target, offsetY: 100 },
-                  duration: 1.5,
-                  ease: 'power2.inOut'
-                });
-              }
-            }
-          });
-        });
-
-        console.log('🚀 Premium animations loaded successfully!');
-      } else {
-        console.log('GSAP not available, using CSS animations');
-      }
-    });
-  </script>
 </BaseLayout>
+
+<style>
+  /* Custom animations */
+  .scroll-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  .scroll-scale-up {
+    opacity: 0;
+    transform: scale(0.9);
+    animation: scaleUp 1s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleUp {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Property card animations */
+  .property-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardSlideUp 0.8s ease-out forwards;
+  }
+  
+  @keyframes cardSlideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Gradient text */
+  .bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+</style>

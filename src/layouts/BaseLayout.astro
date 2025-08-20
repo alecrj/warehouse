@@ -10,11 +10,12 @@ export interface Props {
 
 const { 
   title = 'South Florida Industrial Real Estate | Ariel Realty Group',
-  description = 'Free tenant representation for warehouse and industrial properties across Miami-Dade, Broward, and Palm Beach counties. Expert guidance, zero cost to tenants.',
+  description = 'Expert tenant representation for premium warehouse and industrial properties across Miami-Dade, Broward, and Palm Beach counties. Fortune 500 level service.',
   ogImage = '/og-image.jpg'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -26,13 +27,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
   
-  <!-- Preconnect to font sources -->
+  <!-- Preconnect to font sources for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   
-  <!-- Favicon -->
+  <!-- Critical CSS for above-the-fold content -->
+  <style>
+    /* Critical loading styles */
+    .loading { opacity: 0; }
+    .loaded { opacity: 1; transition: opacity 0.3s ease; }
+  </style>
+  
+  <!-- Favicon with multiple formats -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -40,19 +50,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL(ogImage, Astro.url)} />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Ariel Realty Group" />
   
   <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={canonicalURL} />
-  <meta property="twitter:title" content={title} />
-  <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content={canonicalURL} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, Astro.url)} />
+  <meta name="twitter:creator" content="@arielrealty" />
   
   <!-- Additional SEO -->
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow" />
+  <meta name="theme-color" content="#0f172a" />
   
-  <!-- Schema.org markup -->
+  <!-- Schema.org markup for enhanced SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,561 +75,503 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     "description": "South Florida industrial real estate tenant representation",
     "url": "https://laec.netlify.app",
     "telephone": "(954) 937-9667",
+    "email": "info@arielrealty.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "FL",
+      "addressCountry": "US"
+    },
     "areaServed": [
-      "Miami-Dade County, FL",
-      "Broward County, FL", 
-      "Palm Beach County, FL"
+      {
+        "@type": "Place",
+        "name": "Miami-Dade County, FL"
+      },
+      {
+        "@type": "Place", 
+        "name": "Broward County, FL"
+      },
+      {
+        "@type": "Place",
+        "name": "Palm Beach County, FL"
+      }
     ],
     "serviceType": "Industrial Real Estate Tenant Representation",
-    "priceRange": "Free for Tenants"
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Industrial Properties",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Warehouse Space"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Industrial Space"
+          }
+        }
+      ]
+    },
+    "sameAs": [
+      "https://linkedin.com/company/ariel-realty-group"
+    ]
   }
   </script>
   
   <ViewTransitions />
-  
-  <!-- Custom CSS for smooth interactions -->
-  <style>
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-    
-    /* Smooth focus rings */
-    .focus-ring:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-      border-color: #3b82f6;
-    }
-    
-    /* Glass effect */
-    .glass {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(255, 255, 255, 0.75);
-      border: 1px solid rgba(209, 213, 219, 0.3);
-    }
-    
-    .glass-dark {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgba(17, 24, 39, 0.8);
-      border: 1px solid rgba(75, 85, 99, 0.3);
-    }
-    
-    /* Gradient text */
-    .gradient-text {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    /* Button hover effects */
-    .btn-hover {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .btn-hover::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .btn-hover:hover::before {
-      left: 100%;
-    }
-    
-    /* Intersection Observer Animation Classes */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .animate-on-scroll.animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .animate-on-scroll-left {
-      opacity: 0;
-      transform: translateX(-30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .animate-on-scroll-left.animate {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .animate-on-scroll-right {
-      opacity: 0;
-      transform: translateX(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .animate-on-scroll-right.animate {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .animate-on-scroll-scale {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .animate-on-scroll-scale.animate {
-      opacity: 1;
-      transform: scale(1);
-    }
-  </style>
 </head>
 
-<body class="antialiased font-sans">
-  <!-- Header - Premium glassmorphism design -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-200/30 transition-all duration-500" id="main-header">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-      <div class="flex items-center justify-between h-20">
-        <!-- Logo -->
-        <a href="/" class="flex items-center space-x-3 group">
-          <div class="relative">
-            <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-            </div>
-            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-secondary-500 rounded-full border-2 border-white animate-pulse-gentle"></div>
-          </div>
-          <div>
-            <div class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">
-              Ariel Realty Group
-            </div>
-            <div class="text-xs text-gray-500 font-medium">Industrial Specialists</div>
-          </div>
-        </a>
+<body class="loading" id="top">
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 btn-primary">
+    Skip to main content
+  </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center space-x-8">
-          <a href="/warehouses" class="relative text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 group py-2">
-            Properties
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/about" class="relative text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 group py-2">
-            About
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="/contact" class="relative text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 group py-2">
-            Contact
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          
-          <!-- CTA Button -->
-          <a href="tel:+19549379667" class="btn-hover group relative overflow-hidden bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white px-6 py-3 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            <span class="relative z-10 flex items-center">
-              <svg class="w-4 h-4 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-              </svg>
-              (954) 937-9667
-            </span>
-          </a>
-        </nav>
-
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden relative w-12 h-12 bg-gray-100/80 rounded-2xl flex items-center justify-center hover:bg-gray-200/80 transition-all duration-300 focus-ring" aria-label="Toggle menu">
-          <div class="flex flex-col space-y-1.5" id="hamburger-icon">
-            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300 transform origin-center"></span>
-            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300 transform origin-center"></span>
-            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300 transform origin-center"></span>
-          </div>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="lg:hidden opacity-0 invisible transition-all duration-300 glass-dark border-t border-gray-200/30">
-      <div class="container mx-auto px-4 py-6 space-y-6">
-        <a href="/warehouses" class="block text-lg font-medium text-white hover:text-primary-300 transition-colors duration-300 animate-fade-in-left">
-          Properties
-        </a>
-        <a href="/about" class="block text-lg font-medium text-white hover:text-primary-300 transition-colors duration-300 animate-fade-in-left" style="animation-delay: 0.1s">
-          About
-        </a>
-        <a href="/contact" class="block text-lg font-medium text-white hover:text-primary-300 transition-colors duration-300 animate-fade-in-left" style="animation-delay: 0.2s">
-          Contact
-        </a>
-        <a href="tel:+19549379667" class="block w-full bg-gradient-to-r from-secondary-600 to-secondary-700 text-white px-6 py-4 rounded-2xl font-bold text-center transition-all duration-300 hover:from-secondary-700 hover:to-secondary-800 transform hover:scale-105 animate-fade-in-left" style="animation-delay: 0.3s">
-          <span class="flex items-center justify-center">
-            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-            </svg>
-            Call (954) 937-9667
-          </span>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main class="pt-20">
-    <slot />
-  </main>
-
-  <!-- Footer - Premium Design -->
-  <footer class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
-    </div>
-    
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-16 relative z-10">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-        <!-- Company Info -->
-        <div class="lg:col-span-2 animate-on-scroll">
-          <div class="flex items-center space-x-3 mb-8">
-            <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="text-xl font-bold">Ariel Realty Group</div>
-              <div class="text-gray-400 text-sm">Industrial Real Estate Experts</div>
-            </div>
+  <!-- Premium Navigation Header -->
+  <header class="sticky top-0 z-50 transition-all duration-300" id="main-header">
+    <nav class="bg-white border-b shadow-sm" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom-color: rgba(226, 232, 240, 0.5);" aria-label="Main navigation">
+      <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex justify-between items-center h-20">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="/" class="flex items-center space-x-3 group" aria-label="Ariel Realty Group - Home">
+              <!-- Modern logo design -->
+              <div class="relative">
+                <div class="w-10 h-10 bg-gradient-to-br from-slate-900 to-blue-600 rounded-xl flex items-center justify-center group-hover:shadow-lg transition-all duration-300">
+                  <span class="text-white font-bold text-lg">A</span>
+                </div>
+                <div class="absolute -inset-1 bg-gradient-to-br from-slate-900 to-blue-600 rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </div>
+              <div class="hidden sm:block">
+                <div class="text-heading-md font-bold text-slate-900 leading-none">
+                  Ariel Realty Group
+                </div>
+                <div class="text-body-sm text-slate-600">
+                  Industrial Real Estate
+                </div>
+              </div>
+            </a>
           </div>
           
-          <p class="text-gray-300 mb-8 text-lg leading-relaxed max-w-md">
-            South Florida's premier industrial tenant representation firm. We provide expert guidance 
-            for warehouse and industrial property leasing at no cost to tenants.
-          </p>
+          <!-- Desktop Navigation -->
+          <div class="hidden lg:flex items-center space-x-8">
+            <a href="/" 
+               class={`nav-link ${currentPath === '/' ? 'nav-link-active' : ''}`}
+               aria-current={currentPath === '/' ? 'page' : undefined}>
+              Home
+            </a>
+            <a href="/warehouses" 
+               class={`nav-link ${currentPath.startsWith('/warehouses') ? 'nav-link-active' : ''}`}
+               aria-current={currentPath.startsWith('/warehouses') ? 'page' : undefined}>
+              Properties
+            </a>
+            <a href="/about" 
+               class={`nav-link ${currentPath === '/about' ? 'nav-link-active' : ''}`}
+               aria-current={currentPath === '/about' ? 'page' : undefined}>
+              About Us
+            </a>
+            <a href="/services" 
+               class={`nav-link ${currentPath === '/services' ? 'nav-link-active' : ''}`}
+               aria-current={currentPath === '/services' ? 'page' : undefined}>
+              Services
+            </a>
+            <a href="/contact" 
+               class={`nav-link ${currentPath === '/contact' ? 'nav-link-active' : ''}`}
+               aria-current={currentPath === '/contact' ? 'page' : undefined}>
+              Contact
+            </a>
+          </div>
           
-          <div class="flex items-center space-x-6">
-            <a href="tel:+19549379667" class="flex items-center text-secondary-400 hover:text-secondary-300 transition-colors duration-300 group">
-              <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+          <!-- Call to Action -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a href="tel:+19549379667" 
+               class="text-body-md font-medium text-slate-700 hover:text-blue-600 transition-colors flex items-center">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
               </svg>
               (954) 937-9667
             </a>
-            <a href="mailto:info@arielrealtygroup.com" class="flex items-center text-primary-400 hover:text-primary-300 transition-colors duration-300 group">
-              <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-              </svg>
-              info@arielrealtygroup.com
+            <a href="/#consultation" class="btn-primary">
+              Free Consultation
+            </a>
+          </div>
+          
+          <!-- Mobile Menu Button -->
+          <button 
+            type="button" 
+            class="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-900" 
+            id="mobile-menu-button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div class="lg:hidden hidden" id="mobile-menu">
+          <div class="px-2 pt-2 pb-6 space-y-1 bg-white border-t border-slate-200">
+            <a href="/" 
+               class={`mobile-nav-link ${currentPath === '/' ? 'mobile-nav-link-active' : ''}`}>
+              Home
+            </a>
+            <a href="/warehouses" 
+               class={`mobile-nav-link ${currentPath.startsWith('/warehouses') ? 'mobile-nav-link-active' : ''}`}>
+              Properties
+            </a>
+            <a href="/about" 
+               class={`mobile-nav-link ${currentPath === '/about' ? 'mobile-nav-link-active' : ''}`}>
+              About Us
+            </a>
+            <a href="/services" 
+               class={`mobile-nav-link ${currentPath === '/services' ? 'mobile-nav-link-active' : ''}`}>
+              Services
+            </a>
+            <a href="/contact" 
+               class={`mobile-nav-link ${currentPath === '/contact' ? 'mobile-nav-link-active' : ''}`}>
+              Contact
+            </a>
+            
+            <!-- Mobile CTAs -->
+            <div class="pt-4 border-t border-slate-200 space-y-3">
+              <a href="tel:+19549379667" class="mobile-nav-link flex items-center">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                Call (954) 937-9667
+              </a>
+              <a href="/#consultation" class="block btn-primary text-center mx-2">
+                Free Consultation
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" role="main">
+    <slot />
+  </main>
+
+  <!-- Premium Footer -->
+  <footer class="bg-slate-900 text-white">
+    <!-- Main Footer Content -->
+    <div class="container mx-auto px-4 max-w-7xl py-16">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Company Info -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-12 h-12 bg-gradient-to-br from-white to-blue-200 rounded-xl flex items-center justify-center">
+              <span class="text-slate-900 font-bold text-xl">A</span>
+            </div>
+            <div>
+              <div class="text-heading-md font-bold leading-none">
+                Ariel Realty Group
+              </div>
+              <div class="text-body-sm text-slate-400">
+                Industrial Real Estate Excellence
+              </div>
+            </div>
+          </div>
+          
+          <p class="text-body-md text-slate-300 mb-6 max-w-md">
+            Premier tenant representation for industrial real estate across South Florida. 
+            Expert guidance, zero cost to tenants, maximum value delivered.
+          </p>
+          
+          <!-- Contact Info -->
+          <div class="space-y-3">
+            <a href="tel:+19549379667" class="flex items-center text-slate-300 hover:text-white transition-colors group">
+              <div class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-medium">(954) 937-9667</div>
+                <div class="text-body-sm text-slate-400">Call for immediate assistance</div>
+              </div>
+            </a>
+            
+            <a href="mailto:info@arielrealty.com" class="flex items-center text-slate-300 hover:text-white transition-colors group">
+              <div class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-medium">info@arielrealty.com</div>
+                <div class="text-body-sm text-slate-400">Email us your requirements</div>
+              </div>
             </a>
           </div>
         </div>
         
         <!-- Quick Links -->
-        <div class="animate-on-scroll-left">
-          <h3 class="font-bold text-lg mb-6 text-white">Services</h3>
-          <ul class="space-y-4">
-            <li><a href="/warehouses" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Property Search</a></li>
-            <li><a href="/contact" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Tenant Representation</a></li>
-            <li><a href="/about" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Market Analysis</a></li>
-            <li><a href="/contact" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Lease Negotiation</a></li>
+        <div>
+          <h3 class="text-heading-md font-semibold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li>
+              <a href="/warehouses" class="text-slate-300 hover:text-white transition-colors">
+                Available Properties
+              </a>
+            </li>
+            <li>
+              <a href="/services" class="text-slate-300 hover:text-white transition-colors">
+                Our Services
+              </a>
+            </li>
+            <li>
+              <a href="/about" class="text-slate-300 hover:text-white transition-colors">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href="/contact" class="text-slate-300 hover:text-white transition-colors">
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="/#consultation" class="text-slate-300 hover:text-white transition-colors">
+                Free Consultation
+              </a>
+            </li>
           </ul>
         </div>
         
-        <!-- Coverage Areas -->
-        <div class="animate-on-scroll-right">
-          <h3 class="font-bold text-lg mb-6 text-white">Coverage Areas</h3>
-          <ul class="space-y-4">
-            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Miami-Dade County</span></li>
-            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Broward County</span></li>
-            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Palm Beach County</span></li>
-            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Throughout South Florida</span></li>
+        <!-- Service Areas -->
+        <div>
+          <h3 class="text-heading-md font-semibold mb-6">Service Areas</h3>
+          <ul class="space-y-3">
+            <li class="text-slate-300">Miami-Dade County</li>
+            <li class="text-slate-300">Broward County</li>
+            <li class="text-slate-300">Palm Beach County</li>
+            <li class="text-slate-300">Port Everglades</li>
+            <li class="text-slate-300">Miami International Airport</li>
           </ul>
-        </div>
-      </div>
-      
-      <!-- Bottom Bar -->
-      <div class="mt-16 pt-8 border-t border-gray-700 animate-on-scroll">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-4 md:mb-0">
-            <p class="text-gray-400 text-sm">
-              © 2025 Ariel Realty Group. All rights reserved.
-            </p>
-            <div class="flex items-center space-x-6 text-sm text-gray-400 mt-2">
-              <a href="/privacy" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
-              <a href="/terms" class="hover:text-white transition-colors duration-300">Terms of Service</a>
+          
+          <!-- Social Links -->
+          <div class="mt-8">
+            <h4 class="text-body-lg font-semibold mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-slate-700 transition-colors" aria-label="LinkedIn">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              <a href="#" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-slate-700 transition-colors" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
             </div>
           </div>
-          
-          <div class="flex items-center space-x-6">
-            <div class="flex items-center space-x-4 text-sm text-gray-400">
-              <div class="flex items-center">
-                <svg class="w-4 h-4 mr-2 text-secondary-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                </svg>
-                Licensed in Florida
-              </div>
-              <div class="flex items-center">
-                <svg class="w-4 h-4 mr-2 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                </svg>
-                Equal Housing Opportunity
-              </div>
-            </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer Bottom -->
+    <div class="border-t border-slate-800">
+      <div class="container mx-auto px-4 max-w-7xl py-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-body-sm text-slate-400 mb-4 md:mb-0">
+            © 2025 Ariel Realty Group. All rights reserved.
+          </div>
+          <div class="flex space-x-6 text-body-sm">
+            <a href="/privacy" class="text-slate-400 hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/terms" class="text-slate-400 hover:text-white transition-colors">
+              Terms of Service
+            </a>
+            <a href="/accessibility" class="text-slate-400 hover:text-white transition-colors">
+              Accessibility
+            </a>
           </div>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts with proper TypeScript -->
-  <script>
-    // Type-safe event handling and DOM manipulation
-    document.addEventListener('DOMContentLoaded', (): void => {
-      // Mobile menu functionality
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement;
-      const mobileMenu = document.getElementById('mobile-menu') as HTMLDivElement;
-      const hamburgerIcon = document.getElementById('hamburger-icon') as HTMLDivElement;
-      
-      let isMenuOpen = false;
-      
-      const toggleMobileMenu = (): void => {
-        isMenuOpen = !isMenuOpen;
-        
-        if (isMenuOpen) {
-          mobileMenu.classList.remove('opacity-0', 'invisible');
-          mobileMenu.classList.add('opacity-100', 'visible');
-          
-          // Animate hamburger to X
-          const spans = hamburgerIcon.querySelectorAll('span') as NodeListOf<HTMLSpanElement>;
-          spans[0].style.transform = 'rotate(45deg) translateY(6px)';
-          spans[1].style.opacity = '0';
-          spans[2].style.transform = 'rotate(-45deg) translateY(-6px)';
-        } else {
-          mobileMenu.classList.remove('opacity-100', 'visible');
-          mobileMenu.classList.add('opacity-0', 'invisible');
-          
-          // Animate X back to hamburger
-          const spans = hamburgerIcon.querySelectorAll('span') as NodeListOf<HTMLSpanElement>;
-          spans[0].style.transform = 'rotate(0) translateY(0)';
-          spans[1].style.opacity = '1';
-          spans[2].style.transform = 'rotate(0) translateY(0)';
-        }
-      };
-      
-      mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
-      
-      // Close mobile menu when clicking on links
-      const mobileMenuLinks = mobileMenu?.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>;
-      mobileMenuLinks?.forEach((link: HTMLAnchorElement) => {
-        link.addEventListener('click', (): void => {
-          if (isMenuOpen) {
-            toggleMobileMenu();
-          }
-        });
-      });
+  <!-- Back to Top Button -->
+  <button 
+    id="back-to-top" 
+    class="fixed bottom-8 right-8 w-12 h-12 bg-slate-900 text-white rounded-full shadow-lg hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 opacity-0 invisible transition-all duration-300 z-40"
+    aria-label="Back to top"
+  >
+    <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
 
-      // Enhanced scroll effects for header
-      let lastScrollY = window.scrollY;
-      const header = document.getElementById('main-header') as HTMLElement;
+  <style>
+    /* Navigation Styles */
+    .nav-link {
+      @apply text-body-md font-medium text-slate-700 hover:text-slate-900 transition-colors relative py-2;
+    }
+    
+    .nav-link-active {
+      @apply text-slate-900;
+    }
+    
+    .nav-link-active::after {
+      content: '';
+      @apply absolute bottom-0 left-0 w-full h-0.5 bg-slate-900;
+    }
+    
+    .mobile-nav-link {
+      @apply block px-3 py-3 text-body-md font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors;
+    }
+    
+    .mobile-nav-link-active {
+      @apply text-slate-900 bg-slate-100;
+    }
+    
+    /* Header scroll effect */
+    .header-scrolled {
+      @apply bg-white shadow-md;
+      background-color: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+    }
+    
+    /* Smooth loading animation */
+    .loading { 
+      opacity: 0; 
+    }
+    
+    .loaded { 
+      opacity: 1; 
+      transition: opacity 0.3s ease; 
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const body = document.body;
+      const header = document.getElementById('main-header');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const backToTopButton = document.getElementById('back-to-top');
       
-      const handleScroll = (): void => {
+      // Page loaded
+      body.classList.remove('loading');
+      body.classList.add('loaded');
+      
+      // Mobile menu toggle
+      mobileMenuButton?.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        if (isExpanded) {
+          // Close menu
+          this.setAttribute('aria-expanded', 'false');
+          mobileMenu?.classList.add('hidden');
+          menuIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+        } else {
+          // Open menu
+          this.setAttribute('aria-expanded', 'true');
+          mobileMenu?.classList.remove('hidden');
+          menuIcon?.classList.add('hidden');
+          closeIcon?.classList.remove('hidden');
+        }
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const target = event.target as Node;
+        const isClickInsideMenu = mobileMenuButton?.contains(target) || mobileMenu?.contains(target);
+        
+        if (!isClickInsideMenu && !mobileMenu?.classList.contains('hidden')) {
+          mobileMenuButton?.setAttribute('aria-expanded', 'false');
+          mobileMenu?.classList.add('hidden');
+          menuIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+        }
+      });
+      
+      // Header scroll effect
+      let lastScrollY = window.scrollY;
+      
+      window.addEventListener('scroll', function() {
         const currentScrollY = window.scrollY;
         
-        if (header) {
-          // Header hide/show on scroll
-          if (currentScrollY > lastScrollY && currentScrollY > 100 && !isMenuOpen) {
-            header.style.transform = 'translateY(-100%)';
-          } else {
-            header.style.transform = 'translateY(0)';
-          }
-          
-          // Add enhanced shadow and blur when scrolled
-          if (currentScrollY > 10) {
-            header.classList.add('shadow-lg');
-            header.style.backdropFilter = 'blur(20px) saturate(180%)';
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
-          } else {
-            header.classList.remove('shadow-lg');
-            header.style.backdropFilter = 'blur(16px) saturate(180%)';
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.75)';
-          }
+        if (currentScrollY > 100) {
+          header?.classList.add('header-scrolled');
+        } else {
+          header?.classList.remove('header-scrolled');
+        }
+        
+        // Back to top button
+        if (currentScrollY > 300) {
+          backToTopButton?.classList.remove('opacity-0', 'invisible');
+          backToTopButton?.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton?.classList.add('opacity-0', 'invisible');
+          backToTopButton?.classList.remove('opacity-100', 'visible');
         }
         
         lastScrollY = currentScrollY;
-      };
+      }, { passive: true });
       
-      window.addEventListener('scroll', handleScroll, { passive: true });
-
-      // Phone number formatting
-      const phoneInputs = document.querySelectorAll('input[type="tel"]') as NodeListOf<HTMLInputElement>;
-      phoneInputs.forEach((input: HTMLInputElement) => {
-        const formatPhoneNumber = (event: Event): void => {
-          const target = event.target as HTMLInputElement;
-          let value = target.value.replace(/\D/g, '');
-          
-          if (value.length >= 6) {
-            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
-          } else if (value.length >= 3) {
-            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-          }
-          
-          target.value = value;
-        };
-        
-        input.addEventListener('input', formatPhoneNumber);
-      });
-
-      // Enhanced form validation
-      const forms = document.querySelectorAll('form') as NodeListOf<HTMLFormElement>;
-      
-      const validateField = (field: HTMLInputElement): boolean => {
-        const value = field.value.trim();
-        let isValid = true;
-        
-        // Remove previous validation classes
-        field.classList.remove('border-red-500', 'border-green-500');
-        
-        // Check if required field is empty
-        if (field.hasAttribute('required') && !value) {
-          isValid = false;
-        }
-        
-        // Email validation
-        if (field.getAttribute('type') === 'email' && value) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(value)) {
-            isValid = false;
-          }
-        }
-        
-        // Phone validation
-        if (field.getAttribute('type') === 'tel' && value) {
-          const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
-          if (!phoneRegex.test(value)) {
-            isValid = false;
-          }
-        }
-        
-        // Apply validation styles
-        if (isValid && value) {
-          field.classList.add('border-green-500');
-        } else if (!isValid) {
-          field.classList.add('border-red-500');
-        }
-        
-        return isValid;
-      };
-      
-      forms.forEach((form: HTMLFormElement) => {
-        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]') as NodeListOf<HTMLInputElement>;
-        
-        inputs.forEach((input: HTMLInputElement) => {
-          input.addEventListener('blur', (): void => {
-            validateField(input);
-          });
-          
-          input.addEventListener('input', (): void => {
-            if (input.classList.contains('border-red-500')) {
-              validateField(input);
-            }
-          });
-        });
-        
-        form.addEventListener('submit', (e: Event): void => {
-          let isValid = true;
-          
-          inputs.forEach((input: HTMLInputElement) => {
-            if (!validateField(input)) {
-              isValid = false;
-            }
-          });
-          
-          if (!isValid) {
-            e.preventDefault();
-            const firstInvalid = form.querySelector('.border-red-500') as HTMLInputElement;
-            if (firstInvalid) {
-              firstInvalid.focus();
-              firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }
+      // Back to top functionality
+      backToTopButton?.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
         });
       });
-
-      // Intersection Observer for scroll animations
-      const observerOptions: IntersectionObserverInit = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-          if (entry.isIntersecting) {
-            const element = entry.target as HTMLElement;
-            element.classList.add('animate');
-            
-            // Add staggered delay for child elements
-            const children = element.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-scale') as NodeListOf<HTMLElement>;
-            children.forEach((child: HTMLElement, index: number) => {
-              setTimeout(() => {
-                child.classList.add('animate');
-              }, index * 100);
-            });
-          }
-        });
-      }, observerOptions);
-
-      // Observe all animation elements
-      const animateElements = document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-scale') as NodeListOf<HTMLElement>;
-      animateElements.forEach((el: HTMLElement) => {
-        observer.observe(el);
-      });
-
+      
       // Smooth scroll for anchor links
-      const anchorLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
-      anchorLinks.forEach((link: HTMLAnchorElement) => {
-        link.addEventListener('click', (e: Event): void => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
           e.preventDefault();
-          const href = link.getAttribute('href');
-          if (href && href !== '#') {
-            const target = document.querySelector(href) as HTMLElement;
-            if (target) {
-              const headerHeight = header?.offsetHeight || 80;
-              const targetPosition = target.offsetTop - headerHeight;
-              
-              window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-              });
-            }
+          const targetId = (this as HTMLAnchorElement).getAttribute('href');
+          if (targetId === '#' || !targetId) return;
+          
+          const target = document.querySelector(targetId);
+          if (target) {
+            const headerHeight = header?.offsetHeight || 80;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            mobileMenuButton?.setAttribute('aria-expanded', 'false');
+            mobileMenu?.classList.add('hidden');
+            menuIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
           }
         });
+      });
+      
+      // Keyboard navigation for accessibility
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
+          mobileMenuButton?.setAttribute('aria-expanded', 'false');
+          mobileMenu?.classList.add('hidden');
+          menuIcon?.classList.remove('hidden');
+          closeIcon?.classList.add('hidden');
+          mobileMenuButton?.focus();
+        }
       });
     });
   </script>
-
-  <!-- Production only: Register service worker for /admin -->
-  {import.meta.env.PROD && (
-    <script>
-      if ('serviceWorker' in navigator && window.location.pathname.startsWith('/admin')) {
-        navigator.serviceWorker.register('/sw.js');
-      }
-    </script>
-  )}
 </body>
 </html>

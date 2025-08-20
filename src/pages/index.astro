@@ -1,36 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
 
-// Get featured warehouses
-let featuredWarehouses: any[] = [];
-try {
-  const warehouses = await getCollection('warehouses');
-  featuredWarehouses = warehouses
-    .filter((w: any) => w.data.featured && w.data.availability === 'available')
-    .slice(0, 3);
-} catch (error) {
-  console.log('No warehouses found');
-}
+// Get featured warehouses (simulate with static data for now)
+const featuredWarehouses = [
+  {
+    id: '1',
+    title: 'Modern Distribution Center',
+    location: 'Fort Lauderdale, FL',
+    size: 45000,
+    price: '$12.50/sq ft',
+    image: '/images/warehouse-1.jpg',
+    features: ['Loading Docks', 'Climate Control', 'Security System']
+  },
+  {
+    id: '2', 
+    title: 'Flex Industrial Space',
+    location: 'Miami-Dade, FL',
+    size: 32000,
+    price: '$10.75/sq ft',
+    image: '/images/warehouse-2.jpg',
+    features: ['Office Space', 'High Ceilings', 'Easy Access']
+  },
+  {
+    id: '3',
+    title: 'Cold Storage Facility',
+    location: 'Broward County, FL',
+    size: 28000,
+    price: '$15.25/sq ft', 
+    image: '/images/warehouse-3.jpg',
+    features: ['Temperature Control', 'Loading Bays', 'Rail Access']
+  }
+];
 ---
 
 <BaseLayout 
-  title="Ariel Realty Group | Premium Industrial Real Estate Solutions"
-  description="Discover premium warehouse and industrial spaces across South Florida. Expert tenant representation and cutting-edge technology for your business growth."
+  title="Premium Industrial Real Estate | South Florida Warehouses"
+  description="Discover premium warehouse and industrial spaces in South Florida. Expert tenant representation and cutting-edge technology for your business growth."
 >
+  <!-- Enhanced Loading Animation -->
+  <div class="loading-overlay fixed inset-0 bg-slate-950 z-50 flex items-center justify-center">
+    <div class="loading-content text-center">
+      <div class="loading-spinner w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-6"></div>
+      <div class="loading-text text-white/60 text-lg font-light">Loading Premium Experience...</div>
+    </div>
+  </div>
+
   <!-- Premium Hero Section -->
   <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Subtle animated background -->
+    <!-- Advanced animated background -->
     <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div class="hero-grid absolute inset-0 opacity-[0.03]"></div>
-      <div class="hero-particles absolute inset-0"></div>
+      <div class="hero-grid absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, rgb(255 255 255 / 0.1) 1px, transparent 1px); background-size: 100px 100px;"></div>
     </div>
     
-    <!-- Subtle floating elements (no more green blobs!) -->
+    <!-- Floating elements with premium animations -->
     <div class="floating-elements absolute inset-0 pointer-events-none overflow-hidden">
       <div class="floating-orb-1 absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-500/8 to-indigo-500/8 rounded-full blur-3xl"></div>
       <div class="floating-orb-2 absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-r from-violet-500/8 to-purple-500/8 rounded-full blur-3xl"></div>
-      <div class="floating-orb-3 absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-slate-500/5 to-slate-600/5 rounded-full blur-2xl"></div>
+      <div class="floating-orb-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-slate-500/5 to-slate-600/5 rounded-full blur-2xl"></div>
     </div>
     
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
@@ -43,7 +69,7 @@ try {
         
         <!-- Hero Title with Premium Typography -->
         <div class="hero-title-container mb-12">
-          <h1 class="hero-title text-7xl md:text-8xl xl:text-9xl font-black text-white leading-[0.85] tracking-tight">
+          <h1 class="hero-title text-6xl md:text-7xl xl:text-8xl font-black text-white leading-[0.85] tracking-tight">
             <span class="hero-line block">Premium</span>
             <span class="hero-line block relative">
               <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">Industrial</span>
@@ -53,149 +79,82 @@ try {
         </div>
         
         <!-- Hero Subtitle -->
-        <p class="hero-subtitle text-2xl md:text-3xl text-white/50 mb-16 max-w-4xl mx-auto leading-relaxed font-light">
+        <p class="hero-subtitle text-xl md:text-2xl text-white/60 mb-16 max-w-4xl mx-auto leading-relaxed font-light">
           Elevating industrial real estate through expert tenant representation and cutting-edge technology solutions across South Florida.
         </p>
         
         <!-- Hero CTAs -->
         <div class="hero-ctas flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-          <a 
-            href="/warehouses" 
-            class="cta-primary group relative px-12 py-5 bg-white text-slate-900 rounded-2xl font-bold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden"
-          >
+          <a href="/listings" class="cta-primary group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold text-lg rounded-2xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-500 shadow-2xl hover:shadow-blue-500/25 overflow-hidden">
             <span class="relative z-10">Explore Properties</span>
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+            <svg class="relative z-10 w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
           </a>
           
-          <a 
-            href="#contact" 
-            class="cta-secondary group px-12 py-5 border-2 border-white/20 text-white rounded-2xl font-bold text-lg hover:border-white/40 hover:bg-white/5 transition-all duration-500"
-          >
-            <span class="flex items-center">
-              Get Started
-              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-              </svg>
-            </span>
+          <a href="/about" class="cta-secondary group inline-flex items-center px-8 py-4 border-2 border-white/20 text-white font-semibold text-lg rounded-2xl hover:border-white/40 hover:bg-white/5 transition-all duration-500 backdrop-blur-xl">
+            <span>Learn More</span>
+            <svg class="w-5 h-5 ml-3 group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
           </a>
         </div>
         
         <!-- Scroll Indicator -->
-        <div class="scroll-indicator flex flex-col items-center">
-          <div class="text-white/30 text-sm font-medium mb-4">Scroll to explore</div>
-          <div class="scroll-line w-px h-16 bg-gradient-to-b from-white/20 to-transparent relative">
-            <div class="scroll-dot w-2 h-2 bg-white rounded-full absolute top-0 left-1/2 -translate-x-1/2 animate-bounce"></div>
-          </div>
+        <div class="scroll-indicator absolute bottom-12 left-1/2 transform -translate-x-1/2">
+          <div class="scroll-dot w-1 h-8 bg-white/30 rounded-full"></div>
+          <div class="scroll-text text-white/40 text-sm mt-4 font-light">Scroll to explore</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Premium Features Section -->
-  <section class="features-section relative py-32 bg-white overflow-hidden">
-    <!-- Section Background -->
-    <div class="absolute inset-0">
-      <div class="features-grid absolute inset-0 opacity-[0.02]"></div>
-    </div>
-    
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-      <!-- Section Header -->
-      <div class="text-center mb-24">
-        <div class="section-badge inline-flex items-center px-6 py-3 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold mb-8">
-          Why Choose Ariel Realty Group
-        </div>
-        
-        <h2 class="section-title text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
-          Exceptional Service,
-          <br>
-          <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Proven Results</span>
+  <section class="features-section py-32 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="section-title text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+          Why Choose <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Premium</span>
         </h2>
-        
-        <p class="section-subtitle text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-          We combine deep market expertise with innovative technology to deliver unparalleled industrial real estate solutions.
+        <p class="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+          Experience the future of industrial real estate with our technology-driven approach and expert representation.
         </p>
       </div>
       
-      <!-- Features Grid -->
-      <div class="features-grid-container grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <!-- Feature 1 -->
+      <div class="grid md:grid-cols-3 gap-12">
         <div class="feature-card group">
-          <div class="feature-content bg-white rounded-3xl p-12 shadow-lg hover:shadow-2xl transition-all duration-700 border border-slate-100 hover:border-blue-200 hover:-translate-y-2">
-            <div class="feature-icon w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          <div class="feature-content p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-700 hover:border-white/20">
+            <div class="feature-icon w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
             </div>
-            
-            <h3 class="feature-title text-2xl font-bold text-slate-900 mb-4">Market Expertise</h3>
-            <p class="feature-description text-slate-600 leading-relaxed mb-6">
-              Deep knowledge of South Florida's industrial markets with over 15 years of specialized experience in tenant representation.
-            </p>
-            
-            <div class="feature-stats grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div class="stat text-center">
-                <div class="stat-number text-2xl font-bold text-blue-600">15+</div>
-                <div class="stat-label text-sm text-slate-500">Years Experience</div>
-              </div>
-              <div class="stat text-center">
-                <div class="stat-number text-2xl font-bold text-blue-600">500+</div>
-                <div class="stat-label text-sm text-slate-500">Deals Closed</div>
-              </div>
-            </div>
+            <h3 class="text-2xl font-bold text-white mb-6">AI-Powered Matching</h3>
+            <p class="text-white/60 leading-relaxed">Advanced algorithms match your specific requirements with the perfect industrial space, saving time and maximizing efficiency.</p>
           </div>
         </div>
-
-        <!-- Feature 2 -->
+        
         <div class="feature-card group">
-          <div class="feature-content bg-white rounded-3xl p-12 shadow-lg hover:shadow-2xl transition-all duration-700 border border-slate-100 hover:border-blue-200 hover:-translate-y-2">
-            <div class="feature-icon w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          <div class="feature-content p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-700 hover:border-white/20">
+            <div class="feature-icon w-16 h-16 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
             </div>
-            
-            <h3 class="feature-title text-2xl font-bold text-slate-900 mb-4">Technology Integration</h3>
-            <p class="feature-description text-slate-600 leading-relaxed mb-6">
-              Cutting-edge platform providing real-time market data, virtual tours, and streamlined property search capabilities.
-            </p>
-            
-            <div class="feature-stats grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div class="stat text-center">
-                <div class="stat-number text-2xl font-bold text-emerald-600">24/7</div>
-                <div class="stat-label text-sm text-slate-500">Platform Access</div>
-              </div>
-              <div class="stat text-center">
-                <div class="stat-number text-2xl font-bold text-emerald-600">100+</div>
-                <div class="stat-label text-sm text-slate-500">Live Listings</div>
-              </div>
-            </div>
+            <h3 class="text-2xl font-bold text-white mb-6">Real-Time Analytics</h3>
+            <p class="text-white/60 leading-relaxed">Live market data and predictive analytics provide insights into pricing trends, availability, and optimal timing for your moves.</p>
           </div>
         </div>
-
-        <!-- Feature 3 -->
+        
         <div class="feature-card group">
-          <div class="feature-content bg-white rounded-3xl p-12 shadow-lg hover:shadow-2xl transition-all duration-700 border border-slate-100 hover:border-blue-200 hover:-translate-y-2">
-            <div class="feature-icon w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          <div class="feature-content p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-700 hover:border-white/20">
+            <div class="feature-icon w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
               </svg>
             </div>
-            
-            <h3 class="feature-title text-2xl font-bold text-slate-900 mb-4">Client-First Approach</h3>
-            <p class="feature-description text-slate-600 leading-relaxed mb-6">
-              Dedicated tenant representation with no conflicts of interest. Your success is our primary focus and motivation.
-            </p>
-            
-            <div class="feature-stats grid grid-cols-2 gap-4 pt-6 border-t border-slate-100">
-              <div class="stat text-center">
-                <div class="stat-number text-2xl font-bold text-violet-600">100%</div>
-                <div class="stat-label text-sm text-slate-500">Tenant Focus</div>
-              </div>
-              <div class="stat text-center">
-                <div class="stat-number text-2xl font-bold text-violet-600">95%</div>
-                <div class="stat-label text-sm text-slate-500">Client Retention</div>
-              </div>
-            </div>
+            <h3 class="text-2xl font-bold text-white mb-6">Expert Representation</h3>
+            <p class="text-white/60 leading-relaxed">Dedicated tenant representatives with decades of combined experience negotiating the best terms and conditions for your business.</p>
           </div>
         </div>
       </div>
@@ -203,233 +162,156 @@ try {
   </section>
 
   <!-- Premium Properties Section -->
-  {featuredWarehouses.length > 0 && (
-    <section class="properties-section relative py-32 bg-slate-50 overflow-hidden">
-      <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <!-- Section Header -->
-        <div class="text-center mb-24">
-          <div class="section-badge inline-flex items-center px-6 py-3 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-8">
-            Featured Properties
-          </div>
-          
-          <h2 class="section-title text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
-            Premium
-            <br>
-            <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Industrial Spaces</span>
-          </h2>
-          
-          <p class="section-subtitle text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Discover our curated selection of premium warehouse and industrial facilities across South Florida.
-          </p>
-        </div>
-
-        <!-- Properties Grid -->
-        <div class="properties-grid grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
-          {featuredWarehouses.map((warehouse: any, index: number) => (
-            <div class="property-card group" data-property-index={index}>
-              <div class="property-content bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-700 border border-slate-100 hover:border-blue-200 hover:-translate-y-2">
-                <!-- Property Image -->
-                <div class="property-image relative aspect-[16/10] overflow-hidden bg-slate-200">
-                  {warehouse.data.images?.[0] ? (
-                    <img 
-                      src={warehouse.data.images[0]}
-                      alt={warehouse.data.title}
-                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-                      <svg class="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                      </svg>
-                    </div>
-                  )}
-                  
-                  <!-- Status Badge -->
-                  <div class="absolute top-6 left-6">
-                    <span class="px-4 py-2 bg-emerald-500 text-white text-sm font-semibold rounded-full">
-                      Available
-                    </span>
+  <section class="properties-section py-32 bg-gradient-to-b from-slate-900 to-slate-800 relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="section-title text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+          Featured <span class="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Properties</span>
+        </h2>
+        <p class="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+          Discover premium industrial spaces that drive business growth and operational excellence.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-10">
+        {featuredWarehouses.map((warehouse, index) => (
+          <div class="property-card group">
+            <div class="property-content bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-700 hover:border-white/20">
+              <div class="property-image aspect-video bg-gradient-to-br from-slate-700 to-slate-800 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/90 text-white text-sm font-medium">
+                    Available Now
+                  </span>
+                </div>
+              </div>
+              
+              <div class="property-details p-8">
+                <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                  {warehouse.title}
+                </h3>
+                
+                <div class="property-meta flex items-center text-white/60 mb-6">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  {warehouse.location}
+                </div>
+                
+                <div class="property-stats grid grid-cols-2 gap-6 mb-8">
+                  <div>
+                    <div class="text-white/50 text-sm mb-1">Size</div>
+                    <div class="text-white font-semibold">{warehouse.size.toLocaleString()} sq ft</div>
                   </div>
-                  
-                  <!-- Featured Badge -->
-                  <div class="absolute top-6 right-6">
-                    <span class="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-full">
-                      Featured
-                    </span>
+                  <div>
+                    <div class="text-white/50 text-sm mb-1">Price</div>
+                    <div class="text-white font-semibold">{warehouse.price}</div>
                   </div>
                 </div>
                 
-                <!-- Property Details -->
-                <div class="property-details p-8">
-                  <!-- Location -->
-                  <div class="flex items-center text-slate-500 mb-3">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                    </svg>
-                    <span class="text-sm">{warehouse.data.location}</span>
+                <div class="property-features mb-8">
+                  <div class="flex flex-wrap gap-2">
+                    {warehouse.features.map((feature) => (
+                      <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 text-white/70 text-sm">
+                        {feature}
+                      </span>
+                    ))}
                   </div>
-                  
-                  <!-- Title -->
-                  <h3 class="property-title text-2xl font-bold text-slate-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">
-                    {warehouse.data.title}
-                  </h3>
-                  
-                  <!-- Stats -->
-                  <div class="property-stats grid grid-cols-2 gap-6 mb-8">
-                    <div class="stat-item text-center p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                      <div class="stat-value text-2xl font-bold text-blue-600 mb-1">{warehouse.data.price}</div>
-                      <div class="stat-label text-sm text-blue-600/80 font-medium">per sq ft/year</div>
-                    </div>
-                    <div class="stat-item text-center p-4 bg-violet-50 rounded-2xl border border-violet-100">
-                      <div class="stat-value text-2xl font-bold text-violet-600 mb-1">{warehouse.data.size.toLocaleString()}</div>
-                      <div class="stat-label text-sm text-violet-600/80 font-medium">sq ft</div>
-                    </div>
-                  </div>
-                  
-                  <!-- CTA -->
-                  <a 
-                    href={`/warehouses/${warehouse.data.slug}`}
-                    class="property-cta block text-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 transform group-hover:scale-105"
-                  >
-                    View Details
-                  </a>
                 </div>
+                
+                <a href={`/listings/${warehouse.id}`} class="property-cta inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 group">
+                  <span>View Details</span>
+                  <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                  </svg>
+                </a>
               </div>
             </div>
-          ))}
-        </div>
-
-        <!-- View All CTA -->
-        <div class="text-center">
-          <a 
-            href="/warehouses" 
-            class="inline-flex items-center bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
-          >
-            <span>View All Properties</span>
-            <svg class="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-          </a>
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
-  )}
+      
+      <div class="text-center mt-16">
+        <a href="/listings" class="inline-flex items-center px-8 py-4 border-2 border-white/20 text-white font-semibold text-lg rounded-2xl hover:border-white/40 hover:bg-white/5 transition-all duration-500 backdrop-blur-xl group">
+          <span>View All Properties</span>
+          <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- Premium Contact Section -->
-  <section id="contact" class="contact-section relative py-32 bg-slate-900 overflow-hidden">
-    <!-- Background Effects -->
-    <div class="absolute inset-0">
-      <div class="contact-grid absolute inset-0 opacity-[0.03]"></div>
-      <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
-    </div>
-    
-    <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center">
-        <!-- Section Header -->
-        <div class="section-badge inline-flex items-center px-6 py-3 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-white/60 text-sm font-semibold mb-12">
-          Ready to Get Started?
-        </div>
-        
+  <section class="contact-section py-32 bg-gradient-to-b from-slate-800 to-slate-950 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-20">
         <h2 class="section-title text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
-          Let's Find Your
-          <br>
-          <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Perfect Space</span>
+          Ready to <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Connect?</span>
         </h2>
-        
-        <p class="section-subtitle text-2xl text-white/50 mb-16 max-w-4xl mx-auto leading-relaxed">
-          Connect with our experts for personalized industrial real estate solutions tailored to your business needs.
+        <p class="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+          Let our experts help you find the perfect industrial space for your business needs.
         </p>
-        
-        <!-- Contact Options -->
-        <div class="contact-options grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-          <!-- Phone -->
-          <div class="contact-option group text-center">
-            <div class="contact-icon w-20 h-20 bg-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/10 transition-all duration-300">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      </div>
+      
+      <div class="contact-options grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="contact-option group">
+          <div class="contact-content p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 text-center">
+            <div class="contact-icon w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
               </svg>
             </div>
-            <div class="contact-details">
-              <div class="contact-title text-xl font-bold text-white mb-2">(754) 245-7816</div>
-              <div class="contact-subtitle text-white/50">Call for immediate assistance</div>
-            </div>
-          </div>
-          
-          <!-- Email -->
-          <div class="contact-option group text-center">
-            <div class="contact-icon w-20 h-20 bg-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/10 transition-all duration-300">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <div class="contact-details">
-              <div class="contact-title text-xl font-bold text-white mb-2">ariel@arielrealtygroup.com</div>
-              <div class="contact-subtitle text-white/50">Email your requirements</div>
-            </div>
-          </div>
-          
-          <!-- Response Time -->
-          <div class="contact-option group text-center">
-            <div class="contact-icon w-20 h-20 bg-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/10 transition-all duration-300">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <div class="contact-details">
-              <div class="contact-title text-xl font-bold text-white mb-2">< 2 Hour Response</div>
-              <div class="contact-subtitle text-white/50">Fast professional service</div>
-            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Call Us</h3>
+            <p class="text-white/60 mb-4">Speak directly with our experts</p>
+            <a href="tel:+1234567890" class="text-blue-400 hover:text-blue-300 font-semibold">(123) 456-7890</a>
           </div>
         </div>
         
-        <!-- Primary CTA -->
-        <div class="contact-cta">
-          <a 
-            href="mailto:ariel@arielrealtygroup.com" 
-            class="inline-flex items-center bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group"
-          >
-            <span>Start Your Search Today</span>
-            <svg class="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </a>
+        <div class="contact-option group">
+          <div class="contact-content p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 text-center">
+            <div class="contact-icon w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Email Us</h3>
+            <p class="text-white/60 mb-4">Get detailed information</p>
+            <a href="mailto:info@example.com" class="text-emerald-400 hover:text-emerald-300 font-semibold">info@example.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-option group">
+          <div class="contact-content p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-500 text-center">
+            <div class="contact-icon w-16 h-16 bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Schedule Meeting</h3>
+            <p class="text-white/60 mb-4">Book a consultation</p>
+            <a href="/contact" class="text-violet-400 hover:text-violet-300 font-semibold">Book Now</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Premium Styles -->
+  <!-- Enhanced CSS Styles -->
   <style>
-    /* Premium Background Patterns */
-    .hero-grid {
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 100px 100px;
-      animation: gridFlow 30s linear infinite;
+    /* Premium Loading Animation */
+    .loading-overlay {
+      opacity: 1;
+      transition: opacity 0.8s ease-out;
     }
     
-    .features-grid {
-      background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
+    .page-loaded .loading-overlay {
+      opacity: 0;
+      pointer-events: none;
     }
     
-    .contact-grid {
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 80px 80px;
-    }
-    
-    @keyframes gridFlow {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(100px, 100px); }
-    }
-    
-    /* Subtle Floating Animations */
+    /* Premium Floating Animations */
     .floating-orb-1 {
       animation: floatSlow1 20s ease-in-out infinite;
     }
@@ -481,6 +363,11 @@ try {
     }
     
     /* Premium Hover Effects */
+    .cta-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    
     .cta-primary::before {
       content: '';
       position: absolute;
@@ -494,6 +381,39 @@ try {
     
     .cta-primary:hover::before {
       left: 100%;
+    }
+    
+    /* Premium card hover effects */
+    .feature-card,
+    .property-card,
+    .contact-option {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    
+    .feature-content,
+    .property-content,
+    .contact-content {
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center;
+    }
+    
+    .feature-card:hover .feature-content,
+    .property-card:hover .property-content,
+    .contact-option:hover .contact-content {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Micro-interactions */
+    .feature-icon,
+    .contact-icon {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .feature-card:hover .feature-icon,
+    .contact-option:hover .contact-icon {
+      transform: scale(1.1) rotate(5deg);
     }
     
     /* Mobile Optimizations */
@@ -511,190 +431,255 @@ try {
       .hero-grid {
         background-size: 50px 50px;
       }
+      
+      .feature-card:hover .feature-content,
+      .property-card:hover .property-content,
+      .contact-option:hover .contact-content {
+        transform: translateY(-4px) scale(1.01);
+      }
+    }
+    
+    /* Smooth transitions for all interactive elements */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Additional premium touches */
+    .hero-line {
+      opacity: 0;
+      animation: slideInUp 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    .hero-line:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .hero-line:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 
-  <!-- Enhanced GSAP Animations Script -->
+  <!-- Enhanced TypeScript-Safe GSAP Animations -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Check if GSAP is loaded
-      if (typeof gsap === 'undefined') {
-        console.log('GSAP not loaded, using fallback animations');
-        return;
-      }
+      // Loading animation with proper timing
+      setTimeout(() => {
+        const loadingOverlay = document.querySelector('.loading-overlay') as HTMLElement;
+        if (loadingOverlay) {
+          loadingOverlay.style.opacity = '0';
+          setTimeout(() => {
+            loadingOverlay.remove();
+            document.body.classList.add('page-loaded');
+          }, 800);
+        }
+      }, 1200);
 
-      // Register plugins
-      gsap.registerPlugin(ScrollTrigger);
+      // Check if GSAP is available
+      if (typeof window !== 'undefined' && window.gsap) {
+        const { gsap } = window;
+        
+        // Register plugins safely
+        if (window.ScrollTrigger) {
+          gsap.registerPlugin(window.ScrollTrigger);
+        }
+        if (window.ScrollToPlugin) {
+          gsap.registerPlugin(window.ScrollToPlugin);
+        }
 
-      // GSAP Configuration for premium animations
-      gsap.config({
-        nullTargetWarn: false,
-        trialWarn: false
-      });
-
-      // Premium Hero Animation Timeline
-      const heroTL = gsap.timeline({ delay: 0.3 });
-
-      // Hero Badge
-      heroTL.from('.hero-badge', {
-        opacity: 0,
-        y: 50,
-        duration: 1.2,
-        ease: 'power4.out'
-      });
-
-      // Hero Title Lines with Premium Stagger
-      heroTL.from('.hero-line', {
-        opacity: 0,
-        y: 120,
-        duration: 1.8,
-        stagger: 0.15,
-        ease: 'power4.out'
-      }, '-=0.6');
-
-      // Hero Subtitle
-      heroTL.from('.hero-subtitle', {
-        opacity: 0,
-        y: 40,
-        duration: 1.4,
-        ease: 'power3.out'
-      }, '-=1.2');
-
-      // Hero CTAs
-      heroTL.from('.cta-primary, .cta-secondary', {
-        opacity: 0,
-        y: 40,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: 'power3.out'
-      }, '-=0.8');
-
-      // Scroll Indicator
-      heroTL.from('.scroll-indicator', {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: 'power2.out'
-      }, '-=0.5');
-
-      // Premium Features Section Animations
-      gsap.utils.toArray('.feature-card').forEach((card: Element, index: number) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 80,
-          duration: 1.5,
-          delay: index * 0.2,
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
+        // GSAP Configuration
+        gsap.config({
+          nullTargetWarn: false
         });
-      });
 
-      // Premium Properties Animation
-      gsap.utils.toArray('.property-card').forEach((card: Element, index: number) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 100,
-          duration: 1.6,
-          delay: index * 0.15,
-          ease: 'power4.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            toggleActions: 'play none none reverse'
-          }
-        });
-      });
+        // Premium Hero Animation Timeline
+        const heroTL = gsap.timeline({ delay: 1.5 });
 
-      // Section Headers Animation
-      gsap.utils.toArray('.section-title').forEach((title: Element) => {
-        gsap.from(title, {
-          opacity: 0,
-          y: 60,
-          duration: 1.4,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: title,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
-        });
-      });
+        // Animate hero elements with proper selectors
+        const heroBadge = document.querySelector('.hero-badge') as HTMLElement;
+        const heroSubtitle = document.querySelector('.hero-subtitle') as HTMLElement;
+        const heroCTAs = document.querySelectorAll('.cta-primary, .cta-secondary') as NodeListOf<HTMLElement>;
+        const scrollIndicator = document.querySelector('.scroll-indicator') as HTMLElement;
 
-      // Contact Options Animation
-      gsap.utils.toArray('.contact-option').forEach((option: Element, index: number) => {
-        gsap.from(option, {
-          opacity: 0,
-          y: 50,
-          duration: 1.2,
-          delay: index * 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.contact-options',
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
-        });
-      });
+        if (heroBadge) {
+          heroTL.from(heroBadge, {
+            opacity: 0,
+            y: 50,
+            duration: 1.2,
+            ease: 'power4.out'
+          });
+        }
 
-      // Parallax Effect for Floating Elements
-      gsap.utils.toArray('.floating-orb-1, .floating-orb-2, .floating-orb-3').forEach((orb: Element) => {
-        gsap.to(orb, {
-          y: -100,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: orb,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5
-          }
-        });
-      });
+        if (heroSubtitle) {
+          heroTL.from(heroSubtitle, {
+            opacity: 0,
+            y: 40,
+            duration: 1.4,
+            ease: 'power3.out'
+          }, '-=1.2');
+        }
 
-      // Enhanced hover animations for cards
-      gsap.utils.toArray('.feature-card, .property-card').forEach((card: Element) => {
-        const content = card.querySelector('.feature-content, .property-content');
-        if (content) {
-          card.addEventListener('mouseenter', () => {
-            gsap.to(content, {
-              y: -8,
-              duration: 0.6,
-              ease: 'power2.out'
+        if (heroCTAs.length > 0) {
+          heroTL.from(Array.from(heroCTAs), {
+            opacity: 0,
+            y: 40,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: 'power3.out'
+          }, '-=0.8');
+        }
+
+        if (scrollIndicator) {
+          heroTL.from(scrollIndicator, {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: 'power2.out'
+          }, '-=0.5');
+        }
+
+        // Animate sections with scroll triggers
+        if (window.ScrollTrigger) {
+          // Feature cards animation
+          const featureCards = document.querySelectorAll('.feature-card') as NodeListOf<HTMLElement>;
+          featureCards.forEach((card, index) => {
+            gsap.from(card, {
+              opacity: 0,
+              y: 80,
+              duration: 1.5,
+              delay: index * 0.2,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+              }
             });
           });
 
-          card.addEventListener('mouseleave', () => {
-            gsap.to(content, {
-              y: 0,
-              duration: 0.6,
-              ease: 'power2.out'
+          // Property cards animation
+          const propertyCards = document.querySelectorAll('.property-card') as NodeListOf<HTMLElement>;
+          propertyCards.forEach((card, index) => {
+            gsap.from(card, {
+              opacity: 0,
+              y: 100,
+              duration: 1.6,
+              delay: index * 0.15,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+              }
+            });
+          });
+
+          // Section titles animation
+          const sectionTitles = document.querySelectorAll('.section-title') as NodeListOf<HTMLElement>;
+          sectionTitles.forEach((title) => {
+            gsap.from(title, {
+              opacity: 0,
+              y: 60,
+              duration: 1.4,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: title,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+              }
+            });
+          });
+
+          // Contact options animation
+          const contactOptions = document.querySelectorAll('.contact-option') as NodeListOf<HTMLElement>;
+          contactOptions.forEach((option, index) => {
+            gsap.from(option, {
+              opacity: 0,
+              y: 50,
+              duration: 1.2,
+              delay: index * 0.1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: '.contact-options',
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+              }
+            });
+          });
+
+          // Parallax floating orbs
+          const floatingOrbs = document.querySelectorAll('.floating-orb-1, .floating-orb-2, .floating-orb-3') as NodeListOf<HTMLElement>;
+          floatingOrbs.forEach((orb) => {
+            gsap.to(orb, {
+              y: -100,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: orb,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.5
+              }
             });
           });
         }
-      });
 
-      // Smooth scroll for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
-        anchor.addEventListener('click', function(e: Event) {
-          e.preventDefault();
-          const href = (this as HTMLAnchorElement).getAttribute('href');
-          if (href) {
-            const target = document.querySelector(href);
-            if (target) {
-              gsap.to(window, {
-                scrollTo: { y: target, offsetY: 100 },
-                duration: 1.5,
-                ease: 'power2.inOut'
+        // Enhanced hover animations
+        const interactiveCards = document.querySelectorAll('.feature-card, .property-card') as NodeListOf<HTMLElement>;
+        interactiveCards.forEach((card) => {
+          const content = card.querySelector('.feature-content, .property-content') as HTMLElement;
+          if (content) {
+            card.addEventListener('mouseenter', () => {
+              gsap.to(content, {
+                y: -8,
+                duration: 0.6,
+                ease: 'power2.out'
               });
-            }
+            });
+
+            card.addEventListener('mouseleave', () => {
+              gsap.to(content, {
+                y: 0,
+                duration: 0.6,
+                ease: 'power2.out'
+              });
+            });
           }
         });
-      });
 
-      console.log('🚀 Premium animations loaded successfully!');
+        // Smooth scroll for anchor links
+        const anchorLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
+        anchorLinks.forEach((anchor) => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            if (href && window.ScrollToPlugin) {
+              const target = document.querySelector(href);
+              if (target) {
+                gsap.to(window, {
+                  scrollTo: { y: target, offsetY: 100 },
+                  duration: 1.5,
+                  ease: 'power2.inOut'
+                });
+              }
+            }
+          });
+        });
+
+        console.log('🚀 Premium animations loaded successfully!');
+      } else {
+        console.log('GSAP not available, using CSS animations');
+      }
     });
   </script>
 </BaseLayout>

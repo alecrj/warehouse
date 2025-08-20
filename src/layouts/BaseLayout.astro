@@ -26,10 +26,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
   
-  <!-- Preconnect to font source -->
+  <!-- Preconnect to font sources -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -74,209 +74,411 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <ViewTransitions />
 </head>
 
-<body>
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-black/5">
-    <div class="container container-marketing">
-      <div class="flex items-center justify-between py-4">
+<body class="antialiased">
+  <!-- Header - Professional Design -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div class="flex items-center justify-between h-20">
         <!-- Logo -->
-        <a href="/" class="flex items-center space-x-3 text-brand font-semibold text-lg">
-          <div class="w-10 h-10 bg-brand rounded-lg flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-            </svg>
+        <a href="/" class="flex items-center space-x-3 group">
+          <div class="relative">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
-          <span>Ariel Realty Group</span>
+          <div>
+            <div class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+              Ariel Realty Group
+            </div>
+            <div class="text-xs text-gray-500 font-medium">Industrial Specialists</div>
+          </div>
         </a>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-8">
-          <a href="/warehouses" class="text-muted hover:text-brand transition-colors">Properties</a>
-          <a href="/about" class="text-muted hover:text-brand transition-colors">About</a>
-          <a href="/contact" class="text-muted hover:text-brand transition-colors">Contact</a>
-          <a href="tel:+19549379667" class="btn btn-primary">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-            </svg>
-            (954) 937-9667
+        <nav class="hidden lg:flex items-center space-x-8">
+          <a href="/warehouses" class="relative text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 group">
+            Properties
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/about" class="relative text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 group">
+            About
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="/contact" class="relative text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 group">
+            Contact
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          
+          <!-- CTA Button -->
+          <a href="tel:+19549379667" class="group relative overflow-hidden bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <span class="relative z-10 flex items-center">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+              </svg>
+              (954) 937-9667
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
         </nav>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden btn btn-icon" aria-label="Toggle menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+        <button id="mobile-menu-btn" class="lg:hidden relative w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-colors duration-300" aria-label="Toggle menu">
+          <div class="flex flex-col space-y-1.5">
+            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+          </div>
         </button>
       </div>
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden hidden border-t border-black/5 bg-white">
-      <div class="container py-4 space-y-4">
-        <a href="/warehouses" class="block py-2 text-muted hover:text-brand transition-colors">Properties</a>
-        <a href="/about" class="block py-2 text-muted hover:text-brand transition-colors">About</a>
-        <a href="/contact" class="block py-2 text-muted hover:text-brand transition-colors">Contact</a>
-        <a href="tel:+19549379667" class="btn btn-primary w-full">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-          </svg>
-          (954) 937-9667
+    <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-gray-200">
+      <div class="container mx-auto px-4 py-6 space-y-6">
+        <a href="/warehouses" class="block text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300">
+          Properties
+        </a>
+        <a href="/about" class="block text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300">
+          About
+        </a>
+        <a href="/contact" class="block text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300">
+          Contact
+        </a>
+        <a href="tel:+19549379667" class="block w-full bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-4 rounded-xl font-bold text-center transition-all duration-300">
+          <span class="flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+            </svg>
+            Call (954) 937-9667
+          </span>
         </a>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main>
+  <main class="pt-20">
     <slot />
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-brand text-white">
-    <div class="container container-marketing py-16">
-      <div class="grid md:grid-cols-4 gap-8">
+  <!-- Footer - Professional Design -->
+  <footer class="bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-16">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
         <!-- Company Info -->
-        <div class="md:col-span-2">
-          <div class="flex items-center space-x-3 mb-6">
-            <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="lg:col-span-2">
+          <div class="flex items-center space-x-3 mb-8">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
             </div>
-            <span class="font-semibold text-lg">Ariel Realty Group</span>
+            <div>
+              <div class="text-xl font-bold">Ariel Realty Group</div>
+              <div class="text-gray-400 text-sm">Industrial Real Estate Experts</div>
+            </div>
           </div>
-          <p class="text-white/80 mb-6 max-w-md">
-            South Florida's premier industrial tenant representation firm. Free expert guidance for warehouse and industrial property leasing.
+          
+          <p class="text-gray-300 mb-8 text-lg leading-relaxed max-w-md">
+            South Florida's premier industrial tenant representation firm. We provide expert guidance 
+            for warehouse and industrial property leasing at no cost to tenants.
           </p>
-          <div class="space-y-2">
-            <p class="flex items-center text-white/80">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-              <a href="tel:+19549379667" class="hover:text-white transition-colors">(954) 937-9667</a>
-            </p>
-            <p class="flex items-center text-white/80">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              South Florida
-            </p>
+          
+          <div class="space-y-4">
+            <div class="flex items-center group">
+              <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-500 transition-colors duration-300">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+              </div>
+              <div>
+                <a href="tel:+19549379667" class="text-white hover:text-green-400 transition-colors duration-300 font-semibold text-lg">
+                  (954) 937-9667
+                </a>
+                <div class="text-gray-400 text-sm">Available 24/7</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center group">
+              <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-500 transition-colors duration-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <a href="mailto:info@arielrealtygroup.com" class="text-white hover:text-blue-400 transition-colors duration-300 font-semibold">
+                  info@arielrealtygroup.com
+                </a>
+                <div class="text-gray-400 text-sm">Quick response guaranteed</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-white font-semibold">South Florida</div>
+                <div class="text-gray-400 text-sm">Miami-Dade • Broward • Palm Beach</div>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Services -->
         <div>
-          <h3 class="font-semibold mb-4">Services</h3>
-          <ul class="space-y-2 text-white/80">
-            <li>Tenant Representation</li>
-            <li>Market Analysis</li>
-            <li>Lease Negotiation</li>
-            <li>Property Tours</li>
+          <h3 class="font-bold text-xl mb-6 text-white">Our Services</h3>
+          <ul class="space-y-4">
+            {[
+              'Tenant Representation',
+              'Market Analysis',
+              'Property Search',
+              'Lease Negotiation',
+              'Site Selection',
+              'Due Diligence'
+            ].map(service => (
+              <li class="group">
+                <a href="/contact" class="flex items-center text-gray-300 hover:text-white transition-colors duration-300">
+                  <svg class="w-4 h-4 mr-3 text-green-500 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  {service}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
-        <!-- Markets -->
+        <!-- Markets Served -->
         <div>
-          <h3 class="font-semibold mb-4">Markets Served</h3>
-          <ul class="space-y-2 text-white/80">
-            <li>Miami-Dade County</li>
-            <li>Broward County</li>
-            <li>Palm Beach County</li>
+          <h3 class="font-bold text-xl mb-6 text-white">Markets Served</h3>
+          <ul class="space-y-4">
+            {[
+              'Miami-Dade County',
+              'Broward County', 
+              'Palm Beach County',
+              'Doral',
+              'Hialeah',
+              'Fort Lauderdale',
+              'Pompano Beach',
+              'West Palm Beach'
+            ].map(market => (
+              <li class="group">
+                <a href="/warehouses" class="flex items-center text-gray-300 hover:text-white transition-colors duration-300">
+                  <svg class="w-4 h-4 mr-3 text-blue-500 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  </svg>
+                  {market}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
-      <!-- Bottom Bar -->
-      <div class="border-t border-white/10 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="text-white/60 text-sm">
-          © 2024 Ariel Realty Group. All rights reserved.
-        </p>
-        <p class="text-white/60 text-sm mt-2 md:mt-0">
-          Licensed in Florida
-        </p>
+      <!-- Bottom Section -->
+      <div class="border-t border-gray-700 pt-12 mt-12">
+        <div class="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
+          <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <p class="text-gray-400 text-sm">
+              © 2024 Ariel Realty Group. All rights reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-gray-400">
+              <a href="/privacy" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+              <a href="/terms" class="hover:text-white transition-colors duration-300">Terms of Service</a>
+            </div>
+          </div>
+          
+          <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-4 text-sm text-gray-400">
+              <div class="flex items-center">
+                <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Licensed in Florida
+              </div>
+              <div class="flex items-center">
+                <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Equal Housing Opportunity
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script>
-    // Mobile menu toggle
+    // Mobile menu functionality
     document.addEventListener('DOMContentLoaded', () => {
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = mobileMenuBtn?.querySelector('div');
+      
+      let isOpen = false;
       
       mobileMenuBtn?.addEventListener('click', () => {
-        mobileMenu?.classList.toggle('hidden');
+        isOpen = !isOpen;
+        
+        if (isOpen) {
+          mobileMenu?.classList.remove('hidden');
+          // Animate hamburger to X
+          if (menuIcon) {
+            const spans = menuIcon.querySelectorAll('span');
+            spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+          }
+        } else {
+          mobileMenu?.classList.add('hidden');
+          // Animate X back to hamburger
+          if (menuIcon) {
+            const spans = menuIcon.querySelectorAll('span');
+            spans[0].style.transform = 'rotate(0) translate(0, 0)';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'rotate(0) translate(0, 0)';
+          }
+        }
       });
 
-      // Reveal on scroll animation
-      const revealElements = document.querySelectorAll('.reveal');
-      
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('visible');
-            }, index * 50); // Stagger effect
-            revealObserver.unobserve(entry.target);
+      // Close mobile menu when clicking on links
+      mobileMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          isOpen = false;
+          mobileMenu.classList.add('hidden');
+          if (menuIcon) {
+            const spans = menuIcon.querySelectorAll('span');
+            spans[0].style.transform = 'rotate(0) translate(0, 0)';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'rotate(0) translate(0, 0)';
           }
         });
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
       });
 
-      revealElements.forEach(el => {
-        revealObserver.observe(el);
+      // Enhanced scroll effects
+      let lastScrollY = window.scrollY;
+      const header = document.querySelector('header');
+      
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        
+        if (header) {
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down
+            header.style.transform = 'translateY(-100%)';
+          } else {
+            // Scrolling up
+            header.style.transform = 'translateY(0)';
+          }
+          
+          // Add shadow when scrolled
+          if (currentScrollY > 10) {
+            header.classList.add('shadow-lg');
+          } else {
+            header.classList.remove('shadow-lg');
+          }
+        }
+        
+        lastScrollY = currentScrollY;
       });
 
-      // Form validation
+      // Phone number formatting
+      const phoneInputs = document.querySelectorAll('input[type="tel"]');
+      phoneInputs.forEach(input => {
+        input.addEventListener('input', function() {
+          let value = this.value.replace(/\D/g, '');
+          if (value.length >= 6) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+          } else if (value.length >= 3) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+          }
+          this.value = value;
+        });
+      });
+
+      // Form validation enhancement
       const forms = document.querySelectorAll('form');
       forms.forEach(form => {
-        form.addEventListener('submit', (e) => {
-          const requiredFields = form.querySelectorAll('[required]');
+        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+        
+        inputs.forEach(input => {
+          input.addEventListener('blur', function() {
+            validateField(this);
+          });
+          
+          input.addEventListener('input', function() {
+            if (this.classList.contains('invalid')) {
+              validateField(this);
+            }
+          });
+        });
+        
+        form.addEventListener('submit', function(e) {
           let isValid = true;
           
-          requiredFields.forEach(field => {
-            const input = field as HTMLInputElement;
-            if (!input.value.trim()) {
+          inputs.forEach(input => {
+            if (!validateField(input)) {
               isValid = false;
-              input.classList.add('error');
-            } else {
-              input.classList.remove('error');
-              input.classList.add('valid');
             }
           });
           
           if (!isValid) {
             e.preventDefault();
             // Focus first invalid field
-            const firstInvalid = form.querySelector('.error') as HTMLElement;
-            firstInvalid?.focus();
+            const firstInvalid = form.querySelector('.invalid');
+            if (firstInvalid) {
+              firstInvalid.focus();
+              firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
           }
         });
       });
-    });
-
-    // Phone number formatting
-    function formatPhoneNumber(input: HTMLInputElement) {
-      let value = input.value.replace(/\D/g, '');
-      if (value.length >= 6) {
-        value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
-      } else if (value.length >= 3) {
-        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+      
+      function validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        
+        // Remove previous validation classes
+        field.classList.remove('invalid', 'valid');
+        
+        // Check if required field is empty
+        if (field.hasAttribute('required') && !value) {
+          isValid = false;
+        }
+        
+        // Email validation
+        if (field.type === 'email' && value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            isValid = false;
+          }
+        }
+        
+        // Phone validation
+        if (field.type === 'tel' && value) {
+          const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
+          if (!phoneRegex.test(value)) {
+            isValid = false;
+          }
+        }
+        
+        // Apply validation classes
+        if (isValid) {
+          field.classList.add('valid');
+        } else {
+          field.classList.add('invalid');
+        }
+        
+        return isValid;
       }
-      input.value = value;
-    }
-
-    // Apply phone formatting to all phone inputs
-    document.addEventListener('DOMContentLoaded', () => {
-      const phoneInputs = document.querySelectorAll('input[type="tel"]');
-      phoneInputs.forEach(input => {
-        input.addEventListener('input', () => formatPhoneNumber(input as HTMLInputElement));
-      });
     });
   </script>
 

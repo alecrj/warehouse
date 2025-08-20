@@ -1,377 +1,271 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Team members data
+const teamMembers = [
+  {
+    name: "Ariel Rodriguez",
+    title: "Principal & Lead Broker",
+    image: "/images/team/ariel-rodriguez.jpg",
+    bio: "With over 15 years of experience in South Florida industrial real estate, Ariel has successfully completed over $500M in transactions across Miami-Dade, Broward, and Palm Beach counties.",
+    credentials: ["Licensed Real Estate Broker", "CCIM Candidate", "SIOR Member"],
+    phone: "(954) 937-9667",
+    email: "ariel@arielrealtygroup.com"
+  }
+];
+
+// Company stats
+const stats = [
+  { value: "$500M+", label: "Total Transaction Volume" },
+  { value: "15+", label: "Years of Experience" },
+  { value: "3", label: "Counties Served" },
+  { value: "200+", label: "Successful Deals" }
+];
+
+// Service areas
+const serviceAreas = [
+  {
+    county: "Miami-Dade County",
+    highlights: ["Doral", "Hialeah", "Medley", "Miami", "Homestead"],
+    description: "Premier industrial corridor with excellent port access and international connectivity."
+  },
+  {
+    county: "Broward County", 
+    highlights: ["Fort Lauderdale", "Pompano Beach", "Davie", "Plantation", "Sunrise"],
+    description: "Strategic location between Miami and Palm Beach with strong transportation infrastructure."
+  },
+  {
+    county: "Palm Beach County",
+    highlights: ["West Palm Beach", "Boca Raton", "Boynton Beach", "Lake Worth", "Jupiter"],
+    description: "Growing industrial market with excellent highway access and expanding logistics presence."
+  }
+];
 ---
 
 <BaseLayout 
   title="About Ariel Realty Group | South Florida Industrial Real Estate Experts"
-  description="Meet South Florida's premier industrial tenant representation team. Over 10 years of experience helping businesses find perfect warehouse and industrial spaces."
+  description="Learn about Ariel Realty Group's expertise in South Florida industrial real estate. Free tenant representation across Miami-Dade, Broward, and Palm Beach counties."
 >
   <!-- Hero Section -->
-  <section class="relative py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
-    <div class="absolute inset-0">
-      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
-      </div>
+  <section class="py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
     </div>
     
-    <div class="container container-marketing relative z-10">
-      <div class="text-center text-white">
-        <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/20">
-          <span class="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></span>
-          About Our Company
-        </div>
-        
-        <h1 class="text-5xl lg:text-7xl font-bold mb-8">
-          Your Trusted
-          <span class="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-            Industrial Partners
-          </span>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+      <div class="text-center animate-on-scroll">
+        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+          About Ariel Realty Group
         </h1>
-        
-        <p class="text-xl lg:text-2xl text-blue-100 mb-12 leading-relaxed max-w-4xl mx-auto">
-          For over a decade, we've been South Florida's go-to experts for industrial real estate. 
-          <span class="text-white font-semibold">We represent tenants exclusively</span> – meaning your success is our only priority.
+        <p class="text-xl lg:text-2xl text-primary-100 max-w-4xl mx-auto leading-relaxed">
+          South Florida's premier industrial tenant representation firm, providing expert guidance 
+          for warehouse and industrial property leasing at no cost to tenants.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Story Section -->
-  <section class="py-20 bg-white">
-    <div class="container container-marketing">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div data-aos="fade-right">
-          <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6">
-            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-            Our Story
-          </div>
-          
-          <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
-            Born from Experience, Driven by Results
-          </h2>
-          
-          <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
-            <p>
-              Ariel Realty Group was founded with a simple mission: to level the playing field for businesses 
-              searching for industrial space in South Florida. Having seen too many companies struggle with 
-              biased representation, we decided to create a firm that works exclusively for tenants.
-            </p>
-            
-            <p>
-              Our founder brings over 15 years of commercial real estate experience, having worked on both 
-              sides of transactions. This unique perspective allows us to anticipate landlord strategies 
-              and negotiate the best possible terms for our clients.
-            </p>
-            
-            <p>
-              Today, we've helped over 200 businesses find their perfect industrial space, from small 
-              startups needing their first 5,000 SF to Fortune 500 companies requiring multi-million 
-              square foot distribution centers.
-            </p>
-          </div>
-          
-          <div class="grid grid-cols-3 gap-8 mt-12">
-            <div class="text-center">
-              <div class="text-3xl font-bold text-blue-600 mb-2">15+</div>
-              <div class="text-gray-600 font-medium">Years Experience</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-blue-600 mb-2">200+</div>
-              <div class="text-gray-600 font-medium">Happy Clients</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-blue-600 mb-2">5M+</div>
-              <div class="text-gray-600 font-medium">SF Leased</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="relative" data-aos="fade-left">
-          <div class="relative">
-            <img 
-              src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=800&fit=crop" 
-              alt="Modern warehouse facility" 
-              class="w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-2xl"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-3xl"></div>
-          </div>
-          
-          <!-- Floating Stats Card -->
-          <div class="absolute -bottom-8 -left-8 bg-white rounded-2xl p-6 shadow-2xl border border-gray-100">
-            <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <div>
-                <div class="text-2xl font-bold text-gray-900">100%</div>
-                <div class="text-gray-600 text-sm font-medium">Client Satisfaction</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Choose Us Section -->
-  <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-    <div class="container container-marketing">
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-6">
-          <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
-          Why Choose Us
-        </div>
-        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          The Ariel Advantage
-        </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We do things differently. Here's why South Florida businesses trust us with their most important real estate decisions.
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
-          {
-            icon: "shield",
-            title: "Tenant-Only Representation",
-            description: "We never represent landlords. This means we have zero conflicts of interest and can negotiate aggressively on your behalf.",
-            gradient: "from-blue-500 to-blue-600"
-          },
-          {
-            icon: "dollar",
-            title: "Completely Free Service",
-            description: "Our services cost you nothing. We're compensated by landlords, so you get expert representation without any fees.",
-            gradient: "from-green-500 to-green-600"
-          },
-          {
-            icon: "map",
-            title: "Deep Market Knowledge",
-            description: "15+ years of South Florida industrial experience means we know every submarket, landlord, and available property.",
-            gradient: "from-purple-500 to-purple-600"
-          },
-          {
-            icon: "clock",
-            title: "24-Hour Response",
-            description: "Time is money in real estate. We respond to inquiries within 24 hours and move at the speed of business.",
-            gradient: "from-orange-500 to-orange-600"
-          },
-          {
-            icon: "network",
-            title: "Exclusive Network",
-            description: "Our relationships with landlords and brokers give us access to off-market properties you won't find anywhere else.",
-            gradient: "from-indigo-500 to-indigo-600"
-          },
-          {
-            icon: "target",
-            title: "Results-Driven",
-            description: "We're measured by your success. Our track record speaks for itself: better spaces, better terms, better outcomes.",
-            gradient: "from-red-500 to-red-600"
-          }
-        ].map((advantage, index) => (
-          <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 relative group" data-aos="fade-up" data-aos-delay={index * 100}>
-            <div class={`w-16 h-16 bg-gradient-to-br ${advantage.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-              {advantage.icon === 'shield' && (
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-              )}
-              {advantage.icon === 'dollar' && (
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                </svg>
-              )}
-              {advantage.icon === 'map' && (
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
-                </svg>
-              )}
-              {advantage.icon === 'clock' && (
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              )}
-              {advantage.icon === 'network' && (
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                </svg>
-              )}
-              {advantage.icon === 'target' && (
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              )}
-            </div>
-            
-            <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">{advantage.title}</h3>
-            <p class="text-gray-600 leading-relaxed text-center">{advantage.description}</p>
+  <!-- Stats Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {stats.map((stat, index) => (
+          <div class="text-center animate-on-scroll-scale" style={`animation-delay: ${(index * 0.1).toString()}s;`}>
+            <div class="text-4xl lg:text-5xl font-bold text-primary-600 mb-2">{stat.value}</div>
+            <div class="text-gray-600 font-medium">{stat.label}</div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Process Section -->
-  <section class="py-20 bg-white">
-    <div class="container container-marketing">
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-6">
-          <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-          Our Process
-        </div>
-        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          How We Work
-        </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our proven methodology ensures you find the perfect space efficiently and cost-effectively.
-        </p>
-      </div>
-      
-      <div class="relative">
-        <!-- Connection Line -->
-        <div class="hidden lg:block absolute top-20 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-200 via-purple-200 to-green-200"></div>
+  <!-- Mission & Values Section -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          {[
-            {
-              step: "01",
-              title: "Discovery & Strategy",
-              description: "We start with a detailed consultation to understand your business needs, space requirements, timeline, and budget constraints.",
-              icon: "search",
-              color: "blue"
-            },
-            {
-              step: "02", 
-              title: "Market Research",
-              description: "Our team conducts comprehensive market research, identifying both on-market and off-market properties that match your criteria.",
-              icon: "chart",
-              color: "purple"
-            },
-            {
-              step: "03",
-              title: "Property Tours",
-              description: "We coordinate tours of the best properties, providing expert insights on each location's pros, cons, and potential issues.",
-              icon: "eye",
-              color: "orange"
-            },
-            {
-              step: "04",
-              title: "Negotiation & Closing",
-              description: "We handle all negotiations, due diligence, and paperwork to secure the best possible terms and ensure a smooth closing.",
-              icon: "handshake",
-              color: "green"
-            }
-          ].map((process, index) => (
-            <div class="text-center relative" data-aos="fade-up" data-aos-delay={index * 100}>
-              <div class={`w-20 h-20 bg-gradient-to-br from-${process.color}-500 to-${process.color}-600 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 shadow-lg`}>
-                <div class="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm font-bold text-gray-700 shadow-lg">
-                  {process.step}
+        <!-- Mission Content -->
+        <div class="animate-on-scroll-left">
+          <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+            Our Mission
+          </h2>
+          <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+            <p>
+              At Ariel Realty Group, we believe that finding the perfect industrial space shouldn't cost tenants anything. 
+              Our mission is to provide world-class tenant representation services completely free of charge, ensuring our 
+              clients get the best possible deals on their warehouse and industrial leases.
+            </p>
+            <p>
+              We leverage our deep market knowledge, extensive landlord relationships, and negotiation expertise to 
+              save our clients time and money while securing optimal lease terms and conditions.
+            </p>
+          </div>
+          
+          <!-- Core Values -->
+          <div class="mt-12">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Our Core Values</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+              {[
+                { title: "Transparency", description: "Clear communication throughout every transaction" },
+                { title: "Expertise", description: "Deep market knowledge and professional guidance" },
+                { title: "Client-First", description: "Your success is our primary objective" },
+                { title: "Integrity", description: "Honest dealing and ethical business practices" }
+              ].map((value, index) => (
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 animate-on-scroll-scale" style={`animation-delay: ${(index * 0.1 + 0.3).toString()}s;`}>
+                  <h4 class="font-bold text-gray-900 mb-2">{value.title}</h4>
+                  <p class="text-gray-600 text-sm">{value.description}</p>
                 </div>
-                
-                {process.icon === 'search' && (
-                  <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                  </svg>
-                )}
-                {process.icon === 'chart' && (
-                  <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                  </svg>
-                )}
-                {process.icon === 'eye' && (
-                  <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                  </svg>
-                )}
-                {process.icon === 'handshake' && (
-                  <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                )}
-              </div>
-              
-              <h3 class="text-xl font-bold text-gray-900 mb-4">{process.title}</h3>
-              <p class="text-gray-600 leading-relaxed">{process.description}</p>
+              ))}
             </div>
-          ))}
+          </div>
+        </div>
+        
+        <!-- Mission Visual -->
+        <div class="animate-on-scroll-right">
+          <div class="relative">
+            <!-- Main Image Card -->
+            <div class="bg-gradient-to-br from-primary-100 to-primary-200 rounded-4xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+              <div class="bg-white rounded-3xl p-8 shadow-lg">
+                <div class="flex items-center justify-center mb-6">
+                  <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <h4 class="text-xl font-bold text-gray-900 mb-2">Free for Tenants</h4>
+                  <p class="text-gray-600">Our services are always free for tenants. We're compensated by landlords, ensuring no cost to you.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute -top-6 -right-6 w-24 h-24 bg-secondary-100 rounded-2xl flex items-center justify-center animate-bounce-gentle">
+              <svg class="w-12 h-12 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Team Section -->
-  <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-    <div class="container container-marketing">
-      <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-6">
-          <span class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
-          Our Team
-        </div>
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div class="text-center mb-16 animate-on-scroll">
         <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-          Meet the Experts
+          Meet Our Team
         </h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our team combines decades of commercial real estate experience with deep South Florida market knowledge.
+          Led by experienced professionals with deep roots in South Florida's industrial real estate market.
         </p>
       </div>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
-          {
-            name: "Ariel Rodriguez",
-            title: "Founder & Principal Broker",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-            experience: "15+ Years",
-            specialties: ["Industrial Leasing", "Tenant Representation", "Market Analysis"],
-            description: "Licensed Florida broker specializing in industrial tenant representation. Former landlord representative turned tenant advocate."
-          },
-          {
-            name: "Maria Santos",
-            title: "Senior Associate",
-            image: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face",
-            experience: "8+ Years",
-            specialties: ["Site Selection", "Lease Negotiation", "Due Diligence"],
-            description: "Expert in complex lease negotiations and site selection. Focused on maximizing value for industrial tenants across South Florida."
-          },
-          {
-            name: "Carlos Mendez",
-            title: "Market Research Analyst",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-            experience: "5+ Years",
-            specialties: ["Market Analytics", "Property Research", "Investment Analysis"],
-            description: "Data-driven market analyst providing comprehensive research and investment analysis for informed decision-making."
-          }
-        ].map((member, index) => (
-          <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100" data-aos="fade-up" data-aos-delay={index * 100}>
-            <div class="relative">
-              <img 
-                src={member.image} 
-                alt={member.name}
-                class="w-full h-64 object-cover"
-              />
-              <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-                {member.experience}
+
+      <div class="max-w-4xl mx-auto">
+        {teamMembers.map((member, index) => (
+          <div class="bg-gradient-to-br from-gray-50 to-white rounded-4xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 animate-on-scroll-scale" style={`animation-delay: ${(index * 0.2).toString()}s;`}>
+            <div class="grid lg:grid-cols-3 gap-8 p-8">
+              
+              <!-- Team Member Photo -->
+              <div class="lg:col-span-1">
+                <div class="relative">
+                  <div class="w-full aspect-square bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl flex items-center justify-center">
+                    <!-- Placeholder for team photo -->
+                    <div class="w-32 h-32 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center">
+                      <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Team Member Info -->
+              <div class="lg:col-span-2">
+                <div class="h-full flex flex-col justify-center">
+                  <h3 class="text-3xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                  <p class="text-xl text-primary-600 font-semibold mb-4">{member.title}</p>
+                  
+                  <p class="text-gray-700 leading-relaxed mb-6">{member.bio}</p>
+                  
+                  <!-- Credentials -->
+                  <div class="mb-6">
+                    <h4 class="font-semibold text-gray-900 mb-3">Professional Credentials</h4>
+                    <div class="flex flex-wrap gap-2">
+                      {member.credentials.map((credential) => (
+                        <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
+                          {credential}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <!-- Contact Info -->
+                  <div class="flex flex-col sm:flex-row gap-4">
+                    <a href={`tel:${member.phone}`} class="inline-flex items-center px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white rounded-2xl font-semibold transition-colors duration-300">
+                      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                      </svg>
+                      {member.phone}
+                    </a>
+                    
+                    <a href={`mailto:${member.email}`} class="inline-flex items-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-2xl font-semibold transition-colors duration-300">
+                      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                      </svg>
+                      {member.email}
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-            
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas Section -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          Our Service Areas
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Comprehensive coverage across South Florida's major industrial markets.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        {serviceAreas.map((area, index) => (
+          <div class="bg-white rounded-4xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 animate-on-scroll-scale" style={`animation-delay: ${(index * 0.1).toString()}s;`}>
             <div class="p-8">
-              <h3 class="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-              <p class="text-blue-600 font-semibold mb-4">{member.title}</p>
-              <p class="text-gray-600 mb-6 leading-relaxed">{member.description}</p>
+              <h3 class="text-2xl font-bold text-gray-900 mb-4">{area.county}</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">{area.description}</p>
               
-              <div class="space-y-2">
-                <h4 class="font-semibold text-gray-900 text-sm">Specialties:</h4>
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-900 mb-3">Key Markets:</h4>
                 <div class="flex flex-wrap gap-2">
-                  {member.specialties.map(specialty => (
-                    <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
-                      {specialty}
+                  {area.highlights.map((city) => (
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                      {city}
                     </span>
                   ))}
                 </div>
               </div>
+              
+              <a href="/warehouses" class="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold transition-colors duration-300">
+                View Properties
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </a>
             </div>
           </div>
         ))}
@@ -380,83 +274,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- CTA Section -->
-  <section class="relative py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
-    <div class="absolute inset-0">
-      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 30px 30px;"></div>
-      </div>
+  <section class="py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
     </div>
     
-    <div class="container container-marketing relative z-10">
-      <div class="text-center text-white">
-        <h2 class="text-4xl lg:text-5xl font-bold mb-8">
-          Ready to Find Your Perfect Space?
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+      <div class="text-center animate-on-scroll">
+        <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+          Ready to Work Together?
         </h2>
-        <p class="text-xl text-blue-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Let's discuss your industrial real estate needs. Our expert consultation is completely free, 
-          and we guarantee a response within 24 hours.
+        <p class="text-xl text-primary-100 mb-12 max-w-3xl mx-auto">
+          Let us help you find the perfect industrial space for your business. 
+          Contact us today for a free consultation and property search.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
-          <a href="tel:+19549379667" class="group relative overflow-hidden bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-            <span class="relative z-10 flex items-center justify-center">
+          <a href="/contact" class="btn-hover bg-white text-primary-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            Get Started Today
+          </a>
+          
+          <a href="tel:+19549379667" class="btn-hover glass border border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105">
+            <span class="flex items-center justify-center">
               <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
               </svg>
-              Call (954) 937-9667
-            </span>
-          </a>
-          
-          <a href="/contact" class="group backdrop-blur-xl bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 px-8 py-4 rounded-2xl text-lg font-bold transition-all duration-300 transform hover:scale-105">
-            <span class="flex items-center justify-center">
-              Schedule Consultation
-              <svg class="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-              </svg>
+              (954) 937-9667
             </span>
           </a>
         </div>
       </div>
     </div>
   </section>
-
-  <style>
-    /* Custom animations for About page */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-  </style>
-
-  <script>
-    // AOS-like animation system
-    document.addEventListener('DOMContentLoaded', () => {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const delay = entry.target.getAttribute('data-aos-delay') || 0;
-            setTimeout(() => {
-              entry.target.classList.add('animate-fade-in-up');
-            }, parseInt(delay));
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      // Observe all elements with data-aos
-      document.querySelectorAll('[data-aos]').forEach(el => {
-        observer.observe(el);
-      });
-    });
-  </script>
 </BaseLayout>

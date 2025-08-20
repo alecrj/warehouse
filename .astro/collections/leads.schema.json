@@ -4,11 +4,15 @@
     "leads": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "phone": {
           "type": "string"
@@ -26,6 +30,9 @@
           "type": "string",
           "default": "website"
         },
+        "createdAt": {
+          "type": "string"
+        },
         "status": {
           "type": "string",
           "enum": [
@@ -39,19 +46,17 @@
         "notes": {
           "type": "string"
         },
-        "createdAt": {
-          "type": "string",
-          "default": "2025-08-18T14:40:40.824Z"
-        },
         "$schema": {
           "type": "string"
         }
       },
       "required": [
+        "id",
         "name",
         "email",
         "phone",
-        "message"
+        "message",
+        "createdAt"
       ],
       "additionalProperties": false
     }

@@ -18,7 +18,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +29,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <!-- Preconnect to font sources -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -72,25 +72,143 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </script>
   
   <ViewTransitions />
+  
+  <!-- Custom CSS for smooth interactions -->
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    /* Smooth focus rings */
+    .focus-ring:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+    }
+    
+    /* Glass effect */
+    .glass {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(209, 213, 219, 0.3);
+    }
+    
+    .glass-dark {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(75, 85, 99, 0.3);
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Button hover effects */
+    .btn-hover {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .btn-hover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-hover:hover::before {
+      left: 100%;
+    }
+    
+    /* Intersection Observer Animation Classes */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .animate-on-scroll.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .animate-on-scroll-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .animate-on-scroll-left.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .animate-on-scroll-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .animate-on-scroll-right.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .animate-on-scroll-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .animate-on-scroll-scale.animate {
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
 </head>
 
-<body class="antialiased">
-  <!-- Header - Professional Design -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
+<body class="antialiased font-sans">
+  <!-- Header - Premium glassmorphism design -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-200/30 transition-all duration-500" id="main-header">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <a href="/" class="flex items-center space-x-3 group">
           <div class="relative">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
             </div>
-            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-secondary-500 rounded-full border-2 border-white animate-pulse-gentle"></div>
           </div>
           <div>
-            <div class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+            <div class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors duration-300">
               Ariel Realty Group
             </div>
             <div class="text-xs text-gray-500 font-medium">Industrial Specialists</div>
@@ -99,55 +217,54 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-8">
-          <a href="/warehouses" class="relative text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 group">
+          <a href="/warehouses" class="relative text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 group py-2">
             Properties
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
           </a>
-          <a href="/about" class="relative text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 group">
+          <a href="/about" class="relative text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 group py-2">
             About
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
           </a>
-          <a href="/contact" class="relative text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300 group">
+          <a href="/contact" class="relative text-gray-600 hover:text-primary-600 font-medium transition-all duration-300 group py-2">
             Contact
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
           </a>
           
           <!-- CTA Button -->
-          <a href="tel:+19549379667" class="group relative overflow-hidden bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <a href="tel:+19549379667" class="btn-hover group relative overflow-hidden bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white px-6 py-3 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
             <span class="relative z-10 flex items-center">
-              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-4 h-4 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
               </svg>
               (954) 937-9667
             </span>
-            <div class="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </a>
         </nav>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden relative w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-200 transition-colors duration-300" aria-label="Toggle menu">
-          <div class="flex flex-col space-y-1.5">
-            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
-            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
-            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+        <button id="mobile-menu-btn" class="lg:hidden relative w-12 h-12 bg-gray-100/80 rounded-2xl flex items-center justify-center hover:bg-gray-200/80 transition-all duration-300 focus-ring" aria-label="Toggle menu">
+          <div class="flex flex-col space-y-1.5" id="hamburger-icon">
+            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300 transform origin-center"></span>
+            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300 transform origin-center"></span>
+            <span class="block w-6 h-0.5 bg-gray-600 transition-all duration-300 transform origin-center"></span>
           </div>
         </button>
       </div>
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-gray-200">
+    <div id="mobile-menu" class="lg:hidden opacity-0 invisible transition-all duration-300 glass-dark border-t border-gray-200/30">
       <div class="container mx-auto px-4 py-6 space-y-6">
-        <a href="/warehouses" class="block text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300">
+        <a href="/warehouses" class="block text-lg font-medium text-white hover:text-primary-300 transition-colors duration-300 animate-fade-in-left">
           Properties
         </a>
-        <a href="/about" class="block text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300">
+        <a href="/about" class="block text-lg font-medium text-white hover:text-primary-300 transition-colors duration-300 animate-fade-in-left" style="animation-delay: 0.1s">
           About
         </a>
-        <a href="/contact" class="block text-lg font-medium text-gray-700 hover:text-blue-600 transition-colors duration-300">
+        <a href="/contact" class="block text-lg font-medium text-white hover:text-primary-300 transition-colors duration-300 animate-fade-in-left" style="animation-delay: 0.2s">
           Contact
         </a>
-        <a href="tel:+19549379667" class="block w-full bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-4 rounded-xl font-bold text-center transition-all duration-300">
+        <a href="tel:+19549379667" class="block w-full bg-gradient-to-r from-secondary-600 to-secondary-700 text-white px-6 py-4 rounded-2xl font-bold text-center transition-all duration-300 hover:from-secondary-700 hover:to-secondary-800 transform hover:scale-105 animate-fade-in-left" style="animation-delay: 0.3s">
           <span class="flex items-center justify-center">
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
@@ -164,14 +281,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <slot />
   </main>
 
-  <!-- Footer - Professional Design -->
-  <footer class="bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-16">
+  <!-- Footer - Premium Design -->
+  <footer class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-16 relative z-10">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
         <!-- Company Info -->
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 animate-on-scroll">
           <div class="flex items-center space-x-3 mb-8">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+            <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
               <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
@@ -187,108 +309,54 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             for warehouse and industrial property leasing at no cost to tenants.
           </p>
           
-          <div class="space-y-4">
-            <div class="flex items-center group">
-              <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-500 transition-colors duration-300">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                </svg>
-              </div>
-              <div>
-                <a href="tel:+19549379667" class="text-white hover:text-green-400 transition-colors duration-300 font-semibold text-lg">
-                  (954) 937-9667
-                </a>
-                <div class="text-gray-400 text-sm">Available 24/7</div>
-              </div>
-            </div>
-            
-            <div class="flex items-center group">
-              <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-500 transition-colors duration-300">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-              </div>
-              <div>
-                <a href="mailto:info@arielrealtygroup.com" class="text-white hover:text-blue-400 transition-colors duration-300 font-semibold">
-                  info@arielrealtygroup.com
-                </a>
-                <div class="text-gray-400 text-sm">Quick response guaranteed</div>
-              </div>
-            </div>
-            
-            <div class="flex items-center">
-              <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mr-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                </svg>
-              </div>
-              <div>
-                <div class="text-white font-semibold">South Florida</div>
-                <div class="text-gray-400 text-sm">Miami-Dade • Broward • Palm Beach</div>
-              </div>
-            </div>
+          <div class="flex items-center space-x-6">
+            <a href="tel:+19549379667" class="flex items-center text-secondary-400 hover:text-secondary-300 transition-colors duration-300 group">
+              <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+              </svg>
+              (954) 937-9667
+            </a>
+            <a href="mailto:info@arielrealtygroup.com" class="flex items-center text-primary-400 hover:text-primary-300 transition-colors duration-300 group">
+              <svg class="w-5 h-5 mr-2 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+              </svg>
+              info@arielrealtygroup.com
+            </a>
           </div>
         </div>
-
-        <!-- Services -->
-        <div>
-          <h3 class="font-bold text-xl mb-6 text-white">Our Services</h3>
+        
+        <!-- Quick Links -->
+        <div class="animate-on-scroll-left">
+          <h3 class="font-bold text-lg mb-6 text-white">Services</h3>
           <ul class="space-y-4">
-            {[
-              'Tenant Representation',
-              'Market Analysis',
-              'Property Search',
-              'Lease Negotiation',
-              'Site Selection',
-              'Due Diligence'
-            ].map(service => (
-              <li class="group">
-                <a href="/contact" class="flex items-center text-gray-300 hover:text-white transition-colors duration-300">
-                  <svg class="w-4 h-4 mr-3 text-green-500 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                  {service}
-                </a>
-              </li>
-            ))}
+            <li><a href="/warehouses" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Property Search</a></li>
+            <li><a href="/contact" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Tenant Representation</a></li>
+            <li><a href="/about" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Market Analysis</a></li>
+            <li><a href="/contact" class="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block">Lease Negotiation</a></li>
           </ul>
         </div>
-
-        <!-- Markets Served -->
-        <div>
-          <h3 class="font-bold text-xl mb-6 text-white">Markets Served</h3>
+        
+        <!-- Coverage Areas -->
+        <div class="animate-on-scroll-right">
+          <h3 class="font-bold text-lg mb-6 text-white">Coverage Areas</h3>
           <ul class="space-y-4">
-            {[
-              'Miami-Dade County',
-              'Broward County', 
-              'Palm Beach County',
-              'Doral',
-              'Hialeah',
-              'Fort Lauderdale',
-              'Pompano Beach',
-              'West Palm Beach'
-            ].map(market => (
-              <li class="group">
-                <a href="/warehouses" class="flex items-center text-gray-300 hover:text-white transition-colors duration-300">
-                  <svg class="w-4 h-4 mr-3 text-blue-500 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  </svg>
-                  {market}
-                </a>
-              </li>
-            ))}
+            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Miami-Dade County</span></li>
+            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Broward County</span></li>
+            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Palm Beach County</span></li>
+            <li><span class="text-gray-300 flex items-center"><span class="w-2 h-2 bg-secondary-500 rounded-full mr-3"></span>Throughout South Florida</span></li>
           </ul>
         </div>
       </div>
-
-      <!-- Bottom Section -->
-      <div class="border-t border-gray-700 pt-12 mt-12">
-        <div class="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
-          <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8">
+      
+      <!-- Bottom Bar -->
+      <div class="mt-16 pt-8 border-t border-gray-700 animate-on-scroll">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
             <p class="text-gray-400 text-sm">
-              © 2024 Ariel Realty Group. All rights reserved.
+              © 2025 Ariel Realty Group. All rights reserved.
             </p>
-            <div class="flex items-center space-x-6 text-sm text-gray-400">
+            <div class="flex items-center space-x-6 text-sm text-gray-400 mt-2">
               <a href="/privacy" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
               <a href="/terms" class="hover:text-white transition-colors duration-300">Terms of Service</a>
             </div>
@@ -297,13 +365,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <div class="flex items-center space-x-6">
             <div class="flex items-center space-x-4 text-sm text-gray-400">
               <div class="flex items-center">
-                <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4 mr-2 text-secondary-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                 </svg>
                 Licensed in Florida
               </div>
               <div class="flex items-center">
-                <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4 mr-2 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                 </svg>
                 Equal Housing Opportunity
@@ -315,139 +383,113 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scripts with proper TypeScript -->
   <script>
-    // Mobile menu functionality
-    document.addEventListener('DOMContentLoaded', () => {
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuIcon = mobileMenuBtn?.querySelector('div');
+    // Type-safe event handling and DOM manipulation
+    document.addEventListener('DOMContentLoaded', (): void => {
+      // Mobile menu functionality
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement;
+      const mobileMenu = document.getElementById('mobile-menu') as HTMLDivElement;
+      const hamburgerIcon = document.getElementById('hamburger-icon') as HTMLDivElement;
       
-      let isOpen = false;
+      let isMenuOpen = false;
       
-      mobileMenuBtn?.addEventListener('click', () => {
-        isOpen = !isOpen;
+      const toggleMobileMenu = (): void => {
+        isMenuOpen = !isMenuOpen;
         
-        if (isOpen) {
-          mobileMenu?.classList.remove('hidden');
+        if (isMenuOpen) {
+          mobileMenu.classList.remove('opacity-0', 'invisible');
+          mobileMenu.classList.add('opacity-100', 'visible');
+          
           // Animate hamburger to X
-          if (menuIcon) {
-            const spans = menuIcon.querySelectorAll('span');
-            spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
-            spans[1].style.opacity = '0';
-            spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
-          }
+          const spans = hamburgerIcon.querySelectorAll('span') as NodeListOf<HTMLSpanElement>;
+          spans[0].style.transform = 'rotate(45deg) translateY(6px)';
+          spans[1].style.opacity = '0';
+          spans[2].style.transform = 'rotate(-45deg) translateY(-6px)';
         } else {
-          mobileMenu?.classList.add('hidden');
+          mobileMenu.classList.remove('opacity-100', 'visible');
+          mobileMenu.classList.add('opacity-0', 'invisible');
+          
           // Animate X back to hamburger
-          if (menuIcon) {
-            const spans = menuIcon.querySelectorAll('span');
-            spans[0].style.transform = 'rotate(0) translate(0, 0)';
-            spans[1].style.opacity = '1';
-            spans[2].style.transform = 'rotate(0) translate(0, 0)';
-          }
+          const spans = hamburgerIcon.querySelectorAll('span') as NodeListOf<HTMLSpanElement>;
+          spans[0].style.transform = 'rotate(0) translateY(0)';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = 'rotate(0) translateY(0)';
         }
-      });
-
+      };
+      
+      mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+      
       // Close mobile menu when clicking on links
-      mobileMenu?.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          isOpen = false;
-          mobileMenu.classList.add('hidden');
-          if (menuIcon) {
-            const spans = menuIcon.querySelectorAll('span');
-            spans[0].style.transform = 'rotate(0) translate(0, 0)';
-            spans[1].style.opacity = '1';
-            spans[2].style.transform = 'rotate(0) translate(0, 0)';
+      const mobileMenuLinks = mobileMenu?.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>;
+      mobileMenuLinks?.forEach((link: HTMLAnchorElement) => {
+        link.addEventListener('click', (): void => {
+          if (isMenuOpen) {
+            toggleMobileMenu();
           }
         });
       });
 
-      // Enhanced scroll effects
+      // Enhanced scroll effects for header
       let lastScrollY = window.scrollY;
-      const header = document.querySelector('header');
+      const header = document.getElementById('main-header') as HTMLElement;
       
-      window.addEventListener('scroll', () => {
+      const handleScroll = (): void => {
         const currentScrollY = window.scrollY;
         
         if (header) {
-          if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down
+          // Header hide/show on scroll
+          if (currentScrollY > lastScrollY && currentScrollY > 100 && !isMenuOpen) {
             header.style.transform = 'translateY(-100%)';
           } else {
-            // Scrolling up
             header.style.transform = 'translateY(0)';
           }
           
-          // Add shadow when scrolled
+          // Add enhanced shadow and blur when scrolled
           if (currentScrollY > 10) {
             header.classList.add('shadow-lg');
+            header.style.backdropFilter = 'blur(20px) saturate(180%)';
+            header.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
           } else {
             header.classList.remove('shadow-lg');
+            header.style.backdropFilter = 'blur(16px) saturate(180%)';
+            header.style.backgroundColor = 'rgba(255, 255, 255, 0.75)';
           }
         }
         
         lastScrollY = currentScrollY;
-      });
+      };
+      
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
       // Phone number formatting
-      const phoneInputs = document.querySelectorAll('input[type="tel"]');
-      phoneInputs.forEach(input => {
-        input.addEventListener('input', function() {
-          let value = this.value.replace(/\D/g, '');
+      const phoneInputs = document.querySelectorAll('input[type="tel"]') as NodeListOf<HTMLInputElement>;
+      phoneInputs.forEach((input: HTMLInputElement) => {
+        const formatPhoneNumber = (event: Event): void => {
+          const target = event.target as HTMLInputElement;
+          let value = target.value.replace(/\D/g, '');
+          
           if (value.length >= 6) {
             value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
           } else if (value.length >= 3) {
             value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
           }
-          this.value = value;
-        });
+          
+          target.value = value;
+        };
+        
+        input.addEventListener('input', formatPhoneNumber);
       });
 
-      // Form validation enhancement
-      const forms = document.querySelectorAll('form');
-      forms.forEach(form => {
-        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-        
-        inputs.forEach(input => {
-          input.addEventListener('blur', function() {
-            validateField(this);
-          });
-          
-          input.addEventListener('input', function() {
-            if (this.classList.contains('invalid')) {
-              validateField(this);
-            }
-          });
-        });
-        
-        form.addEventListener('submit', function(e) {
-          let isValid = true;
-          
-          inputs.forEach(input => {
-            if (!validateField(input)) {
-              isValid = false;
-            }
-          });
-          
-          if (!isValid) {
-            e.preventDefault();
-            // Focus first invalid field
-            const firstInvalid = form.querySelector('.invalid');
-            if (firstInvalid) {
-              firstInvalid.focus();
-              firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }
-        });
-      });
+      // Enhanced form validation
+      const forms = document.querySelectorAll('form') as NodeListOf<HTMLFormElement>;
       
-      function validateField(field) {
+      const validateField = (field: HTMLInputElement): boolean => {
         const value = field.value.trim();
         let isValid = true;
         
         // Remove previous validation classes
-        field.classList.remove('invalid', 'valid');
+        field.classList.remove('border-red-500', 'border-green-500');
         
         // Check if required field is empty
         if (field.hasAttribute('required') && !value) {
@@ -455,7 +497,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         }
         
         // Email validation
-        if (field.type === 'email' && value) {
+        if (field.getAttribute('type') === 'email' && value) {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(value)) {
             isValid = false;
@@ -463,22 +505,107 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         }
         
         // Phone validation
-        if (field.type === 'tel' && value) {
+        if (field.getAttribute('type') === 'tel' && value) {
           const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
           if (!phoneRegex.test(value)) {
             isValid = false;
           }
         }
         
-        // Apply validation classes
-        if (isValid) {
-          field.classList.add('valid');
-        } else {
-          field.classList.add('invalid');
+        // Apply validation styles
+        if (isValid && value) {
+          field.classList.add('border-green-500');
+        } else if (!isValid) {
+          field.classList.add('border-red-500');
         }
         
         return isValid;
-      }
+      };
+      
+      forms.forEach((form: HTMLFormElement) => {
+        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]') as NodeListOf<HTMLInputElement>;
+        
+        inputs.forEach((input: HTMLInputElement) => {
+          input.addEventListener('blur', (): void => {
+            validateField(input);
+          });
+          
+          input.addEventListener('input', (): void => {
+            if (input.classList.contains('border-red-500')) {
+              validateField(input);
+            }
+          });
+        });
+        
+        form.addEventListener('submit', (e: Event): void => {
+          let isValid = true;
+          
+          inputs.forEach((input: HTMLInputElement) => {
+            if (!validateField(input)) {
+              isValid = false;
+            }
+          });
+          
+          if (!isValid) {
+            e.preventDefault();
+            const firstInvalid = form.querySelector('.border-red-500') as HTMLInputElement;
+            if (firstInvalid) {
+              firstInvalid.focus();
+              firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }
+        });
+      });
+
+      // Intersection Observer for scroll animations
+      const observerOptions: IntersectionObserverInit = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target as HTMLElement;
+            element.classList.add('animate');
+            
+            // Add staggered delay for child elements
+            const children = element.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-scale') as NodeListOf<HTMLElement>;
+            children.forEach((child: HTMLElement, index: number) => {
+              setTimeout(() => {
+                child.classList.add('animate');
+              }, index * 100);
+            });
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animation elements
+      const animateElements = document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-scale') as NodeListOf<HTMLElement>;
+      animateElements.forEach((el: HTMLElement) => {
+        observer.observe(el);
+      });
+
+      // Smooth scroll for anchor links
+      const anchorLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
+      anchorLinks.forEach((link: HTMLAnchorElement) => {
+        link.addEventListener('click', (e: Event): void => {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+          if (href && href !== '#') {
+            const target = document.querySelector(href) as HTMLElement;
+            if (target) {
+              const headerHeight = header?.offsetHeight || 80;
+              const targetPosition = target.offsetTop - headerHeight;
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
     });
   </script>
 

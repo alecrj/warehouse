@@ -43,15 +43,15 @@
             "available",
             "leased",
             "pending"
-          ]
+          ],
+          "default": "available"
         },
         "featured": {
           "type": "boolean",
           "default": false
         },
         "createdAt": {
-          "type": "string",
-          "default": "2025-08-18T14:40:40.825Z"
+          "type": "string"
         },
         "metaTitle": {
           "type": "string"
@@ -70,10 +70,8 @@
         "size",
         "location",
         "address",
-        "features",
-        "images",
         "description",
-        "availability"
+        "createdAt"
       ],
       "additionalProperties": false
     }

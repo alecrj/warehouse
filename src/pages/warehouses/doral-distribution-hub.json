@@ -1,0 +1,27 @@
+{
+  "title": "Doral Distribution Hub",
+  "slug": "doral-distribution-hub",
+  "price": "$16.00/sq ft/year",
+  "size": 120000,
+  "location": "Doral, FL", 
+  "address": "7800 NW 25th Street, Doral, FL 33122",
+  "features": [
+    "36ft Clear Height",
+    "40 Loading Docks",
+    "Cross-dock Configuration",
+    "ESFR Sprinkler System",
+    "Advanced Security System",
+    "Multi-level Office Complex",
+    "Employee Amenities",
+    "Near Miami International Airport"
+  ],
+  "images": [
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=600&fit=crop",
+    "https://images.unsplash.com/photo-1582560475093-ba66accbc424?w=800&h=600&fit=crop",
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop"
+  ],
+  "description": "Premium Class A industrial facility designed for large-scale distribution operations. Features state-of-the-art infrastructure, extensive office space, and unparalleled logistics connectivity. Located in Doral's premier industrial submarket with immediate access to Miami International Airport and major transportation networks.",
+  "availability": "available",
+  "featured": true,
+  "createdAt": "2025-01-12"
+}

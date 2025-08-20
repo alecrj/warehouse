@@ -7,7 +7,7 @@ export interface Props {
 
 const {
   title,
-  description = "Professional warehouse and industrial space listings. Find the perfect warehouse, distribution center, or manufacturing facility for your business.",
+  description = "Premium warehouse and industrial real estate solutions across South Florida. Expert tenant representation and cutting-edge technology for your business growth.",
   image = "/og-image.jpg"
 } = Astro.props;
 
@@ -41,193 +41,304 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property="twitter:description" content={description} />
   <meta property="twitter:image" content={new URL(image, Astro.url)} />
   
-  <!-- Fonts -->
+  <!-- Fonts - Inter Variable Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Critical CSS -->
+  <!-- Critical CSS for Performance -->
   <style>
-    .loading { opacity: 0; }
-    .loaded { opacity: 1; transition: opacity 0.5s ease; }
+    /* Critical Loading Styles */
+    .page-loading {
+      opacity: 0;
+      visibility: hidden;
+    }
     
-    /* Scroll progress bar */
+    .page-loaded {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    
+    /* Critical Header Styles */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .header-scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Mobile Menu Styles */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-menu.open {
+      max-height: 600px;
+    }
+    
+    /* Scroll Progress Bar */
     .scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 3px;
-      background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
       transform-origin: left;
       transform: scaleX(0);
-      z-index: 100;
+      z-index: 1001;
     }
     
-    /* Header styles */
-    .header-scrolled {
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* Loading Spinner */
+    .loading-spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
     }
     
-    /* Mobile menu */
-    .mobile-menu {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(59, 130, 246, 0.1);
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
     
-    .mobile-menu.open {
-      max-height: 500px;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Enhanced Typography */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+      font-variation-settings: 'wght' 400;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
   </style>
 </head>
 
-<body class="loading bg-white text-primary-900 antialiased font-sans">
+<body class="page-loading bg-white text-slate-900 antialiased">
+  <!-- Loading Spinner -->
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+  
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress"></div>
   
-  <!-- Header -->
-  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <!-- Site Header -->
+  <header class="site-header">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16 lg:h-20">
         <!-- Logo -->
         <div class="flex items-center">
-          <a href="/" class="logo flex items-center space-x-3">
-            <div class="w-10 h-10 bg-primary-900 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          <a href="/" class="logo-link group flex items-center space-x-3">
+            <div class="logo-icon w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+              <svg class="w-5 h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
             </div>
-            <span class="text-xl font-bold text-primary-900">Ariel Realty</span>
+            <div class="logo-text">
+              <div class="text-xl lg:text-2xl font-bold text-slate-900">Ariel Realty</div>
+              <div class="text-xs text-slate-500 leading-none">Industrial Solutions</div>
+            </div>
           </a>
         </div>
         
         <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="/" class="nav-link text-primary-700 hover:text-primary-900 font-medium transition-colors">Home</a>
-          <a href="/warehouses" class="nav-link text-primary-700 hover:text-primary-900 font-medium transition-colors">Warehouses</a>
-          <a href="/about" class="nav-link text-primary-700 hover:text-primary-900 font-medium transition-colors">About</a>
-          <a href="/contact" class="nav-link text-primary-700 hover:text-primary-900 font-medium transition-colors">Contact</a>
-          <a href="/admin" class="btn-primary">List Property</a>
+        <div class="hidden lg:flex items-center space-x-8">
+          <a href="/" class="nav-link text-slate-700 hover:text-slate-900 font-medium transition-colors duration-200 relative group">
+            Home
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="/warehouses" class="nav-link text-slate-700 hover:text-slate-900 font-medium transition-colors duration-200 relative group">
+            Properties
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="/about" class="nav-link text-slate-700 hover:text-slate-900 font-medium transition-colors duration-200 relative group">
+            About
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="/contact" class="nav-link text-slate-700 hover:text-slate-900 font-medium transition-colors duration-200 relative group">
+            Contact
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-900 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          
+          <!-- CTA Button -->
+          <a href="tel:+19549379667" class="cta-button group relative overflow-hidden bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105">
+            <span class="relative z-10 flex items-center">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              (954) 937-9667
+            </span>
+          </a>
         </div>
         
         <!-- Mobile Menu Button -->
         <button 
-          id="mobile-menu-button"
-          class="mobile-menu-button md:hidden p-2 rounded-lg hover:bg-primary-100 transition-colors"
-          aria-expanded="false"
+          class="mobile-menu-button lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
           aria-label="Toggle menu"
+          aria-expanded="false"
         >
-          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <svg class="menu-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
-          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          <svg class="close-icon w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
       </div>
       
       <!-- Mobile Menu -->
-      <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t border-primary-200 shadow-lg">
-        <div class="px-2 pt-2 pb-3 space-y-1">
-          <a href="/" class="block px-3 py-2 text-primary-700 hover:text-primary-900 hover:bg-primary-50 rounded-md font-medium transition-colors">Home</a>
-          <a href="/warehouses" class="block px-3 py-2 text-primary-700 hover:text-primary-900 hover:bg-primary-50 rounded-md font-medium transition-colors">Warehouses</a>
-          <a href="/about" class="block px-3 py-2 text-primary-700 hover:text-primary-900 hover:bg-primary-50 rounded-md font-medium transition-colors">About</a>
-          <a href="/contact" class="block px-3 py-2 text-primary-700 hover:text-primary-900 hover:bg-primary-50 rounded-md font-medium transition-colors">Contact</a>
-          <a href="/admin" class="block mx-3 mt-4 btn-primary text-center">List Property</a>
+      <div class="mobile-menu lg:hidden bg-white/95 backdrop-blur-xl border-t border-slate-200">
+        <div class="px-4 py-6 space-y-4">
+          <a href="/" class="block px-4 py-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-xl font-medium transition-all duration-200">
+            Home
+          </a>
+          <a href="/warehouses" class="block px-4 py-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-xl font-medium transition-all duration-200">
+            Properties
+          </a>
+          <a href="/about" class="block px-4 py-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-xl font-medium transition-all duration-200">
+            About
+          </a>
+          <a href="/contact" class="block px-4 py-3 text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-xl font-medium transition-all duration-200">
+            Contact
+          </a>
+          
+          <!-- Mobile CTA -->
+          <div class="pt-4 border-t border-slate-200">
+            <a href="tel:+19549379667" class="block text-center bg-slate-900 text-white px-6 py-4 rounded-xl font-semibold">
+              <span class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+                Call (954) 937-9667
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </nav>
   </header>
   
   <!-- Main Content -->
-  <main class="page-content pt-16 lg:pt-20">
+  <main class="site-main">
     <slot />
   </main>
   
-  <!-- Footer -->
-  <footer class="bg-primary-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+  <!-- Enhanced Footer -->
+  <footer class="site-footer bg-slate-900 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="footer-pattern absolute inset-0"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <!-- Footer Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
         <!-- Company Info -->
-        <div class="scroll-fade-in">
-          <div class="flex items-center space-x-3 mb-4">
-            <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-primary-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+        <div class="lg:col-span-2">
+          <div class="footer-brand flex items-center space-x-3 mb-6">
+            <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
             </div>
-            <span class="text-lg font-bold">Ariel Realty</span>
+            <div>
+              <div class="text-2xl font-bold">Ariel Realty Group</div>
+              <div class="text-slate-400 text-sm">Industrial Real Estate Excellence</div>
+            </div>
           </div>
-          <p class="text-primary-300 text-sm leading-relaxed">
-            Professional warehouse and industrial space solutions for your business growth.
+          
+          <p class="text-slate-300 text-lg leading-relaxed mb-8 max-w-md">
+            Transforming industrial real estate with cutting-edge technology and unmatched expertise across South Florida.
           </p>
+          
+          <!-- Contact Info -->
+          <div class="footer-contact space-y-4">
+            <div class="contact-item flex items-center space-x-3">
+              <div class="contact-icon w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">(954) 937-9667</div>
+                <div class="text-slate-400 text-sm">Direct line to our experts</div>
+              </div>
+            </div>
+            
+            <div class="contact-item flex items-center space-x-3">
+              <div class="contact-icon w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-white">ariel@arielrealtygroup.com</div>
+                <div class="text-slate-400 text-sm">Professional consultation</div>
+              </div>
+            </div>
+          </div>
         </div>
         
         <!-- Quick Links -->
-        <div class="scroll-fade-in">
-          <h3 class="font-semibold mb-4">Quick Links</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/warehouses" class="text-primary-300 hover:text-white transition-colors">Browse Warehouses</a></li>
-            <li><a href="/about" class="text-primary-300 hover:text-white transition-colors">About Us</a></li>
-            <li><a href="/contact" class="text-primary-300 hover:text-white transition-colors">Contact</a></li>
-            <li><a href="/admin" class="text-primary-300 hover:text-white transition-colors">List Property</a></li>
+        <div class="footer-section">
+          <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
+          <ul class="footer-links space-y-3">
+            <li><a href="/warehouses" class="footer-link text-slate-300 hover:text-white transition-colors duration-200">Browse Properties</a></li>
+            <li><a href="/about" class="footer-link text-slate-300 hover:text-white transition-colors duration-200">About Us</a></li>
+            <li><a href="/contact" class="footer-link text-slate-300 hover:text-white transition-colors duration-200">Contact</a></li>
+            <li><a href="/admin" class="footer-link text-slate-300 hover:text-white transition-colors duration-200">Property Management</a></li>
           </ul>
         </div>
         
         <!-- Services -->
-        <div class="scroll-fade-in">
-          <h3 class="font-semibold mb-4">Services</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="#" class="text-primary-300 hover:text-white transition-colors">Warehouse Leasing</a></li>
-            <li><a href="#" class="text-primary-300 hover:text-white transition-colors">Distribution Centers</a></li>
-            <li><a href="#" class="text-primary-300 hover:text-white transition-colors">Manufacturing Spaces</a></li>
-            <li><a href="#" class="text-primary-300 hover:text-white transition-colors">Cold Storage</a></li>
+        <div class="footer-section">
+          <h3 class="text-xl font-bold text-white mb-6">Services</h3>
+          <ul class="footer-links space-y-3">
+            <li><span class="text-slate-300">Warehouse Leasing</span></li>
+            <li><span class="text-slate-300">Distribution Centers</span></li>
+            <li><span class="text-slate-300">Manufacturing Spaces</span></li>
+            <li><span class="text-slate-300">Cold Storage Facilities</span></li>
+            <li><span class="text-slate-300">Tenant Representation</span></li>
           </ul>
-        </div>
-        
-        <!-- Contact -->
-        <div class="scroll-fade-in">
-          <h3 class="font-semibold mb-4">Contact Info</h3>
-          <div class="space-y-3 text-sm">
-            <div class="flex items-center space-x-3">
-              <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-              </svg>
-              <span class="text-primary-300">(555) 123-4567</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-              <span class="text-primary-300">info@arielrealty.com</span>
-            </div>
-            <div class="flex items-center space-x-3">
-              <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-              <span class="text-primary-300">Fort Lauderdale, FL</span>
-            </div>
-          </div>
         </div>
       </div>
       
-      <div class="border-t border-primary-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="text-primary-400 text-sm">
-          © 2024 Ariel Realty. All rights reserved.
-        </p>
-        <div class="flex space-x-6 mt-4 md:mt-0">
-          <a href="#" class="text-primary-400 hover:text-white transition-colors">
-            <span class="sr-only">Privacy Policy</span>
-            Privacy
-          </a>
-          <a href="#" class="text-primary-400 hover:text-white transition-colors">
-            <span class="sr-only">Terms of Service</span>
-            Terms
-          </a>
+      <!-- Footer Bottom -->
+      <div class="footer-bottom flex flex-col lg:flex-row justify-between items-center pt-12 mt-12 border-t border-slate-800">
+        <div class="footer-copyright text-slate-400 text-sm mb-4 lg:mb-0">
+          © {new Date().getFullYear()} Ariel Realty Group. All rights reserved.
+        </div>
+        
+        <div class="footer-legal flex space-x-6 text-sm">
+          <a href="#" class="text-slate-400 hover:text-white transition-colors duration-200">Privacy Policy</a>
+          <a href="#" class="text-slate-400 hover:text-white transition-colors duration-200">Terms of Service</a>
+          <a href="#" class="text-slate-400 hover:text-white transition-colors duration-200">Cookie Policy</a>
         </div>
       </div>
     </div>
@@ -235,25 +346,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   
   <!-- Back to Top Button -->
   <button 
-    id="back-to-top"
-    class="back-to-top fixed bottom-8 right-8 w-12 h-12 bg-primary-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 scale-75"
+    class="back-to-top fixed bottom-8 right-8 w-14 h-14 bg-slate-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 scale-75 z-50"
     aria-label="Back to top"
   >
     <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
     </svg>
   </button>
   
   <!-- GSAP CDN -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollToPlugin.min.js"></script>
   
-  <!-- Simple Animation Script (No TypeScript Issues) -->
+  <!-- Enhanced JavaScript -->
   <script is:inline>
-    window.addEventListener('load', function() {
-      // Remove loading state
-      document.body.classList.remove('loading');
-      document.body.classList.add('loaded');
+    // Enhanced page loading and animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Remove loading state after a short delay
+      setTimeout(() => {
+        document.querySelector('.loading-spinner')?.remove();
+        document.body.classList.remove('page-loading');
+        document.body.classList.add('page-loaded');
+      }, 500);
       
       // Check if GSAP loaded
       if (typeof gsap === 'undefined') {
@@ -262,46 +377,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }
       
       // Register GSAP plugins
-      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
       
-      // Basic setup
-      gsap.defaults({ duration: 0.8, ease: "power2.out" });
+      // GSAP Configuration
+      gsap.config({
+        nullTargetWarn: false,
+        trialWarn: false
+      });
       
-      // Header scroll effect
-      const header = document.getElementById('main-header');
+      // Header scroll effect with enhanced backdrop blur
+      const header = document.querySelector('.site-header');
       if (header) {
         ScrollTrigger.create({
-          start: "top -80",
+          start: "top -100",
           end: 99999,
           toggleClass: { className: "header-scrolled", targets: header }
         });
       }
       
-      // Mobile menu toggle
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuIcon = document.getElementById('menu-icon');
-      const closeIcon = document.getElementById('close-icon');
-      
-      if (mobileMenuButton && mobileMenu && menuIcon && closeIcon) {
-        mobileMenuButton.addEventListener('click', function() {
-          const isExpanded = this.getAttribute('aria-expanded') === 'true';
-          
-          if (isExpanded) {
-            this.setAttribute('aria-expanded', 'false');
-            mobileMenu.classList.remove('open');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-          } else {
-            this.setAttribute('aria-expanded', 'true');
-            mobileMenu.classList.add('open');
-            menuIcon.classList.add('hidden');
-            closeIcon.classList.remove('hidden');
-          }
-        });
-      }
-      
-      // Scroll progress bar
+      // Enhanced scroll progress bar
       const progressBar = document.querySelector('.scroll-progress');
       if (progressBar) {
         gsap.to(progressBar, {
@@ -311,42 +405,56 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             trigger: "body",
             start: "top top",
             end: "bottom bottom",
-            scrub: 0.3
+            scrub: 0.5
           }
         });
       }
       
-      // Fade in animations
-      gsap.utils.toArray('.scroll-fade-in').forEach(function(element) {
-        gsap.from(element, {
-          opacity: 0,
-          y: 60,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
+      // Mobile menu functionality
+      const mobileMenuButton = document.querySelector('.mobile-menu-button');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const menuIcon = document.querySelector('.menu-icon');
+      const closeIcon = document.querySelector('.close-icon');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          
+          if (isExpanded) {
+            // Close menu
+            this.setAttribute('aria-expanded', 'false');
+            mobileMenu.classList.remove('open');
+            menuIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+            
+            // Animate menu items out
+            gsap.to(mobileMenu.querySelectorAll('a'), {
+              opacity: 0,
+              y: -20,
+              duration: 0.2,
+              stagger: -0.05
+            });
+          } else {
+            // Open menu
+            this.setAttribute('aria-expanded', 'true');
+            mobileMenu.classList.add('open');
+            menuIcon?.classList.add('hidden');
+            closeIcon?.classList.remove('hidden');
+            
+            // Animate menu items in
+            gsap.fromTo(mobileMenu.querySelectorAll('a'), 
+              { opacity: 0, y: -20 },
+              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, delay: 0.1 }
+            );
           }
         });
-      });
+      }
       
-      // Button hover effects
-      document.querySelectorAll('.btn, .btn-primary, .btn-secondary').forEach(function(button) {
-        button.addEventListener('mouseenter', function() {
-          gsap.to(this, { scale: 1.05, duration: 0.2, ease: "power2.out" });
-        });
-        
-        button.addEventListener('mouseleave', function() {
-          gsap.to(this, { scale: 1, duration: 0.2, ease: "power2.out" });
-        });
-      });
-      
-      // Back to top button
-      const backToTopButton = document.getElementById('back-to-top');
+      // Enhanced back to top button
+      const backToTopButton = document.querySelector('.back-to-top');
       if (backToTopButton) {
         ScrollTrigger.create({
-          start: "top -300",
+          start: "top -500",
           end: 99999,
           onToggle: function(self) {
             if (self.isActive) {
@@ -375,7 +483,154 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           });
         });
       }
+      
+      // Enhanced button hover effects
+      document.querySelectorAll('.cta-button').forEach(function(button) {
+        button.addEventListener('mouseenter', function() {
+          gsap.to(this, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+        
+        button.addEventListener('mouseleave', function() {
+          gsap.to(this, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      });
+      
+      // Logo hover animation
+      const logoLink = document.querySelector('.logo-link');
+      if (logoLink) {
+        logoLink.addEventListener('mouseenter', function() {
+          gsap.to(this.querySelector('.logo-icon'), {
+            rotation: 5,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+        
+        logoLink.addEventListener('mouseleave', function() {
+          gsap.to(this.querySelector('.logo-icon'), {
+            rotation: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      }
+      
+      // Enhanced footer animations
+      gsap.utils.toArray('.footer-section').forEach(function(section, index) {
+        gsap.from(section, {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          delay: index * 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            gsap.to(window, {
+              scrollTo: { y: target, offsetY: 100 },
+              duration: 1,
+              ease: "power2.inOut"
+            });
+          }
+        });
+      });
+      
+      // Page transition effects
+      window.addEventListener('beforeunload', function() {
+        gsap.to(document.body, {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      console.log('🚀 Enhanced BaseLayout animations loaded successfully!');
     });
   </script>
+  
+  <style>
+    /* Footer Pattern */
+    .footer-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    
+    /* Enhanced transitions */
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: currentColor;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Footer link hover effects */
+    .footer-link {
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    
+    .footer-link:hover {
+      transform: translateX(4px);
+    }
+    
+    /* Enhanced mobile optimizations */
+    @media (max-width: 1024px) {
+      .site-header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+      }
+      
+      .mobile-menu {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+      }
+    }
+    
+    /* High contrast mode support */
+    @media (prefers-contrast: high) {
+      .site-header {
+        background: rgb(255, 255, 255);
+        border-bottom: 2px solid rgb(0, 0, 0);
+      }
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </body>
 </html>

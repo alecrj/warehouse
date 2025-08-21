@@ -1,505 +1,511 @@
 ---
-import Navigation from '../components/Navigation.astro';
-
-interface Props {
-  title: string;
+// BaseLayout.astro - Clean & Minimalist TypeScript Fixed
+export interface Props {
+  title?: string;
   description?: string;
   image?: string;
-  ogType?: string;
+  canonical?: string | URL;
+  noindex?: boolean;
+  type?: 'website' | 'article';
 }
 
-const { 
-  title, 
-  description = "Free tenant representation for your next warehouse lease in South Florida, powered by Ariel Realty Group.", 
-  image = "/images/og-image.jpg", 
-  ogType = "website" 
-} = Astro.props as Props;
+const {
+  title = 'Premium Warehouse Rentals | Ariel Realty',
+  description = 'Find premium warehouse and industrial space across South Florida. Expert tenant representation with zero fees.',
+  image = '/images/og-default.jpg',
+  canonical,
+  noindex = false,
+  type = 'website'
+} = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(image, Astro.url);
+// Ensure canonical is always a string
+const canonicalURL = canonical 
+  ? (typeof canonical === 'string' ? canonical : canonical.toString())
+  : new URL(Astro.url.pathname, Astro.site).toString();
+
+// Generate full image URL
+const fullImageURL = new URL(image, Astro.site).toString();
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <!-- Essential Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="generator" content={Astro.generator} />
   
-  <!-- SEO Meta Tags -->
+  <!-- Primary Meta Tags -->
   <title>{title}</title>
+  <meta name="title" content={title} />
   <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalURL} />
-  
+  {canonical && <link rel="canonical" href={canonicalURL} />}
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
   <!-- Open Graph / Facebook -->
-  <meta property="og:type" content={ogType} />
-  <meta property="og:url" content={Astro.url} />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={socialImageURL} />
-  <meta property="og:site_name" content="Ariel Realty Group" />
-  
+  <meta property="og:image" content={fullImageURL} />
+  <meta property="og:site_name" content="Ariel Realty" />
+
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={Astro.url} />
+  <meta property="twitter:url" content={canonicalURL} />
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={socialImageURL} />
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  
+  <meta property="twitter:image" content={fullImageURL} />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- GSAP - Load first for animations -->
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Fixed: Properly configure Tailwind with type safety
     if (typeof window !== 'undefined' && window.tailwind && typeof window.tailwind.config === 'function') {
       window.tailwind.config({
         theme: {
           extend: {
             fontFamily: {
               'sans': ['Inter', 'system-ui', 'sans-serif'],
-            },
-            animation: {
-              'fade-in-up': 'fadeInUp 0.6s ease-out',
-              'fade-in-down': 'fadeInDown 0.6s ease-out',
-              'fade-in-left': 'fadeInLeft 0.6s ease-out',
-              'fade-in-right': 'fadeInRight 0.6s ease-out',
-              'scale-in': 'scaleIn 0.5s ease-out',
-              'float': 'float 6s ease-in-out infinite',
-              'glow': 'glow 2s ease-in-out infinite alternate',
-            },
-            keyframes: {
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(30px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' }
-              },
-              fadeInDown: {
-                '0%': { opacity: '0', transform: 'translateY(-30px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' }
-              },
-              fadeInLeft: {
-                '0%': { opacity: '0', transform: 'translateX(-30px)' },
-                '100%': { opacity: '1', transform: 'translateX(0)' }
-              },
-              fadeInRight: {
-                '0%': { opacity: '0', transform: 'translateX(30px)' },
-                '100%': { opacity: '1', transform: 'translateX(0)' }
-              },
-              scaleIn: {
-                '0%': { opacity: '0', transform: 'scale(0.9)' },
-                '100%': { opacity: '1', transform: 'scale(1)' }
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0px)' },
-                '50%': { transform: 'translateY(-20px)' }
-              },
-              glow: {
-                '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)' },
-                '100%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.4)' }
-              }
             }
           }
         }
       });
     }
   </script>
-  
-  <!-- Custom Styles -->
+
+  <!-- Global Styles -->
   <style>
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    /* Clean, minimalist styles */
+    
+    /* Smooth text gradient */
+    .text-gradient {
+      background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Minimal shadows */
+    .shadow-soft {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .shadow-soft-lg {
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    }
+    
+    /* Smooth hover transitions */
+    .hover-rise {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .hover-rise:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
 
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
+    /* Minimalist navigation */
+    .minimal-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-      border-radius: 4px;
+    .minimal-nav.hidden {
+      transform: translateY(-100%);
+      opacity: 0;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%);
+    /* Clean button styles */
+    .btn-minimal {
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
     }
 
-    /* Selection */
-    ::selection {
-      background: #2563eb;
+    .btn-minimal:hover {
+      background: #334155;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      border-color: #1e293b;
+      background: #1e293b;
       color: white;
     }
 
-    /* Focus styles */
-    :focus-visible {
-      outline: 2px solid #2563eb;
-      outline-offset: 2px;
-    }
-
-    /* Premium background patterns */
-    .bg-pattern-dots {
-      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-
-    .bg-pattern-grid {
-      background-image: 
-        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-
-    /* Glass effects for premium feel */
-    .glass {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    /* Premium button hover effects */
-    .btn-premium {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-premium::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-premium:hover::before {
-      left: 100%;
-    }
-
-    /* GSAP Animation Classes */
-    .gsap-fade-in {
+    /* GSAP Animation ready classes */
+    .fade-in {
       opacity: 0;
       transform: translateY(30px);
     }
 
-    .gsap-fade-in-left {
+    .fade-in-left {
       opacity: 0;
-      transform: translateX(-50px);
+      transform: translateX(-30px);
     }
 
-    .gsap-fade-in-right {
+    .fade-in-right {
       opacity: 0;
-      transform: translateX(50px);
+      transform: translateX(30px);
     }
 
-    .gsap-scale-in {
+    .scale-in {
       opacity: 0;
-      transform: scale(0.8);
+      transform: scale(0.95);
     }
 
-    .gsap-stagger {
+    /* Mobile menu */
+    .mobile-menu {
       opacity: 0;
-      transform: translateY(20px);
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
     }
 
-    /* Floating animations */
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
+    .mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Typography improvements */
+    h1, h2, h3 {
+      letter-spacing: -0.025em;
+    }
+
+    .text-balance {
+      text-wrap: balance;
+    }
+
+    /* Print styles */
+    @media print {
+      .minimal-nav,
+      .mobile-menu,
+      .absolute,
+      .fixed {
+        display: none !important;
       }
-      50% {
-        transform: translateY(-20px);
+      
+      body {
+        background: white !important;
+        color: black !important;
       }
     }
 
-    @keyframes floatReverse {
-      0%, 100% {
-        transform: translateY(-10px);
-      }
-      50% {
-        transform: translateY(10px);
-      }
-    }
-
-    .float {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .float-reverse {
-      animation: floatReverse 8s ease-in-out infinite;
-    }
-
-    /* Gradient text effects */
-    .text-gradient {
-      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .text-gradient-purple {
-      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
 
-    /* Enhanced shadows */
-    .shadow-premium {
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .text-gradient {
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: unset !important;
+        background-clip: unset !important;
+        color: #000 !important;
+      }
     }
 
-    .shadow-premium-lg {
-      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Smooth reveal animations */
-    .reveal {
-      clip-path: inset(100% 0 0 0);
-      transition: clip-path 0.8s ease-out;
-    }
-
-    .reveal.active {
-      clip-path: inset(0 0 0 0);
+    /* Dark mode preferences */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+      }
     }
   </style>
-</head>
-<body class="bg-slate-50 text-slate-900 antialiased">
-  <Navigation />
-  
-  <main>
-    <slot />
-  </main>
 
-  <!-- GSAP Scroll Animations Script -->
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Ariel Realty",
+      "description": "Premium warehouse and industrial space leasing across South Florida",
+      "url": "https://arielrealty.com",
+      "areaServed": {
+        "@type": "State",
+        "name": "Florida"
+      },
+      "serviceType": "Industrial Real Estate Leasing",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-555-123-4567",
+        "contactType": "customer service",
+        "areaServed": "US",
+        "availableLanguage": "English"
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-white text-slate-900 antialiased">
+  <!-- Skip to main content -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-slate-900 text-white px-4 py-2 rounded-lg z-50">
+    Skip to main content
+  </a>
+
+  <slot />
+
+  <!-- GSAP Base Animations Script -->
   <script>
-    // Enhanced GSAP animations with TypeScript-safe initialization
-    function initGSAPAnimations(): void {
-      // Ensure GSAP is loaded
-      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('GSAP not loaded, retrying...');
-        setTimeout(initGSAPAnimations, 100);
+    // Global animation utilities with proper TypeScript safety
+    function initBaseAnimations(): void {
+      if (typeof gsap === 'undefined') {
+        setTimeout(initBaseAnimations, 100);
         return;
       }
 
-      // Register ScrollTrigger plugin
+      // Register plugins
       gsap.registerPlugin(ScrollTrigger);
+      
+      // Set global defaults
+      gsap.defaults({ 
+        duration: 0.8, 
+        ease: "power2.out" 
+      });
 
-      // Set default ease
-      gsap.defaults({ ease: "power2.out", duration: 0.8 });
+      // Navigation fade on scroll
+      let lastScrollY = 0;
+      const nav = document.getElementById('main-nav') as HTMLElement | null;
 
-      // Hero section animations - Type-safe implementation
-      const heroElements = document.querySelectorAll('.gsap-fade-in');
-      if (heroElements.length > 0) {
-        gsap.fromTo(heroElements as any, 
-          { 
-            opacity: 0, 
-            y: 50 
-          },
-          { 
-            opacity: 1, 
-            y: 0, 
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out"
+      if (nav) {
+        window.addEventListener('scroll', () => {
+          const currentScrollY = window.scrollY;
+          
+          if (currentScrollY > 100) {
+            if (currentScrollY > lastScrollY) {
+              // Scrolling down
+              nav.classList.add('hidden');
+            } else {
+              // Scrolling up
+              nav.classList.remove('hidden');
+            }
+          } else {
+            nav.classList.remove('hidden');
           }
-        );
+          
+          lastScrollY = currentScrollY;
+        });
       }
 
-      // Stagger animations for cards/items - Type-safe
-      const staggerElements = document.querySelectorAll('.gsap-stagger');
-      if (staggerElements.length > 0) {
-        gsap.fromTo(staggerElements as any, 
-          { 
-            opacity: 0, 
-            y: 30 
-          },
-          { 
-            opacity: 1, 
-            y: 0, 
-            duration: 0.6,
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: staggerElements[0] as Element,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      }
+      // Mobile menu functionality with null safety
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
+      const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
+      let isMenuOpen = false;
 
-      // Scale in animations - Type-safe forEach
-      const scaleElements = document.querySelectorAll('.gsap-scale-in');
-      scaleElements.forEach((element: Element) => {
-        gsap.fromTo(element as any, 
-          { 
-            opacity: 0, 
-            scale: 0.8 
-          },
-          { 
-            opacity: 1, 
-            scale: 1, 
-            duration: 0.6,
-            scrollTrigger: {
-              trigger: element,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
+      if (mobileMenuBtn && mobileMenu) {
+        function toggleMobileMenu(): void {
+          isMenuOpen = !isMenuOpen;
+          
+          if (isMenuOpen) {
+            mobileMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          } else {
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
           }
-        );
-      });
+        }
 
-      // Left/Right slide animations - Type-safe
-      const leftElements = document.querySelectorAll('.gsap-fade-in-left');
-      leftElements.forEach((element: Element) => {
-        gsap.fromTo(element as any, 
-          { 
-            opacity: 0, 
-            x: -50 
-          },
-          { 
-            opacity: 1, 
-            x: 0, 
-            duration: 0.8,
-            scrollTrigger: {
-              trigger: element,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-      const rightElements = document.querySelectorAll('.gsap-fade-in-right');
-      rightElements.forEach((element: Element) => {
-        gsap.fromTo(element as any, 
-          { 
-            opacity: 0, 
-            x: 50 
-          },
-          { 
-            opacity: 1, 
-            x: 0, 
-            duration: 0.8,
-            scrollTrigger: {
-              trigger: element,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
+        // Close menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            if (isMenuOpen) toggleMobileMenu();
+          });
+        });
 
-      // Parallax effects for background elements - Type-safe
-      const parallaxElements = document.querySelectorAll('.parallax');
-      parallaxElements.forEach((element: Element) => {
-        gsap.fromTo(element as any, 
-          { 
-            y: 0 
-          },
-          { 
-            y: -100,
-            ease: "none",
-            scrollTrigger: {
-              trigger: element,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true
-            }
-          }
-        );
-      });
-
-      // Text reveal animations - Type-safe
-      const textRevealElements = document.querySelectorAll('.text-reveal');
-      textRevealElements.forEach((element: Element) => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: element,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
+        // Close menu on escape key
+        document.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Escape' && isMenuOpen) {
+            toggleMobileMenu();
           }
         });
 
-        tl.fromTo(element as any, 
-          { 
-            clipPath: "inset(100% 0 0 0)" 
-          },
-          { 
-            clipPath: "inset(0 0 0 0)", 
-            duration: 1,
-            ease: "power2.out"
+        // Close menu on outside click
+        document.addEventListener('click', (e: MouseEvent) => {
+          const target = e.target as HTMLElement | null;
+          if (isMenuOpen && target && !mobileMenu.contains(target) && !mobileMenuBtn.contains(target)) {
+            toggleMobileMenu();
           }
-        );
-      });
+        });
+      }
 
-      // Counter animations - Type-safe with proper casting
-      const counterElements = document.querySelectorAll('.counter');
-      counterElements.forEach((element: Element) => {
-        const htmlElement = element as HTMLElement;
-        const target = parseInt(htmlElement.getAttribute('data-target') || '0');
-        
-        gsap.fromTo(htmlElement, 
-          { textContent: 0 },
-          { 
-            textContent: target,
-            duration: 2,
+      // Generic fade-in animations
+      gsap.utils.toArray('.fade-in').forEach((element: unknown) => {
+        const el = element as Element;
+        gsap.fromTo(el, 
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
             ease: "power2.out",
-            snap: { textContent: 1 },
             scrollTrigger: {
-              trigger: element,
-              start: "top 80%",
+              trigger: el,
+              start: "top 85%",
+              end: "bottom 15%",
               toggleActions: "play none none reverse"
-            },
-            onUpdate: function() {
-              htmlElement.textContent = Math.ceil(Number(htmlElement.textContent));
             }
           }
         );
       });
 
-      // Refresh ScrollTrigger
-      ScrollTrigger.refresh();
-      
-      console.log('✅ GSAP animations initialized');
+      // Generic scale-in animations
+      gsap.utils.toArray('.scale-in').forEach((element: unknown) => {
+        const el = element as Element;
+        gsap.fromTo(el,
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Fade in left animations
+      gsap.utils.toArray('.fade-in-left').forEach((element: unknown) => {
+        const el = element as Element;
+        gsap.fromTo(el,
+          { opacity: 0, x: -30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Fade in right animations
+      gsap.utils.toArray('.fade-in-right').forEach((element: unknown) => {
+        const el = element as Element;
+        gsap.fromTo(el,
+          { opacity: 0, x: 30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Hover effects for cards
+      gsap.utils.toArray('.hover-rise').forEach((element: unknown) => {
+        const el = element as HTMLElement;
+        
+        el.addEventListener('mouseenter', () => {
+          gsap.to(el, {
+            y: -4,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, {
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      });
+
+      console.log('✅ Base GSAP Animations initialized');
     }
 
-    // Initialize animations when DOM is ready
+    // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+      document.addEventListener('DOMContentLoaded', initBaseAnimations);
     } else {
-      initGSAPAnimations();
+      initBaseAnimations();
     }
-
-    // Re-initialize on page navigation (for SPA-like behavior)
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        if (typeof ScrollTrigger !== 'undefined') {
-          ScrollTrigger.refresh();
-        }
-      }, 100);
-    });
   </script>
 </body>
 </html>

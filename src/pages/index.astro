@@ -1,5 +1,5 @@
 ---
-// Clean homepage with proper TypeScript and consistent design
+// Updated homepage with hero form and Ariel Realty Group copy
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import { getCollection } from 'astro:content';
@@ -33,13 +33,13 @@ try {
 ---
 
 <BaseLayout 
-  title="Premium Warehouse Solutions | Ariel Realty Group"
-  description="South Florida's premier industrial tenant representation firm. Find your perfect warehouse space with zero fees and expert guidance."
+  title="Find Your Perfect Warehouse in South Florida | Ariel Realty Group"
+  description="Free tenant representation for your next warehouse lease in South Florida. From 500 SF to 500,000 SF - expert guidance at no cost to you."
 >
   <Navigation />
   
   <main>
-    <!-- Hero Section -->
+    <!-- Hero Section with Form -->
     <section class="relative min-h-screen flex items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       <!-- Background Elements -->
       <div class="absolute inset-0">
@@ -49,57 +49,261 @@ try {
       </div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div class="text-center space-y-8">
-          <!-- Main Headline -->
-          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight animate-on-scroll">
-            FIND YOUR PERFECT
-            <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-              WAREHOUSE SPACE
-            </span>
-          </h1>
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Left Column - Content -->
+          <div class="text-center lg:text-left space-y-8">
+            <!-- Main Headline -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight animate-on-scroll">
+              Find Your Perfect
+              <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
+                Warehouse in South Florida
+              </span>
+            </h1>
 
-          <!-- Subheading -->
-          <p class="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed animate-on-scroll">
-            South Florida's premier industrial tenant representation firm. 
-            <span class="text-white font-semibold">Zero fees. Expert guidance. Perfect matches.</span>
-          </p>
+            <!-- Subheadline -->
+            <p class="text-xl sm:text-2xl text-gray-300 leading-relaxed animate-on-scroll">
+              Free tenant representation for your next warehouse lease, 
+              <span class="text-white font-semibold">powered by Ariel Realty Group.</span>
+            </p>
 
-          <!-- Trust Indicators -->
-          <div class="flex flex-wrap justify-center items-center gap-6 text-gray-400 text-sm animate-on-scroll">
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-              </svg>
-              <span>100% Free Service</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span>Expert Representation</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
-              </svg>
-              <span>20+ Years Experience</span>
+            <!-- Supporting Line -->
+            <p class="text-lg text-gray-400 animate-on-scroll">
+              Whether you need a small 500 SF workshop or a 500,000 SF distribution space, 
+              <span class="text-white font-medium">we've got you covered.</span>
+            </p>
+
+            <!-- Trust Indicators -->
+            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-6 text-gray-400 text-sm animate-on-scroll">
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span>100% Free Service</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>500K+ SF Leased</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+                <span>Local Expertise</span>
+              </div>
             </div>
           </div>
 
-          <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
-            <a 
-              href="/contact" 
-              class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
-            >
-              Get Expert Help Now
-            </a>
-            <a 
-              href="/warehouses" 
-              class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300"
-            >
-              Browse Properties
-            </a>
+          <!-- Right Column - Quick Search Form -->
+          <div class="animate-on-scroll">
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-2xl">
+              <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white mb-2">Get Free Tenant Representation</h2>
+                <p class="text-gray-300">Tell us what you need and we'll find the perfect space</p>
+              </div>
+
+              <form 
+                name="hero-warehouse-search" 
+                method="POST" 
+                data-netlify="true" 
+                netlify-honeypot="bot-field"
+                action="/success"
+                class="space-y-4"
+              >
+                <!-- Hidden fields -->
+                <input type="hidden" name="form-name" value="hero-warehouse-search" />
+                <div class="hidden">
+                  <input name="bot-field" />
+                </div>
+
+                <!-- Name & Email Row -->
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="hero-name" class="block text-white text-sm font-semibold mb-2">
+                      Your Name *
+                    </label>
+                    <input 
+                      type="text" 
+                      id="hero-name" 
+                      name="name" 
+                      required 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                      placeholder="John Smith"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label for="hero-email" class="block text-white text-sm font-semibold mb-2">
+                      Email Address *
+                    </label>
+                    <input 
+                      type="email" 
+                      id="hero-email" 
+                      name="email" 
+                      required 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                      placeholder="john@company.com"
+                    />
+                  </div>
+                </div>
+
+                <!-- Phone & Company -->
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="hero-phone" class="block text-white text-sm font-semibold mb-2">
+                      Phone Number
+                    </label>
+                    <input 
+                      type="tel" 
+                      id="hero-phone" 
+                      name="phone" 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                      placeholder="(954) 123-4567"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label for="hero-company" class="block text-white text-sm font-semibold mb-2">
+                      Company Name
+                    </label>
+                    <input 
+                      type="text" 
+                      id="hero-company" 
+                      name="company" 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                      placeholder="Your Company"
+                    />
+                  </div>
+                </div>
+
+                <!-- Quick Filters Row -->
+                <div class="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <label for="hero-size" class="block text-white text-sm font-semibold mb-2">
+                      Size Needed
+                    </label>
+                    <select 
+                      id="hero-size" 
+                      name="size" 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    >
+                      <option value="">Select size</option>
+                      <option value="500-2500">500 - 2,500 SF</option>
+                      <option value="2500-5000">2,500 - 5,000 SF</option>
+                      <option value="5000-10000">5,000 - 10,000 SF</option>
+                      <option value="10000-25000">10,000 - 25,000 SF</option>
+                      <option value="25000-50000">25,000 - 50,000 SF</option>
+                      <option value="50000-100000">50,000 - 100,000 SF</option>
+                      <option value="100000-250000">100,000 - 250,000 SF</option>
+                      <option value="250000-500000">250,000 - 500,000 SF</option>
+                      <option value="500000+">500,000+ SF</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label for="hero-location" class="block text-white text-sm font-semibold mb-2">
+                      Preferred Location
+                    </label>
+                    <select 
+                      id="hero-location" 
+                      name="location" 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    >
+                      <option value="">Any location</option>
+                      <option value="miami">Miami</option>
+                      <option value="fort-lauderdale">Fort Lauderdale</option>
+                      <option value="doral">Doral</option>
+                      <option value="hialeah">Hialeah</option>
+                      <option value="miami-lakes">Miami Lakes</option>
+                      <option value="pompano-beach">Pompano Beach</option>
+                      <option value="davie">Davie</option>
+                      <option value="plantation">Plantation</option>
+                      <option value="sunrise">Sunrise</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label for="hero-budget" class="block text-white text-sm font-semibold mb-2">
+                      Budget Range
+                    </label>
+                    <select 
+                      id="hero-budget" 
+                      name="budget" 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    >
+                      <option value="">Select budget</option>
+                      <option value="under-5">Under $5/SF/year</option>
+                      <option value="5-8">$5 - $8/SF/year</option>
+                      <option value="8-12">$8 - $12/SF/year</option>
+                      <option value="12-16">$12 - $16/SF/year</option>
+                      <option value="16-20">$16 - $20/SF/year</option>
+                      <option value="20+">$20+/SF/year</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Timeline -->
+                <div>
+                  <label for="hero-timeline" class="block text-white text-sm font-semibold mb-2">
+                    When do you need the space?
+                  </label>
+                  <select 
+                    id="hero-timeline" 
+                    name="timeline" 
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                  >
+                    <option value="">Select timeline</option>
+                    <option value="immediately">Immediately</option>
+                    <option value="1-3-months">1-3 months</option>
+                    <option value="3-6-months">3-6 months</option>
+                    <option value="6-12-months">6-12 months</option>
+                    <option value="12+-months">12+ months</option>
+                  </select>
+                </div>
+
+                <!-- Additional Requirements -->
+                <div>
+                  <label for="hero-requirements" class="block text-white text-sm font-semibold mb-2">
+                    Additional Requirements (Optional)
+                  </label>
+                  <textarea 
+                    id="hero-requirements" 
+                    name="requirements" 
+                    rows="3"
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 resize-none text-gray-900"
+                    placeholder="Dock doors, office space, ceiling height, special features..."
+                  ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button 
+                  type="submit" 
+                  class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-4 rounded-xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform"
+                >
+                  Get Free Tenant Representation
+                </button>
+
+                <!-- Privacy Note -->
+                <p class="text-center text-gray-400 text-sm">
+                  We'll connect you with the perfect warehouse space within 24 hours. 
+                  <span class="text-white font-medium">Completely free service.</span>
+                </p>
+              </form>
+
+              <!-- Contact Info -->
+              <div class="mt-6 pt-6 border-t border-white/20 text-center">
+                <p class="text-gray-300 text-sm mb-2">Need immediate assistance?</p>
+                <a 
+                  href="tel:954-937-9667" 
+                  class="text-white font-bold text-lg hover:text-primary-300 transition-colors duration-200"
+                >
+                  (954) 937-9667
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -112,17 +316,17 @@ try {
       </div>
     </section>
 
-    <!-- Services Preview -->
+    <!-- Why Choose Ariel Realty Group -->
     <section class="py-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-16 animate-on-scroll">
           <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Why Choose Ariel Realty?
+            Why Choose Ariel Realty Group?
           </h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We specialize in industrial tenant representation across South Florida, 
-            offering comprehensive services at no cost to tenants.
+            Concierge-style service, completely free for tenants. 
+            Over 500,000 SF leased across South Florida with local expertise and strong market relationships.
           </p>
         </div>
 
@@ -135,10 +339,10 @@ try {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">100% Free Service</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Save Money</h3>
             <p class="text-gray-600 leading-relaxed">
-              Our comprehensive tenant representation services are completely free. 
-              We're compensated by landlords, never by tenants.
+              Expert lease negotiation to secure the best terms and rates. 
+              Our service is completely free - we're compensated by landlords, never tenants.
             </p>
           </div>
 
@@ -146,13 +350,13 @@ try {
           <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Expert Negotiation</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Save Time</h3>
             <p class="text-gray-600 leading-relaxed">
-              20+ years of experience negotiating the best terms for tenants. 
-              We know the market and fight for your interests.
+              Let us handle the search. Access to both on-market & off-market opportunities 
+              with full market knowledge & expert guidance throughout the process.
             </p>
           </div>
 
@@ -160,13 +364,13 @@ try {
           <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Perfect Matches</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Local Expertise</h3>
             <p class="text-gray-600 leading-relaxed">
-              We understand your unique requirements and find properties that 
-              perfectly match your operational needs and budget.
+              Deep South Florida market knowledge and strong relationships. 
+              From 500 SF to 500,000 SF — we cover every warehouse need.
             </p>
           </div>
         </div>
@@ -180,11 +384,11 @@ try {
           <!-- Section Header -->
           <div class="text-center mb-16 animate-on-scroll">
             <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Featured Properties
+              Featured Warehouse Listings
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Discover premium warehouse spaces across South Florida, 
-              from small bay warehouses to large distribution centers.
+              Discover premium warehouse spaces across South Florida. 
+              Key info: total SF, clear height, dock doors, office %, asking rent, availability.
             </p>
           </div>
 
@@ -272,8 +476,15 @@ try {
                       href="/contact" 
                       class="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
                     >
-                      Inquire
+                      Get Rep
                     </a>
+                  </div>
+                  
+                  <!-- Ariel Realty Tag -->
+                  <div class="mt-4 pt-4 border-t border-gray-100">
+                    <p class="text-center text-sm text-gray-500">
+                      Representation by <span class="font-semibold text-primary-600">Ariel Realty Group</span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -300,15 +511,15 @@ try {
     <section class="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6 animate-on-scroll">
-          Ready to Find Your
+          Get Matched with
           <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-            Perfect Warehouse?
+            Warehouses Today
           </span>
         </h2>
         
         <p class="text-xl text-gray-300 mb-10 animate-on-scroll">
-          Let our experts guide you to the ideal warehouse solution. 
-          <span class="text-white font-semibold">It's completely free and takes less than 5 minutes to get started.</span>
+          Tenant representation from search to signing. 
+          <span class="text-white font-semibold">Backed by Ariel Realty Group at no cost to you.</span>
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
@@ -316,13 +527,13 @@ try {
             href="/contact" 
             class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
           >
-            Get Expert Help Now
+            Get Free Tenant Representation
           </a>
           <a 
-            href="/warehouses" 
+            href="tel:954-937-9667" 
             class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300"
           >
-            Browse All Properties
+            Call (954) 937-9667
           </a>
         </div>
       </div>

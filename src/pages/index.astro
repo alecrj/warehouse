@@ -1,5 +1,5 @@
 ---
-// Updated homepage with improved hero layout and compact form
+// Updated homepage with improved hero layout and enhanced above-the-fold design
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -49,8 +49,8 @@ try {
   <Navigation />
   
   <main>
-    <!-- Hero Section - Above the Fold Optimized (Accounting for Fixed Header) -->
-    <section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center" style="height: calc(100vh - 64px); margin-top: 64px;">
+    <!-- Hero Section - Full Viewport Above the Fold -->
+    <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center pt-16">
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
@@ -58,50 +58,50 @@ try {
         <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
       </div>
       
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
           
           <!-- Left Column: Hero Content -->
           <div class="animate-on-scroll">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[0.9] tracking-tight mb-5">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[0.85] tracking-tight mb-8">
               FIND YOUR PERFECT
               <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
                 WAREHOUSE
               </span>
             </h1>
             
-            <p class="text-base lg:text-lg text-gray-300 leading-relaxed mb-6 max-w-xl">
+            <p class="text-xl lg:text-2xl text-gray-300 leading-relaxed mb-8 max-w-xl">
               Free tenant representation for warehouse leases—landlords pay our fee. From 500 SF to 500,000 SF across South Florida.
             </p>
 
             <!-- Key Value Props -->
-            <div class="grid grid-cols-2 gap-4 mb-6">
-              <div class="text-center p-4 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl">
-                <div class="text-2xl font-black text-white mb-1">100%</div>
-                <div class="text-white/80 text-xs font-semibold uppercase tracking-wider">FREE SERVICE</div>
+            <div class="grid grid-cols-2 gap-6 mb-8">
+              <div class="text-center p-6 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl">
+                <div class="text-3xl font-black text-white mb-2">100%</div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider">FREE SERVICE</div>
               </div>
-              <div class="text-center p-4 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl">
-                <div class="text-2xl font-black text-white mb-1">{availableWarehouses.length}</div>
-                <div class="text-white/80 text-xs font-semibold uppercase tracking-wider">AVAILABLE NOW</div>
+              <div class="text-center p-6 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl">
+                <div class="text-3xl font-black text-white mb-2">{availableWarehouses.length}</div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider">AVAILABLE NOW</div>
               </div>
             </div>
 
             <!-- Trust Indicators -->
-            <div class="space-y-2">
-              <div class="flex items-center text-sm text-gray-300">
-                <svg class="w-4 h-4 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <div class="space-y-3">
+              <div class="flex items-center text-base text-gray-300">
+                <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 No fees to you—landlords pay our commission
               </div>
-              <div class="flex items-center text-sm text-gray-300">
-                <svg class="w-4 h-4 text-blue-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <div class="flex items-center text-base text-gray-300">
+                <svg class="w-5 h-5 text-blue-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 Industrial experts with deep local knowledge
               </div>
-              <div class="flex items-center text-sm text-gray-300">
-                <svg class="w-4 h-4 text-purple-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <div class="flex items-center text-base text-gray-300">
+                <svg class="w-5 h-5 text-purple-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 Fast results—qualified options within 24 hours
@@ -109,12 +109,12 @@ try {
             </div>
           </div>
 
-          <!-- Right Column: Compact Contact Form -->
+          <!-- Right Column: Enhanced Contact Form -->
           <div class="animate-on-scroll flex justify-center lg:justify-end">
-            <div class="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl p-4 w-full max-w-md">
-              <div class="text-center mb-4">
-                <h2 class="text-lg font-bold text-white mb-1">Find Your Perfect Warehouse Space</h2>
-                <p class="text-white/80 text-xs">We'll get back to you within 24 hours with qualified options.</p>
+            <div class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8 w-full max-w-lg">
+              <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white mb-2">Find Your Perfect Warehouse Space</h2>
+                <p class="text-white/80 text-sm">We'll get back to you within 24 hours with qualified options.</p>
               </div>
               
               <form 
@@ -123,7 +123,7 @@ try {
                 data-netlify="true" 
                 netlify-honeypot="bot-field"
                 action="/success"
-                class="space-y-3"
+                class="space-y-4"
               >
                 <!-- Hidden fields -->
                 <input type="hidden" name="form-name" value="warehouse-inquiry" />
@@ -132,100 +132,102 @@ try {
                   <input name="bot-field" />
                 </div>
 
-                <!-- Name, Email, Phone - 3 columns -->
-                <div class="grid grid-cols-3 gap-2">
+                <!-- Name, Email Row -->
+                <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block text-white/90 text-xs mb-1">Name *</label>
+                    <label class="block text-white/90 text-sm font-medium mb-2">Name *</label>
                     <input 
                       type="text" 
                       name="name" 
                       required 
-                      class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-xs"
+                      class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300"
                       placeholder="Your Name"
                     />
                   </div>
                   <div>
-                    <label class="block text-white/90 text-xs mb-1">Email *</label>
+                    <label class="block text-white/90 text-sm font-medium mb-2">Email *</label>
                     <input 
                       type="email" 
                       name="email" 
                       required 
-                      class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-xs"
-                      placeholder="Email"
+                      class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300"
+                      placeholder="your@email.com"
                     />
                   </div>
+                </div>
+
+                <!-- Phone, Company Row -->
+                <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block text-white/90 text-xs mb-1">Phone *</label>
+                    <label class="block text-white/90 text-sm font-medium mb-2">Phone *</label>
                     <input 
                       type="tel" 
                       name="phone" 
                       required
-                      class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-xs"
-                      placeholder="Phone"
+                      class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300"
+                      placeholder="(954) 123-4567"
                     />
                   </div>
-                </div>
-
-                <!-- Company, Size - 2 columns -->
-                <div class="grid grid-cols-2 gap-2">
                   <div>
-                    <label class="block text-white/90 text-xs mb-1">Company</label>
+                    <label class="block text-white/90 text-sm font-medium mb-2">Company</label>
                     <input 
                       type="text" 
                       name="company" 
-                      class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-xs"
-                      placeholder="Company"
+                      class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300"
+                      placeholder="Company Name"
                     />
                   </div>
+                </div>
+
+                <!-- Size, Warehouse Row -->
+                <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label class="block text-white/90 text-xs mb-1">Size (SF)</label>
+                    <label class="block text-white/90 text-sm font-medium mb-2">Size (SF)</label>
                     <input 
                       type="text" 
                       name="size-needed" 
-                      class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-xs"
+                      class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300"
                       placeholder="10,000"
                     />
                   </div>
+                  <div>
+                    <label class="block text-white/90 text-sm font-medium mb-2">Property *</label>
+                    <select 
+                      name="warehouse-interested" 
+                      required
+                      class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300"
+                    >
+                      <option value="" class="text-gray-900">Select...</option>
+                      <option value="any" class="text-gray-900">Any Available</option>
+                      {allWarehouses.map((warehouse: Warehouse) => (
+                        <option value={warehouse.data.slug} class="text-gray-900">
+                          {warehouse.data.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
-                <!-- Warehouse Interested In - Full width -->
+                <!-- Requirements & Message -->
                 <div>
-                  <label class="block text-white/90 text-xs mb-1">Warehouse Interested In *</label>
-                  <select 
-                    name="warehouse-interested" 
-                    required
-                    class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-xs"
-                  >
-                    <option value="" class="text-gray-900">Select a warehouse...</option>
-                    <option value="any" class="text-gray-900">Any Available Warehouse</option>
-                    {allWarehouses.map((warehouse: Warehouse) => (
-                      <option value={warehouse.data.slug} class="text-gray-900">
-                        {warehouse.data.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <!-- Requirements & Message - Compact -->
-                <div>
-                  <label class="block text-white/90 text-xs mb-1">Requirements</label>
+                  <label class="block text-white/90 text-sm font-medium mb-2">Requirements</label>
                   <textarea 
                     name="requirements" 
-                    rows="2"
-                    class="w-full px-2 py-1.5 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 resize-none text-xs"
-                    placeholder="Loading docks, clear height, special features..."
+                    rows="3"
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 resize-none"
+                    placeholder="Loading docks, clear height, special features, budget..."
                   ></textarea>
                 </div>
 
                 <!-- Submit Button -->
                 <button 
                   type="submit" 
-                  class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 py-2 rounded-lg text-sm font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
+                  class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 rounded-xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
                 >
                   Get Matched With Warehouses
                 </button>
 
-                <p class="text-xs text-white/60 text-center">
+                <p class="text-sm text-white/60 text-center">
                   Free service • Landlords pay our fees • No obligation
                 </p>
               </form>

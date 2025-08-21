@@ -1,273 +1,380 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+// Simple about page
+import Navigation from '../components/Navigation.astro';
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<BaseLayout 
-  title="About Ariel Realty Group | South Florida Industrial Real Estate Experts"
-  description="Learn about Ariel Realty Group's expertise in South Florida industrial real estate and warehouse tenant representation. Over 500,000 SF leased with local market knowledge."
->
-  <!-- Hero Section -->
-  <section class="py-20 bg-gradient-to-r from-slate-900 to-blue-900 text-white mt-20">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center">
-        <h1 class="text-4xl lg:text-6xl font-bold mb-6">
-          <span class="block">About</span>
-          <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Ariel Realty Group</span>
-        </h1>
-        <p class="text-xl text-slate-300 max-w-2xl mx-auto">
-          South Florida's premier industrial tenant representation specialists with over 500,000 SF leased and deep local market expertise.
-        </p>
-      </div>
-    </div>
-  </section>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Ariel Realty Group | Expert Warehouse Tenant Representation</title>
+  <meta name="description" content="Learn about our expert team, proven track record, and commitment to providing free tenant representation for warehouse leasing in South Florida." />
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Our Story -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div class="scroll-fade-in">
-          <h2 class="text-4xl font-bold text-slate-900 mb-6">
-            Our <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Story</span>
-          </h2>
-          <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-            Ariel Realty Group specializes exclusively in industrial tenant representation across South Florida. Our team understands that finding the perfect warehouse or industrial space is critical to your business success.
-          </p>
-          <p class="text-lg text-slate-600 mb-6 leading-relaxed">
-            With deep local market knowledge spanning Miami-Dade, Broward, and Palm Beach counties, we've successfully leased over 500,000 square feet for tenants, saving them time and money through expert negotiation and concierge-style service.
-          </p>
-          <p class="text-lg text-slate-600 leading-relaxed">
-            Our service is completely free for tenants - landlords pay our commission when you sign a lease, allowing us to focus solely on your best interests.
+  <style>
+    .text-gradient {
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .shadow-premium {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .hover-lift {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .float-reverse {
+      animation: floatReverse 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(-10px); }
+      50% { transform: translateY(10px); }
+    }
+
+    .bg-pattern-grid {
+      background-image: 
+        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .bg-pattern-dots {
+      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  <Navigation />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
+      
+      <!-- Floating Elements -->
+      <div class="absolute top-20 right-10 w-20 h-20 bg-blue-500/20 rounded-full blur-xl float"></div>
+      <div class="absolute bottom-20 left-16 w-32 h-32 bg-cyan-500/20 rounded-full blur-xl float-reverse"></div>
+      
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
+            ABOUT
+            <span class="block text-gradient">ARIEL REALTY</span>
+          </h1>
+          <p class="text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed gsap-fade-in">
+            <span class="text-gradient font-semibold">20+ years</span> of expertise in South Florida warehouse leasing. 
+            Your success is our mission.
           </p>
         </div>
-        
-        <div class="scroll-scale-up">
-          <div class="relative">
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-3xl blur-3xl"></div>
-            <div class="relative bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-8 border border-slate-200">
-              <div class="grid grid-cols-2 gap-6">
+      </div>
+    </section>
+
+    <!-- Company Story Section -->
+    <section class="relative py-32 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+          <!-- Content -->
+          <div class="gsap-fade-in-left">
+            <h2 class="text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8">
+              OUR
+              <span class="block text-gradient">STORY</span>
+            </h2>
+            <div class="space-y-6">
+              <p class="text-xl text-slate-600 leading-relaxed">
+                Founded with a simple mission: provide expert warehouse tenant representation 
+                without any cost to our clients. We believe businesses should focus on growth, 
+                not navigating complex real estate negotiations.
+              </p>
+              <p class="text-lg text-slate-600 leading-relaxed">
+                Our team has successfully negotiated over <span class="font-bold text-gradient">500 warehouse leases</span>, 
+                saving clients millions in rental costs and securing optimal terms for their operations.
+              </p>
+              <p class="text-lg text-slate-600 leading-relaxed">
+                From small startups to Fortune 500 companies, we've helped businesses of all sizes 
+                find their perfect warehouse space across South Florida's dynamic industrial markets.
+              </p>
+            </div>
+          </div>
+
+          <!-- Visual -->
+          <div class="gsap-fade-in-right">
+            <div class="relative">
+              <!-- Main Image Container -->
+              <div class="rounded-3xl overflow-hidden shadow-premium hover-lift">
+                <img 
+                  src="/images/team-office.jpg" 
+                  alt="Ariel Realty Group team"
+                  class="w-full h-96 object-cover"
+                  loading="lazy"
+                />
+              </div>
+              
+              <!-- Floating Stats Card -->
+              <div class="absolute -bottom-6 -left-6 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-6 text-white shadow-premium">
                 <div class="text-center">
-                  <div class="text-4xl font-bold text-blue-600 mb-2">500K+</div>
-                  <div class="text-sm text-slate-600">SF Leased</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-4xl font-bold text-green-600 mb-2">100%</div>
-                  <div class="text-sm text-slate-600">Free for Tenants</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-4xl font-bold text-purple-600 mb-2">Expert</div>
-                  <div class="text-sm text-slate-600">Negotiation</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-4xl font-bold text-indigo-600 mb-2">Local</div>
-                  <div class="text-sm text-slate-600">Market Focus</div>
+                  <div class="text-3xl font-black mb-1 counter" data-target="20">20</div>
+                  <div class="text-sm font-medium opacity-90">Years Experience</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Our Expertise -->
-  <section class="py-20 bg-slate-50">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-slate-900 mb-4">
-          Our <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Expertise</span>
-        </h2>
-        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-          Deep knowledge across all aspects of South Florida industrial real estate
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4">Market Knowledge</h3>
-          <p class="text-slate-600">Comprehensive understanding of South Florida industrial markets, including pricing trends, availability, and upcoming developments.</p>
+    <!-- Why Choose Us Section -->
+    <section class="relative py-32 bg-slate-50 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-20">
+          <h2 class="text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8 gsap-fade-in">
+            WHY CHOOSE
+            <span class="block text-gradient">OUR EXPERTISE</span>
+          </h2>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed gsap-fade-in">
+            We represent tenants exclusively, meaning we work for YOU, not the landlord. 
+            Our service is completely free because landlords pay our commission.
+          </p>
         </div>
-        
-        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4">Tenant Advocacy</h3>
-          <p class="text-slate-600">Exclusive focus on tenant representation ensures we always work in your best interests, not the landlord's.</p>
-        </div>
-        
-        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4">Negotiation</h3>
-          <p class="text-slate-600">Expert lease negotiation skills to secure the best terms, rates, and conditions for your warehouse lease.</p>
-        </div>
-        
-        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4">Property Search</h3>
-          <p class="text-slate-600">Access to both on-market and off-market opportunities through our extensive network of relationships.</p>
-        </div>
-        
-        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 00-2-2z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4">Market Analysis</h3>
-          <p class="text-slate-600">Detailed market analysis and financial modeling to ensure you make informed decisions.</p>
-        </div>
-        
-        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4">Full Service</h3>
-          <p class="text-slate-600">End-to-end support from initial search through lease signing and beyond.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Service Areas -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-slate-900 mb-4">
-          We Serve All of <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">South Florida</span>
-        </h2>
-        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-          Our local market expertise covers the entire South Florida industrial real estate market
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center bg-slate-50 rounded-2xl p-8">
-          <div class="w-20 h-20 bg-blue-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            </svg>
+        <!-- Benefits Grid -->
+        <div class="grid lg:grid-cols-3 gap-8 mb-16 gsap-stagger">
+          <div class="bg-white rounded-2xl p-8 shadow-premium hover-lift">
+            <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Market Knowledge</h3>
+            <p class="text-slate-600">Comprehensive understanding of South Florida industrial markets, including pricing trends and availability.</p>
           </div>
-          <h3 class="text-2xl font-bold text-slate-900 mb-4">Miami-Dade County</h3>
-          <p class="text-slate-600 mb-4">Miami, Doral, Hialeah, Kendall, Homestead, and surrounding areas</p>
-          <ul class="text-sm text-slate-500 space-y-1">
-            <li>• Port of Miami proximity</li>
-            <li>• Major distribution hubs</li>
-            <li>• International trade corridor</li>
-          </ul>
-        </div>
-        
-        <div class="text-center bg-slate-50 rounded-2xl p-8">
-          <div class="w-20 h-20 bg-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            </svg>
+          
+          <div class="bg-white rounded-2xl p-8 shadow-premium hover-lift">
+            <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Tenant Advocacy</h3>
+            <p class="text-slate-600">Exclusive focus on tenant representation ensures we always work in your best interests.</p>
           </div>
-          <h3 class="text-2xl font-bold text-slate-900 mb-4">Broward County</h3>
-          <p class="text-slate-600 mb-4">Fort Lauderdale, Hollywood, Pompano Beach, Deerfield Beach</p>
-          <ul class="text-sm text-slate-500 space-y-1">
-            <li>• Port Everglades access</li>
-            <li>• Growing industrial market</li>
-            <li>• Strategic logistics location</li>
-          </ul>
-        </div>
-        
-        <div class="text-center bg-slate-50 rounded-2xl p-8">
-          <div class="w-20 h-20 bg-purple-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            </svg>
+          
+          <div class="bg-white rounded-2xl p-8 shadow-premium hover-lift">
+            <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Negotiation</h3>
+            <p class="text-slate-600">Expert lease negotiation skills to secure the best terms and conditions.</p>
           </div>
-          <h3 class="text-2xl font-bold text-slate-900 mb-4">Palm Beach County</h3>
-          <p class="text-slate-600 mb-4">West Palm Beach, Boca Raton, Delray Beach, Boynton Beach</p>
-          <ul class="text-sm text-slate-500 space-y-1">
-            <li>• Emerging industrial zones</li>
-            <li>• Cost-effective alternatives</li>
-            <li>• Growing business community</li>
-          </ul>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Call to Action -->
-  <section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-600">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-      <h2 class="text-4xl font-bold text-white mb-4">
-        Ready to Work with Ariel Realty Group?
-      </h2>
-      <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-        Experience the difference of working with South Florida's industrial tenant representation specialists.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a 
-          href="/contact" 
-          class="inline-flex items-center px-8 py-4 bg-white text-blue-600 hover:bg-blue-50 font-bold text-lg rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl"
-        >
-          <span>Start Your Search Today</span>
-          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-          </svg>
-        </a>
-        <a 
-          href="tel:954-937-9667" 
-          class="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white/10 font-bold text-lg rounded-2xl transition-all duration-300 backdrop-blur-sm"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-          </svg>
-          <span>Call: 954-937-9667</span>
-        </a>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+    <!-- Statistics Section -->
+    <section class="relative py-32 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
 
-<style>
-  .scroll-fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 1s ease-out forwards;
-  }
-  
-  .scroll-scale-up {
-    opacity: 0;
-    transform: scale(0.95);
-    animation: scaleUp 1s ease-out forwards;
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
+            PROVEN
+            <span class="block text-gradient">RESULTS</span>
+          </h2>
+          <p class="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed gsap-fade-in">
+            Numbers that speak to our expertise and commitment to client success
+          </p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid lg:grid-cols-4 gap-8 gsap-stagger">
+          <div class="text-center hover-lift">
+            <div class="text-5xl lg:text-6xl font-black text-gradient mb-4 counter" data-target="500">500</div>
+            <div class="text-slate-300 font-medium">Successful Leases</div>
+          </div>
+          <div class="text-center hover-lift">
+            <div class="text-5xl lg:text-6xl font-black text-gradient mb-4 counter" data-target="50">50</div>
+            <div class="text-slate-300 font-medium">Million sq ft Leased</div>
+          </div>
+          <div class="text-center hover-lift">
+            <div class="text-5xl lg:text-6xl font-black text-gradient mb-4 counter" data-target="25">25</div>
+            <div class="text-slate-300 font-medium">% Average Savings</div>
+          </div>
+          <div class="text-center hover-lift">
+            <div class="text-5xl lg:text-6xl font-black text-gradient mb-4 counter" data-target="98">98</div>
+            <div class="text-slate-300 font-medium">% Client Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="relative py-32 bg-white overflow-hidden">
+      <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <div class="gsap-scale-in">
+          <h2 class="text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8">
+            READY TO WORK
+            <span class="block text-gradient">TOGETHER?</span>
+          </h2>
+          <p class="text-xl text-slate-600 mb-12 leading-relaxed">
+            Experience the difference of having true tenant advocates on your side. 
+            Let's find your perfect warehouse space.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+              Start Your Search
+            </a>
+            <a href="tel:+15551234567" class="bg-white border-2 border-slate-300 text-slate-900 px-8 py-4 rounded-2xl font-bold text-lg hover:border-blue-600 hover:text-blue-600 hover:-translate-y-1 transition-all duration-300">
+              Call: (555) 123-4567
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Initialize GSAP animations
+    function initAnimations() {
+      if (typeof gsap === 'undefined') {
+        setTimeout(initAnimations, 100);
+        return;
+      }
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero animations
+      const heroElements = document.querySelectorAll('.gsap-fade-in');
+      if (heroElements.length > 0) {
+        gsap.fromTo(heroElements, 
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }
+        );
+      }
+
+      // Stagger animations
+      const staggerElements = document.querySelectorAll('.gsap-stagger');
+      if (staggerElements.length > 0) {
+        staggerElements.forEach(container => {
+          const items = container.children;
+          gsap.fromTo(items, 
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.6,
+              stagger: 0.1,
+              scrollTrigger: {
+                trigger: container,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
+      }
+
+      // Left/Right animations
+      const leftElements = document.querySelectorAll('.gsap-fade-in-left');
+      leftElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, x: -50 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      const rightElements = document.querySelectorAll('.gsap-fade-in-right');
+      rightElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, x: 50 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Scale animations
+      const scaleElements = document.querySelectorAll('.gsap-scale-in');
+      scaleElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, scale: 0.8 },
+          { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      console.log('✅ About page animations initialized');
     }
-  }
-  
-  @keyframes scaleUp {
-    to {
-      opacity: 1;
-      transform: scale(1);
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnimations);
+    } else {
+      initAnimations();
     }
-  }
-  
-  .bg-clip-text {
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-</style>
+  </script>
+</body>
+</html>

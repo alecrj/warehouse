@@ -1,14 +1,19 @@
 ---
 import Navigation from '../components/Navigation.astro';
 
-export interface Props {
+interface Props {
   title: string;
   description?: string;
   image?: string;
   ogType?: string;
 }
 
-const { title, description = "Free tenant representation for your next warehouse lease in South Florida, powered by Ariel Realty Group.", image = "/images/og-image.jpg", ogType = "website" } = Astro.props;
+const { 
+  title, 
+  description = "Free tenant representation for your next warehouse lease in South Florida, powered by Ariel Realty Group.", 
+  image = "/images/og-image.jpg", 
+  ogType = "website" 
+} = Astro.props as Props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.url);
@@ -51,21 +56,63 @@ const socialImageURL = new URL(image, Astro.url);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- GSAP - Load first -->
+  <!-- GSAP - Load first for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            'sans': ['Inter', 'system-ui', 'sans-serif'],
+    // Fixed: Properly configure Tailwind with type safety
+    if (typeof window !== 'undefined' && window.tailwind && typeof window.tailwind.config === 'function') {
+      window.tailwind.config({
+        theme: {
+          extend: {
+            fontFamily: {
+              'sans': ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.6s ease-out',
+              'fade-in-down': 'fadeInDown 0.6s ease-out',
+              'fade-in-left': 'fadeInLeft 0.6s ease-out',
+              'fade-in-right': 'fadeInRight 0.6s ease-out',
+              'scale-in': 'scaleIn 0.5s ease-out',
+              'float': 'float 6s ease-in-out infinite',
+              'glow': 'glow 2s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(30px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              fadeInDown: {
+                '0%': { opacity: '0', transform: 'translateY(-30px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              fadeInLeft: {
+                '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' }
+              },
+              fadeInRight: {
+                '0%': { opacity: '0', transform: 'translateX(30px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' }
+              },
+              scaleIn: {
+                '0%': { opacity: '0', transform: 'scale(0.9)' },
+                '100%': { opacity: '1', transform: 'scale(1)' }
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-20px)' }
+              },
+              glow: {
+                '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)' },
+                '100%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.4)' }
+              }
+            }
           }
         }
-      }
+      });
     }
   </script>
   
@@ -142,6 +189,32 @@ const socialImageURL = new URL(image, Astro.url);
       left: 100%;
     }
 
+    /* GSAP Animation Classes */
+    .gsap-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .gsap-fade-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    .gsap-fade-in-right {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    .gsap-scale-in {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .gsap-stagger {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
     /* Floating animations */
     @keyframes float {
       0%, 100% {
@@ -152,201 +225,280 @@ const socialImageURL = new URL(image, Astro.url);
       }
     }
 
-    .animate-float {
+    @keyframes floatReverse {
+      0%, 100% {
+        transform: translateY(-10px);
+      }
+      50% {
+        transform: translateY(10px);
+      }
+    }
+
+    .float {
       animation: float 6s ease-in-out infinite;
     }
 
-    /* Premium card hover effects */
-    .card-3d {
-      transition: all 0.3s ease;
-      transform-style: preserve-3d;
+    .float-reverse {
+      animation: floatReverse 8s ease-in-out infinite;
     }
 
-    .card-3d:hover {
-      transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
-    }
-
-    /* Custom gradient text */
-    .gradient-text {
+    /* Gradient text effects */
+    .text-gradient {
       background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* Form field enhancements */
-    .form-field {
-      transition: all 0.3s ease;
+    .text-gradient-purple {
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .form-field:focus {
-      transform: scale(1.02);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    /* Property card premium effects */
-    .property-card {
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .property-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-
-    .property-image {
-      transition: transform 0.7s ease;
-    }
-
-    .property-card:hover .property-image {
-      transform: scale(1.1);
-    }
-
-    /* Hero section specific styles */
-    .hero-bg {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-    }
-
-    /* Ensure text is visible */
-    .hero-text h1 {
-      color: white !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-
-    .hero-subtitle p {
-      color: rgba(255, 255, 255, 0.8) !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-    }
-
-    /* Form styling */
-    .hero-form {
-      background: rgba(255, 255, 255, 0.1) !important;
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .hero-form input,
-    .hero-form textarea {
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
-      color: white !important;
-    }
-
-    .hero-form input::placeholder,
-    .hero-form textarea::placeholder {
-      color: rgba(255, 255, 255, 0.5) !important;
-    }
-
-    /* Ensure sections are visible */
-    section {
-      min-height: auto;
-      display: block;
-      position: relative;
-    }
-
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-    }
-
-    /* Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
+    }
+
+    /* Enhanced shadows */
+    .shadow-premium {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .shadow-premium-lg {
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Smooth reveal animations */
+    .reveal {
+      clip-path: inset(100% 0 0 0);
+      transition: clip-path 0.8s ease-out;
+    }
+
+    .reveal.active {
+      clip-path: inset(0 0 0 0);
     }
   </style>
 </head>
-
-<body class="font-sans antialiased">
-  <!-- Navigation -->
+<body class="bg-slate-50 text-slate-900 antialiased">
   <Navigation />
   
-  <!-- Main Content -->
   <main>
     <slot />
   </main>
-  
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-white py-16">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid md:grid-cols-4 gap-8">
-        <!-- Company Info -->
-        <div class="md:col-span-2">
-          <div class="flex items-center space-x-3 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="font-black text-xl">ARIEL REALTY GROUP</div>
-              <div class="text-slate-400 text-sm">Premium Warehouse Specialists</div>
-            </div>
-          </div>
-          <p class="text-slate-300 mb-6 max-w-md leading-relaxed">
-            South Florida's premier warehouse tenant representation firm. We provide completely free services to help you find and negotiate the perfect industrial space.
-          </p>
-          <div class="flex space-x-4">
-            <a href="tel:+19549379667" class="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
-              Call (954) 937-9667
-            </a>
-          </div>
-        </div>
-        
-        <!-- Quick Links -->
-        <div>
-          <h3 class="font-bold text-lg mb-4">Quick Links</h3>
-          <ul class="space-y-3">
-            <li><a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a></li>
-            <li><a href="/warehouses" class="text-slate-300 hover:text-white transition-colors">Properties</a></li>
-            <li><a href="/contact" class="text-slate-300 hover:text-white transition-colors">Contact</a></li>
-          </ul>
-        </div>
-        
-        <!-- Contact Info -->
-        <div>
-          <h3 class="font-bold text-lg mb-4">Contact</h3>
-          <ul class="space-y-3 text-slate-300">
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-              (954) 937-9667
-            </li>
-            <li class="flex items-center">
-              <svg class="w-5 h-5 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              South Florida
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-400">
-        <p>&copy; 2025 Ariel Realty Group. All rights reserved. | Free tenant representation services.</p>
-      </div>
-    </div>
-  </footer>
 
-  <!-- Initialize GSAP -->
+  <!-- GSAP Scroll Animations Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-        console.log('GSAP and ScrollTrigger initialized');
-      } else {
-        console.log('GSAP not loaded');
+    // Enhanced GSAP animations with TypeScript-safe initialization
+    function initGSAPAnimations(): void {
+      // Ensure GSAP is loaded
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP not loaded, retrying...');
+        setTimeout(initGSAPAnimations, 100);
+        return;
       }
+
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Set default ease
+      gsap.defaults({ ease: "power2.out", duration: 0.8 });
+
+      // Hero section animations - Type-safe implementation
+      const heroElements = document.querySelectorAll('.gsap-fade-in');
+      if (heroElements.length > 0) {
+        gsap.fromTo(heroElements as any, 
+          { 
+            opacity: 0, 
+            y: 50 
+          },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+          }
+        );
+      }
+
+      // Stagger animations for cards/items - Type-safe
+      const staggerElements = document.querySelectorAll('.gsap-stagger');
+      if (staggerElements.length > 0) {
+        gsap.fromTo(staggerElements as any, 
+          { 
+            opacity: 0, 
+            y: 30 
+          },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.6,
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: staggerElements[0] as Element,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
+      // Scale in animations - Type-safe forEach
+      const scaleElements = document.querySelectorAll('.gsap-scale-in');
+      scaleElements.forEach((element: Element) => {
+        gsap.fromTo(element as any, 
+          { 
+            opacity: 0, 
+            scale: 0.8 
+          },
+          { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Left/Right slide animations - Type-safe
+      const leftElements = document.querySelectorAll('.gsap-fade-in-left');
+      leftElements.forEach((element: Element) => {
+        gsap.fromTo(element as any, 
+          { 
+            opacity: 0, 
+            x: -50 
+          },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      const rightElements = document.querySelectorAll('.gsap-fade-in-right');
+      rightElements.forEach((element: Element) => {
+        gsap.fromTo(element as any, 
+          { 
+            opacity: 0, 
+            x: 50 
+          },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Parallax effects for background elements - Type-safe
+      const parallaxElements = document.querySelectorAll('.parallax');
+      parallaxElements.forEach((element: Element) => {
+        gsap.fromTo(element as any, 
+          { 
+            y: 0 
+          },
+          { 
+            y: -100,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          }
+        );
+      });
+
+      // Text reveal animations - Type-safe
+      const textRevealElements = document.querySelectorAll('.text-reveal');
+      textRevealElements.forEach((element: Element) => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: element,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+        tl.fromTo(element as any, 
+          { 
+            clipPath: "inset(100% 0 0 0)" 
+          },
+          { 
+            clipPath: "inset(0 0 0 0)", 
+            duration: 1,
+            ease: "power2.out"
+          }
+        );
+      });
+
+      // Counter animations - Type-safe with proper casting
+      const counterElements = document.querySelectorAll('.counter');
+      counterElements.forEach((element: Element) => {
+        const htmlElement = element as HTMLElement;
+        const target = parseInt(htmlElement.getAttribute('data-target') || '0');
+        
+        gsap.fromTo(htmlElement, 
+          { textContent: 0 },
+          { 
+            textContent: target,
+            duration: 2,
+            ease: "power2.out",
+            snap: { textContent: 1 },
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            },
+            onUpdate: function() {
+              htmlElement.textContent = Math.ceil(Number(htmlElement.textContent));
+            }
+          }
+        );
+      });
+
+      // Refresh ScrollTrigger
+      ScrollTrigger.refresh();
+      
+      console.log('✅ GSAP animations initialized');
+    }
+
+    // Initialize animations when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+    } else {
+      initGSAPAnimations();
+    }
+
+    // Re-initialize on page navigation (for SPA-like behavior)
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      }, 100);
     });
   </script>
 </body>

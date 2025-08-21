@@ -16,11 +16,19 @@ declare global {
     gsap: typeof import('gsap').gsap;
     ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
     ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin;
+    tailwind?: {
+      config: (config: any) => void;
+    };
   }
   
   const gsap: typeof import('gsap').gsap;
   const ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
   const ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin;
+  
+  // Fix for Tailwind variable
+  const tailwind: {
+    config: (config: any) => void;
+  } | undefined;
 }
 
 // Fix for GSAP Utils typing
@@ -30,6 +38,23 @@ declare module 'gsap' {
       toArray<T = Element>(target: string | NodeList | Element[] | Element): T[];
     }
   }
+}
+
+// Enhanced DOM element types for null safety
+interface TypedElement extends Element {
+  style: CSSStyleDeclaration;
+  href?: string;
+  [key: string]: any;
+}
+
+interface TypedHTMLElement extends HTMLElement {
+  style: CSSStyleDeclaration;
+  [key: string]: any;
+}
+
+interface TypedAnchorElement extends HTMLAnchorElement {
+  href: string;
+  style: CSSStyleDeclaration;
 }
 
 // Fix for GSAP forEach callbacks
@@ -44,6 +69,10 @@ interface TypedEventListener<T extends Element> {
 
 interface TypedMouseEventListener<T extends Element> {
   (this: T, e: MouseEvent): void;
+}
+
+interface TypedKeyboardEventListener<T extends Element> {
+  (this: T, e: KeyboardEvent): void;
 }
 
 // Netlify Identity Widget
@@ -136,51 +165,130 @@ export interface SearchFilters {
   availability?: 'available' | 'leased' | 'pending';
 }
 
-// API Response types
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
-
-// Animation helper types
+// Animation types
 export interface AnimationConfig {
   duration?: number;
-  delay?: number;
   ease?: string;
+  delay?: number;
   stagger?: number;
 }
 
 export interface ScrollTriggerConfig {
-  trigger: string | Element;
+  trigger?: string | Element;
   start?: string;
   end?: string;
-  toggleActions?: string;
   scrub?: boolean | number;
   pin?: boolean;
-  markers?: boolean;
+  toggleActions?: string;
+  onEnter?: () => void;
+  onLeave?: () => void;
+  onEnterBack?: () => void;
+  onLeaveBack?: () => void;
 }
 
-// Enhanced utility types for better type safety
-export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
-
-// Theme and styling types
-export interface ThemeColors {
-  primary: string;
-  secondary: string;
-  accent: string;
-  neutral: string;
-  success: string;
-  warning: string;
-  error: string;
+// Enhanced collection types for Astro
+export interface WarehouseCollection {
+  data: Warehouse;
+  id: string;
+  collection: string;
 }
 
-export interface BreakpointConfig {
-  sm: string;
-  md: string;
-  lg: string;
-  xl: string;
-  '2xl': string;
+export interface LeadCollection {
+  data: Lead;
+  id: string;
+  collection: string;
+}
+
+// Utility types for type safety
+export type NonNull<T> = T extends null ? never : T;
+export type NonUndefined<T> = T extends undefined ? never : T;
+export type ElementOrNull<T = Element> = T | null;
+export type EventHandler<T extends Element = Element> = (event: Event) => void;
+
+// Navigation types
+export interface NavigationItem {
+  label: string;
+  href: string;
+  active?: boolean;
+}
+
+export interface MobileMenuState {
+  isOpen: boolean;
+  toggle: () => void;
+  close: () => void;
+}
+
+// Enhanced DOM query helpers with type safety
+declare global {
+  interface Document {
+    getElementByIdTyped<T extends HTMLElement = HTMLElement>(id: string): T | null;
+    querySelectorTyped<T extends Element = Element>(selector: string): T | null;
+    querySelectorAllTyped<T extends Element = Element>(selector: string): NodeListOf<T>;
+  }
+}
+
+// Implement the typed query helpers
+if (typeof document !== 'undefined') {
+  Document.prototype.getElementByIdTyped = function<T extends HTMLElement>(id: string): T | null {
+    return this.getElementById(id) as T | null;
+  };
+
+  Document.prototype.querySelectorTyped = function<T extends Element>(selector: string): T | null {
+    return this.querySelector(selector) as T | null;
+  };
+
+  Document.prototype.querySelectorAllTyped = function<T extends Element>(selector: string): NodeListOf<T> {
+    return this.querySelectorAll(selector) as NodeListOf<T>;
+  };
+}
+
+// Enhanced error handling types
+export interface ErrorWithMessage {
+  message: string;
+}
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  timestamp: string;
+}
+
+// GSAP Timeline types for better TypeScript support
+export interface GSAPTimelineConfig {
+  delay?: number;
+  duration?: number;
+  ease?: string;
+  paused?: boolean;
+  repeat?: number;
+  repeatDelay?: number;
+  yoyo?: boolean;
+  onComplete?: () => void;
+  onStart?: () => void;
+  onUpdate?: () => void;
+  onRepeat?: () => void;
+}
+
+// Component prop types
+export interface BaseComponentProps {
+  className?: string;
+  children?: any;
+  id?: string;
+  'data-testid'?: string;
+}
+
+export interface ButtonProps extends BaseComponentProps {
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  loading?: boolean;
+  href?: string;
+  onClick?: () => void;
+}
+
+export interface CardProps extends BaseComponentProps {
+  title?: string;
+  image?: string;
+  featured?: boolean;
+  hover?: boolean;
 }

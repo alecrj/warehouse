@@ -1,8 +1,7 @@
 ---
-// Warehouses listing page - Updated to match About/Contact styling
+// Warehouses listing page - TypeScript Fixed
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Mock warehouse data - in production this would come from your CMS
 const warehouses = [
@@ -101,85 +100,10 @@ const availableWarehouses = warehouses.filter(w => w.availability === 'available
 const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{pageTitle}</title>
-  <meta name="description" content={pageDescription} />
-  <link rel="canonical" href={canonicalURL} />
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    .text-gradient {
-      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .shadow-premium {
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-    
-    .hover-lift {
-      transition: all 0.3s ease;
-    }
-    
-    .hover-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .float {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .float-reverse {
-      animation: floatReverse 8s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-
-    @keyframes floatReverse {
-      0%, 100% { transform: translateY(-10px); }
-      50% { transform: translateY(10px); }
-    }
-
-    .bg-pattern-grid {
-      background-image: 
-        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-
-    .bg-pattern-dots {
-      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-
-    .filter-button.active {
-      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-      color: white;
-    }
-  </style>
-</head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+<BaseLayout 
+  title={pageTitle}
+  description={pageDescription}
+>
   <Navigation />
   
   <main>
@@ -293,7 +217,7 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8" id="properties-grid">
           {warehouses.map((warehouse, index) => (
-            <div class={`property-card bg-white rounded-3xl overflow-hidden shadow-premium hover-lift gsap-fade-in ${warehouse.availability} ${warehouse.featured ? 'featured' : ''}`} style={`animation-delay: ${index * 0.1}s`} data-warehouse={JSON.stringify(warehouse)}>
+            <div class={`property-card bg-white rounded-3xl overflow-hidden shadow-premium hover-lift ${warehouse.availability} ${warehouse.featured ? 'featured' : ''}`} data-warehouse={JSON.stringify(warehouse)}>
               <!-- Property Image -->
               <div class="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20"></div>
@@ -434,49 +358,14 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
     </section>
   </main>
 
-  <!-- JavaScript for filtering and interactions -->
-  <script>
+  <!-- JavaScript for filtering and interactions - TypeScript Fixed -->
+  <script is:inline>
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize GSAP animations
-      if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Hero animations
-        gsap.fromTo('.gsap-fade-in', 
-          { opacity: 0, y: 60, scale: 0.95 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            scale: 1,
-            duration: 1.2,
-            stagger: 0.15,
-            ease: "power3.out",
-            delay: 0.2
-          }
-        );
-
-        // Stagger animations
-        gsap.fromTo('.gsap-stagger > *', 
-          { opacity: 0, y: 30 },
-          { 
-            opacity: 1, 
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: '.gsap-stagger',
-              start: 'top 80%'
-            }
-          }
-        );
-      }
-
-      // Filter functionality
+      // Filter functionality with proper type checking
       const filterButtons = document.querySelectorAll('.filter-button');
       const propertyCards = document.querySelectorAll('.property-card');
-      const searchInput = document.getElementById('search-input');
-      const sortSelect = document.getElementById('sort-select');
+      const searchInput = document.getElementById('search-input') as HTMLInputElement;
+      const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
 
       // Filter button click handlers
       filterButtons.forEach(button => {
@@ -485,29 +374,38 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
           filterButtons.forEach(btn => btn.classList.remove('active'));
           this.classList.add('active');
           
-          const filter = this.dataset.filter;
+          const filter = (this as HTMLElement).dataset.filter || 'all';
           filterProperties(filter);
         });
       });
 
       // Search functionality
-      searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        filterProperties(getActiveFilter(), searchTerm);
-      });
-
-      // Sort functionality
-      sortSelect.addEventListener('change', function() {
-        sortProperties(this.value);
-      });
-
-      function getActiveFilter() {
-        return document.querySelector('.filter-button.active').dataset.filter;
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase();
+          filterProperties(getActiveFilter(), searchTerm);
+        });
       }
 
-      function filterProperties(filter, searchTerm = '') {
+      // Sort functionality
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+          sortProperties(this.value);
+        });
+      }
+
+      function getActiveFilter(): string {
+        const activeButton = document.querySelector('.filter-button.active') as HTMLElement;
+        return activeButton?.dataset.filter || 'all';
+      }
+
+      function filterProperties(filter: string, searchTerm: string = '') {
         propertyCards.forEach(card => {
-          const warehouse = JSON.parse(card.dataset.warehouse);
+          const cardElement = card as HTMLElement;
+          const warehouseData = cardElement.dataset.warehouse;
+          if (!warehouseData) return;
+          
+          const warehouse = JSON.parse(warehouseData);
           let showCard = true;
 
           // Apply filter
@@ -533,31 +431,39 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
 
           // Show/hide card with animation
           if (showCard) {
-            card.style.display = 'block';
-            gsap.fromTo(card, 
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3 }
-            );
+            cardElement.style.display = 'block';
+            if (typeof gsap !== 'undefined') {
+              gsap.fromTo(cardElement, 
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.3 }
+              );
+            }
           } else {
-            gsap.to(card, {
-              opacity: 0,
-              y: -20,
-              duration: 0.3,
-              onComplete: () => {
-                card.style.display = 'none';
-              }
-            });
+            if (typeof gsap !== 'undefined') {
+              gsap.to(cardElement, {
+                opacity: 0,
+                y: -20,
+                duration: 0.3,
+                onComplete: () => {
+                  cardElement.style.display = 'none';
+                }
+              });
+            } else {
+              cardElement.style.display = 'none';
+            }
           }
         });
       }
 
-      function sortProperties(sortBy) {
+      function sortProperties(sortBy: string) {
         const grid = document.getElementById('properties-grid');
-        const cards = Array.from(propertyCards);
+        if (!grid) return;
+        
+        const cards = Array.from(propertyCards) as HTMLElement[];
         
         cards.sort((a, b) => {
-          const warehouseA = JSON.parse(a.dataset.warehouse);
-          const warehouseB = JSON.parse(b.dataset.warehouse);
+          const warehouseA = JSON.parse(a.dataset.warehouse || '{}');
+          const warehouseB = JSON.parse(b.dataset.warehouse || '{}');
           
           switch (sortBy) {
             case 'price-low':
@@ -580,12 +486,13 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
         cards.forEach(card => grid.appendChild(card));
         
         // Re-animate
-        gsap.fromTo(cards, 
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
-        );
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo(cards, 
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
+          );
+        }
       }
     });
   </script>
-</body>
-</html>
+</BaseLayout>

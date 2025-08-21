@@ -1,8 +1,7 @@
 ---
-// Premium Warehouse Homepage - Updated to match About/Contact styling
+// Home page - consistent design
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Mock featured warehouse data
 const featuredWarehouses = [
@@ -14,7 +13,6 @@ const featuredWarehouses = [
     size: 50000,
     location: 'Miami, FL',
     features: ['Dock High', '24/7 Access', 'Climate Controlled', 'Security System'],
-    images: ['/images/warehouse-1.jpg'],
     description: 'Premium warehouse space with modern amenities and excellent highway access.',
     availability: 'available',
     featured: true
@@ -27,7 +25,6 @@ const featuredWarehouses = [
     size: 25000,
     location: 'Fort Lauderdale, FL',
     features: ['Office Space', 'Loading Docks', 'Parking', 'Sprinkler System'],
-    images: ['/images/warehouse-2.jpg'],
     description: 'Flexible industrial space perfect for growing businesses.',
     availability: 'available',
     featured: true
@@ -40,7 +37,6 @@ const featuredWarehouses = [
     size: 75000,
     location: 'Doral, FL',
     features: ['Rail Access', 'Cross Dock', 'Security', '30ft Ceilings'],
-    images: ['/images/warehouse-3.jpg'],
     description: 'State-of-the-art logistics facility with premium features.',
     availability: 'available',
     featured: true
@@ -56,101 +52,22 @@ const stats = [
 ];
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Premium Warehouse Rentals | Ariel Realty | South Florida Industrial</title>
-  <meta name="description" content="Find premium warehouse and industrial space across South Florida. Expert tenant representation with zero fees. Modern facilities, competitive rates, personalized service." />
-  <link rel="canonical" href={canonicalURL} />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalURL} />
-  <meta property="og:title" content="Premium Warehouse Rentals | Ariel Realty" />
-  <meta property="og:description" content="Expert warehouse leasing across South Florida. Zero tenant fees." />
-  <meta property="og:image" content="/images/og-home.jpg" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    .text-gradient {
-      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .shadow-premium {
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-    
-    .hover-lift {
-      transition: all 0.3s ease;
-    }
-    
-    .hover-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .float {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .float-reverse {
-      animation: floatReverse 8s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-
-    @keyframes floatReverse {
-      0%, 100% { transform: translateY(-10px); }
-      50% { transform: translateY(10px); }
-    }
-
-    .bg-pattern-grid {
-      background-image: 
-        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-
-    .bg-pattern-dots {
-      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-  </style>
-</head>
-<body class="bg-slate-50 text-slate-900 antialiased">
+<BaseLayout 
+  title="Premium Warehouse Rentals | Ariel Realty | South Florida Industrial"
+  description="Find premium warehouse and industrial space across South Florida. Expert tenant representation with zero fees. Modern facilities, competitive rates, personalized service."
+>
   <Navigation />
   
   <main>
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       <!-- Background Pattern -->
-      <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
       <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl float"></div>
       <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl float-reverse"></div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <!-- Hero Content -->
-        <div class="mb-16">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
           <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
             PREMIUM WAREHOUSE
             <span class="block text-gradient">SOLUTIONS</span>
@@ -174,7 +91,7 @@ const stats = [
         <!-- Quick Stats -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto gsap-stagger">
           {stats.map((stat, index) => (
-            <div class="text-center gsap-fade-in" style={`animation-delay: ${index * 0.1}s`}>
+            <div class="text-center">
               <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
                 <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={stat.icon}></path>
@@ -204,7 +121,7 @@ const stats = [
         <!-- Benefits Grid -->
         <div class="grid lg:grid-cols-3 gap-12 gsap-stagger">
           <!-- Benefit 1 -->
-          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift gsap-fade-in-left">
+          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift">
             <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
               <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
@@ -217,7 +134,7 @@ const stats = [
           </div>
 
           <!-- Benefit 2 -->
-          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift gsap-fade-in">
+          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift">
             <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
               <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -230,7 +147,7 @@ const stats = [
           </div>
 
           <!-- Benefit 3 -->
-          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift gsap-fade-in-right">
+          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift">
             <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
               <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -261,53 +178,62 @@ const stats = [
         <!-- Properties Grid -->
         <div class="grid lg:grid-cols-3 gap-8 mb-12 gsap-stagger">
           {featuredWarehouses.map((warehouse, index) => (
-            <div class="bg-white rounded-3xl overflow-hidden shadow-premium hover-lift gsap-fade-in" style={`animation-delay: ${index * 0.1}s`}>
-              <div class="relative h-64 bg-slate-200">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-premium hover-lift">
+              <div class="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20"></div>
                 <div class="absolute top-4 right-4">
                   <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    {warehouse.availability.toUpperCase()}
+                    AVAILABLE
                   </span>
                 </div>
               </div>
               
               <div class="p-8">
-                <div class="flex items-center justify-between mb-4">
-                  <h3 class="text-xl font-bold text-slate-900">{warehouse.title}</h3>
-                  <span class="text-2xl font-black text-gradient">{warehouse.price}</span>
+                <div class="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">{warehouse.title}</h3>
+                    <div class="flex items-center text-slate-600 text-sm">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      <span>{warehouse.location}</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-2xl font-black text-gradient">{warehouse.price}</div>
+                    <div class="text-sm text-slate-500">{warehouse.size.toLocaleString()} sq ft</div>
+                  </div>
                 </div>
                 
-                <div class="flex items-center text-slate-600 mb-4">
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  <span>{warehouse.location}</span>
-                  <span class="mx-2">•</span>
-                  <span>{warehouse.size.toLocaleString()} sq ft</span>
-                </div>
-                
-                <p class="text-slate-600 mb-6 leading-relaxed">
+                <p class="text-slate-600 mb-6 leading-relaxed line-clamp-3">
                   {warehouse.description}
                 </p>
                 
                 <!-- Features -->
-                <div class="flex flex-wrap gap-2 mb-6">
-                  {warehouse.features.slice(0, 3).map(feature => (
-                    <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full">
-                      {feature}
-                    </span>
-                  ))}
-                  {warehouse.features.length > 3 && (
-                    <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full">
-                      +{warehouse.features.length - 3} more
-                    </span>
-                  )}
+                <div class="mb-6">
+                  <div class="flex flex-wrap gap-2">
+                    {warehouse.features.slice(0, 3).map(feature => (
+                      <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full">
+                        {feature}
+                      </span>
+                    ))}
+                    {warehouse.features.length > 3 && (
+                      <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full">
+                        +{warehouse.features.length - 3} more
+                      </span>
+                    )}
+                  </div>
                 </div>
                 
-                <a href={`/warehouses/${warehouse.slug}`} class="block w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                  View Details
-                </a>
+                <div class="flex gap-3">
+                  <a href={`/warehouses/${warehouse.slug}`} class="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    View Details
+                  </a>
+                  <a href="/contact" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 hover:border-slate-400 transition-all duration-300">
+                    Inquire
+                  </a>
+                </div>
               </div>
             </div>
           ))}
@@ -353,75 +279,4 @@ const stats = [
       </div>
     </section>
   </main>
-
-  <!-- GSAP Animations -->
-  <script>
-    // Initialize GSAP animations when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Hero animations
-        gsap.fromTo('.gsap-fade-in', 
-          { opacity: 0, y: 60, scale: 0.95 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            scale: 1,
-            duration: 1.2,
-            stagger: 0.15,
-            ease: "power3.out",
-            delay: 0.2
-          }
-        );
-
-        // Stagger animations
-        gsap.fromTo('.gsap-stagger > *', 
-          { opacity: 0, y: 30 },
-          { 
-            opacity: 1, 
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: '.gsap-stagger',
-              start: 'top 80%'
-            }
-          }
-        );
-
-        // Left slide animations
-        gsap.fromTo('.gsap-fade-in-left', 
-          { opacity: 0, x: -60 },
-          { 
-            opacity: 1, 
-            x: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: '.gsap-fade-in-left',
-              start: 'top 80%'
-            }
-          }
-        );
-
-        // Right slide animations
-        gsap.fromTo('.gsap-fade-in-right', 
-          { opacity: 0, x: 60 },
-          { 
-            opacity: 1, 
-            x: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: '.gsap-fade-in-right',
-              start: 'top 80%'
-            }
-          }
-        );
-      }
-    });
-  </script>
-</body>
-</html>
+</BaseLayout>

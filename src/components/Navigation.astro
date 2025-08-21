@@ -1,278 +1,94 @@
 ---
-// Navigation component for premium warehouse website - TypeScript fixed
+// Navigation component - consistent across all pages
+const currentPath = Astro.url.pathname;
+
+function isActive(path: string): boolean {
+  if (path === '/' && currentPath === '/') return true;
+  if (path !== '/' && currentPath.startsWith(path)) return true;
+  return false;
+}
 ---
 
+<!-- Navigation -->
 <nav class="premium-nav fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="main-nav">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
       <a href="/" class="nav-logo group flex items-center space-x-3">
-        <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
           </svg>
         </div>
         <div class="hidden sm:block">
           <div class="font-black text-xl text-slate-900 nav-logo-text">ARIEL REALTY</div>
-          <div class="text-xs text-slate-500 -mt-1 tracking-wider">PREMIUM WAREHOUSES</div>
+          <div class="text-xs text-slate-500 -mt-1 tracking-wider font-medium">PREMIUM WAREHOUSES</div>
         </div>
       </a>
 
       <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center space-x-1">
-        <a href="/" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
+        <a href="/" class={`nav-link px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${isActive('/') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
           <span>Home</span>
-          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
+          <div class={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 transition-all duration-300 ${isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'}`}></div>
         </a>
-        <a href="/warehouses" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
+        <a href="/warehouses" class={`nav-link px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${isActive('/warehouses') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
           <span>Properties</span>
-          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
+          <div class={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 transition-all duration-300 ${isActive('/warehouses') ? 'w-full' : 'w-0 group-hover:w-full'}`}></div>
         </a>
-        <a href="/contact" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
-          <span>Contact</span>
-          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
-        </a>
-        <a href="/about" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
+        <a href="/about" class={`nav-link px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${isActive('/about') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
           <span>About</span>
-          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
+          <div class={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 transition-all duration-300 ${isActive('/about') ? 'w-full' : 'w-0 group-hover:w-full'}`}></div>
+        </a>
+        <a href="/contact" class={`nav-link px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${isActive('/contact') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
+          <span>Contact</span>
+          <div class={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 transition-all duration-300 ${isActive('/contact') ? 'w-full' : 'w-0 group-hover:w-full'}`}></div>
         </a>
       </div>
 
       <!-- CTA Button (Desktop) -->
       <div class="hidden lg:flex items-center space-x-4">
-        <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 btn-premium">
-          Get Started
+        <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-lg">
+          Get Expert Help
         </a>
       </div>
 
       <!-- Mobile Menu Button -->
       <button 
-        class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200 menu-icon"
+        class="lg:hidden p-2 text-slate-700 hover:text-slate-900 transition-colors duration-200"
         id="mobile-menu-btn"
         type="button"
-        aria-label="Toggle mobile menu"
+        aria-label="Toggle menu"
       >
-        <div class="w-6 h-6 flex flex-col justify-center space-y-1.5">
-          <span class="block w-6 h-0.5 bg-slate-700 transition-all duration-300 menu-line-1"></span>
-          <span class="block w-6 h-0.5 bg-slate-700 transition-all duration-300 menu-line-2"></span>
-          <span class="block w-6 h-0.5 bg-slate-700 transition-all duration-300 menu-line-3"></span>
-        </div>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
       </button>
     </div>
-  </div>
 
-  <!-- Mobile Menu -->
-  <div 
-    class="lg:hidden mobile-menu opacity-0 invisible absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-xl transition-all duration-300"
-    id="mobile-menu"
-  >
-    <div class="max-w-7xl mx-auto px-6 py-8">
-      <div class="flex flex-col space-y-6">
-        <a href="/" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-          Home
-        </a>
-        <a href="/warehouses" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-          Properties
-        </a>
-        <a href="/contact" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-          Contact
-        </a>
-        <a href="/about" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-          About
-        </a>
-        <div class="pt-4 border-t border-slate-200">
-          <a href="/contact" class="mobile-nav-link bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold text-center block hover:shadow-lg transition-all duration-300">
-            Get Started
+    <!-- Mobile Menu -->
+    <div class="lg:hidden mobile-menu absolute top-full left-0 right-0 bg-white border-t border-slate-100" id="mobile-menu">
+      <div class="max-w-7xl mx-auto px-6 py-6">
+        <div class="flex flex-col space-y-4">
+          <a href="/" class={`mobile-nav-link font-medium text-lg transition-colors duration-200 ${isActive('/') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
+            Home
           </a>
+          <a href="/warehouses" class={`mobile-nav-link font-medium text-lg transition-colors duration-200 ${isActive('/warehouses') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
+            Properties
+          </a>
+          <a href="/about" class={`mobile-nav-link font-medium text-lg transition-colors duration-200 ${isActive('/about') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
+            About
+          </a>
+          <a href="/contact" class={`mobile-nav-link font-medium text-lg transition-colors duration-200 ${isActive('/contact') ? 'text-blue-600' : 'text-slate-700 hover:text-slate-900'}`}>
+            Contact
+          </a>
+          <div class="pt-4 border-t border-slate-200">
+            <a href="/contact" class="mobile-nav-link bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold text-center block hover:shadow-lg transition-all duration-300">
+              Get Expert Help
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </nav>
-
-<style>
-  /* Navigation background on scroll */
-  .premium-nav.scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(25px);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-logo-text {
-    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .nav-link {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .nav-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .nav-link:hover::before {
-    left: 100%;
-  }
-
-  /* Mobile Menu Animations */
-  .mobile-menu.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .mobile-nav-link {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.3s ease;
-  }
-
-  .mobile-menu.open .mobile-nav-link {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
-  .mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
-  .mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
-  .mobile-menu.open .mobile-nav-link:nth-child(4) { transition-delay: 0.4s; }
-  .mobile-menu.open .mobile-nav-link:nth-child(5) { transition-delay: 0.5s; }
-
-  /* Menu Icon Animation */
-  .menu-icon {
-    transition: all 0.3s ease;
-  }
-
-  .mobile-menu-open .menu-line-1 {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .mobile-menu-open .menu-line-2 {
-    opacity: 0;
-  }
-
-  .mobile-menu-open .menu-line-3 {
-    transform: rotate(-45deg) translate(7px, -6px);
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 640px) {
-    .premium-nav .max-w-7xl {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-  }
-</style>
-
-<script>
-  // Enhanced TypeScript-safe navigation functionality
-  function initNavigation(): void {
-    const nav = document.getElementById('main-nav') as HTMLElement | null;
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
-    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
-    let isMenuOpen = false;
-
-    // Only proceed if all elements exist
-    if (!nav || !mobileMenuBtn || !mobileMenu) {
-      console.warn('Navigation elements not found');
-      return;
-    }
-
-    // Scroll effect for navigation
-    function handleScroll(): void {
-      if (!nav) return;
-      
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    }
-
-    // Mobile menu toggle with proper typing
-    function toggleMobileMenu(): void {
-      if (!mobileMenu || !mobileMenuBtn) return;
-      
-      isMenuOpen = !isMenuOpen;
-      
-      if (isMenuOpen) {
-        mobileMenu.classList.add('open');
-        mobileMenuBtn.classList.add('mobile-menu-open');
-        mobileMenuBtn.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-      } else {
-        mobileMenu.classList.remove('open');
-        mobileMenuBtn.classList.remove('mobile-menu-open');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-    }
-
-    // Close mobile menu when clicking outside
-    function handleClickOutside(event: Event): void {
-      if (!mobileMenu || !mobileMenuBtn || !isMenuOpen) return;
-      
-      const target = event.target as Node;
-      if (!mobileMenu.contains(target) && !mobileMenuBtn.contains(target)) {
-        toggleMobileMenu();
-      }
-    }
-
-    // Close mobile menu on escape key
-    function handleEscape(event: KeyboardEvent): void {
-      if (event.key === 'Escape' && isMenuOpen) {
-        toggleMobileMenu();
-      }
-    }
-
-    // Active link highlighting
-    function highlightActiveLink(): void {
-      const currentPath = window.location.pathname;
-      const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link') as NodeListOf<HTMLAnchorElement>;
-      
-      navLinks.forEach((link: HTMLAnchorElement) => {
-        const href = link.getAttribute('href');
-        if (href && currentPath === href) {
-          link.style.color = '#2563eb';
-        }
-      });
-    }
-
-    // Event listeners
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-    document.addEventListener('click', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
-
-    // Initialize
-    handleScroll();
-    highlightActiveLink();
-
-    // Close mobile menu on navigation
-    const mobileNavLinks = mobileMenu.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>;
-    mobileNavLinks.forEach((link: HTMLAnchorElement) => {
-      link.addEventListener('click', () => {
-        if (isMenuOpen) {
-          toggleMobileMenu();
-        }
-      });
-    });
-  }
-
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNavigation);
-  } else {
-    initNavigation();
-  }
-</script>

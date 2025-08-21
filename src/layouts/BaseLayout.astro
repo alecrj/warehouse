@@ -1,5 +1,5 @@
 ---
-// BaseLayout.astro - Clean & Minimalist TypeScript Fixed
+// BaseLayout.astro - Clean & TypeScript Fixed
 export interface Props {
   title?: string;
   description?: string;
@@ -73,439 +73,187 @@ const fullImageURL = new URL(image, Astro.site).toString();
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    if (typeof window !== 'undefined' && window.tailwind && typeof window.tailwind.config === 'function') {
-      window.tailwind.config({
-        theme: {
-          extend: {
-            fontFamily: {
-              'sans': ['Inter', 'system-ui', 'sans-serif'],
-            }
-          }
-        }
-      });
-    }
-  </script>
 
   <!-- Global Styles -->
   <style>
-    /* Clean, minimalist styles */
-    
-    /* Smooth text gradient */
     .text-gradient {
-      background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     
-    /* Minimal shadows */
-    .shadow-soft {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    .shadow-premium {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
     }
     
-    .shadow-soft-lg {
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    .hover-lift {
+      transition: all 0.3s ease;
     }
     
-    /* Smooth hover transitions */
-    .hover-rise {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .hover-rise:hover {
+    .hover-lift:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
-    /* Minimalist navigation */
-    .minimal-nav {
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .float-reverse {
+      animation: floatReverse 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(-10px); }
+      50% { transform: translateY(10px); }
+    }
+
+    .bg-pattern-grid {
+      background-image: 
+        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .bg-pattern-dots {
+      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Navigation Styles */
+    .premium-nav {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
     }
 
-    .minimal-nav.hidden {
+    .premium-nav.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu {
       transform: translateY(-100%);
       opacity: 0;
-    }
-
-    /* Clean button styles */
-    .btn-minimal {
-      background: #1e293b;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-minimal:hover {
-      background: #334155;
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: #1e293b;
-      border: 1px solid #e2e8f0;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .btn-outline:hover {
-      border-color: #1e293b;
-      background: #1e293b;
-      color: white;
-    }
-
-    /* GSAP Animation ready classes */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .fade-in-left {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-
-    .fade-in-right {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-
-    .scale-in {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    /* Mobile menu */
-    .mobile-menu {
-      opacity: 0;
       visibility: hidden;
-      transform: translateY(-10px);
       transition: all 0.3s ease;
     }
 
     .mobile-menu.open {
+      transform: translateY(0);
       opacity: 1;
       visibility: visible;
-      transform: translateY(0);
     }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #f8fafc;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-
-    /* Typography improvements */
-    h1, h2, h3 {
-      letter-spacing: -0.025em;
-    }
-
-    .text-balance {
-      text-wrap: balance;
-    }
-
-    /* Print styles */
-    @media print {
-      .minimal-nav,
-      .mobile-menu,
-      .absolute,
-      .fixed {
-        display: none !important;
-      }
-      
-      body {
-        background: white !important;
-        color: black !important;
-      }
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
-    /* High contrast mode */
-    @media (prefers-contrast: high) {
-      .text-gradient {
-        background: none !important;
-        -webkit-background-clip: unset !important;
-        -webkit-text-fill-color: unset !important;
-        background-clip: unset !important;
-        color: #000 !important;
-      }
-    }
-
-    /* Dark mode preferences */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        color-scheme: dark;
-      }
+    /* Line clamp utility */
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   </style>
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "RealEstateAgent",
-      "name": "Ariel Realty",
-      "description": "Premium warehouse and industrial space leasing across South Florida",
-      "url": "https://arielrealty.com",
-      "areaServed": {
-        "@type": "State",
-        "name": "Florida"
-      },
-      "serviceType": "Industrial Real Estate Leasing",
-      "address": {
-        "@type": "PostalAddress",
-        "addressRegion": "FL",
-        "addressCountry": "US"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-555-123-4567",
-        "contactType": "customer service",
-        "areaServed": "US",
-        "availableLanguage": "English"
-      }
-    }
-  </script>
 </head>
-
-<body class="bg-white text-slate-900 antialiased">
-  <!-- Skip to main content -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-slate-900 text-white px-4 py-2 rounded-lg z-50">
-    Skip to main content
-  </a>
-
+<body class="bg-slate-50 text-slate-900 antialiased">
   <slot />
 
-  <!-- GSAP Base Animations Script -->
-  <script>
-    // Global animation utilities with proper TypeScript safety
-    function initBaseAnimations(): void {
-      if (typeof gsap === 'undefined') {
-        setTimeout(initBaseAnimations, 100);
-        return;
-      }
-
-      // Register plugins
-      gsap.registerPlugin(ScrollTrigger);
+  <!-- Global Navigation Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
       
-      // Set global defaults
-      gsap.defaults({ 
-        duration: 0.8, 
-        ease: "power2.out" 
-      });
-
-      // Navigation fade on scroll
-      let lastScrollY = 0;
-      const nav = document.getElementById('main-nav') as HTMLElement | null;
-
-      if (nav) {
-        window.addEventListener('scroll', () => {
-          const currentScrollY = window.scrollY;
-          
-          if (currentScrollY > 100) {
-            if (currentScrollY > lastScrollY) {
-              // Scrolling down
-              nav.classList.add('hidden');
-            } else {
-              // Scrolling up
-              nav.classList.remove('hidden');
-            }
-          } else {
-            nav.classList.remove('hidden');
-          }
-          
-          lastScrollY = currentScrollY;
-        });
-      }
-
-      // Mobile menu functionality with null safety
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
-      const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
-      let isMenuOpen = false;
-
       if (mobileMenuBtn && mobileMenu) {
-        function toggleMobileMenu(): void {
-          isMenuOpen = !isMenuOpen;
-          
-          if (isMenuOpen) {
-            mobileMenu.classList.add('open');
-            document.body.style.overflow = 'hidden';
+        mobileMenuBtn.addEventListener('click', function() {
+          mobileMenu.classList.toggle('open');
+        });
+      }
+
+      // Navigation scroll effect
+      const nav = document.getElementById('main-nav');
+      if (nav) {
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
           } else {
-            mobileMenu.classList.remove('open');
-            document.body.style.overflow = '';
-          }
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-        // Close menu when clicking on links
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            if (isMenuOpen) toggleMobileMenu();
-          });
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === 'Escape' && isMenuOpen) {
-            toggleMobileMenu();
-          }
-        });
-
-        // Close menu on outside click
-        document.addEventListener('click', (e: MouseEvent) => {
-          const target = e.target as HTMLElement | null;
-          if (isMenuOpen && target && !mobileMenu.contains(target) && !mobileMenuBtn.contains(target)) {
-            toggleMobileMenu();
+            nav.classList.remove('scrolled');
           }
         });
       }
 
-      // Generic fade-in animations
-      gsap.utils.toArray('.fade-in').forEach((element: unknown) => {
-        const el = element as Element;
-        gsap.fromTo(el, 
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-
-      // Generic scale-in animations
-      gsap.utils.toArray('.scale-in').forEach((element: unknown) => {
-        const el = element as Element;
-        gsap.fromTo(el,
-          { opacity: 0, scale: 0.95 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-
-      // Fade in left animations
-      gsap.utils.toArray('.fade-in-left').forEach((element: unknown) => {
-        const el = element as Element;
-        gsap.fromTo(el,
-          { opacity: 0, x: -30 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-
-      // Fade in right animations
-      gsap.utils.toArray('.fade-in-right').forEach((element: unknown) => {
-        const el = element as Element;
-        gsap.fromTo(el,
-          { opacity: 0, x: 30 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-
-      // Hover effects for cards
-      gsap.utils.toArray('.hover-rise').forEach((element: unknown) => {
-        const el = element as HTMLElement;
+      // Initialize GSAP animations if available
+      if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
         
-        el.addEventListener('mouseenter', () => {
-          gsap.to(el, {
-            y: -4,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        });
+        // Global fade-in animations
+        gsap.fromTo('.gsap-fade-in', 
+          { opacity: 0, y: 60, scale: 0.95 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            duration: 1.2,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2
+          }
+        );
 
-        el.addEventListener('mouseleave', () => {
-          gsap.to(el, {
+        // Stagger animations
+        gsap.fromTo('.gsap-stagger > *', 
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
             y: 0,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        });
-      });
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: '.gsap-stagger',
+              start: 'top 80%'
+            }
+          }
+        );
 
-      console.log('✅ Base GSAP Animations initialized');
-    }
+        // Left slide animations
+        gsap.fromTo('.gsap-fade-in-left', 
+          { opacity: 0, x: -60 },
+          { 
+            opacity: 1, 
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: '.gsap-fade-in-left',
+              start: 'top 80%'
+            }
+          }
+        );
 
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initBaseAnimations);
-    } else {
-      initBaseAnimations();
-    }
+        // Right slide animations
+        gsap.fromTo('.gsap-fade-in-right', 
+          { opacity: 0, x: 60 },
+          { 
+            opacity: 1, 
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: '.gsap-fade-in-right',
+              start: 'top 80%'
+            }
+          }
+        );
+      }
+    });
   </script>
 </body>
 </html>

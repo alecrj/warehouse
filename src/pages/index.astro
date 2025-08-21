@@ -1,5 +1,5 @@
 ---
-// Updated homepage with warehouselocating.com branding and real copy
+// Updated homepage with working search and mobile fixes
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -52,7 +52,7 @@ try {
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <!-- Left Column - Hero Content -->
-          <div class="animate-on-scroll">
+          <div class="animate-on-scroll text-center lg:text-left">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6">
               FIND YOUR PERFECT
               <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
@@ -69,123 +69,91 @@ try {
               From a 500 SF workshop to a 500,000 SF distribution hub—we've got you covered.
             </p>
 
-            
             <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 mt-10 animate-on-scroll">
+            <div class="flex flex-col sm:flex-row gap-4 mt-10 animate-on-scroll justify-center lg:justify-start">
               <a 
                 href="/contact" 
-                class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+                class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform text-center"
               >
                 Get Free Tenant Representation
               </a>
               <a 
                 href="tel:954-937-9667" 
-                class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+                class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300 text-center"
               >
                 Call (954) 937-9667
               </a>
             </div>
           </div>
 
-          <!-- Right Column - Quick Search Form -->
+          <!-- Right Column - Search Form -->
           <div class="animate-on-scroll">
-            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-2xl">
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 lg:p-8 shadow-2xl">
               <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white mb-2">Search Warehouses</h2>
+                <h2 class="text-xl lg:text-2xl font-bold text-white mb-2">Search Warehouses</h2>
                 <p class="text-gray-300">Find space that fits—fast</p>
               </div>
 
               <form 
-                name="hero-warehouse-search" 
-                method="POST" 
-                data-netlify="true" 
-                netlify-honeypot="bot-field"
-                action="/success"
+                id="warehouse-search-form"
+                action="/warehouses"
+                method="GET"
                 class="space-y-4"
               >
-                <!-- Hidden fields -->
-                <input type="hidden" name="form-name" value="hero-warehouse-search" />
-                <div class="hidden">
-                  <input name="bot-field" />
-                </div>
-
-                <!-- Size -->
+                <!-- Size Range -->
                 <div>
-                  <label for="hero-size" class="block text-white text-sm font-semibold mb-2">
-                    Size (SF) *
+                  <label for="min-size" class="block text-white text-sm font-semibold mb-2">
+                    Size Range (SF)
                   </label>
-                  <input 
-                    type="text" 
-                    id="hero-size"
-                    name="size" 
-                    required 
-                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    placeholder="500–500,000+ SF"
-                  />
+                  <div class="grid grid-cols-2 gap-3">
+                    <input 
+                      type="number" 
+                      id="min-size"
+                      name="min_size" 
+                      class="w-full px-3 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900 text-sm"
+                      placeholder="Min SF"
+                    />
+                    <input 
+                      type="number" 
+                      id="max-size"
+                      name="max_size" 
+                      class="w-full px-3 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900 text-sm"
+                      placeholder="Max SF"
+                    />
+                  </div>
                 </div>
 
-                <!-- Location -->
+                <!-- County -->
                 <div>
-                  <label for="hero-location" class="block text-white text-sm font-semibold mb-2">
-                    Location *
+                  <label for="county" class="block text-white text-sm font-semibold mb-2">
+                    County
                   </label>
                   <select 
-                    id="hero-location"
-                    name="location" 
-                    required 
+                    id="county"
+                    name="county" 
                     class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
                   >
-                    <option value="">Select Location</option>
+                    <option value="">All Counties</option>
                     <option value="miami-dade">Miami-Dade</option>
                     <option value="broward">Broward</option>
                     <option value="palm-beach">Palm Beach</option>
-                    <option value="multiple">Multiple Counties</option>
                   </select>
                 </div>
 
-                <!-- Budget -->
+                <!-- Availability -->
                 <div>
-                  <label for="hero-budget" class="block text-white text-sm font-semibold mb-2">
-                    Budget ($/SF/Year)
+                  <label for="availability" class="block text-white text-sm font-semibold mb-2">
+                    Availability
                   </label>
-                  <input 
-                    type="text" 
-                    id="hero-budget"
-                    name="budget" 
+                  <select 
+                    id="availability"
+                    name="availability" 
                     class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    placeholder="$ / SF / Year"
-                  />
-                </div>
-
-                <!-- Name & Email Row -->
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label for="hero-name" class="block text-white text-sm font-semibold mb-2">
-                      Name *
-                    </label>
-                    <input 
-                      type="text" 
-                      id="hero-name"
-                      name="name" 
-                      required 
-                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                      placeholder="Your Name"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label for="hero-email" class="block text-white text-sm font-semibold mb-2">
-                      Email *
-                    </label>
-                    <input 
-                      type="email" 
-                      id="hero-email"
-                      name="email" 
-                      required 
-                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                      placeholder="your@email.com"
-                    />
-                  </div>
+                  >
+                    <option value="">All Properties</option>
+                    <option value="available">Available Now</option>
+                    <option value="pending">Coming Soon</option>
+                  </select>
                 </div>
 
                 <!-- Submit Button -->
@@ -199,7 +167,7 @@ try {
 
               <!-- Contact Info -->
               <div class="mt-6 pt-6 border-t border-white/20 text-center">
-                <p class="text-gray-300 text-sm mb-2">Prefer to talk?</p>
+                <p class="text-gray-300 text-sm mb-2">Need help finding space?</p>
                 <a 
                   href="tel:954-937-9667" 
                   class="text-white font-bold text-lg hover:text-primary-300 transition-colors duration-200"
@@ -214,31 +182,35 @@ try {
     </section>
 
     <!-- Warehouse Hero Image Section -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="relative rounded-3xl overflow-hidden shadow-2xl animate-on-scroll">
-      <picture>
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative rounded-3xl overflow-hidden shadow-2xl animate-on-scroll">
-  <img
-  src="/images/uploads/warehouse-hero.png"
-  alt="Florida warehouse"
-  class="warehouse-hero w-full h-64 md:h-96 object-cover"
-  loading="eager"
-  fetchpriority="high"
-/>
+          <picture>
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl animate-on-scroll">
+              <img
+                src="/images/uploads/warehouse-hero.png"
+                alt="Florida warehouse"
+                class="warehouse-hero w-full h-64 md:h-96 object-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
 
-
-  <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent">
-    <div class="absolute bottom-8 left-8">
-      <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Modern Industrial Facilities</h3>
-      <p class="text-lg text-gray-200">Across Miami-Dade, Broward, and Palm Beach Counties</p>
-    </div>
-  </div>
-</div>
-
-  </div>
-</section>
-
+              <!-- Improved text overlay with better contrast -->
+              <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent">
+                <div class="absolute bottom-8 left-8">
+                  <h3 class="text-2xl md:text-3xl font-black text-white mb-2 drop-shadow-lg">
+                    Modern Industrial Facilities
+                  </h3>
+                  <p class="text-lg font-semibold text-gray-100 drop-shadow-md">
+                    Across Miami-Dade, Broward, and Palm Beach Counties
+                  </p>
+                </div>
+              </div>
+            </div>
+          </picture>
+        </div>
+      </div>
+    </section>
 
     <!-- How It Works Section -->
     <section class="py-24 bg-gray-50">
@@ -535,75 +507,6 @@ try {
       </div>
     </section>
   </main>
-<script type="module">
-  import gsap from "gsap";
-  import ScrollTrigger from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Respect reduced motion
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReduced) {
-    ScrollTrigger.disable();
-  }
-
-  // Floating background blobs you already have
-  if (!prefersReduced) {
-    gsap.to(".animate-float", {
-      y: -20, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut"
-    });
-    gsap.to(".animate-float-reverse", {
-      y: 20, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut"
-    });
-  }
-
-  // Fade/slide in any block with .animate-on-scroll
-  gsap.utils.toArray<HTMLElement>(".animate-on-scroll").forEach((el) => {
-    gsap.from(el.children, {
-      y: 24,
-      autoAlpha: 0,
-      duration: 0.6,
-      ease: "power2.out",
-      stagger: 0.06,
-      scrollTrigger: {
-        trigger: el,
-        start: "top 85%", // fire as it enters
-        toggleActions: "play none none reverse"
-      }
-    });
-  });
-
-  // Stagger cards/tiles in grids marked .stagger-children
-  gsap.utils.toArray<HTMLElement>(".stagger-children").forEach((grid) => {
-    gsap.from(grid.children, {
-      y: 20,
-      autoAlpha: 0,
-      duration: 0.5,
-      ease: "power2.out",
-      stagger: 0.08,
-      scrollTrigger: {
-        trigger: grid,
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
-  });
-
-  // Subtle parallax on the hero image (optional step 2 above)
-  const heroImg = document.querySelector(".warehouse-hero");
-  if (heroImg && !prefersReduced) {
-    gsap.to(heroImg, {
-      yPercent: -10,
-      ease: "none",
-      scrollTrigger: {
-        trigger: heroImg.closest("section") || heroImg,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    });
-  }
-</script>
 
   <Footer />
 </BaseLayout>

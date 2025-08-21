@@ -1,5 +1,5 @@
 ---
-// Clean warehouses listing page with proper TypeScript
+// Clean warehouses listing page with working search filters
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import { getCollection } from 'astro:content';
@@ -38,6 +38,13 @@ try {
 } catch (error) {
   console.log('No warehouse data yet:', error);
 }
+
+// Get search parameters
+const url = Astro.url;
+const minSize = url.searchParams.get('min_size');
+const maxSize = url.searchParams.get('max_size');
+const county = url.searchParams.get('county');
+const availability = url.searchParams.get('availability');
 
 const pageTitle = 'Available Warehouse Properties | South Florida Industrial Leasing';
 const pageDescription = 'Browse premium warehouse and industrial properties across South Florida. Expert tenant representation with zero fees. Modern facilities, competitive rates.';
@@ -122,8 +129,38 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             </div>
           </div>
 
-          <!-- Filters -->
+          <!-- Advanced Filters -->
           <div class="flex flex-wrap gap-4 items-center">
+            <!-- Size Filter -->
+            <div class="flex gap-2">
+              <input 
+                type="number" 
+                placeholder="Min SF"
+                class="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                id="min-size-filter"
+                value={minSize || ''}
+              >
+              <input 
+                type="number" 
+                placeholder="Max SF"
+                class="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+                id="max-size-filter"
+                value={maxSize || ''}
+              >
+            </div>
+
+            <!-- County Filter -->
+            <select 
+              class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
+              id="county-filter"
+            >
+              <option value="">All Counties</option>
+              <option value="miami-dade" selected={county === 'miami-dade'}>Miami-Dade</option>
+              <option value="broward" selected={county === 'broward'}>Broward</option>
+              <option value="palm-beach" selected={county === 'palm-beach'}>Palm Beach</option>
+            </select>
+
+            <!-- Quick Filter Buttons -->
             <div class="flex gap-2">
               <button 
                 class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-primary-600 text-white"
@@ -158,6 +195,9 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             </select>
           </div>
         </div>
+
+        <!-- Active Filters Display -->
+        <div id="active-filters" class="mt-4 flex flex-wrap gap-2"></div>
       </div>
     </section>
 
@@ -168,7 +208,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 stagger-children" id="properties-grid">
             {allWarehouses.map((warehouse: Warehouse) => (
               <div 
-                class={`property-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform ${warehouse.data.availability} ${warehouse.data.featured ? 'featured' : ''}`}
+                class={`property-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform h-full flex flex-col ${warehouse.data.availability} ${warehouse.data.featured ? 'featured' : ''}`}
                 data-warehouse={JSON.stringify(warehouse.data)}
               >
                 <!-- Property Image -->
@@ -209,7 +249,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 </div>
 
                 <!-- Property Details -->
-                <div class="p-6">
+                <div class="p-6 flex-1 flex flex-col">
                   <div class="flex justify-between items-start mb-4">
                     <div>
                       <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
@@ -253,7 +293,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                   )}
                   
                   <!-- Action Buttons -->
-                  <div class="flex gap-3">
+                  <div class="flex gap-3 mt-auto">
                     <a 
                       href={`/warehouses/${warehouse.data.slug}`} 
                       class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-center py-3 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 transform"
@@ -295,7 +335,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     </section>
   </main>
 
-  <!-- Enhanced JavaScript with proper TypeScript -->
+  <!-- Enhanced JavaScript with proper filtering and URL parameter handling -->
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function() {
       // Get elements with proper type checking
@@ -303,21 +343,155 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       const sortSelect = document.getElementById('sort-select');
       const filterBtns = document.querySelectorAll('.filter-btn');
       const propertyCards = document.querySelectorAll('.property-card');
+      const minSizeFilter = document.getElementById('min-size-filter');
+      const maxSizeFilter = document.getElementById('max-size-filter');
+      const countyFilter = document.getElementById('county-filter');
+      const activeFiltersContainer = document.getElementById('active-filters');
       
       let currentFilter = 'all';
+      let currentFilters = {
+        minSize: '',
+        maxSize: '',
+        county: '',
+        search: ''
+      };
+
+      // Initialize filters from URL parameters
+      function initializeFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (urlParams.get('min_size')) {
+          currentFilters.minSize = urlParams.get('min_size');
+          if (minSizeFilter) minSizeFilter.value = currentFilters.minSize;
+        }
+        
+        if (urlParams.get('max_size')) {
+          currentFilters.maxSize = urlParams.get('max_size');
+          if (maxSizeFilter) maxSizeFilter.value = currentFilters.maxSize;
+        }
+        
+        if (urlParams.get('county')) {
+          currentFilters.county = urlParams.get('county');
+          if (countyFilter) countyFilter.value = currentFilters.county;
+        }
+        
+        if (urlParams.get('availability')) {
+          currentFilter = urlParams.get('availability');
+          updateFilterButtons();
+        }
+        
+        updateActiveFilters();
+        filterProperties();
+      }
+
+      // Update active filter buttons
+      function updateFilterButtons() {
+        filterBtns.forEach(function(btn) {
+          btn.classList.remove('bg-primary-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+        });
+        
+        const activeBtn = document.querySelector(`[data-filter="${currentFilter}"]`);
+        if (activeBtn) {
+          activeBtn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+          activeBtn.classList.add('bg-primary-600', 'text-white');
+        }
+      }
+
+      // Update active filters display
+      function updateActiveFilters() {
+        if (!activeFiltersContainer) return;
+        
+        let filtersHTML = '';
+        
+        if (currentFilters.minSize) {
+          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
+            Min: ${parseInt(currentFilters.minSize).toLocaleString()} SF
+            <button onclick="clearFilter('minSize')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
+          </span>`;
+        }
+        
+        if (currentFilters.maxSize) {
+          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
+            Max: ${parseInt(currentFilters.maxSize).toLocaleString()} SF
+            <button onclick="clearFilter('maxSize')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
+          </span>`;
+        }
+        
+        if (currentFilters.county) {
+          const countyName = currentFilters.county.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
+            ${countyName}
+            <button onclick="clearFilter('county')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
+          </span>`;
+        }
+        
+        if (currentFilter !== 'all') {
+          const filterName = currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1);
+          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
+            ${filterName}
+            <button onclick="clearFilter('status')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
+          </span>`;
+        }
+        
+        if (filtersHTML) {
+          activeFiltersContainer.innerHTML = `
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm text-gray-600">Active filters:</span>
+              ${filtersHTML}
+              <button onclick="clearAllFilters()" class="text-sm text-primary-600 hover:text-primary-800 font-medium">Clear all</button>
+            </div>
+          `;
+        } else {
+          activeFiltersContainer.innerHTML = '';
+        }
+      }
+
+      // Clear individual filter
+      window.clearFilter = function(filterType) {
+        switch(filterType) {
+          case 'minSize':
+            currentFilters.minSize = '';
+            if (minSizeFilter) minSizeFilter.value = '';
+            break;
+          case 'maxSize':
+            currentFilters.maxSize = '';
+            if (maxSizeFilter) maxSizeFilter.value = '';
+            break;
+          case 'county':
+            currentFilters.county = '';
+            if (countyFilter) countyFilter.value = '';
+            break;
+          case 'status':
+            currentFilter = 'all';
+            updateFilterButtons();
+            break;
+        }
+        updateActiveFilters();
+        filterProperties();
+      };
+
+      // Clear all filters
+      window.clearAllFilters = function() {
+        currentFilters = { minSize: '', maxSize: '', county: '', search: '' };
+        currentFilter = 'all';
+        
+        if (minSizeFilter) minSizeFilter.value = '';
+        if (maxSizeFilter) maxSizeFilter.value = '';
+        if (countyFilter) countyFilter.value = '';
+        if (searchInput) searchInput.value = '';
+        
+        updateFilterButtons();
+        updateActiveFilters();
+        filterProperties();
+      };
       
       // Filter functionality
       filterBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
-          // Update active button
-          filterBtns.forEach(function(b) {
-            b.classList.remove('bg-primary-600', 'text-white');
-            b.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
-          });
-          this.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
-          this.classList.add('bg-primary-600', 'text-white');
-          
           currentFilter = this.getAttribute('data-filter') || 'all';
+          updateFilterButtons();
+          updateActiveFilters();
           filterProperties();
         });
       });
@@ -325,6 +499,33 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       // Search functionality
       if (searchInput) {
         searchInput.addEventListener('input', function() {
+          currentFilters.search = this.value.toLowerCase();
+          filterProperties();
+        });
+      }
+
+      // Size filters
+      if (minSizeFilter) {
+        minSizeFilter.addEventListener('input', function() {
+          currentFilters.minSize = this.value;
+          updateActiveFilters();
+          filterProperties();
+        });
+      }
+
+      if (maxSizeFilter) {
+        maxSizeFilter.addEventListener('input', function() {
+          currentFilters.maxSize = this.value;
+          updateActiveFilters();
+          filterProperties();
+        });
+      }
+
+      // County filter
+      if (countyFilter) {
+        countyFilter.addEventListener('change', function() {
+          currentFilters.county = this.value;
+          updateActiveFilters();
           filterProperties();
         });
       }
@@ -340,25 +541,53 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       }
       
       function filterProperties() {
-        const searchTerm = searchInput && searchInput instanceof HTMLInputElement ? searchInput.value.toLowerCase() : '';
-        
         propertyCards.forEach(function(card) {
           let showCard = true;
           
-          // Filter by category
-          if (currentFilter !== 'all') {
-            if (currentFilter === 'available' && !card.classList.contains('available')) {
-              showCard = false;
-            } else if (currentFilter === 'featured' && !card.classList.contains('featured')) {
-              showCard = false;
+          try {
+            const warehouseData = card.getAttribute('data-warehouse');
+            const warehouse = warehouseData ? JSON.parse(warehouseData) : {};
+            
+            // Filter by category
+            if (currentFilter !== 'all') {
+              if (currentFilter === 'available' && !card.classList.contains('available')) {
+                showCard = false;
+              } else if (currentFilter === 'featured' && !card.classList.contains('featured')) {
+                showCard = false;
+              }
             }
-          }
-          
-          // Filter by search term
-          if (searchTerm && showCard) {
-            try {
-              const warehouseData = card.getAttribute('data-warehouse');
-              const warehouse = warehouseData ? JSON.parse(warehouseData) : {};
+            
+            // Filter by size range
+            if (showCard && currentFilters.minSize) {
+              const minSize = parseInt(currentFilters.minSize);
+              if (warehouse.size < minSize) {
+                showCard = false;
+              }
+            }
+            
+            if (showCard && currentFilters.maxSize) {
+              const maxSize = parseInt(currentFilters.maxSize);
+              if (warehouse.size > maxSize) {
+                showCard = false;
+              }
+            }
+            
+            // Filter by county
+            if (showCard && currentFilters.county) {
+              const warehouseLocation = (warehouse.location || '').toLowerCase();
+              const countyMap = {
+                'miami-dade': 'miami',
+                'broward': 'broward',
+                'palm-beach': 'palm beach'
+              };
+              const countyTerm = countyMap[currentFilters.county] || currentFilters.county;
+              if (!warehouseLocation.includes(countyTerm)) {
+                showCard = false;
+              }
+            }
+            
+            // Filter by search term
+            if (showCard && currentFilters.search) {
               const searchableText = (
                 (warehouse.title || '') + ' ' +
                 (warehouse.location || '') + ' ' +
@@ -366,12 +595,13 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 (warehouse.features ? warehouse.features.join(' ') : '')
               ).toLowerCase();
               
-              if (!searchableText.includes(searchTerm)) {
+              if (!searchableText.includes(currentFilters.search)) {
                 showCard = false;
               }
-            } catch (e) {
-              console.log('Error parsing warehouse data:', e);
             }
+            
+          } catch (e) {
+            console.log('Error parsing warehouse data:', e);
           }
           
           // Show/hide card with animation
@@ -450,6 +680,9 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           );
         }
       }
+
+      // Initialize from URL on page load
+      initializeFromURL();
     });
   </script>
 </BaseLayout>

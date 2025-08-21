@@ -1,5 +1,5 @@
 ---
-// About page with warehouselocating.com branding and real copy
+// About page with warehouselocating.com branding and proper hero boxes
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -35,25 +35,36 @@ import Footer from '../components/Footer.astro';
           </p>
         </div>
 
-        <!-- Trust Indicators -->
-        <div class="flex flex-wrap justify-center items-center gap-6 text-gray-400 text-sm animate-on-scroll">
-          <div class="flex items-center space-x-2">
-            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-            </svg>
-            <span>Deep industrial market knowledge</span>
+        <!-- Trust Indicators in Boxes -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-on-scroll">
+          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="text-white font-semibold mb-2">Deep Market Knowledge</div>
+            <div class="text-gray-300 text-sm">Industrial expertise across South Florida</div>
           </div>
-          <div class="flex items-center space-x-2">
-            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <span>Direct access to landlords & off-market inventory</span>
+          
+          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="text-white font-semibold mb-2">Direct Access</div>
+            <div class="text-gray-300 text-sm">Landlords & off-market inventory</div>
           </div>
-          <div class="flex items-center space-x-2">
-            <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-            </svg>
-            <span>Fast turnarounds; no retainer, no obligation</span>
+          
+          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              </svg>
+            </div>
+            <div class="text-white font-semibold mb-2">Fast Turnarounds</div>
+            <div class="text-gray-300 text-sm">No retainer, no obligation</div>
           </div>
         </div>
       </div>

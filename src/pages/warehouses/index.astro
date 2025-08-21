@@ -1,5 +1,5 @@
 ---
-// Updated warehouses listing page with video background hero
+// Enhanced warehouses listing page with advanced search and video background
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
@@ -39,6 +39,12 @@ try {
 } catch (error) {
   console.log('No warehouse data yet:', error);
 }
+
+// Extract unique counties from locations
+const counties = [...new Set(allWarehouses.map(w => {
+  const parts = w.data.location.split(',');
+  return parts[parts.length - 1]?.trim() || '';
+}).filter(Boolean))].sort();
 
 // Get search parameters
 const url = Astro.url;
@@ -138,22 +144,111 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     <!-- Enhanced Search & Filters Section -->
     <section class="py-12 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Search Bar -->
-        <div class="max-w-2xl mx-auto mb-8">
-          <div class="relative">
-            <input 
-              type="text" 
-              id="search-input"
-              placeholder="Search by location, features, or property name..." 
-              class="w-full px-6 py-4 pl-12 text-lg border border-gray-300 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 shadow-sm"
-            >
-            <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
+        
+        <!-- Advanced Search Form -->
+        <div class="max-w-6xl mx-auto mb-12">
+          <div class="bg-white rounded-3xl shadow-xl border border-gray-200 p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Find Your Perfect Warehouse</h2>
+            
+            <!-- Search Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              <!-- Text Search -->
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Search Properties</label>
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    id="search-input"
+                    placeholder="Location, features, name..." 
+                    class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  >
+                  <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- County Filter -->
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">County</label>
+                <select 
+                  id="county-select"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors appearance-none bg-white"
+                >
+                  <option value="">All Counties</option>
+                  {counties.map(county => (
+                    <option value={county}>{county}</option>
+                  ))}
+                </select>
+              </div>
+
+              <!-- Size Range -->
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Size Range (SF)</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <input 
+                    type="number" 
+                    id="min-size"
+                    placeholder="Min"
+                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                  >
+                  <input 
+                    type="number" 
+                    id="max-size"
+                    placeholder="Max"
+                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                  >
+                </div>
+              </div>
+
+              <!-- Price Range -->
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Price Range ($/SF/yr)</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <input 
+                    type="number" 
+                    id="min-price"
+                    placeholder="Min"
+                    step="0.50"
+                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                  >
+                  <input 
+                    type="number" 
+                    id="max-price"
+                    placeholder="Max"
+                    step="0.50"
+                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                  >
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Search Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <button 
+                id="apply-filters"
+                class="px-8 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2"
+                type="button"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                Search Properties
+              </button>
+              <button 
+                id="clear-search"
+                class="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200"
+                type="button"
+              >
+                Clear All
+              </button>
+            </div>
           </div>
         </div>
         
-        <!-- Filter Buttons -->
+        <!-- Quick Filter Buttons -->
         <div class="flex flex-wrap justify-center gap-3 mb-8">
           <button 
             class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
@@ -308,14 +403,12 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">No properties found</h3>
-            <p class="text-gray-600 mb-4">Try adjusting your search or filters to find more results.</p>
+            <p class="text-gray-600 mb-4">Try adjusting your search criteria to find more results.</p>
             <button 
               class="px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
               onclick="window.clearAllFilters()"
               type="button"
             >
-              Clear All Filters
-            </button>
               Clear All Filters
             </button>
           </div>
@@ -353,7 +446,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
   <Footer />
 
-  <!-- Enhanced JavaScript for Filtering and Search -->
+  <!-- Enhanced JavaScript for Advanced Search and Filtering -->
   <script>
     // Declare global function type
     declare global {
@@ -364,6 +457,14 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
     document.addEventListener('DOMContentLoaded', function() {
       const searchInput = document.getElementById('search-input') as HTMLInputElement;
+      const countySelect = document.getElementById('county-select') as HTMLSelectElement;
+      const minSizeInput = document.getElementById('min-size') as HTMLInputElement;
+      const maxSizeInput = document.getElementById('max-size') as HTMLInputElement;
+      const minPriceInput = document.getElementById('min-price') as HTMLInputElement;
+      const maxPriceInput = document.getElementById('max-price') as HTMLInputElement;
+      const applyFiltersBtn = document.getElementById('apply-filters') as HTMLButtonElement;
+      const clearSearchBtn = document.getElementById('clear-search') as HTMLButtonElement;
+      
       const propertiesGrid = document.getElementById('properties-grid') as HTMLElement;
       const propertyCards = document.querySelectorAll('.property-card') as NodeListOf<HTMLElement>;
       const filterButtons = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>;
@@ -381,7 +482,24 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         featured: ''
       };
 
-      // Search functionality
+      let advancedFilters = {
+        county: '',
+        minSize: null as number | null,
+        maxSize: null as number | null,
+        minPrice: null as number | null,
+        maxPrice: null as number | null
+      };
+
+      // Extract price number from price string (e.g., "$14.50/sq ft/year" -> 14.50)
+      function extractPrice(priceString: string): number | null {
+        const match = priceString.match(/\$?([\d,]+\.?\d*)/);
+        if (match) {
+          return parseFloat(match[1].replace(',', ''));
+        }
+        return null;
+      }
+
+      // Basic search functionality
       if (searchInput) {
         searchInput.addEventListener('input', function(e: Event) {
           const target = e.target as HTMLInputElement;
@@ -392,7 +510,27 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         });
       }
 
-      // Filter button functionality
+      // Advanced search button
+      if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener('click', function() {
+          advancedFilters.county = countySelect?.value || '';
+          advancedFilters.minSize = minSizeInput?.value ? parseInt(minSizeInput.value) : null;
+          advancedFilters.maxSize = maxSizeInput?.value ? parseInt(maxSizeInput.value) : null;
+          advancedFilters.minPrice = minPriceInput?.value ? parseFloat(minPriceInput.value) : null;
+          advancedFilters.maxPrice = maxPriceInput?.value ? parseFloat(maxPriceInput.value) : null;
+          
+          filterProperties();
+        });
+      }
+
+      // Clear search button
+      if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', function() {
+          clearAllSearchFilters();
+        });
+      }
+
+      // Quick filter button functionality
       filterButtons.forEach((button: HTMLButtonElement) => {
         button.addEventListener('click', function(this: HTMLButtonElement) {
           const filterType = this.dataset.filter as FilterType;
@@ -440,7 +578,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           const warehouseData = JSON.parse(warehouseDataStr);
           let isVisible = true;
 
-          // Search filter
+          // Basic search filter
           if (currentFilters.search) {
             const searchTerms = currentFilters.search.toLowerCase();
             const searchableText = [
@@ -460,7 +598,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             isVisible = false;
           }
 
-          // Size filter
+          // Size filter (quick buttons)
           if (currentFilters.size) {
             const size = warehouseData.size || 0;
             if (currentFilters.size === 'small' && size >= 10000) isVisible = false;
@@ -471,6 +609,36 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           // Featured filter
           if (currentFilters.featured === 'true' && !warehouseData.featured) {
             isVisible = false;
+          }
+
+          // Advanced filters
+          
+          // County filter
+          if (advancedFilters.county) {
+            const location = warehouseData.location || '';
+            if (!location.toLowerCase().includes(advancedFilters.county.toLowerCase())) {
+              isVisible = false;
+            }
+          }
+
+          // Size range filter
+          const propertySize = warehouseData.size || 0;
+          if (advancedFilters.minSize && propertySize < advancedFilters.minSize) {
+            isVisible = false;
+          }
+          if (advancedFilters.maxSize && propertySize > advancedFilters.maxSize) {
+            isVisible = false;
+          }
+
+          // Price range filter
+          const propertyPrice = extractPrice(warehouseData.price || '');
+          if (propertyPrice !== null) {
+            if (advancedFilters.minPrice && propertyPrice < advancedFilters.minPrice) {
+              isVisible = false;
+            }
+            if (advancedFilters.maxPrice && propertyPrice > advancedFilters.maxPrice) {
+              isVisible = false;
+            }
           }
 
           // Show/hide card
@@ -495,6 +663,30 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         }
       }
 
+      function clearAllSearchFilters(): void {
+        // Clear advanced search inputs
+        if (searchInput) searchInput.value = '';
+        if (countySelect) countySelect.value = '';
+        if (minSizeInput) minSizeInput.value = '';
+        if (maxSizeInput) maxSizeInput.value = '';
+        if (minPriceInput) minPriceInput.value = '';
+        if (maxPriceInput) maxPriceInput.value = '';
+
+        // Reset advanced filters
+        advancedFilters = {
+          county: '',
+          minSize: null,
+          maxSize: null,
+          minPrice: null,
+          maxPrice: null
+        };
+
+        // Reset basic filters
+        currentFilters.search = '';
+
+        filterProperties();
+      }
+
       function clearAllFilters(): void {
         // Reset filters object
         currentFilters = {
@@ -504,10 +696,8 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           featured: ''
         };
 
-        // Reset search input
-        if (searchInput) {
-          searchInput.value = '';
-        }
+        // Clear search form
+        clearAllSearchFilters();
 
         // Reset all filter buttons
         filterButtons.forEach((button: HTMLButtonElement) => {
@@ -545,6 +735,26 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             button.classList.remove('bg-gray-100', 'text-gray-700');
             button.classList.add('bg-primary-600', 'text-white');
           }
+        }
+
+        // Set advanced filters from URL
+        const urlCounty = urlParams.get('county');
+        const urlMinSize = urlParams.get('min_size');
+        const urlMaxSize = urlParams.get('max_size');
+        
+        if (urlCounty && countySelect) {
+          countySelect.value = urlCounty;
+          advancedFilters.county = urlCounty;
+        }
+        
+        if (urlMinSize && minSizeInput) {
+          minSizeInput.value = urlMinSize;
+          advancedFilters.minSize = parseInt(urlMinSize);
+        }
+        
+        if (urlMaxSize && maxSizeInput) {
+          maxSizeInput.value = urlMaxSize;
+          advancedFilters.maxSize = parseInt(urlMaxSize);
         }
         
         filterProperties();
@@ -618,6 +828,19 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     /* Enhanced shadow utilities */
     .shadow-3xl {
       box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Custom select styling */
+    select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25em 1.25em;
+    }
+
+    /* Enhanced search form styling */
+    .search-form-shadow {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     }
   </style>
 </BaseLayout>

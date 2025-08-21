@@ -1,103 +1,21 @@
 ---
-// Warehouses listing page - TypeScript Fixed
+// Warehouses listing page - using real CMS data
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
+import { getCollection } from 'astro:content';
 
-// Mock warehouse data - in production this would come from your CMS
-const warehouses = [
-  {
-    id: 'warehouse-1',
-    title: 'Modern Distribution Center',
-    slug: 'modern-distribution-center',
-    price: '$12/sq ft/year',
-    size: 50000,
-    location: 'Miami, FL',
-    address: '1234 Industrial Blvd, Miami, FL 33166',
-    features: ['Dock High', '24/7 Access', 'Climate Controlled', 'Security System', 'Office Space', 'Truck Court'],
-    images: ['/images/warehouse-1.jpg', '/images/warehouse-1-2.jpg'],
-    description: 'Premium warehouse space with modern amenities and excellent highway access. Perfect for distribution operations.',
-    availability: 'available',
-    featured: true
-  },
-  {
-    id: 'warehouse-2',
-    title: 'Flex Space Industrial',
-    slug: 'flex-space-industrial',
-    price: '$15/sq ft/year',
-    size: 25000,
-    location: 'Fort Lauderdale, FL',
-    address: '5678 Commerce Way, Fort Lauderdale, FL 33309',
-    features: ['Office Space', 'Loading Docks', 'Parking', 'Sprinkler System', 'High Ceilings', 'Conference Room'],
-    images: ['/images/warehouse-2.jpg', '/images/warehouse-2-2.jpg'],
-    description: 'Flexible industrial space perfect for growing businesses. Combination of warehouse and office space.',
-    availability: 'available',
-    featured: false
-  },
-  {
-    id: 'warehouse-3',
-    title: 'Logistics Hub Premium',
-    slug: 'logistics-hub-premium',
-    price: '$18/sq ft/year',
-    size: 75000,
-    location: 'Doral, FL',
-    address: '9012 Logistics Park Dr, Doral, FL 33172',
-    features: ['Rail Access', 'Cross Dock', 'Security', '30ft Ceilings', 'Container Storage', 'ESFR Sprinklers'],
-    images: ['/images/warehouse-3.jpg', '/images/warehouse-3-2.jpg'],
-    description: 'State-of-the-art logistics facility with premium features. Ideal for major distribution operations.',
-    availability: 'pending',
-    featured: true
-  },
-  {
-    id: 'warehouse-4',
-    title: 'Manufacturing Facility',
-    slug: 'manufacturing-facility',
-    price: '$10/sq ft/year',
-    size: 35000,
-    location: 'Hialeah, FL',
-    address: '3456 Factory St, Hialeah, FL 33010',
-    features: ['Heavy Power', 'Crane Ready', 'Industrial Zoning', 'Loading Docks', 'Office Area', 'Parking'],
-    images: ['/images/warehouse-4.jpg', '/images/warehouse-4-2.jpg'],
-    description: 'Industrial manufacturing space with heavy power and crane capabilities. Perfect for production operations.',
-    availability: 'available',
-    featured: false
-  },
-  {
-    id: 'warehouse-5',
-    title: 'Cold Storage Facility',
-    slug: 'cold-storage-facility',
-    price: '$22/sq ft/year',
-    size: 40000,
-    location: 'Medley, FL',
-    address: '7890 Cold Storage Rd, Medley, FL 33166',
-    features: ['Refrigerated', 'Freezer Space', 'Dock High', 'Temperature Control', 'Backup Power', 'Security'],
-    images: ['/images/warehouse-5.jpg', '/images/warehouse-5-2.jpg'],
-    description: 'Temperature-controlled warehouse perfect for food distribution and cold storage operations.',
-    availability: 'available',
-    featured: false
-  },
-  {
-    id: 'warehouse-6',
-    title: 'E-commerce Fulfillment Center',
-    slug: 'ecommerce-fulfillment-center',
-    price: '$16/sq ft/year',
-    size: 60000,
-    location: 'Pompano Beach, FL',
-    address: '2345 Fulfillment Ave, Pompano Beach, FL 33069',
-    features: ['Automation Ready', 'Clear Height 32ft', 'ESFR', 'LED Lighting', 'Office Build-out', 'Fiber Ready'],
-    images: ['/images/warehouse-6.jpg', '/images/warehouse-6-2.jpg'],
-    description: 'Modern fulfillment center designed for e-commerce operations with automation capabilities.',
-    availability: 'leased',
-    featured: false
-  }
-];
+// Get real warehouse data from CMS
+const allWarehouses = await getCollection('warehouses');
+
+// Calculate real stats from CMS data
+const availableWarehouses = allWarehouses.filter(w => w.data.availability === 'available');
+const pendingWarehouses = allWarehouses.filter(w => w.data.availability === 'pending');
+const totalSqFt = allWarehouses.reduce((sum, w) => sum + w.data.size, 0);
+const averageSize = Math.round(totalSqFt / allWarehouses.length);
 
 // Page metadata
 const pageTitle = 'Available Warehouse Properties | South Florida Industrial Leasing';
 const pageDescription = 'Browse premium warehouse and industrial properties across South Florida. Expert tenant representation with zero fees. Modern facilities, competitive rates.';
-
-// Calculate stats
-const availableWarehouses = warehouses.filter(w => w.availability === 'available');
-const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
 ---
 
 <BaseLayout 
@@ -107,8 +25,8 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
   <Navigation />
   
   <main>
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+    <!-- Hero Section with Unique Property Stats -->
+    <section class="relative pt-20 pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       <!-- Background Pattern -->
       <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl float"></div>
@@ -116,60 +34,60 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
       
       <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
+          <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 gsap-fade-in">
             WAREHOUSE
             <span class="block text-gradient">PROPERTIES</span>
           </h1>
-          <p class="text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed gsap-fade-in">
+          <p class="text-lg lg:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed gsap-fade-in">
             Premium industrial spaces across South Florida. 
             <span class="text-gradient font-semibold">Expert representation. Zero fees.</span>
           </p>
         </div>
 
-        <!-- Quick Stats -->
+        <!-- Live Property Stats -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto gsap-stagger">
           <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
-              <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
+              <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-2">{availableWarehouses.length}</div>
-            <div class="text-slate-400 font-medium">Available Now</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-1">{availableWarehouses.length}</div>
+            <div class="text-slate-400 text-sm font-medium">Available Now</div>
           </div>
           <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
+              <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-1">{pendingWarehouses.length}</div>
+            <div class="text-slate-400 text-sm font-medium">Coming Soon</div>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
               <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
               </svg>
             </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-2">{Math.round(totalSqFt / 1000)}K+</div>
-            <div class="text-slate-400 font-medium">Sq Ft Available</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-1">{Math.round(totalSqFt / 1000)}K+</div>
+            <div class="text-slate-400 text-sm font-medium">Total Sq Ft</div>
           </div>
           <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
-              <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
+              <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
             </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-2">$0</div>
-            <div class="text-slate-400 font-medium">Tenant Fees</div>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
-              <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-              </svg>
-            </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-2">24/7</div>
-            <div class="text-slate-400 font-medium">Expert Support</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-1">{averageSize.toLocaleString()}</div>
+            <div class="text-slate-400 text-sm font-medium">Avg Size</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Filters Section -->
-    <section class="relative py-12 bg-white border-b border-slate-200">
+    <section class="relative py-8 bg-white border-b border-slate-200">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
           <!-- Search Bar -->
@@ -178,10 +96,10 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
               <input 
                 type="text" 
                 placeholder="Search by location, features, or size..." 
-                class="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                 id="search-input"
               />
-              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
@@ -189,19 +107,19 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
 
           <!-- Filter Buttons -->
           <div class="flex flex-wrap gap-3">
-            <button class="filter-button active px-6 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="all">
+            <button class="filter-button active px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-gradient-to-r from-blue-600 to-cyan-600 text-white" data-filter="all">
               All Properties
             </button>
-            <button class="filter-button px-6 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="available">
+            <button class="filter-button px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="available">
               Available
             </button>
-            <button class="filter-button px-6 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="featured">
+            <button class="filter-button px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="featured">
               Featured
             </button>
           </div>
 
           <!-- Sort Dropdown -->
-          <select class="px-4 py-3 rounded-2xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300" id="sort-select">
+          <select class="px-4 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 text-sm" id="sort-select">
             <option value="featured">Sort by Featured</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
@@ -213,28 +131,36 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
     </section>
 
     <!-- Properties Grid -->
-    <section class="relative py-20 bg-slate-50">
+    <section class="relative py-16 bg-slate-50">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8" id="properties-grid">
-          {warehouses.map((warehouse, index) => (
-            <div class={`property-card bg-white rounded-3xl overflow-hidden shadow-premium hover-lift ${warehouse.availability} ${warehouse.featured ? 'featured' : ''}`} data-warehouse={JSON.stringify(warehouse)}>
+          {allWarehouses.map((warehouse) => (
+            <div class={`property-card bg-white rounded-3xl overflow-hidden shadow-premium hover-lift ${warehouse.data.availability} ${warehouse.data.featured ? 'featured' : ''}`} data-warehouse={JSON.stringify(warehouse.data)}>
               <!-- Property Image -->
-              <div class="relative h-64 bg-gradient-to-br from-slate-200 to-slate-300">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20"></div>
+              <div class="relative h-48 bg-gradient-to-br from-slate-200 to-slate-300">
+                {warehouse.data.images && warehouse.data.images.length > 0 ? (
+                  <img 
+                    src={warehouse.data.images[0]} 
+                    alt={warehouse.data.title}
+                    class="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20"></div>
+                )}
                 
                 <!-- Status Badge -->
                 <div class="absolute top-4 left-4">
-                  {warehouse.availability === 'available' && (
+                  {warehouse.data.availability === 'available' && (
                     <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                       AVAILABLE
                     </span>
                   )}
-                  {warehouse.availability === 'pending' && (
+                  {warehouse.data.availability === 'pending' && (
                     <span class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                       PENDING
                     </span>
                   )}
-                  {warehouse.availability === 'leased' && (
+                  {warehouse.data.availability === 'leased' && (
                     <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                       LEASED
                     </span>
@@ -242,7 +168,7 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
                 </div>
 
                 <!-- Featured Badge -->
-                {warehouse.featured && (
+                {warehouse.data.featured && (
                   <div class="absolute top-4 right-4">
                     <span class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                       FEATURED
@@ -252,66 +178,68 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
 
                 <!-- Quick Actions -->
                 <div class="absolute bottom-4 right-4 flex gap-2">
-                  <button class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <button class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
                   </button>
-                  <button class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <button class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
                     </svg>
                   </button>
                 </div>
               </div>
               
-              <div class="p-8">
+              <div class="p-6">
                 <!-- Header -->
                 <div class="flex items-start justify-between mb-4">
                   <div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">{warehouse.title}</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">{warehouse.data.title}</h3>
                     <div class="flex items-center text-slate-600 text-sm">
                       <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                       </svg>
-                      <span>{warehouse.location}</span>
+                      <span>{warehouse.data.location}</span>
                     </div>
                   </div>
                   <div class="text-right">
-                    <div class="text-2xl font-black text-gradient">{warehouse.price}</div>
-                    <div class="text-sm text-slate-500">{warehouse.size.toLocaleString()} sq ft</div>
+                    <div class="text-lg font-black text-gradient">{warehouse.data.price}</div>
+                    <div class="text-sm text-slate-500">{warehouse.data.size.toLocaleString()} sq ft</div>
                   </div>
                 </div>
                 
                 <!-- Description -->
-                <p class="text-slate-600 mb-6 leading-relaxed line-clamp-3">
-                  {warehouse.description}
+                <p class="text-slate-600 mb-4 leading-relaxed line-clamp-3">
+                  {warehouse.data.description}
                 </p>
                 
                 <!-- Key Features -->
-                <div class="mb-6">
-                  <h4 class="text-sm font-semibold text-slate-900 mb-3">Key Features</h4>
-                  <div class="flex flex-wrap gap-2">
-                    {warehouse.features.slice(0, 4).map(feature => (
-                      <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full">
-                        {feature}
-                      </span>
-                    ))}
-                    {warehouse.features.length > 4 && (
-                      <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full">
-                        +{warehouse.features.length - 4} more
-                      </span>
-                    )}
+                {warehouse.data.features && warehouse.data.features.length > 0 && (
+                  <div class="mb-4">
+                    <h4 class="text-sm font-semibold text-slate-900 mb-2">Key Features</h4>
+                    <div class="flex flex-wrap gap-2">
+                      {warehouse.data.features.slice(0, 4).map(feature => (
+                        <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-1 rounded-full">
+                          {feature}
+                        </span>
+                      ))}
+                      {warehouse.data.features.length > 4 && (
+                        <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-1 rounded-full">
+                          +{warehouse.data.features.length - 4} more
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 <!-- Action Buttons -->
                 <div class="flex gap-3">
-                  <a href={`/warehouses/${warehouse.slug}`} class="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-3 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                  <a href={`/warehouses/${warehouse.data.slug}`} class="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                     View Details
                   </a>
-                  <a href="/contact" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 hover:border-slate-400 transition-all duration-300">
+                  <a href="/contact" class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-50 hover:border-slate-400 transition-all duration-300">
                     Inquire
                   </a>
                 </div>
@@ -320,37 +248,54 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
           ))}
         </div>
 
-        <!-- Load More Button -->
-        <div class="text-center mt-12 gsap-fade-in">
-          <button class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-slate-800 hover:-translate-y-1 transition-all duration-300 shadow-lg">
-            Load More Properties
-          </button>
-        </div>
+        {allWarehouses.length === 0 && (
+          <div class="text-center py-20">
+            <div class="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">No Properties Found</h3>
+            <p class="text-slate-600 mb-6">Try adjusting your search criteria or contact us for more options.</p>
+            <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              Contact Our Experts
+            </a>
+          </div>
+        )}
+
+        {allWarehouses.length > 0 && (
+          <!-- Load More Button -->
+          <div class="text-center mt-12 gsap-fade-in">
+            <button class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+              Load More Properties
+            </button>
+          </div>
+        )}
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="relative py-32 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
+    <section class="relative py-20 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
       <!-- Background Pattern -->
       <div class="absolute inset-0 bg-pattern-grid opacity-10"></div>
       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl float"></div>
       <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl float-reverse"></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <h2 class="text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
+        <h2 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6 gsap-fade-in">
           NEED HELP FINDING
           <span class="block text-gradient">THE PERFECT SPACE?</span>
         </h2>
-        <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-12 gsap-fade-in">
+        <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10 gsap-fade-in">
           Our experts are standing by to provide 
           <span class="text-gradient font-semibold">free consultation</span> and professional guidance.
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-6 justify-center gsap-fade-in">
-          <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 shadow-xl">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center gsap-fade-in">
+          <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 shadow-xl">
             Get Expert Help
           </a>
-          <a href="/about" class="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white/20 transition-all duration-300">
+          <a href="/about" class="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300">
             Learn About Us
           </a>
         </div>
@@ -358,23 +303,29 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
     </section>
   </main>
 
-  <!-- JavaScript for filtering and interactions - TypeScript Fixed -->
+  <!-- JavaScript for filtering and interactions - Fixed for JavaScript -->
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function() {
-      // Filter functionality with proper type checking
+      // Filter functionality with proper JavaScript (no TypeScript)
       const filterButtons = document.querySelectorAll('.filter-button');
       const propertyCards = document.querySelectorAll('.property-card');
-      const searchInput = document.getElementById('search-input') as HTMLInputElement;
-      const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+      const searchInput = document.getElementById('search-input');
+      const sortSelect = document.getElementById('sort-select');
 
       // Filter button click handlers
       filterButtons.forEach(button => {
         button.addEventListener('click', function() {
           // Update active state
-          filterButtons.forEach(btn => btn.classList.remove('active'));
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+            btn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-cyan-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
+          });
           this.classList.add('active');
+          this.classList.remove('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
+          this.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-cyan-600', 'text-white');
           
-          const filter = (this as HTMLElement).dataset.filter || 'all';
+          const filter = this.dataset.filter || 'all';
           filterProperties(filter);
         });
       });
@@ -394,15 +345,16 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
         });
       }
 
-      function getActiveFilter(): string {
-        const activeButton = document.querySelector('.filter-button.active') as HTMLElement;
-        return activeButton?.dataset.filter || 'all';
+      function getActiveFilter() {
+        const activeButton = document.querySelector('.filter-button.active');
+        return activeButton ? activeButton.dataset.filter || 'all' : 'all';
       }
 
-      function filterProperties(filter: string, searchTerm: string = '') {
+      function filterProperties(filter, searchTerm) {
+        searchTerm = searchTerm || '';
+        
         propertyCards.forEach(card => {
-          const cardElement = card as HTMLElement;
-          const warehouseData = cardElement.dataset.warehouse;
+          const warehouseData = card.dataset.warehouse;
           if (!warehouseData) return;
           
           const warehouse = JSON.parse(warehouseData);
@@ -421,7 +373,7 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
               warehouse.title + ' ' +
               warehouse.location + ' ' +
               warehouse.description + ' ' +
-              warehouse.features.join(' ')
+              (warehouse.features ? warehouse.features.join(' ') : '')
             ).toLowerCase();
             
             if (!searchableText.includes(searchTerm)) {
@@ -431,37 +383,37 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
 
           // Show/hide card with animation
           if (showCard) {
-            cardElement.style.display = 'block';
+            card.style.display = 'block';
             if (typeof gsap !== 'undefined') {
-              gsap.fromTo(cardElement, 
+              gsap.fromTo(card, 
                 { opacity: 0, y: 20 },
                 { opacity: 1, y: 0, duration: 0.3 }
               );
             }
           } else {
             if (typeof gsap !== 'undefined') {
-              gsap.to(cardElement, {
+              gsap.to(card, {
                 opacity: 0,
                 y: -20,
                 duration: 0.3,
-                onComplete: () => {
-                  cardElement.style.display = 'none';
+                onComplete: function() {
+                  card.style.display = 'none';
                 }
               });
             } else {
-              cardElement.style.display = 'none';
+              card.style.display = 'none';
             }
           }
         });
       }
 
-      function sortProperties(sortBy: string) {
+      function sortProperties(sortBy) {
         const grid = document.getElementById('properties-grid');
         if (!grid) return;
         
-        const cards = Array.from(propertyCards) as HTMLElement[];
+        const cards = Array.from(propertyCards);
         
-        cards.sort((a, b) => {
+        cards.sort(function(a, b) {
           const warehouseA = JSON.parse(a.dataset.warehouse || '{}');
           const warehouseB = JSON.parse(b.dataset.warehouse || '{}');
           
@@ -483,7 +435,9 @@ const totalSqFt = warehouses.reduce((sum, w) => sum + w.size, 0);
         });
         
         // Re-append sorted cards
-        cards.forEach(card => grid.appendChild(card));
+        cards.forEach(function(card) {
+          grid.appendChild(card);
+        });
         
         // Re-animate
         if (typeof gsap !== 'undefined') {

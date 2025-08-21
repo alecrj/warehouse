@@ -1,5 +1,5 @@
 ---
-// Clean warehouses listing page with fixed syntax
+// Updated warehouses listing page with consistent hero
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import { getCollection } from 'astro:content';
@@ -57,8 +57,8 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
   <Navigation />
   
   <main>
-    <!-- Hero Section -->
-    <section class="relative pt-20 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+    <!-- Hero Section - Consistent Sizing -->
+    <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center">
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
@@ -66,45 +66,51 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
       </div>
       
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center">
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 animate-on-scroll">
             WAREHOUSE
             <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
               PROPERTIES
             </span>
           </h1>
-          <p class="text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed animate-on-scroll">
+          <p class="text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-2 animate-on-scroll">
             Premium industrial spaces across South Florida. 
-            <span class="text-white font-semibold">Expert representation. Zero fees. Perfect matches.</span>
+          </p>
+          <p class="text-base text-gray-400 leading-relaxed mb-8 max-w-3xl mx-auto animate-on-scroll">
+            Expert representation. Zero fees. Perfect matches.
           </p>
         </div>
+      </div>
+    </section>
 
-        <!-- Statistics -->
+    <!-- Statistics Section - Moved from Hero -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll">
-          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-            <div class="text-3xl font-bold text-white mb-2">
+          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
+            <div class="text-3xl font-bold text-primary-600 mb-2">
               {allWarehouses.length}
             </div>
-            <div class="text-gray-300 text-sm">Total Properties</div>
+            <div class="text-gray-600 text-sm">Total Properties</div>
           </div>
-          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-            <div class="text-3xl font-bold text-green-400 mb-2">
+          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
+            <div class="text-3xl font-bold text-green-600 mb-2">
               {availableWarehouses.length}
             </div>
-            <div class="text-gray-300 text-sm">Available Now</div>
+            <div class="text-gray-600 text-sm">Available Now</div>
           </div>
-          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-            <div class="text-3xl font-bold text-blue-400 mb-2">
+          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
+            <div class="text-3xl font-bold text-blue-600 mb-2">
               {totalSqFt.toLocaleString()}
             </div>
-            <div class="text-gray-300 text-sm">Total Sq Ft</div>
+            <div class="text-gray-600 text-sm">Total Sq Ft</div>
           </div>
-          <div class="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-            <div class="text-3xl font-bold text-purple-400 mb-2">
+          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
+            <div class="text-3xl font-bold text-purple-600 mb-2">
               {averageSize.toLocaleString()}
             </div>
-            <div class="text-gray-300 text-sm">Avg Size</div>
+            <div class="text-gray-600 text-sm">Avg Size</div>
           </div>
         </div>
       </div>

@@ -109,12 +109,12 @@ try {
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="#contact-form" 
+              <button 
+                onclick="openContactModal('hero-main-cta')"
                 class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 transform text-center"
               >
                 Get Matched Today
-              </a>
+              </button>
               <a 
                 href="tel:954-937-9667" 
                 class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
@@ -288,12 +288,20 @@ try {
                   
                   <p class="text-gray-600 text-sm mb-4 line-clamp-2">{warehouse.data.description}</p>
                   
-                  <a 
-                    href={`/properties/${warehouse.data.slug}`}
-                    class="block w-full bg-primary-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200"
-                  >
-                    View Details
-                  </a>
+                  <div class="flex gap-2">
+                    <a 
+                      href={`/properties/${warehouse.data.slug}`}
+                      class="flex-1 bg-gray-100 text-gray-700 text-center py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors duration-200"
+                    >
+                      View Details
+                    </a>
+                    <button 
+                      onclick={`openContactModal('featured-property-${warehouse.data.slug}')`}
+                      class="flex-1 bg-primary-600 text-white py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200"
+                    >
+                      Inquire Now
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -383,12 +391,12 @@ try {
         <!-- Call to Action -->
         <div class="text-center mt-16">
           <div class="inline-flex flex-col sm:flex-row gap-4">
-            <a 
-              href="/contact" 
+            <button 
+              onclick="openContactModal('why-choose-us-cta')"
               class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform"
             >
               Get Free Representation
-            </a>
+            </button>
             <a 
               href="tel:954-937-9667" 
               class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/50 transition-all duration-300"
@@ -547,12 +555,12 @@ try {
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="#contact-form" 
+          <button 
+            onclick="openContactModal('final-cta')"
             class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform"
           >
             Get Free Representation
-          </a>
+          </button>
           <a 
             href="/properties" 
             class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/50 transition-all duration-300"
@@ -639,4 +647,4 @@ try {
   
   // Initial check
   animateOnScroll();
-
+</script>

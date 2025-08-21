@@ -1,401 +1,323 @@
 ---
-// Contact page - TypeScript Fixed
-import BaseLayout from '../layouts/BaseLayout.astro';
+// Simple contact page
+import Navigation from '../components/Navigation.astro';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-// Page metadata
-const pageTitle = 'Contact Us | Expert Warehouse Leasing | Ariel Realty';
-const pageDescription = 'Get expert warehouse leasing consultation at zero cost. Contact our South Florida industrial real estate specialists today.';
 ---
 
-<BaseLayout 
-  title={pageTitle}
-  description={pageDescription}
-  canonical={canonicalURL}
->
-  <!-- Navigation -->
-  <nav class="premium-nav fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="main-nav">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        <!-- Logo -->
-        <a href="/" class="nav-logo group flex items-center space-x-3">
-          <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-            </svg>
-          </div>
-          <div class="hidden sm:block">
-            <div class="font-black text-xl text-slate-900 nav-logo-text">ARIEL REALTY</div>
-            <div class="text-xs text-slate-500 -mt-1 tracking-wider font-medium">PREMIUM WAREHOUSES</div>
-          </div>
-        </a>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Ariel Realty Group | Free Warehouse Tenant Representation</title>
+  <meta name="description" content="Get expert warehouse leasing assistance. Contact our team for free tenant representation across South Florida's industrial markets." />
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        <!-- Desktop Navigation -->
-        <div class="hidden lg:flex items-center space-x-1">
-          <a href="/" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
-            <span>Home</span>
-            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
-          </a>
-          <a href="/warehouses" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
-            <span>Properties</span>
-            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
-          </a>
-          <a href="/contact" class="nav-link px-4 py-2 rounded-lg text-blue-600 font-semibold transition-all duration-300 relative group">
-            <span>Contact</span>
-            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600"></div>
-          </a>
-          <a href="/about" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
-            <span>About</span>
-            <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
-          </a>
-        </div>
+  <style>
+    .text-gradient {
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .shadow-premium {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .hover-lift {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
 
-        <!-- CTA Button (Desktop) -->
-        <div class="hidden lg:flex items-center space-x-4">
-          <a href="tel:+15551234567" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-lg">
-            Call Now
-          </a>
-        </div>
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
 
-        <!-- Mobile Menu Button -->
-        <button 
-          class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200 menu-icon"
-          id="mobile-menu-btn"
-          type="button"
-          aria-label="Toggle mobile menu"
-        >
-          <div class="w-6 h-6 flex flex-col justify-center space-y-1.5">
-            <span class="block w-6 h-0.5 bg-slate-700 transition-all duration-300 menu-line-1"></span>
-            <span class="block w-6 h-0.5 bg-slate-700 transition-all duration-300 menu-line-2"></span>
-            <span class="block w-6 h-0.5 bg-slate-700 transition-all duration-300 menu-line-3"></span>
-          </div>
-        </button>
-      </div>
-    </div>
+    .float-reverse {
+      animation: floatReverse 8s ease-in-out infinite;
+    }
 
-    <!-- Mobile Menu -->
-    <div 
-      class="lg:hidden mobile-menu absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-xl"
-      id="mobile-menu"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        <div class="flex flex-col space-y-6">
-          <a href="/" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-            Home
-          </a>
-          <a href="/warehouses" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-            Properties
-          </a>
-          <a href="/contact" class="mobile-nav-link text-blue-600 font-semibold text-lg transition-colors duration-200">
-            Contact
-          </a>
-          <a href="/about" class="mobile-nav-link text-slate-700 hover:text-slate-900 font-medium text-lg transition-colors duration-200">
-            About
-          </a>
-          <div class="pt-4 border-t border-slate-200">
-            <a href="tel:+15551234567" class="mobile-nav-link bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-semibold text-center block hover:shadow-lg transition-all duration-300">
-              Call Now
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
 
-  <main id="main-content">
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(-10px); }
+      50% { transform: translateY(10px); }
+    }
+
+    .bg-pattern-grid {
+      background-image: 
+        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .bg-pattern-dots {
+      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  <Navigation />
+  
+  <main>
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       <!-- Background Pattern -->
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
-      </div>
+      <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
       
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-          <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
-            LET'S FIND YOUR
-            <span class="block text-gradient">PERFECT SPACE</span>
-          </h1>
-          <p class="text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed gsap-fade-in">
-            Expert warehouse leasing consultation at zero cost. 
-            <span class="text-gradient font-semibold">Your success is our priority.</span>
-          </p>
-        </div>
-
-        <!-- Contact Methods -->
-        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto gsap-stagger">
-          <!-- Phone -->
-          <a href="tel:+15551234567" class="glass-card p-8 rounded-3xl text-center hover:bg-white/20 transition-all duration-300 group">
-            <div class="w-16 h-16 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Call Us</h3>
-            <p class="text-slate-300 mb-4">Speak with an expert now</p>
-            <p class="text-2xl font-bold text-gradient">(555) 123-4567</p>
-          </a>
-
-          <!-- Email -->
-          <a href="mailto:info@arielrealty.com" class="glass-card p-8 rounded-3xl text-center hover:bg-white/20 transition-all duration-300 group">
-            <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Email Us</h3>
-            <p class="text-slate-300 mb-4">Send us your requirements</p>
-            <p class="text-lg font-bold text-gradient">info@arielrealty.com</p>
-          </a>
-
-          <!-- Schedule -->
-          <div class="glass-card p-8 rounded-3xl text-center group">
-            <div class="w-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-white mb-2">Schedule Meeting</h3>
-            <p class="text-slate-300 mb-4">Book a consultation</p>
-            <p class="text-lg font-bold text-gradient">Available 24/7</p>
-          </div>
-        </div>
+      <!-- Floating Elements -->
+      <div class="absolute top-20 left-10 w-24 h-24 bg-blue-500/20 rounded-full blur-xl float"></div>
+      <div class="absolute bottom-20 right-16 w-36 h-36 bg-cyan-500/20 rounded-full blur-xl float-reverse"></div>
+      
+      <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-8 gsap-fade-in">
+          GET
+          <span class="block text-gradient">EXPERT HELP</span>
+        </h1>
+        <p class="text-xl lg:text-2xl text-slate-300 leading-relaxed gsap-fade-in">
+          Ready to find your perfect warehouse space? Our experts are standing by to provide 
+          <span class="text-gradient font-semibold">free consultation</span> and professional guidance.
+        </p>
       </div>
     </section>
 
     <!-- Contact Form Section -->
-    <section class="relative py-24 lg:py-32 bg-white overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-16 items-start">
-          <!-- Form -->
+    <section class="relative py-32 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-20 items-start">
+          <!-- Contact Form -->
           <div class="gsap-fade-in-left">
-            <h2 class="text-4xl lg:text-5xl font-black text-slate-900 mb-6">
-              GET EXPERT
-              <span class="text-gradient block">CONSULTATION</span>
-            </h2>
-            <p class="text-xl text-slate-600 mb-12 leading-relaxed">
-              Tell us about your warehouse needs and we'll provide personalized recommendations at no cost to you.
-            </p>
-
-            <!-- Contact Form -->
-            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
-              <!-- Honeypot -->
-              <input type="hidden" name="form-name" value="contact" />
-              <div class="hidden">
-                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-              </div>
-
-              <!-- Name -->
-              <div class="space-y-2">
-                <label for="name" class="block text-sm font-semibold text-slate-900">Full Name *</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  required 
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                  placeholder="Your full name"
-                />
-              </div>
-
-              <!-- Email -->
-              <div class="space-y-2">
-                <label for="email" class="block text-sm font-semibold text-slate-900">Email Address *</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  required 
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <!-- Phone -->
-              <div class="space-y-2">
-                <label for="phone" class="block text-sm font-semibold text-slate-900">Phone Number</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  name="phone" 
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                  placeholder="(555) 123-4567"
-                />
-              </div>
-
-              <!-- Company -->
-              <div class="space-y-2">
-                <label for="company" class="block text-sm font-semibold text-slate-900">Company Name</label>
-                <input 
-                  type="text" 
-                  id="company" 
-                  name="company" 
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                  placeholder="Your company name"
-                />
-              </div>
-
-              <!-- Space Requirements -->
-              <div class="grid md:grid-cols-2 gap-4">
-                <div class="space-y-2">
-                  <label for="size" class="block text-sm font-semibold text-slate-900">Space Size (sq ft)</label>
-                  <input 
-                    type="number" 
-                    id="size" 
-                    name="size" 
-                    min="1000"
-                    step="1000"
-                    class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                    placeholder="25000"
-                  />
+            <div class="bg-slate-50 rounded-3xl p-8 lg:p-12 shadow-premium">
+              <h2 class="text-4xl font-black text-slate-900 mb-8">
+                Start Your
+                <span class="text-gradient">Search Today</span>
+              </h2>
+              
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true" 
+                netlify-honeypot="bot-field"
+                class="space-y-6"
+              >
+                <!-- Hidden fields -->
+                <input type="hidden" name="form-name" value="contact" />
+                <div class="hidden">
+                  <input name="bot-field" />
                 </div>
-                <div class="space-y-2">
-                  <label for="timeline" class="block text-sm font-semibold text-slate-900">Timeline</label>
+
+                <!-- Name & Email Row -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="form-group">
+                    <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">
+                      Full Name *
+                    </label>
+                    <input 
+                      type="text" 
+                      id="name" 
+                      name="name" 
+                      required 
+                      class="w-full px-4 py-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                      placeholder="John Smith"
+                    />
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">
+                      Email Address *
+                    </label>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      required 
+                      class="w-full px-4 py-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                      placeholder="john@company.com"
+                    />
+                  </div>
+                </div>
+
+                <!-- Phone & Company Row -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="form-group">
+                    <label for="phone" class="block text-sm font-semibold text-slate-700 mb-2">
+                      Phone Number
+                    </label>
+                    <input 
+                      type="tel" 
+                      id="phone" 
+                      name="phone" 
+                      class="w-full px-4 py-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="company" class="block text-sm font-semibold text-slate-700 mb-2">
+                      Company Name
+                    </label>
+                    <input 
+                      type="text" 
+                      id="company" 
+                      name="company" 
+                      class="w-full px-4 py-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                      placeholder="ABC Distribution"
+                    />
+                  </div>
+                </div>
+
+                <!-- Property Type -->
+                <div class="form-group">
+                  <label for="property-type" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Property Type Needed
+                  </label>
                   <select 
-                    id="timeline" 
-                    name="timeline"
-                    class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
+                    id="property-type" 
+                    name="property-type" 
+                    class="w-full px-4 py-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                   >
-                    <option value="">Select timeline</option>
-                    <option value="immediate">Immediate (0-30 days)</option>
-                    <option value="1-3-months">1-3 months</option>
-                    <option value="3-6-months">3-6 months</option>
-                    <option value="6-12-months">6-12 months</option>
-                    <option value="planning">Just planning</option>
+                    <option value="">Select property type...</option>
+                    <option value="warehouse">Warehouse Space</option>
+                    <option value="distribution">Distribution Center</option>
+                    <option value="flex">Flex Industrial</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="cold-storage">Cold Storage</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
-              </div>
 
-              <!-- Location Preference -->
-              <div class="space-y-2">
-                <label for="location" class="block text-sm font-semibold text-slate-900">Preferred Locations</label>
-                <input 
-                  type="text" 
-                  id="location" 
-                  name="location" 
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                  placeholder="Miami, Fort Lauderdale, Doral, etc."
-                />
-              </div>
+                <!-- Message -->
+                <div class="form-group">
+                  <label for="message" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Tell us about your needs
+                  </label>
+                  <textarea 
+                    id="message" 
+                    name="message" 
+                    rows="5" 
+                    class="w-full px-4 py-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 resize-none"
+                    placeholder="Size requirements, location preferences, timeline, special needs..."
+                  ></textarea>
+                </div>
 
-              <!-- Message -->
-              <div class="space-y-2">
-                <label for="message" class="block text-sm font-semibold text-slate-900">Additional Requirements</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  rows="5"
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300 resize-vertical"
-                  placeholder="Tell us about any specific requirements: dock doors, ceiling height, office space, special features, etc."
-                ></textarea>
-              </div>
+                <!-- Submit Button -->
+                <button 
+                  type="submit" 
+                  class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                >
+                  Send Message
+                </button>
 
-              <!-- Submit Button -->
-              <button 
-                type="submit"
-                class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-3"
-              >
-                <span>Send My Requirements</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                </svg>
-              </button>
-
-              <p class="text-sm text-slate-500 text-center">
-                By submitting this form, you agree to be contacted by our team. We respect your privacy and never share your information.
-              </p>
-            </form>
+                <!-- Disclaimer -->
+                <p class="text-sm text-slate-500 text-center">
+                  100% Free Service • No Hidden Fees • Expert Negotiation
+                </p>
+              </form>
+            </div>
           </div>
 
-          <!-- Contact Info -->
-          <div class="gsap-fade-in-right">
-            <div class="bg-slate-50 rounded-3xl p-8 lg:p-12">
-              <h3 class="text-3xl font-black text-slate-900 mb-8">
-                CONTACT
-                <span class="text-gradient block">INFORMATION</span>
-              </h3>
-
-              <!-- Contact Details -->
-              <div class="space-y-8">
-                <!-- Phone -->
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+          <!-- Contact Information -->
+          <div class="gsap-fade-in-right space-y-8">
+            <!-- Contact Cards -->
+            <div class="space-y-6">
+              <!-- Phone -->
+              <div class="bg-white rounded-2xl p-6 shadow-premium hover-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
                   </div>
                   <div>
-                    <h4 class="font-bold text-slate-900 mb-1">Phone</h4>
-                    <p class="text-slate-600 mb-2">Available 24/7 for urgent inquiries</p>
-                    <a href="tel:+15551234567" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+                    <h3 class="text-lg font-bold text-slate-900 mb-1">Call Us</h3>
+                    <p class="text-slate-600 mb-2">Ready to help you find the perfect space</p>
+                    <a href="tel:+15551234567" class="text-gradient font-semibold hover:underline">
                       (555) 123-4567
                     </a>
                   </div>
                 </div>
+              </div>
 
-                <!-- Email -->
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              <!-- Email -->
+              <div class="bg-white rounded-2xl p-6 shadow-premium hover-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                   </div>
                   <div>
-                    <h4 class="font-bold text-slate-900 mb-1">Email</h4>
-                    <p class="text-slate-600 mb-2">We respond within 2 hours</p>
-                    <a href="mailto:info@arielrealty.com" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
+                    <h3 class="text-lg font-bold text-slate-900 mb-1">Email Us</h3>
+                    <p class="text-slate-600 mb-2">We respond within 2 hours during business days</p>
+                    <a href="mailto:info@arielrealty.com" class="text-gradient font-semibold hover:underline">
                       info@arielrealty.com
                     </a>
                   </div>
                 </div>
+              </div>
 
-                <!-- Location -->
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <!-- Office -->
+              <div class="bg-white rounded-2xl p-6 shadow-premium hover-lift">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     </svg>
                   </div>
                   <div>
-                    <h4 class="font-bold text-slate-900 mb-1">Service Area</h4>
-                    <p class="text-slate-600 mb-2">Serving all of South Florida</p>
-                    <p class="text-slate-700 font-medium">
-                      Miami-Dade, Broward, Palm Beach Counties
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Hours -->
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 class="font-bold text-slate-900 mb-1">Business Hours</h4>
-                    <div class="text-slate-700">
-                      <p>Monday - Friday: 8:00 AM - 7:00 PM</p>
-                      <p>Saturday: 9:00 AM - 5:00 PM</p>
-                      <p>Sunday: By appointment</p>
-                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-1">Visit Our Office</h3>
+                    <p class="text-slate-600 mb-2">Located in the heart of South Florida</p>
+                    <address class="text-slate-700 not-italic">
+                      123 Business Blvd<br>
+                      Fort Lauderdale, FL 33309
+                    </address>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- CTA -->
-              <div class="mt-12 p-6 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl text-white">
-                <h4 class="font-bold text-lg mb-2">Need Immediate Assistance?</h4>
-                <p class="mb-4 opacity-90">Call us now for urgent warehouse requirements or same-day consultations.</p>
-                <a href="tel:+15551234567" class="inline-flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-200">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                  </svg>
-                  <span>Call Now</span>
-                </a>
+            <!-- Quick Stats -->
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 text-white">
+              <h3 class="text-2xl font-bold mb-6 text-center">Why Clients Choose Us</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span>Response Time</span>
+                  <span class="font-bold">< 2 Hours</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Success Rate</span>
+                  <span class="font-bold">98%</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Client Savings</span>
+                  <span class="font-bold">25% Avg</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Service Fee</span>
+                  <span class="font-bold">$0</span>
+                </div>
               </div>
             </div>
           </div>
@@ -403,147 +325,221 @@ const pageDescription = 'Get expert warehouse leasing consultation at zero cost.
       </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="relative py-24 lg:py-32 bg-slate-50 overflow-hidden">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Process Section -->
+    <section class="relative py-32 bg-slate-50 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <!-- Section Header -->
-        <div class="text-center mb-16 gsap-fade-in">
-          <h2 class="text-4xl lg:text-5xl font-black text-slate-900 mb-6">
-            FREQUENTLY ASKED
-            <span class="text-gradient block">QUESTIONS</span>
+        <div class="text-center mb-20">
+          <h2 class="text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-8 gsap-fade-in">
+            OUR
+            <span class="block text-gradient">PROCESS</span>
           </h2>
-          <p class="text-xl text-slate-600 leading-relaxed">
-            Common questions about our warehouse leasing services.
+          <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed gsap-fade-in">
+            From initial consultation to lease execution, we guide you through every step
           </p>
         </div>
 
-        <!-- FAQ Items -->
-        <div class="space-y-6 gsap-stagger">
-          <!-- FAQ 1 -->
-          <details class="bg-white rounded-2xl p-6 lg:p-8 shadow-premium group">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-lg lg:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
-              <span>Do you really charge zero fees to tenants?</span>
-              <svg class="w-6 h-6 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </summary>
-            <div class="mt-4 text-slate-600 leading-relaxed">
-              Yes, absolutely. We are compensated by property owners, not tenants. This means you get expert representation, market knowledge, and negotiation support at zero cost to your business. Our interests are aligned with yours - finding you the best space at the best terms.
+        <!-- Process Steps -->
+        <div class="grid lg:grid-cols-4 gap-8 gsap-stagger">
+          <!-- Step 1 -->
+          <div class="text-center hover-lift">
+            <div class="w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-premium">
+              <span class="text-2xl font-black text-white">01</span>
             </div>
-          </details>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Consultation</h3>
+            <p class="text-slate-600">
+              Free consultation to understand your requirements, timeline, and budget
+            </p>
+          </div>
 
-          <!-- FAQ 2 -->
-          <details class="bg-white rounded-2xl p-6 lg:p-8 shadow-premium group">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-lg lg:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
-              <span>How quickly can you help me find space?</span>
-              <svg class="w-6 h-6 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </summary>
-            <div class="mt-4 text-slate-600 leading-relaxed">
-              For immediate needs, we can often schedule property tours within 24-48 hours. Our typical search process takes 1-3 weeks to identify suitable options, and lease negotiations usually take 2-4 weeks depending on complexity. We also maintain a database of upcoming availabilities for faster matches.
+          <!-- Step 2 -->
+          <div class="text-center hover-lift">
+            <div class="w-20 h-20 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-premium">
+              <span class="text-2xl font-black text-white">02</span>
             </div>
-          </details>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Property Search</h3>
+            <p class="text-slate-600">
+              Comprehensive market search including on and off-market opportunities
+            </p>
+          </div>
 
-          <!-- FAQ 3 -->
-          <details class="bg-white rounded-2xl p-6 lg:p-8 shadow-premium group">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-lg lg:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
-              <span>What areas do you cover?</span>
-              <svg class="w-6 h-6 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </summary>
-            <div class="mt-4 text-slate-600 leading-relaxed">
-              We specialize in South Florida, covering Miami-Dade, Broward, and Palm Beach Counties. This includes major industrial markets like Miami, Fort Lauderdale, Doral, Hialeah, Pompano Beach, Boca Raton, and surrounding areas. Our deep local knowledge gives you a competitive advantage.
+          <!-- Step 3 -->
+          <div class="text-center hover-lift">
+            <div class="w-20 h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-premium">
+              <span class="text-2xl font-black text-white">03</span>
             </div>
-          </details>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Negotiation</h3>
+            <p class="text-slate-600">
+              Expert negotiation to secure the best terms, pricing, and conditions
+            </p>
+          </div>
 
-          <!-- FAQ 4 -->
-          <details class="bg-white rounded-2xl p-6 lg:p-8 shadow-premium group">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-lg lg:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
-              <span>What types of businesses do you help?</span>
-              <svg class="w-6 h-6 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </summary>
-            <div class="mt-4 text-slate-600 leading-relaxed">
-              We work with businesses of all sizes - from startups needing their first 5,000 sq ft to major corporations requiring 500,000+ sq ft distribution centers. Our clients include manufacturers, distributors, logistics companies, e-commerce businesses, contractors, and any business needing industrial space.
+          <!-- Step 4 -->
+          <div class="text-center hover-lift">
+            <div class="w-20 h-20 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-premium">
+              <span class="text-2xl font-black text-white">04</span>
             </div>
-          </details>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Execution</h3>
+            <p class="text-slate-600">
+              Lease documentation, review, and execution support through closing
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- FAQ 5 -->
-          <details class="bg-white rounded-2xl p-6 lg:p-8 shadow-premium group">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-lg lg:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
-              <span>Do you help with lease negotiations?</span>
-              <svg class="w-6 h-6 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </summary>
-            <div class="mt-4 text-slate-600 leading-relaxed">
-              Absolutely. Lease negotiation is one of our core services. We review all terms, negotiate rental rates, tenant improvement allowances, lease length, renewal options, and other key provisions. Our goal is to secure the most favorable terms possible while protecting your interests throughout the process.
-            </div>
-          </details>
+    <!-- CTA Section -->
+    <section class="relative py-32 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
+
+      <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <div class="gsap-scale-in">
+          <h2 class="text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-8">
+            DON'T WAIT -
+            <span class="block text-gradient">START TODAY</span>
+          </h2>
+          <p class="text-xl text-slate-300 mb-12 leading-relaxed">
+            The best warehouse spaces move quickly. Get expert representation 
+            to secure your ideal location before it's gone.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="tel:+15551234567" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+              Call Now: (555) 123-4567
+            </a>
+            <a href="/warehouses" class="bg-white/10 backdrop-blur-xl text-white border border-white/20 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white/20 hover:-translate-y-1 transition-all duration-300">
+              Browse Properties
+            </a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Company Info -->
-        <div class="lg:col-span-2">
-          <div class="flex items-center space-x-3 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-            </div>
-            <div>
-              <div class="font-black text-xl nav-logo-text">ARIEL REALTY</div>
-              <div class="text-xs text-slate-400 -mt-1 tracking-wider">PREMIUM WAREHOUSES</div>
-            </div>
-          </div>
-          <p class="text-slate-400 leading-relaxed max-w-md">
-            South Florida's premier industrial leasing experts. Connecting businesses with perfect warehouse spaces since 2010.
-          </p>
-        </div>
+  <script>
+    // Initialize GSAP animations
+    function initAnimations() {
+      if (typeof gsap === 'undefined') {
+        setTimeout(initAnimations, 100);
+        return;
+      }
 
-        <!-- Quick Links -->
-        <div>
-          <h3 class="font-bold text-lg mb-4">Quick Links</h3>
-          <ul class="space-y-2">
-            <li><a href="/" class="text-slate-400 hover:text-white transition-colors duration-200">Home</a></li>
-            <li><a href="/warehouses" class="text-slate-400 hover:text-white transition-colors duration-200">Properties</a></li>
-            <li><a href="/contact" class="text-slate-400 hover:text-white transition-colors duration-200">Contact</a></li>
-            <li><a href="/about" class="text-slate-400 hover:text-white transition-colors duration-200">About</a></li>
-          </ul>
-        </div>
+      gsap.registerPlugin(ScrollTrigger);
 
-        <!-- Contact Info -->
-        <div>
-          <h3 class="font-bold text-lg mb-4">Contact</h3>
-          <ul class="space-y-2">
-            <li class="text-slate-400">
-              <span class="block font-medium text-white">Phone</span>
-              <a href="tel:+15551234567" class="hover:text-white transition-colors duration-200">(555) 123-4567</a>
-            </li>
-            <li class="text-slate-400">
-              <span class="block font-medium text-white">Email</span>
-              <a href="mailto:info@arielrealty.com" class="hover:text-white transition-colors duration-200">info@arielrealty.com</a>
-            </li>
-            <li class="text-slate-400">
-              <span class="block font-medium text-white">Location</span>
-              South Florida
-            </li>
-          </ul>
-        </div>
-      </div>
+      // Hero animations
+      const heroElements = document.querySelectorAll('.gsap-fade-in');
+      if (heroElements.length > 0) {
+        gsap.fromTo(heroElements, 
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }
+        );
+      }
 
-      <div class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-400">
-        <p>&copy; {new Date().getFullYear()} Ariel Realty. All rights reserved. | Professional industrial leasing services across South Florida.</p>
-      </div>
-    </div>
-  </footer>
-</BaseLayout>
+      // Stagger animations
+      const staggerElements = document.querySelectorAll('.gsap-stagger');
+      if (staggerElements.length > 0) {
+        staggerElements.forEach(container => {
+          const items = container.children;
+          gsap.fromTo(items, 
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.6,
+              stagger: 0.1,
+              scrollTrigger: {
+                trigger: container,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
+      }
+
+      // Left/Right animations
+      const leftElements = document.querySelectorAll('.gsap-fade-in-left');
+      leftElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, x: -50 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      const rightElements = document.querySelectorAll('.gsap-fade-in-right');
+      rightElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, x: 50 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Scale animations
+      const scaleElements = document.querySelectorAll('.gsap-scale-in');
+      scaleElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, scale: 0.8 },
+          { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 0.6,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      // Form enhancements
+      const inputs = document.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+          gsap.to(input, { 
+            scale: 1.02, 
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+        
+        input.addEventListener('blur', () => {
+          gsap.to(input, { 
+            scale: 1, 
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      });
+
+      console.log('✅ Contact page animations initialized');
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnimations);
+    } else {
+      initAnimations();
+    }
+  </script>
+</body>
+</html>

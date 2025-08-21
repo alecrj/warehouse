@@ -1,12 +1,13 @@
 ---
-// Updated contact page with Ariel Realty Group copy and simplified form
+// Updated contact page with warehouselocating.com copy
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <BaseLayout 
-  title="Contact Ariel Realty Group | Free Warehouse Tenant Representation"
-  description="Get matched with warehouses today. Contact our expert team for free tenant representation across South Florida's industrial markets."
+  title="Contact Warehouse Locating | Get Matched With Warehouses Today"
+  description="Tell us what you need. We'll send qualified options and set up tours. Free tenant representation across South Florida."
 >
   <Navigation />
   
@@ -25,8 +26,7 @@ import Navigation from '../components/Navigation.astro';
             <span class="block text-gradient">WAREHOUSES TODAY</span>
           </h1>
           <p class="text-lg lg:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed gsap-fade-in">
-            Free tenant representation from search to signing. 
-            <span class="text-gradient font-semibold">Backed by Ariel Realty Group.</span>
+            Tell us what you need. We'll send qualified options and set up tours.
           </p>
         </div>
 
@@ -50,22 +50,30 @@ import Navigation from '../components/Navigation.astro';
               <!-- Name & Email Row -->
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
+                  <label for="hero-name" class="block text-white text-sm font-semibold mb-2">
+                    Name *
+                  </label>
                   <input 
                     type="text" 
+                    id="hero-name"
                     name="name" 
                     required 
                     class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    placeholder="Your Name *"
+                    placeholder="Your Name"
                   />
                 </div>
                 
                 <div>
+                  <label for="hero-email" class="block text-white text-sm font-semibold mb-2">
+                    Email *
+                  </label>
                   <input 
                     type="email" 
+                    id="hero-email"
                     name="email" 
                     required 
                     class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    placeholder="Email Address *"
+                    placeholder="your@email.com"
                   />
                 </div>
               </div>
@@ -73,18 +81,25 @@ import Navigation from '../components/Navigation.astro';
               <!-- Phone & Company -->
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
+                  <label for="hero-phone" class="block text-white text-sm font-semibold mb-2">
+                    Phone
+                  </label>
                   <input 
                     type="tel" 
+                    id="hero-phone"
                     name="phone" 
-                    required
                     class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    placeholder="Phone Number *"
+                    placeholder="(954) 123-4567"
                   />
                 </div>
                 
                 <div>
+                  <label for="hero-company" class="block text-white text-sm font-semibold mb-2">
+                    Company (optional)
+                  </label>
                   <input 
                     type="text" 
+                    id="hero-company"
                     name="company" 
                     class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
                     placeholder="Company Name"
@@ -92,14 +107,76 @@ import Navigation from '../components/Navigation.astro';
                 </div>
               </div>
 
-              <!-- Requirements -->
+              <!-- Size & Location -->
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="hero-size" class="block text-white text-sm font-semibold mb-2">
+                    Size (SF) *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="hero-size"
+                    name="size" 
+                    required 
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    placeholder="500–500,000+ SF"
+                  />
+                </div>
+                
+                <div>
+                  <label for="hero-locations" class="block text-white text-sm font-semibold mb-2">
+                    Preferred Locations (cities/counties)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="hero-locations"
+                    name="locations" 
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    placeholder="Miami-Dade, Broward, Palm Beach"
+                  />
+                </div>
+              </div>
+
+              <!-- Budget & Timing -->
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label for="hero-budget" class="block text-white text-sm font-semibold mb-2">
+                    Budget ($/SF/Yr)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="hero-budget"
+                    name="budget" 
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    placeholder="$ / SF / Year"
+                  />
+                </div>
+                
+                <div>
+                  <label for="hero-timing" class="block text-white text-sm font-semibold mb-2">
+                    Timing (move-in date)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="hero-timing"
+                    name="timing" 
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    placeholder="e.g., 60-90 days"
+                  />
+                </div>
+              </div>
+
+              <!-- Must-Haves -->
               <div>
+                <label for="hero-requirements" class="block text-white text-sm font-semibold mb-2">
+                  Must-Haves (loading, yard, power, etc.)
+                </label>
                 <textarea 
+                  id="hero-requirements"
                   name="requirements" 
                   rows="4"
-                  required
                   class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 resize-none text-gray-900"
-                  placeholder="Tell us about your warehouse needs: size, location, timeline, budget, special features..."
+                  placeholder="Tell us about your warehouse needs: dock doors, yard space, 3-phase power, food-grade, etc."
                 ></textarea>
               </div>
 
@@ -108,7 +185,7 @@ import Navigation from '../components/Navigation.astro';
                 type="submit" 
                 class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-4 rounded-xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform"
               >
-                Get Matched with Warehouses Today
+                Show Me Matching Warehouses
               </button>
 
               <!-- Privacy Note -->
@@ -117,6 +194,17 @@ import Navigation from '../components/Navigation.astro';
                 <span class="text-white font-medium">Completely free service.</span>
               </p>
             </form>
+
+            <!-- Contact Info -->
+            <div class="mt-6 pt-6 border-t border-white/20 text-center">
+              <p class="text-gray-300 text-sm mb-2">Prefer to talk?</p>
+              <a 
+                href="tel:954-937-9667" 
+                class="text-white font-bold text-xl hover:text-primary-300 transition-colors duration-200"
+              >
+                Call (954) 937-9667
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -151,7 +239,7 @@ import Navigation from '../components/Navigation.astro';
                 <!-- Name -->
                 <div class="form-group">
                   <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">
-                    Your Name *
+                    Name *
                   </label>
                   <input 
                     type="text" 
@@ -159,14 +247,14 @@ import Navigation from '../components/Navigation.astro';
                     name="name" 
                     required 
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
-                    placeholder="John Smith"
+                    placeholder="Your Name"
                   />
                 </div>
 
                 <!-- Email -->
                 <div class="form-group">
                   <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">
-                    Email Address *
+                    Email *
                   </label>
                   <input 
                     type="email" 
@@ -174,37 +262,106 @@ import Navigation from '../components/Navigation.astro';
                     name="email" 
                     required 
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
-                    placeholder="john@company.com"
+                    placeholder="your@email.com"
                   />
                 </div>
 
                 <!-- Phone -->
                 <div class="form-group">
                   <label for="phone" class="block text-sm font-semibold text-slate-700 mb-2">
-                    Phone Number *
+                    Phone
                   </label>
                   <input 
                     type="tel" 
                     id="phone" 
                     name="phone" 
-                    required
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
                     placeholder="(954) 123-4567"
                   />
                 </div>
 
-                <!-- Requirements -->
+                <!-- Company -->
                 <div class="form-group">
-                  <label for="requirements" class="block text-sm font-semibold text-slate-700 mb-2">
-                    Your Requirements *
+                  <label for="company" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Company (optional)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="company" 
+                    name="company" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                    placeholder="Company Name"
+                  />
+                </div>
+
+                <!-- Size -->
+                <div class="form-group">
+                  <label for="size" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Size (SF) *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="size" 
+                    name="size" 
+                    required
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                    placeholder="500–500,000+ SF"
+                  />
+                </div>
+
+                <!-- Preferred Locations -->
+                <div class="form-group">
+                  <label for="preferred-locations" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Preferred Locations (cities/counties)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="preferred-locations" 
+                    name="preferred-locations" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                    placeholder="Miami-Dade, Broward, Palm Beach"
+                  />
+                </div>
+
+                <!-- Budget -->
+                <div class="form-group">
+                  <label for="budget" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Budget ($/SF/Yr)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="budget" 
+                    name="budget" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                    placeholder="$ / SF / Year"
+                  />
+                </div>
+
+                <!-- Timing -->
+                <div class="form-group">
+                  <label for="timing-move-in" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Timing (move-in date)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="timing-move-in" 
+                    name="timing" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                    placeholder="e.g., 60-90 days"
+                  />
+                </div>
+
+                <!-- Must-Haves -->
+                <div class="form-group">
+                  <label for="must-haves" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Must-Haves (loading, yard, power, etc.)
                   </label>
                   <textarea 
-                    id="requirements" 
-                    name="requirements" 
+                    id="must-haves" 
+                    name="must-haves" 
                     rows="6"
-                    required
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 resize-none"
-                    placeholder="Tell us about your warehouse needs: size, location, timeline, special features, budget, etc."
+                    placeholder="Tell us about your specific requirements: dock doors, yard space, 3-phase power, food-grade certification, etc."
                   ></textarea>
                 </div>
 
@@ -213,7 +370,7 @@ import Navigation from '../components/Navigation.astro';
                   type="submit" 
                   class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 rounded-xl font-bold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-lg text-lg"
                 >
-                  Get Matched with Warehouses Today
+                  Show Me Matching Warehouses
                 </button>
 
                 <!-- Privacy Note -->
@@ -230,10 +387,11 @@ import Navigation from '../components/Navigation.astro';
             <div class="space-y-8">
               <div>
                 <h3 class="text-3xl font-bold text-slate-900 mb-4">
-                  Ariel Realty Group
+                  Warehouse Locating
                 </h3>
                 <p class="text-base text-slate-600 leading-relaxed mb-6">
-                  Specializing in industrial tenant representation. Over 500,000 SF leased for tenants across South Florida. Local expertise and strong market relationships with concierge-style service, completely free for tenants.
+                  Focused tenant-rep service for industrial users in South Florida. 
+                  We help businesses secure the right space—fast, fairly priced, and on terms that protect you for the long haul.
                 </p>
               </div>
 
@@ -263,8 +421,8 @@ import Navigation from '../components/Navigation.astro';
                   </div>
                   <div>
                     <div class="font-bold text-slate-900 text-lg">Email Us</div>
-                    <a href="mailto:info@arielrealty.com" class="text-green-600 hover:text-green-700 font-semibold transition-colors">
-                      info@arielrealty.com
+                    <a href="mailto:info@warehouselocating.com" class="text-green-600 hover:text-green-700 font-semibold transition-colors">
+                      info@warehouselocating.com
                     </a>
                   </div>
                 </div>
@@ -278,9 +436,9 @@ import Navigation from '../components/Navigation.astro';
                     </svg>
                   </div>
                   <div>
-                    <div class="font-bold text-slate-900 text-lg">South Florida Office</div>
+                    <div class="font-bold text-slate-900 text-lg">South Florida Coverage</div>
                     <div class="text-purple-600 font-medium">
-                      Serving Miami-Dade, Broward,<br>
+                      Miami-Dade, Broward,<br>
                       and Palm Beach Counties
                     </div>
                   </div>
@@ -297,7 +455,7 @@ import Navigation from '../components/Navigation.astro';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
-                    <span class="text-slate-700 font-medium">Tenant representation from search to signing</span>
+                    <span class="text-slate-700 font-medium">Needs analysis and inventory access</span>
                   </div>
                   <div class="flex items-center space-x-3">
                     <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
@@ -305,7 +463,7 @@ import Navigation from '../components/Navigation.astro';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
-                    <span class="text-slate-700 font-medium">Access to on-market & off-market opportunities</span>
+                    <span class="text-slate-700 font-medium">Tours & shortlist, financials & comps</span>
                   </div>
                   <div class="flex items-center space-x-3">
                     <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
@@ -313,7 +471,7 @@ import Navigation from '../components/Navigation.astro';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
-                    <span class="text-slate-700 font-medium">Lease negotiation to secure the best terms</span>
+                    <span class="text-slate-700 font-medium">Negotiation and documentation support</span>
                   </div>
                   <div class="flex items-center space-x-3">
                     <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
@@ -321,7 +479,7 @@ import Navigation from '../components/Navigation.astro';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
-                    <span class="text-slate-700 font-medium">Full market knowledge & expert guidance</span>
+                    <span class="text-slate-700 font-medium">Move-in coordination</span>
                   </div>
                   <div class="flex items-center space-x-3">
                     <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
@@ -329,7 +487,7 @@ import Navigation from '../components/Navigation.astro';
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
-                    <span class="text-slate-700 font-medium">From 500 SF to 500,000 SF coverage</span>
+                    <span class="text-slate-700 font-medium">Cost to tenant: $0</span>
                   </div>
                 </div>
               </div>
@@ -352,8 +510,7 @@ import Navigation from '../components/Navigation.astro';
           <span class="block text-gradient">PERFECT WAREHOUSE?</span>
         </h2>
         <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10 gsap-fade-in">
-          Don't wait another day. Our warehouse experts are standing by to help you find the perfect space. 
-          <span class="text-gradient font-semibold">Completely free. No obligation.</span>
+          Call (954) 937-9667 or get free tenant representation now.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center gsap-fade-in">
@@ -367,4 +524,6 @@ import Navigation from '../components/Navigation.astro';
       </div>
     </section>
   </main>
+
+  <Footer />
 </BaseLayout>

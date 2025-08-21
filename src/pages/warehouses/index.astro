@@ -50,14 +50,11 @@ const pageTitle = 'Available Warehouse Properties | South Florida Industrial Lea
 const pageDescription = 'Browse premium warehouse and industrial properties across South Florida. Expert tenant representation with zero fees. Modern facilities, competitive rates.';
 ---
 
-<BaseLayout 
-  title={pageTitle}
-  description={pageDescription}
->
+<BaseLayout title={pageTitle} description={pageDescription}>
   <Navigation />
   
   <main>
-    <!-- Hero Section - Consistent Sizing -->
+    <!-- Hero Section - Consistent Sizing with Stats Cards -->
     <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center">
       <!-- Background Elements -->
       <div class="absolute inset-0">
@@ -69,48 +66,52 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="text-center">
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 animate-on-scroll">
-            WAREHOUSE
+            BROWSE OUR
             <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
               PROPERTIES
             </span>
           </h1>
           <p class="text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-2 animate-on-scroll">
-            Premium industrial spaces across South Florida. 
+            Premium warehouse and industrial properties across South Florida.
           </p>
           <p class="text-base text-gray-400 leading-relaxed mb-8 max-w-3xl mx-auto animate-on-scroll">
             Expert representation. Zero fees. Perfect matches.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Statistics Section - Moved from Hero -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll">
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="text-3xl font-bold text-primary-600 mb-2">
-              {allWarehouses.length}
+          
+          <!-- Statistics Cards - Now in Hero -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll mt-12">
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-primary-200 transition-colors duration-300">
+                  {allWarehouses.length}
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total Properties</div>
+              </div>
             </div>
-            <div class="text-gray-600 text-sm">Total Properties</div>
-          </div>
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="text-3xl font-bold text-green-600 mb-2">
-              {availableWarehouses.length}
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-green-200 transition-colors duration-300">
+                  {availableWarehouses.length}
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Available Now</div>
+              </div>
             </div>
-            <div class="text-gray-600 text-sm">Available Now</div>
-          </div>
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="text-3xl font-bold text-blue-600 mb-2">
-              {totalSqFt.toLocaleString()}
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
+                  {totalSqFt.toLocaleString()}
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total Sq Ft</div>
+              </div>
             </div>
-            <div class="text-gray-600 text-sm">Total Sq Ft</div>
-          </div>
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="text-3xl font-bold text-purple-600 mb-2">
-              {averageSize.toLocaleString()}
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-purple-200 transition-colors duration-300">
+                  {averageSize.toLocaleString()}
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Avg Size</div>
+              </div>
             </div>
-            <div class="text-gray-600 text-sm">Avg Size</div>
           </div>
         </div>
       </div>
@@ -125,75 +126,25 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             <div class="relative">
               <input 
                 type="text" 
-                placeholder="Search properties..."
-                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                placeholder="Search properties..." 
                 id="search-input"
-              >
-              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-              </svg>
+                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+              />
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
             </div>
           </div>
 
-          <!-- Advanced Filters -->
-          <div class="flex flex-wrap gap-4 items-center">
-            <!-- Size Filter -->
-            <div class="flex gap-2">
-              <input 
-                type="number" 
-                placeholder="Min SF"
-                class="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
-                id="min-size-filter"
-                value={minSize || ''}
-              >
-              <input 
-                type="number" 
-                placeholder="Max SF"
-                class="w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
-                id="max-size-filter"
-                value={maxSize || ''}
-              >
-            </div>
-
-            <!-- County Filter -->
+          <!-- Sort -->
+          <div class="flex gap-4">
             <select 
-              class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
-              id="county-filter"
-            >
-              <option value="">All Counties</option>
-              <option value="miami-dade" selected={county === 'miami-dade'}>Miami-Dade</option>
-              <option value="broward" selected={county === 'broward'}>Broward</option>
-              <option value="palm-beach" selected={county === 'palm-beach'}>Palm Beach</option>
-            </select>
-
-            <!-- Quick Filter Buttons -->
-            <div class="flex gap-2">
-              <button 
-                class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-primary-600 text-white"
-                data-filter="all"
-              >
-                All
-              </button>
-              <button 
-                class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-gray-200"
-                data-filter="available"
-              >
-                Available
-              </button>
-              <button 
-                class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-gray-200"
-                data-filter="featured"
-              >
-                Featured
-              </button>
-            </div>
-
-            <!-- Sort -->
-            <select 
-              class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 text-sm"
               id="sort-select"
+              class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
             >
-              <option value="featured">Sort by Featured</option>
+              <option value="featured">Featured First</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
               <option value="size-small">Size: Small to Large</option>
@@ -202,363 +153,237 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           </div>
         </div>
 
-        <!-- Active Filters Display -->
-        <div id="active-filters" class="mt-4 flex flex-wrap gap-2"></div>
+        <!-- Quick Filters -->
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button 
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            data-filter="availability"
+            data-value="available"
+          >
+            Available Now
+          </button>
+          <button 
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            data-filter="size"
+            data-value="small"
+          >
+            Under 10k SF
+          </button>
+          <button 
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            data-filter="size"
+            data-value="medium"
+          >
+            10k-50k SF
+          </button>
+          <button 
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            data-filter="size"
+            data-value="large"
+          >
+            50k+ SF
+          </button>
+          <button 
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            data-filter="featured"
+            data-value="true"
+          >
+            Featured Only
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- Properties Grid -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-12 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {allWarehouses.length > 0 ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="properties-grid">
-            {allWarehouses.map((warehouse: Warehouse) => (
-              <div 
-                class={`property-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform h-full flex flex-col ${warehouse.data.availability} ${warehouse.data.featured ? 'featured' : ''}`}
-                data-warehouse={JSON.stringify(warehouse.data)}
-              >
-                <!-- Property Image - Fixed Height -->
-                <div class="relative h-64 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
-                  {warehouse.data.images && warehouse.data.images.length > 0 ? (
-                    <img 
-                      src={warehouse.data.images[0]} 
-                      alt={warehouse.data.title}
-                      class="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center">
-                      <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                      </svg>
-                    </div>
-                  )}
-                  
-                  <!-- Status Badge -->
-                  <div class="absolute top-4 left-4">
-                    <span class={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      warehouse.data.availability === 'available' 
-                        ? 'bg-green-100 text-green-700' 
-                        : 'bg-yellow-100 text-yellow-700'
-                    }`}>
-                      {warehouse.data.availability === 'available' ? 'Available' : 'Coming Soon'}
+        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {allWarehouses.map((warehouse) => (
+            <div 
+              class="property-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
+              data-warehouse={JSON.stringify(warehouse.data)}
+            >
+              <!-- Image Section -->
+              <div class="relative h-64 overflow-hidden">
+                <img 
+                  src={warehouse.data.images && warehouse.data.images[0] ? warehouse.data.images[0] : '/placeholder.jpg'}
+                  alt={warehouse.data.title}
+                  class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                
+                <!-- Status Badge -->
+                <div class="absolute top-4 left-4">
+                  <span class={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    warehouse.data.availability === 'available' 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-yellow-100 text-yellow-700'
+                  }`}>
+                    {warehouse.data.availability === 'available' ? 'Available' : 'Coming Soon'}
+                  </span>
+                </div>
+
+                {warehouse.data.featured && (
+                  <div class="absolute top-4 right-4">
+                    <span class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      Featured
                     </span>
                   </div>
+                )}
+              </div>
 
-                  {warehouse.data.featured && (
-                    <div class="absolute top-4 right-4">
-                      <span class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Featured
-                      </span>
-                    </div>
-                  )}
+              <!-- Property Details - Flex Column with Auto Spacing -->
+              <div class="p-6 flex-1 flex flex-col">
+                
+                <!-- Header Section -->
+                <div class="mb-4">
+                  <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
+                    {warehouse.data.title}
+                  </h3>
+                  
+                  <div class="flex items-center text-gray-600 mb-3">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    </svg>
+                    <span class="font-medium">{warehouse.data.location}</span>
+                  </div>
                 </div>
-
-                <!-- Property Details - Flex Column with Auto Spacing -->
-                <div class="p-6 flex-1 flex flex-col">
-                  
-                  <!-- Header Section -->
-                  <div class="mb-4">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
-                      {warehouse.data.title}
-                    </h3>
-                    
-                    <div class="flex items-center text-gray-600 mb-3">
-                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                      </svg>
-                      <span class="font-medium">{warehouse.data.location}</span>
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="text-center p-3 bg-gray-50 rounded-xl">
+                    <div class="text-lg font-bold text-gray-900">
+                      {warehouse.data.size?.toLocaleString()}
+                    </div>
+                    <div class="text-gray-600 text-xs">Sq Ft</div>
+                  </div>
+                  <div class="text-center p-3 bg-gray-50 rounded-xl">
+                    <div class="text-lg font-bold text-primary-600">
+                      {warehouse.data.price}
+                    </div>
+                    <div class="text-gray-600 text-xs">per SF/Year</div>
+                  </div>
+                </div>
+                
+                <!-- Features (if available) -->
+                {warehouse.data.features && warehouse.data.features.length > 0 && (
+                  <div class="mb-4 flex-1">
+                    <div class="flex flex-wrap gap-2">
+                      {warehouse.data.features.slice(0, 3).map((feature) => (
+                        <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-lg">
+                          {feature}
+                        </span>
+                      ))}
+                      {warehouse.data.features.length > 3 && (
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-lg">
+                          +{warehouse.data.features.length - 3} more
+                        </span>
+                      )}
                     </div>
                   </div>
-                  
-                  <!-- Stats Grid -->
-                  <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="text-center p-3 bg-gray-50 rounded-xl">
-                      <div class="text-lg font-bold text-gray-900">
-                        {warehouse.data.size?.toLocaleString()}
-                      </div>
-                      <div class="text-sm text-gray-600">Square Feet</div>
-                    </div>
-                    <div class="text-center p-3 bg-gray-50 rounded-xl">
-                      <div class="text-lg font-bold text-primary-600">
-                        {warehouse.data.price}
-                      </div>
-                      <div class="text-sm text-gray-600">per SF/year</div>
-                    </div>
-                  </div>
-                  
-                  <!-- Description -->
-                  <p class="text-gray-600 mb-4 leading-relaxed line-clamp-3 min-h-[4.5rem]">
-                    {warehouse.data.description}
-                  </p>
-                  
-                  <!-- Features -->
-                  {warehouse.data.features && warehouse.data.features.length > 0 && (
-                    <div class="mb-6 flex-1">
-                      <h4 class="text-sm font-semibold text-gray-900 mb-3">Key Features</h4>
-                      <div class="flex flex-wrap gap-2">
-                        {warehouse.data.features.slice(0, 4).map((feature: string) => (
-                          <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
-                            {feature}
-                          </span>
-                        ))}
-                        {warehouse.data.features.length > 4 && (
-                          <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
-                            +{warehouse.data.features.length - 4} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  
-                  <!-- Action Buttons - Always at Bottom -->
-                  <div class="flex gap-3 mt-auto">
-                    <a 
-                      href={`/warehouses/${warehouse.data.slug}`} 
-                      class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-center py-3 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 transform"
-                    >
-                      View Details
-                    </a>
-                    <a 
-                      href="/contact" 
-                      class="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
-                    >
-                      Inquire
-                    </a>
-                  </div>
+                )}
+                
+                <!-- CTA Button - Always at Bottom -->
+                <div class="mt-auto pt-4">
+                  <a 
+                    href={`/warehouses/${warehouse.data.slug}`}
+                    class="block w-full bg-primary-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200"
+                  >
+                    View Details
+                  </a>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <!-- Empty State -->
-          <div class="text-center py-20">
-            <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-              </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">No Properties Available</h3>
-            <p class="text-gray-600 mb-8">
-              We're currently updating our inventory. Please check back soon or contact us directly for assistance.
-            </p>
-            <a 
-              href="/contact" 
-              class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-200 transform"
-            >
-              Contact Us
-            </a>
-          </div>
-        )}
+          ))}
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-12">
+          <div class="text-gray-400 text-lg mb-4">No properties match your criteria</div>
+          <button 
+            onclick="clearAllFilters()"
+            class="bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors"
+          >
+            Clear All Filters
+          </button>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Enhanced JavaScript with proper filtering and URL parameter handling -->
-  <script is:inline>
+  <!-- Include Footer (assumed to be imported in BaseLayout) -->
+  
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Get elements with proper type checking
-      const searchInput = document.getElementById('search-input');
-      const sortSelect = document.getElementById('sort-select');
-      const filterBtns = document.querySelectorAll('.filter-btn');
       const propertyCards = document.querySelectorAll('.property-card');
-      const minSizeFilter = document.getElementById('min-size-filter');
-      const maxSizeFilter = document.getElementById('max-size-filter');
-      const countyFilter = document.getElementById('county-filter');
-      const activeFiltersContainer = document.getElementById('active-filters');
+      const searchInput = document.getElementById('search-input') as HTMLInputElement;
+      const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const noResultsDiv = document.getElementById('no-results');
       
-      let currentFilter = 'all';
-      let currentFilters = {
-        minSize: '',
-        maxSize: '',
-        county: '',
-        search: ''
+      type FilterKeys = 'search' | 'availability' | 'size' | 'featured';
+      
+      let currentFilters: Record<FilterKeys, string> = {
+        search: '',
+        availability: '',
+        size: '',
+        featured: ''
       };
 
-      // Initialize filters from URL parameters
-      function initializeFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        if (urlParams.get('min_size')) {
-          currentFilters.minSize = urlParams.get('min_size');
-          if (minSizeFilter) minSizeFilter.value = currentFilters.minSize;
-        }
-        
-        if (urlParams.get('max_size')) {
-          currentFilters.maxSize = urlParams.get('max_size');
-          if (maxSizeFilter) maxSizeFilter.value = currentFilters.maxSize;
-        }
-        
-        if (urlParams.get('county')) {
-          currentFilters.county = urlParams.get('county');
-          if (countyFilter) countyFilter.value = currentFilters.county;
-        }
-        
-        if (urlParams.get('availability')) {
-          currentFilter = urlParams.get('availability');
-          updateFilterButtons();
-        }
-        
-        updateActiveFilters();
-        filterProperties();
-      }
-
-      // Update active filter buttons
-      function updateFilterButtons() {
-        filterBtns.forEach(function(btn) {
-          btn.classList.remove('bg-primary-600', 'text-white');
-          btn.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
-        });
-        
-        const activeBtn = document.querySelector('[data-filter="' + currentFilter + '"]');
-        if (activeBtn) {
-          activeBtn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
-          activeBtn.classList.add('bg-primary-600', 'text-white');
-        }
-      }
-
-      // Update active filters display
-      function updateActiveFilters() {
-        if (!activeFiltersContainer) return;
-        
-        let filtersHTML = '';
-        
-        if (currentFilters.minSize) {
-          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
-            'Min: ' + parseInt(currentFilters.minSize).toLocaleString() + ' SF' +
-            '<button onclick="clearFilter(\'minSize\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
-            '</span>';
-        }
-        
-        if (currentFilters.maxSize) {
-          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
-            'Max: ' + parseInt(currentFilters.maxSize).toLocaleString() + ' SF' +
-            '<button onclick="clearFilter(\'maxSize\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
-            '</span>';
-        }
-        
-        if (currentFilters.county) {
-          const countyName = currentFilters.county.replace('-', ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
-          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
-            countyName +
-            '<button onclick="clearFilter(\'county\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
-            '</span>';
-        }
-        
-        if (currentFilter !== 'all') {
-          const filterName = currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1);
-          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
-            filterName +
-            '<button onclick="clearFilter(\'status\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
-            '</span>';
-        }
-        
-        if (filtersHTML) {
-          activeFiltersContainer.innerHTML = 
-            '<div class="flex items-center gap-2 flex-wrap">' +
-              '<span class="text-sm text-gray-600">Active filters:</span>' +
-              filtersHTML +
-              '<button onclick="clearAllFilters()" class="text-sm text-primary-600 hover:text-primary-800 font-medium">Clear all</button>' +
-            '</div>';
-        } else {
-          activeFiltersContainer.innerHTML = '';
-        }
-      }
-
-      // Clear individual filter
-      window.clearFilter = function(filterType) {
-        switch(filterType) {
-          case 'minSize':
-            currentFilters.minSize = '';
-            if (minSizeFilter) minSizeFilter.value = '';
-            break;
-          case 'maxSize':
-            currentFilters.maxSize = '';
-            if (maxSizeFilter) maxSizeFilter.value = '';
-            break;
-          case 'county':
-            currentFilters.county = '';
-            if (countyFilter) countyFilter.value = '';
-            break;
-          case 'status':
-            currentFilter = 'all';
-            updateFilterButtons();
-            break;
-        }
-        updateActiveFilters();
-        filterProperties();
-      };
-
-      // Clear all filters
-      window.clearAllFilters = function() {
-        currentFilters = { minSize: '', maxSize: '', county: '', search: '' };
-        currentFilter = 'all';
-        
-        if (minSizeFilter) minSizeFilter.value = '';
-        if (maxSizeFilter) maxSizeFilter.value = '';
-        if (countyFilter) countyFilter.value = '';
-        if (searchInput) searchInput.value = '';
-        
-        updateFilterButtons();
-        updateActiveFilters();
-        filterProperties();
-      };
-      
-      // Filter functionality
-      filterBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          currentFilter = this.getAttribute('data-filter') || 'all';
-          updateFilterButtons();
-          updateActiveFilters();
-          filterProperties();
-        });
-      });
-      
       // Search functionality
       if (searchInput) {
-        searchInput.addEventListener('input', function() {
-          currentFilters.search = this.value.toLowerCase();
-          filterProperties();
+        searchInput.addEventListener('input', function(e: Event) {
+          const target = e.target as HTMLInputElement;
+          if (target) {
+            currentFilters.search = target.value.toLowerCase();
+            filterProperties();
+          }
         });
       }
 
-      // Size filters
-      if (minSizeFilter) {
-        minSizeFilter.addEventListener('input', function() {
-          currentFilters.minSize = this.value;
-          updateActiveFilters();
-          filterProperties();
-        });
-      }
-
-      if (maxSizeFilter) {
-        maxSizeFilter.addEventListener('input', function() {
-          currentFilters.maxSize = this.value;
-          updateActiveFilters();
-          filterProperties();
-        });
-      }
-
-      // County filter
-      if (countyFilter) {
-        countyFilter.addEventListener('change', function() {
-          currentFilters.county = this.value;
-          updateActiveFilters();
-          filterProperties();
-        });
-      }
-      
       // Sort functionality
       if (sortSelect) {
-        sortSelect.addEventListener('change', function() {
-          const target = this;
-          if (target instanceof HTMLSelectElement) {
+        sortSelect.addEventListener('change', function(e: Event) {
+          const target = e.target as HTMLSelectElement;
+          if (target) {
             sortProperties(target.value);
           }
         });
       }
-      
+
+      // Filter button functionality
+      filterButtons.forEach(function(button) {
+        button.addEventListener('click', function(this: HTMLElement) {
+          const filterType = this.getAttribute('data-filter') as FilterKeys;
+          const filterValue = this.getAttribute('data-value');
+          
+          if (!filterType || !filterValue) return;
+          
+          // Toggle filter
+          if (currentFilters[filterType] === filterValue) {
+            currentFilters[filterType] = '';
+            this.classList.remove('bg-primary-600', 'text-white');
+            this.classList.add('bg-gray-100', 'text-gray-700');
+          } else {
+            // Clear other buttons of same type
+            filterButtons.forEach(function(btn) {
+              if (btn.getAttribute('data-filter') === filterType) {
+                btn.classList.remove('bg-primary-600', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+              }
+            });
+            
+            currentFilters[filterType] = filterValue;
+            this.classList.remove('bg-gray-100', 'text-gray-700');
+            this.classList.add('bg-primary-600', 'text-white');
+          }
+          
+          filterProperties();
+        });
+      });
+
       function filterProperties() {
+        let visibleCount = 0;
+        
         propertyCards.forEach(function(card) {
           let showCard = true;
           
@@ -566,46 +391,8 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             const warehouseData = card.getAttribute('data-warehouse');
             const warehouse = warehouseData ? JSON.parse(warehouseData) : {};
             
-            // Filter by category
-            if (currentFilter !== 'all') {
-              if (currentFilter === 'available' && !card.classList.contains('available')) {
-                showCard = false;
-              } else if (currentFilter === 'featured' && !card.classList.contains('featured')) {
-                showCard = false;
-              }
-            }
-            
-            // Filter by size range
-            if (showCard && currentFilters.minSize) {
-              const minSize = parseInt(currentFilters.minSize);
-              if (warehouse.size < minSize) {
-                showCard = false;
-              }
-            }
-            
-            if (showCard && currentFilters.maxSize) {
-              const maxSize = parseInt(currentFilters.maxSize);
-              if (warehouse.size > maxSize) {
-                showCard = false;
-              }
-            }
-            
-            // Filter by county
-            if (showCard && currentFilters.county) {
-              const warehouseLocation = (warehouse.location || '').toLowerCase();
-              const countyMap = {
-                'miami-dade': 'miami',
-                'broward': 'broward',
-                'palm-beach': 'palm beach'
-              };
-              const countyTerm = countyMap[currentFilters.county] || currentFilters.county;
-              if (!warehouseLocation.includes(countyTerm)) {
-                showCard = false;
-              }
-            }
-            
-            // Filter by search term
-            if (showCard && currentFilters.search) {
+            // Search filter
+            if (currentFilters.search) {
               const searchableText = (
                 (warehouse.title || '') + ' ' +
                 (warehouse.location || '') + ' ' +
@@ -618,24 +405,51 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
               }
             }
             
+            // Availability filter
+            if (currentFilters.availability && warehouse.availability !== currentFilters.availability) {
+              showCard = false;
+            }
+            
+            // Size filter
+            if (currentFilters.size) {
+              const size = warehouse.size || 0;
+              switch (currentFilters.size) {
+                case 'small':
+                  if (size >= 10000) showCard = false;
+                  break;
+                case 'medium':
+                  if (size < 10000 || size >= 50000) showCard = false;
+                  break;
+                case 'large':
+                  if (size < 50000) showCard = false;
+                  break;
+              }
+            }
+            
+            // Featured filter
+            if (currentFilters.featured === 'true' && !warehouse.featured) {
+              showCard = false;
+            }
+            
           } catch (e) {
             console.log('Error parsing warehouse data:', e);
           }
           
           // Show/hide card with animation
-          const cardElement = card;
-          if (cardElement instanceof HTMLElement) {
+          const cardElement = card as HTMLElement;
+          if (cardElement) {
             if (showCard) {
               cardElement.style.display = 'block';
-              if (typeof gsap !== 'undefined') {
-                gsap.fromTo(cardElement, 
+              visibleCount++;
+              if (typeof (window as any).gsap !== 'undefined') {
+                (window as any).gsap.fromTo(cardElement, 
                   { opacity: 0, y: 20 },
                   { opacity: 1, y: 0, duration: 0.3 }
                 );
               }
             } else {
-              if (typeof gsap !== 'undefined') {
-                gsap.to(cardElement, {
+              if (typeof (window as any).gsap !== 'undefined') {
+                (window as any).gsap.to(cardElement, {
                   opacity: 0,
                   y: -20,
                   duration: 0.3,
@@ -649,9 +463,18 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             }
           }
         });
+
+        // Show/hide no results message
+        if (noResultsDiv) {
+          if (visibleCount === 0) {
+            noResultsDiv.classList.remove('hidden');
+          } else {
+            noResultsDiv.classList.add('hidden');
+          }
+        }
       }
       
-      function sortProperties(sortBy) {
+      function sortProperties(sortBy: string) {
         const grid = document.getElementById('properties-grid');
         if (!grid) return;
         
@@ -691,12 +514,60 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         });
         
         // Re-animate
-        if (typeof gsap !== 'undefined') {
-          gsap.fromTo(cards, 
+        if (typeof (window as any).gsap !== 'undefined') {
+          (window as any).gsap.fromTo(cards, 
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
           );
         }
+      }
+
+      // Clear all filters function
+      (window as any).clearAllFilters = function() {
+        currentFilters = {
+          search: '',
+          availability: '',
+          size: '',
+          featured: ''
+        };
+        
+        // Reset form inputs
+        if (searchInput) (searchInput as HTMLInputElement).value = '';
+        if (sortSelect) (sortSelect as HTMLSelectElement).value = 'featured';
+        
+        // Reset filter buttons
+        filterButtons.forEach(function(button) {
+          button.classList.remove('bg-primary-600', 'text-white');
+          button.classList.add('bg-gray-100', 'text-gray-700');
+        });
+        
+        filterProperties();
+        sortProperties('featured');
+      };
+
+      // Initialize from URL parameters
+      function initializeFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Set search if provided
+        const searchQuery = urlParams.get('search');
+        if (searchQuery && searchInput) {
+          (searchInput as HTMLInputElement).value = searchQuery;
+          currentFilters.search = searchQuery.toLowerCase();
+        }
+        
+        // Set filters if provided
+        const availability = urlParams.get('availability');
+        if (availability) {
+          currentFilters.availability = availability;
+          const button = document.querySelector(`[data-filter="availability"][data-value="${availability}"]`);
+          if (button) {
+            button.classList.remove('bg-gray-100', 'text-gray-700');
+            button.classList.add('bg-primary-600', 'text-white');
+          }
+        }
+        
+        filterProperties();
       }
 
       // Initialize from URL on page load

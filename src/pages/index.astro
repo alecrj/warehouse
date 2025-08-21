@@ -1,7 +1,8 @@
 ---
-// Updated homepage with hero form and Ariel Realty Group copy
+// Updated homepage with warehouselocating.com branding
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 // Define proper types
@@ -33,47 +34,39 @@ try {
 ---
 
 <BaseLayout 
-  title="Find Your Perfect Warehouse in South Florida | Ariel Realty Group"
-  description="Free tenant representation for your next warehouse lease in South Florida. From 500 SF to 500,000 SF - expert guidance at no cost to you."
+  title="Find Your Perfect Warehouse in South Florida | Warehouse Locating"
+  description="Free tenant representation for warehouse leases—landlords pay our fee. From 500 SF to 500,000 SF across Miami-Dade, Broward, and Palm Beach."
 >
   <Navigation />
   
   <main>
-    <!-- Hero Section with Form -->
-    <section class="relative min-h-screen flex items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
         <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float-reverse"></div>
         <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
       </div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <!-- Left Column - Content -->
-          <div class="text-center lg:text-left space-y-8">
-            <!-- Main Headline -->
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight animate-on-scroll">
-              Find Your Perfect
+          <!-- Left Column - Hero Content -->
+          <div class="animate-on-scroll">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6">
+              FIND YOUR PERFECT
               <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-                Warehouse in South Florida
+                WAREHOUSE
               </span>
+              <span class="block text-white">IN SOUTH FLORIDA</span>
             </h1>
-
-            <!-- Subheadline -->
-            <p class="text-xl sm:text-2xl text-gray-300 leading-relaxed animate-on-scroll">
-              Free tenant representation for your next warehouse lease, 
-              <span class="text-white font-semibold">powered by Ariel Realty Group.</span>
-            </p>
-
-            <!-- Supporting Line -->
-            <p class="text-lg text-gray-400 animate-on-scroll">
-              Whether you need a small 500 SF workshop or a 500,000 SF distribution space, 
-              <span class="text-white font-medium">we've got you covered.</span>
+            
+            <p class="text-lg lg:text-xl text-gray-300 leading-relaxed mb-8">
+              Free tenant representation for warehouse leases—landlords pay our fee.
             </p>
 
             <!-- Trust Indicators -->
-            <div class="flex flex-wrap justify-center lg:justify-start items-center gap-6 text-gray-400 text-sm animate-on-scroll">
+            <div class="flex flex-wrap items-center gap-6 text-gray-400 text-sm animate-on-scroll">
               <div class="flex items-center space-x-2">
                 <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -84,12 +77,11 @@ try {
                 <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                <span>500K+ SF Leased</span>
+                <span>Deep Market Knowledge</span>
               </div>
               <div class="flex items-center space-x-2">
                 <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                  <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 </svg>
                 <span>Local Expertise</span>
               </div>
@@ -126,169 +118,145 @@ try {
                     </label>
                     <input 
                       type="text" 
-                      id="hero-name" 
+                      id="hero-name"
                       name="name" 
                       required 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                      placeholder="John Smith"
+                      placeholder="Your Name"
                     />
                   </div>
                   
                   <div>
                     <label for="hero-email" class="block text-white text-sm font-semibold mb-2">
-                      Email Address *
+                      Email *
                     </label>
                     <input 
                       type="email" 
-                      id="hero-email" 
+                      id="hero-email"
                       name="email" 
                       required 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                      placeholder="john@company.com"
+                      placeholder="your@email.com"
                     />
                   </div>
                 </div>
 
-                <!-- Phone & Company -->
+                <!-- Phone & Company Row -->
                 <div class="grid md:grid-cols-2 gap-4">
                   <div>
                     <label for="hero-phone" class="block text-white text-sm font-semibold mb-2">
-                      Phone Number
+                      Phone
                     </label>
                     <input 
                       type="tel" 
-                      id="hero-phone" 
+                      id="hero-phone"
                       name="phone" 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                      placeholder="(954) 123-4567"
+                      placeholder="(555) 123-4567"
                     />
                   </div>
                   
                   <div>
                     <label for="hero-company" class="block text-white text-sm font-semibold mb-2">
-                      Company Name
+                      Company
                     </label>
                     <input 
                       type="text" 
-                      id="hero-company" 
+                      id="hero-company"
                       name="company" 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                      placeholder="Your Company"
+                      placeholder="Company Name"
                     />
                   </div>
                 </div>
 
-                <!-- Quick Filters Row -->
-                <div class="grid md:grid-cols-3 gap-4">
+                <!-- Size & Location Row -->
+                <div class="grid md:grid-cols-2 gap-4">
                   <div>
                     <label for="hero-size" class="block text-white text-sm font-semibold mb-2">
-                      Size Needed
+                      Size (SF) *
                     </label>
-                    <select 
-                      id="hero-size" 
+                    <input 
+                      type="text" 
+                      id="hero-size"
                       name="size" 
+                      required 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    >
-                      <option value="">Select size</option>
-                      <option value="500-2500">500 - 2,500 SF</option>
-                      <option value="2500-5000">2,500 - 5,000 SF</option>
-                      <option value="5000-10000">5,000 - 10,000 SF</option>
-                      <option value="10000-25000">10,000 - 25,000 SF</option>
-                      <option value="25000-50000">25,000 - 50,000 SF</option>
-                      <option value="50000-100000">50,000 - 100,000 SF</option>
-                      <option value="100000-250000">100,000 - 250,000 SF</option>
-                      <option value="250000-500000">250,000 - 500,000 SF</option>
-                      <option value="500000+">500,000+ SF</option>
-                    </select>
+                      placeholder="e.g., 10,000"
+                    />
                   </div>
                   
                   <div>
                     <label for="hero-location" class="block text-white text-sm font-semibold mb-2">
-                      Preferred Location
+                      Preferred Location *
                     </label>
                     <select 
-                      id="hero-location" 
+                      id="hero-location"
                       name="location" 
+                      required 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
                     >
-                      <option value="">Any location</option>
-                      <option value="miami">Miami</option>
-                      <option value="fort-lauderdale">Fort Lauderdale</option>
-                      <option value="doral">Doral</option>
-                      <option value="hialeah">Hialeah</option>
-                      <option value="miami-lakes">Miami Lakes</option>
-                      <option value="pompano-beach">Pompano Beach</option>
-                      <option value="davie">Davie</option>
-                      <option value="plantation">Plantation</option>
-                      <option value="sunrise">Sunrise</option>
-                      <option value="other">Other</option>
+                      <option value="">Select County</option>
+                      <option value="miami-dade">Miami-Dade</option>
+                      <option value="broward">Broward</option>
+                      <option value="palm-beach">Palm Beach</option>
+                      <option value="multiple">Multiple Counties</option>
                     </select>
+                  </div>
+                </div>
+
+                <!-- Budget & Timing Row -->
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label for="hero-budget" class="block text-white text-sm font-semibold mb-2">
+                      Budget ($/SF/Year)
+                    </label>
+                    <input 
+                      type="text" 
+                      id="hero-budget"
+                      name="budget" 
+                      class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                      placeholder="e.g., $8-12"
+                    />
                   </div>
                   
                   <div>
-                    <label for="hero-budget" class="block text-white text-sm font-semibold mb-2">
-                      Budget Range
+                    <label for="hero-timing" class="block text-white text-sm font-semibold mb-2">
+                      Move-In Date
                     </label>
-                    <select 
-                      id="hero-budget" 
-                      name="budget" 
+                    <input 
+                      type="text" 
+                      id="hero-timing"
+                      name="timing" 
                       class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                    >
-                      <option value="">Select budget</option>
-                      <option value="under-5">Under $5/SF/year</option>
-                      <option value="5-8">$5 - $8/SF/year</option>
-                      <option value="8-12">$8 - $12/SF/year</option>
-                      <option value="12-16">$12 - $16/SF/year</option>
-                      <option value="16-20">$16 - $20/SF/year</option>
-                      <option value="20+">$20+/SF/year</option>
-                    </select>
+                      placeholder="e.g., 60-90 days"
+                    />
                   </div>
                 </div>
 
-                <!-- Timeline -->
-                <div>
-                  <label for="hero-timeline" class="block text-white text-sm font-semibold mb-2">
-                    When do you need the space?
-                  </label>
-                  <select 
-                    id="hero-timeline" 
-                    name="timeline" 
-                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
-                  >
-                    <option value="">Select timeline</option>
-                    <option value="immediately">Immediately</option>
-                    <option value="1-3-months">1-3 months</option>
-                    <option value="3-6-months">3-6 months</option>
-                    <option value="6-12-months">6-12 months</option>
-                    <option value="12+-months">12+ months</option>
-                  </select>
-                </div>
-
-                <!-- Additional Requirements -->
+                <!-- Must-Haves -->
                 <div>
                   <label for="hero-requirements" class="block text-white text-sm font-semibold mb-2">
-                    Additional Requirements (Optional)
+                    Must-Haves
                   </label>
                   <textarea 
-                    id="hero-requirements" 
+                    id="hero-requirements"
                     name="requirements" 
                     rows="3"
-                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 resize-none text-gray-900"
-                    placeholder="Dock doors, office space, ceiling height, special features..."
+                    class="w-full px-4 py-3 rounded-xl bg-white/90 border border-white/30 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-gray-900"
+                    placeholder="e.g., dock doors, yard space, 3-phase power, food-grade..."
                   ></textarea>
                 </div>
 
                 <!-- Submit Button -->
                 <button 
                   type="submit" 
-                  class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-4 rounded-xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 transform"
+                  class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
                 >
-                  Get Free Tenant Representation
+                  Show Me Matching Warehouses
                 </button>
 
-                <!-- Privacy Note -->
-                <p class="text-center text-gray-400 text-sm">
-                  We'll connect you with the perfect warehouse space within 24 hours. 
+                <p class="text-center text-gray-300 text-sm">
                   <span class="text-white font-medium">Completely free service.</span>
                 </p>
               </form>
@@ -316,61 +284,51 @@ try {
       </div>
     </section>
 
-    <!-- Why Choose Ariel Realty Group -->
+    <!-- How It Works Section -->
     <section class="py-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-16 animate-on-scroll">
           <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Why Choose Ariel Realty Group?
+            How It Works
           </h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Concierge-style service, completely free for tenants. 
-            Over 500,000 SF leased across South Florida with local expertise and strong market relationships.
+            From a 500 SF workshop to a 500,000 SF distribution hub—we've got you covered.
           </p>
         </div>
 
         <!-- Services Grid -->
         <div class="grid md:grid-cols-3 gap-8 stagger-children">
-          <!-- Service 1 -->
+          <!-- Step 1 -->
           <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
-              </svg>
+              <span class="text-2xl font-bold text-white">1</span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Save Money</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Tell us your specs</h3>
             <p class="text-gray-600 leading-relaxed">
-              Expert lease negotiation to secure the best terms and rates. 
-              Our service is completely free - we're compensated by landlords, never tenants.
+              Size, location, timing, budget. We get clear criteria to find exactly what you need.
             </p>
           </div>
 
-          <!-- Service 2 -->
-          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
-            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Save Time</h3>
-            <p class="text-gray-600 leading-relaxed">
-              Let us handle the search. Access to both on-market & off-market opportunities 
-              with full market knowledge & expert guidance throughout the process.
-            </p>
-          </div>
-
-          <!-- Service 3 -->
+          <!-- Step 2 -->
           <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              </svg>
+              <span class="text-2xl font-bold text-white">2</span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Local Expertise</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">We surface options</h3>
             <p class="text-gray-600 leading-relaxed">
-              Deep South Florida market knowledge and strong relationships. 
-              From 500 SF to 500,000 SF — we cover every warehouse need.
+              On- and off-market options, schedule tours, and present qualified properties that fit.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-white">3</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">We negotiate hard</h3>
+            <p class="text-gray-600 leading-relaxed">
+              On rent, TI, and terms—at no cost to you. Landlords pay our fee.
             </p>
           </div>
         </div>
@@ -384,79 +342,82 @@ try {
           <!-- Section Header -->
           <div class="text-center mb-16 animate-on-scroll">
             <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Featured Warehouse Listings
+              Featured Properties
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Discover premium warehouse spaces across South Florida. 
-              Key info: total SF, clear height, dock doors, office %, asking rent, availability.
+              Premium warehouse spaces across South Florida. Expert representation. Zero fees.
             </p>
           </div>
 
           <!-- Properties Grid -->
-          <div class="grid lg:grid-cols-3 gap-8 stagger-children">
-            {featuredWarehouses.map((warehouse: Warehouse) => (
-              <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform">
-                <!-- Property Image -->
-                <div class="relative h-64 bg-gradient-to-br from-gray-200 to-gray-300">
-                  {warehouse.data.images && warehouse.data.images.length > 0 ? (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
+            {featuredWarehouses.map((warehouse) => (
+              <div class="bg-white rounded-3xl shadow-soft hover:shadow-medium transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+                {/* Property Image */}
+                <div class="aspect-video bg-gray-200 relative overflow-hidden">
+                  {warehouse.data.images && warehouse.data.images[0] ? (
                     <img 
                       src={warehouse.data.images[0]} 
                       alt={warehouse.data.title}
                       class="w-full h-full object-cover"
-                      loading="lazy"
                     />
                   ) : (
-                    <div class="w-full h-full flex items-center justify-center">
-                      <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    <div class="w-full h-full flex items-center justify-center text-gray-400">
+                      <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
                       </svg>
                     </div>
                   )}
                   
-                  <!-- Featured Badge -->
+                  {/* Status Badge */}
                   <div class="absolute top-4 left-4">
-                    <span class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      Featured
+                    <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                      warehouse.data.availability === 'available' 
+                        ? 'bg-green-500 text-white' 
+                        : 'bg-gray-400 text-white'
+                    }`}>
+                      {warehouse.data.availability === 'available' ? 'Available' : 'Pending'}
                     </span>
                   </div>
                 </div>
 
-                <!-- Property Details -->
+                {/* Property Details */}
                 <div class="p-6">
-                  <div class="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
-                        {warehouse.data.title}
-                      </h3>
-                      <p class="text-gray-600 font-medium">
-                        {warehouse.data.location}
-                      </p>
-                    </div>
-                    <div class="text-right">
-                      <div class="text-2xl font-bold text-primary-600">
-                        {warehouse.data.price}
-                      </div>
-                      <div class="text-sm text-gray-500">
-                        {warehouse.data.size?.toLocaleString()} sq ft
-                      </div>
-                    </div>
-                  </div>
-
-                  <p class="text-gray-600 mb-6 leading-relaxed line-clamp-2">
+                  <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+                    {warehouse.data.title}
+                  </h3>
+                  
+                  <p class="text-gray-600 mb-4 line-clamp-2">
                     {warehouse.data.description}
                   </p>
 
-                  <!-- Features -->
+                  {/* Key Details */}
+                  <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
+                    <div>
+                      <span class="text-gray-500">Size:</span>
+                      <div class="font-semibold text-gray-900">{warehouse.data.size.toLocaleString()} SF</div>
+                    </div>
+                    <div>
+                      <span class="text-gray-500">Price:</span>
+                      <div class="font-semibold text-gray-900">{warehouse.data.price}</div>
+                    </div>
+                    <div class="col-span-2">
+                      <span class="text-gray-500">Location:</span>
+                      <div class="font-semibold text-gray-900">{warehouse.data.location}</div>
+                    </div>
+                  </div>
+
+                  {/* Features */}
                   {warehouse.data.features && warehouse.data.features.length > 0 && (
                     <div class="mb-6">
                       <div class="flex flex-wrap gap-2">
-                        {warehouse.data.features.slice(0, 3).map((feature: string) => (
-                          <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
+                        {warehouse.data.features.slice(0, 3).map((feature) => (
+                          <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
                             {feature}
                           </span>
                         ))}
                         {warehouse.data.features.length > 3 && (
-                          <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
+                          <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-500">
                             +{warehouse.data.features.length - 3} more
                           </span>
                         )}
@@ -464,27 +425,20 @@ try {
                     </div>
                   )}
 
-                  <!-- Action Buttons -->
+                  {/* CTA Buttons */}
                   <div class="flex gap-3">
                     <a 
-                      href={`/warehouses/${warehouse.data.slug}`} 
-                      class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-center py-3 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 transform"
+                      href={`/warehouses/${warehouse.data.slug}`}
+                      class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 py-3 rounded-xl text-sm font-semibold text-center hover:from-primary-700 hover:to-primary-800 transition-all duration-200"
                     >
                       View Details
                     </a>
                     <a 
-                      href="/contact" 
-                      class="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
+                      href="/contact"
+                      class="border-2 border-gray-200 text-gray-700 px-4 py-3 rounded-xl text-sm font-semibold text-center hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
                     >
                       Get Rep
                     </a>
-                  </div>
-                  
-                  <!-- Ariel Realty Tag -->
-                  <div class="mt-4 pt-4 border-t border-gray-100">
-                    <p class="text-center text-sm text-gray-500">
-                      Representation by <span class="font-semibold text-primary-600">Ariel Realty Group</span>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -507,19 +461,92 @@ try {
       </section>
     )}
 
+    <!-- Trust Section -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            Why Choose Us?
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Deep industrial market knowledge, direct access to landlords & off-market inventory, and fast turnarounds with no retainer or obligation.
+          </p>
+        </div>
+
+        <!-- Trust Features Grid -->
+        <div class="grid md:grid-cols-3 gap-8 stagger-children">
+          <!-- Feature 1 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">You Save Money</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Tighter comps, smarter structure, harder negotiation. Our goal: better rent, better TI, better protections.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">You Pay $0</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Our fee is paid by the landlord—never by you. Completely free tenant representation service.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Local, Connected, Industrial-Only</h3>
+            <p class="text-gray-600 leading-relaxed">
+              We live this market. That means real off-market reach and fewer surprises.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coverage Section -->
+    <section class="py-24 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center animate-on-scroll">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            South Florida Coverage
+          </h2>
+          <p class="text-xl text-gray-600 mb-8">
+            Miami-Dade, Broward, Palm Beach. Access to statewide and national options on request.
+          </p>
+          <p class="text-lg text-gray-600">
+            Any size, any stage: From 500 SF to 500,000 SF. Start-ups, expansions, consolidations, relocations, renewals.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- Call to Action -->
     <section class="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6 animate-on-scroll">
-          Get Matched with
+          Ready to Tour?
           <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-            Warehouses Today
+            Get Matched Today
           </span>
         </h2>
         
         <p class="text-xl text-gray-300 mb-10 animate-on-scroll">
-          Tenant representation from search to signing. 
-          <span class="text-white font-semibold">Backed by Ariel Realty Group at no cost to you.</span>
+          Tenant representation from search to signing. Fast turnarounds; no retainer, no obligation.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
@@ -539,4 +566,6 @@ try {
       </div>
     </section>
   </main>
+
+  <Footer />
 </BaseLayout>

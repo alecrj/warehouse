@@ -67,35 +67,46 @@ collections:
     # Mobile-first fields
     fields:
       # Essential Property Info (always visible)
-      - label: "🏢 Property Name"
+      - label: "🏢 Property Title"
         name: "title"
         widget: "string"
         required: true
-        hint: "Example: Downtown Logistics Center"
+        hint: "e.g., 'Downtown Logistics Center'"
         
       - label: "🔗 URL Slug"
         name: "slug"
         widget: "string"
         required: true
-        hint: "Example: downtown-logistics-center (lowercase, no spaces)"
+        hint: "URL-friendly version (e.g., 'downtown-logistics-center')"
+        pattern: ['^[a-z0-9-]+$', "Only lowercase letters, numbers, and dashes"]
         
       - label: "💰 Price"
         name: "price"
         widget: "string"
         required: true
-        hint: "Example: $12/sq ft/year"
+        hint: "e.g., '$12/sq ft/year' or 'Contact for pricing'"
         
-      - label: "📐 Size (Square Feet)"
+      - label: "📐 Size (sq ft)"
         name: "size"
         widget: "number"
         required: true
+        value_type: "int"
+        min: 1000
+        max: 1000000
+        step: 1000
         hint: "Total square footage"
         
-      - label: "📍 City, State"
+      - label: "📍 Location"
         name: "location"
         widget: "string"
         required: true
-        hint: "Example: Miami, FL"
+        hint: "City, State (e.g., 'Miami, FL')"
+        
+      - label: "🏠 Full Address"
+        name: "address"
+        widget: "string"
+        required: true
+        hint: "Complete street address"
         
       - label: "🏛️ County"
         name: "county"
@@ -107,20 +118,44 @@ collections:
           - { label: "Broward County", value: "Broward" }
         hint: "Select the county where this property is located"
         
-      - label: "🏠 Full Address"
-        name: "address"
-        widget: "string"
+      - label: "✨ Key Features"
+        name: "features"
+        widget: "list"
         required: true
-        hint: "Complete street address"
+        allow_add: true
+        min: 3
+        max: 10
+        default: ["Loading Docks", "24/7 Access", "Security System"]
+        hint: "Add key features (loading docks, ceiling height, etc.)"
+        field:
+          label: "Feature"
+          name: "feature"
+          widget: "string"
         
+      - label: "📸 Property Images"
+        name: "images"
+        widget: "list"
+        required: true
+        allow_add: true
+        min: 1
+        max: 10
+        hint: "Upload high-quality photos (max 10)"
+        summary: "Photo {{fields.image}}"
+        field:
+          label: "Image"
+          name: "image"
+          widget: "image"
+          media_library:
+            config:
+              max_file_size: 5000000  # 5MB limit
+              
       - label: "📝 Description"
         name: "description"
         widget: "text"
         required: true
-        hint: "Detailed property description"
+        hint: "Detailed property description highlighting benefits and amenities"
         
-      # Property Status & Features
-      - label: "🔄 Availability"
+      - label: "🔄 Availability Status"
         name: "availability"
         widget: "select"
         required: true
@@ -135,49 +170,121 @@ collections:
         name: "featured"
         widget: "boolean"
         default: false
-        hint: "Show on homepage and mark as featured"
+        hint: "Show prominently on homepage"
         
-      - label: "✨ Key Features"
-        name: "features"
-        widget: "list"
-        required: false
-        hint: "Add key selling points (one per line)"
-        field:
-          label: "Feature"
-          name: "feature"
-          widget: "string"
+      - label: "📅 Date Listed"
+        name: "createdAt"
+        widget: "datetime"
+        default: ""
+        format: "YYYY-MM-DD"
+        time_format: false
+        required: true
         
-      # Images
-      - label: "📸 Property Images"
-        name: "images"
-        widget: "list"
+      # SEO (Optional - collapsed by default)
+      - label: "🔍 SEO Settings"
+        name: "seo"
+        widget: "object"
+        collapsed: true
         required: false
-        hint: "Upload high-quality property photos"
-        field:
-          label: "Image"
-          name: "image"
-          widget: "image"
-          media_library:
-            config:
-              max_file_size: 5000000  # 5MB limit
-              
-      # SEO & Metadata
-      - label: "🔍 SEO Title"
-        name: "metaTitle"
+        fields:
+          - label: "Meta Title"
+            name: "metaTitle"
+            widget: "string"
+            required: false
+            hint: "Custom title for search engines (optional)"
+            
+          - label: "Meta Description"
+            name: "metaDescription"
+            widget: "text"
+            required: false
+            hint: "Description for search results (optional)"
+
+  # Lead Management Collection
+  - name: "leads"
+    label: "🎯 Lead Management"
+    label_singular: "Lead"
+    folder: "src/content/leads"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{name}}"
+    extension: "json"
+    format: "json"
+    summary: "{{name}} • {{company}} • {{status}} • {{createdAt}}"
+    sortable_fields: ['createdAt', 'status', 'name', 'priority']
+    
+    # Lead status filters
+    view_filters:
+      - label: "🆕 New Leads"
+        field: status
+        pattern: "new"
+      - label: "📞 Contacted"
+        field: status
+        pattern: "contacted"
+      - label: "✅ Qualified"
+        field: status
+        pattern: "qualified"
+      - label: "🎯 Closed"
+        field: status
+        pattern: "closed"
+    
+    fields:
+      - label: "👤 Name"
+        name: "name"
+        widget: "string"
+        required: true
+        
+      - label: "📧 Email"
+        name: "email"
+        widget: "string"
+        required: true
+        
+      - label: "📱 Phone"
+        name: "phone"
+        widget: "string"
+        required: true
+        
+      - label: "🏢 Company"
+        name: "company"
         widget: "string"
         required: false
-        hint: "Custom page title for search engines"
         
-      - label: "📄 SEO Description"
-        name: "metaDescription"
+      - label: "🏗️ Property Interested"
+        name: "propertyInterested"
+        widget: "string"
+        required: false
+        
+      - label: "💬 Message"
+        name: "message"
+        widget: "text"
+        required: true
+        
+      - label: "📍 Source"
+        name: "source"
+        widget: "string"
+        default: "website"
+        
+      - label: "📊 Status"
+        name: "status"
+        widget: "select"
+        default: "new"
+        options:
+          - { label: "🆕 New", value: "new" }
+          - { label: "📞 Contacted", value: "contacted" }
+          - { label: "✅ Qualified", value: "qualified" }
+          - { label: "🎯 Closed", value: "closed" }
+        
+      - label: "📝 Notes"
+        name: "notes"
         widget: "text"
         required: false
-        hint: "Brief description for search engine results"
         
-      # System Fields
       - label: "📅 Created Date"
         name: "createdAt"
         widget: "datetime"
         default: ""
         format: "YYYY-MM-DD"
-        hint: "When this listing was created"
+        required: true
+        
+      - label: "🔗 Lead ID"
+        name: "id"
+        widget: "uuid"
+        required: true

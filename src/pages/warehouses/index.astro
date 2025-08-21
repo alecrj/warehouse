@@ -17,6 +17,7 @@ interface WarehouseData {
   featured?: boolean;
   availability?: string;
   slug: string;
+  county?: string; // Added optional county field
 }
 
 interface Warehouse {
@@ -40,11 +41,8 @@ try {
   console.log('No warehouse data yet:', error);
 }
 
-// Extract unique counties from locations
-const counties = [...new Set(allWarehouses.map(w => {
-  const parts = w.data.location.split(',');
-  return parts[parts.length - 1]?.trim() || '';
-}).filter(Boolean))].sort();
+// Fixed counties array - these are the 3 South Florida counties
+const counties = ['Miami-Dade', 'Palm Beach', 'Broward'];
 
 // Get search parameters
 const url = Astro.url;
@@ -613,10 +611,38 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
           // Advanced filters
           
-          // County filter
+          // FIXED: County filter - now works with both dedicated county field and location fallback
           if (advancedFilters.county) {
-            const location = warehouseData.location || '';
-            if (!location.toLowerCase().includes(advancedFilters.county.toLowerCase())) {
+            let countyMatch = false;
+            
+            // First check if there's a dedicated county field
+            if (warehouseData.county) {
+              countyMatch = warehouseData.county === advancedFilters.county;
+            } else {
+              // Fallback: check location string for county
+              const location = warehouseData.location || '';
+              
+              // Map location strings to counties
+              if (advancedFilters.county === 'Miami-Dade') {
+                countyMatch = location.toLowerCase().includes('miami') || 
+                             location.toLowerCase().includes('doral') || 
+                             location.toLowerCase().includes('homestead') ||
+                             location.toLowerCase().includes('hialeah');
+              } else if (advancedFilters.county === 'Broward') {
+                countyMatch = location.toLowerCase().includes('fort lauderdale') || 
+                             location.toLowerCase().includes('hollywood') || 
+                             location.toLowerCase().includes('pompano') ||
+                             location.toLowerCase().includes('plantation') ||
+                             location.toLowerCase().includes('davie');
+              } else if (advancedFilters.county === 'Palm Beach') {
+                countyMatch = location.toLowerCase().includes('west palm beach') || 
+                             location.toLowerCase().includes('boca raton') || 
+                             location.toLowerCase().includes('delray beach') ||
+                             location.toLowerCase().includes('boynton beach');
+              }
+            }
+            
+            if (!countyMatch) {
               isVisible = false;
             }
           }

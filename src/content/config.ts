@@ -9,6 +9,7 @@ const warehousesCollection = defineCollection({
     size: z.number(),
     location: z.string(),
     address: z.string(),
+    county: z.enum(['Miami-Dade', 'Palm Beach', 'Broward']).optional(), // Added as optional
     features: z.array(z.string()).optional(),
     images: z.array(z.string()).optional(),
     description: z.string(),

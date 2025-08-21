@@ -30,8 +30,8 @@ collections:
     slug: "{{slug}}"
     extension: "json"
     format: "json"
-    summary: "{{title}} • {{location}} • {{availability}}"
-    sortable_fields: ['title', 'location', 'availability', 'featured', 'createdAt']
+    summary: "{{title}} • {{county}} • {{availability}}"
+    sortable_fields: ['title', 'county', 'availability', 'featured', 'createdAt']
     
     # Mobile view filters
     view_filters:
@@ -47,13 +47,22 @@ collections:
       - label: "🔒 Leased Properties"
         field: availability
         pattern: "leased"
+      - label: "🏖️ Miami-Dade"
+        field: county
+        pattern: "Miami-Dade"
+      - label: "🌴 Palm Beach"
+        field: county
+        pattern: "Palm Beach"
+      - label: "🏢 Broward"
+        field: county
+        pattern: "Broward"
     
     # Mobile view groups
     view_groups:
       - label: "By Status"
         field: availability
-      - label: "By Location"
-        field: location
+      - label: "By County"
+        field: county
     
     # Mobile-first fields
     fields:
@@ -68,276 +77,107 @@ collections:
         name: "slug"
         widget: "string"
         required: true
-        hint: "Example: downtown-logistics-center (lowercase, dashes only)"
-        pattern: ['^[a-z0-9-]+$', "Only lowercase letters, numbers, and dashes"]
+        hint: "Example: downtown-logistics-center (lowercase, no spaces)"
         
-      - label: "📋 Status"
+      - label: "💰 Price"
+        name: "price"
+        widget: "string"
+        required: true
+        hint: "Example: $12/sq ft/year"
+        
+      - label: "📐 Size (Square Feet)"
+        name: "size"
+        widget: "number"
+        required: true
+        hint: "Total square footage"
+        
+      - label: "📍 City, State"
+        name: "location"
+        widget: "string"
+        required: true
+        hint: "Example: Miami, FL"
+        
+      - label: "🏛️ County"
+        name: "county"
+        widget: "select"
+        required: true
+        options:
+          - { label: "Miami-Dade County", value: "Miami-Dade" }
+          - { label: "Palm Beach County", value: "Palm Beach" }
+          - { label: "Broward County", value: "Broward" }
+        hint: "Select the county where this property is located"
+        
+      - label: "🏠 Full Address"
+        name: "address"
+        widget: "string"
+        required: true
+        hint: "Complete street address"
+        
+      - label: "📝 Description"
+        name: "description"
+        widget: "text"
+        required: true
+        hint: "Detailed property description"
+        
+      # Property Status & Features
+      - label: "🔄 Availability"
         name: "availability"
         widget: "select"
         required: true
+        default: "available"
         options:
           - { label: "✅ Available Now", value: "available" }
           - { label: "⏳ Pending Lease", value: "pending" }
           - { label: "🔒 Leased", value: "leased" }
-        default: "available"
+        hint: "Current leasing status"
         
       - label: "⭐ Featured Property"
         name: "featured"
         widget: "boolean"
         default: false
-        hint: "Show prominently on homepage"
-        
-      # Location & Pricing
-      - label: "📍 Location"
-        name: "location"
-        widget: "string"
-        required: true
-        hint: "City, State (e.g., Miami, FL)"
-        
-      - label: "🏠 Complete Address"
-        name: "address"
-        widget: "string"
-        required: true
-        hint: "Full street address for mapping"
-        
-      - label: "💰 Rental Price"
-        name: "price"
-        widget: "string"
-        required: true
-        hint: "Example: $12/sq ft/year or $15,000/month"
-        
-      - label: "📐 Total Size"
-        name: "size"
-        widget: "number"
-        required: true
-        value_type: "int"
-        min: 1000
-        max: 1000000
-        step: 1000
-        hint: "Square footage (minimum 1,000 sq ft)"
-        
-      # Visual Content
-      - label: "📸 Property Photos"
-        name: "images"
-        widget: "list"
-        required: true
-        allow_add: true
-        min: 1
-        max: 8
-        hint: "Upload 1-8 high-quality photos (first image is the main photo)"
-        summary: "Photo {{fields.image}}"
-        field:
-          label: "Photo"
-          name: "image"
-          widget: "image"
-          media_library:
-            config:
-              max_file_size: 5000000  # 5MB limit for mobile optimization
-              
-      # Property Details
-      - label: "📝 Property Description"
-        name: "description"
-        widget: "text"
-        required: true
-        hint: "Describe the property benefits, location advantages, and unique features"
+        hint: "Show on homepage and mark as featured"
         
       - label: "✨ Key Features"
         name: "features"
         widget: "list"
-        required: true
-        allow_add: true
-        min: 3
-        max: 10
-        default: ["Loading Docks", "24/7 Access", "Security System"]
-        hint: "Add 3-10 key property features"
-        
-      # SEO (Optional - collapsed by default)
-      - label: "🔍 SEO Settings"
-        name: "seo"
-        widget: "object"
-        collapsed: true
         required: false
-        fields:
-          - label: "Meta Title"
-            name: "metaTitle"
-            widget: "string"
-            required: false
-            hint: "Custom title for search engines (optional)"
-            
-          - label: "Meta Description"
-            name: "metaDescription"
-            widget: "text"
-            required: false
-            hint: "Description for search results (optional)"
+        hint: "Add key selling points (one per line)"
+        field:
+          label: "Feature"
+          name: "feature"
+          widget: "string"
         
-      # Timestamps
-      - label: "📅 Date Listed"
+      # Images
+      - label: "📸 Property Images"
+        name: "images"
+        widget: "list"
+        required: false
+        hint: "Upload high-quality property photos"
+        field:
+          label: "Image"
+          name: "image"
+          widget: "image"
+          media_library:
+            config:
+              max_file_size: 5000000  # 5MB limit
+              
+      # SEO & Metadata
+      - label: "🔍 SEO Title"
+        name: "metaTitle"
+        widget: "string"
+        required: false
+        hint: "Custom page title for search engines"
+        
+      - label: "📄 SEO Description"
+        name: "metaDescription"
+        widget: "text"
+        required: false
+        hint: "Brief description for search engine results"
+        
+      # System Fields
+      - label: "📅 Created Date"
         name: "createdAt"
         widget: "datetime"
         default: ""
         format: "YYYY-MM-DD"
-        time_format: false
-        required: true
-
-  # Lead Management Collection
-  - name: "leads"
-    label: "🎯 Lead Management"
-    label_singular: "Lead"
-    folder: "src/content/leads"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{name}}"
-    extension: "json"
-    format: "json"
-    summary: "{{name}} • {{company}} • {{status}} • {{createdAt}}"
-    sortable_fields: ['createdAt', 'status', 'name', 'priority']
-    
-    # Lead status filters
-    view_filters:
-      - label: "🆕 New Leads"
-        field: status
-        pattern: "new"
-      - label: "📞 Contacted"
-        field: status
-        pattern: "contacted"
-      - label: "⭐ Qualified"
-        field: status
-        pattern: "qualified"
-      - label: "📋 Proposal Stage"
-        field: status
-        pattern: "proposal"
-      - label: "✅ Closed Won"
-        field: status
-        pattern: "closed-won"
-      - label: "❌ Closed Lost"
-        field: status
-        pattern: "closed-lost"
-      - label: "🔥 High Priority"
-        field: priority
-        pattern: "high"
-    
-    # Lead grouping
-    view_groups:
-      - label: "By Status"
-        field: status
-      - label: "By Priority"
-        field: priority
-      - label: "By Source"
-        field: source
-    
-    # Mobile-optimized lead fields
-    fields:
-      # Contact Information
-      - label: "👤 Contact Name"
-        name: "name"
-        widget: "string"
-        required: true
-        hint: "Full name of the lead"
-        
-      - label: "📧 Email Address"
-        name: "email"
-        widget: "string"
-        required: true
-        hint: "Primary email address"
-        
-      - label: "📱 Phone Number"
-        name: "phone"
-        widget: "string"
-        required: true
-        hint: "Include area code (e.g., (555) 123-4567)"
-        
-      - label: "🏢 Company Name"
-        name: "company"
-        widget: "string"
-        required: false
-        hint: "Company or organization name (if applicable)"
-        
-      # Lead Details
-      - label: "💬 Original Message"
-        name: "message"
-        widget: "text"
-        required: true
-        hint: "The lead's original inquiry or message"
-        
-      - label: "🏠 Property Interest"
-        name: "propertyInterested"
-        widget: "string"
-        required: false
-        hint: "Which specific property are they interested in?"
-        
-      # Lead Management
-      - label: "📊 Lead Status"
-        name: "status"
-        widget: "select"
-        required: true
-        options:
-          - { label: "🆕 New Lead", value: "new" }
-          - { label: "📞 Contacted", value: "contacted" }
-          - { label: "⭐ Qualified", value: "qualified" }
-          - { label: "📋 Proposal Sent", value: "proposal" }
-          - { label: "🤝 Negotiating", value: "negotiating" }
-          - { label: "✅ Closed Won", value: "closed-won" }
-          - { label: "❌ Closed Lost", value: "closed-lost" }
-        default: "new"
-        
-      - label: "🔥 Priority Level"
-        name: "priority"
-        widget: "select"
-        required: true
-        options:
-          - { label: "🔥 High Priority", value: "high" }
-          - { label: "🟡 Medium Priority", value: "medium" }
-          - { label: "❄️ Low Priority", value: "low" }
-        default: "medium"
-        
-      - label: "📍 Lead Source"
-        name: "source"
-        widget: "select"
-        required: true
-        options:
-          - { label: "🌐 Website Contact Form", value: "website" }
-          - { label: "📱 Mobile App", value: "mobile" }
-          - { label: "📞 Phone Call", value: "phone" }
-          - { label: "📧 Email Inquiry", value: "email" }
-          - { label: "👥 Referral", value: "referral" }
-          - { label: "📱 Social Media", value: "social" }
-          - { label: "🔍 Google Search", value: "google" }
-          - { label: "📰 Online Advertisement", value: "advertising" }
-          - { label: "🎯 Other Source", value: "other" }
-        default: "website"
-        
-      # Follow-up Management
-      - label: "📝 Internal Notes"
-        name: "notes"
-        widget: "text"
-        required: false
-        hint: "Add internal notes about conversations, requirements, etc."
-        
-      - label: "📞 Next Follow-up Date"
-        name: "nextFollowUp"
-        widget: "datetime"
-        required: false
-        format: "YYYY-MM-DD"
-        time_format: false
-        hint: "When should you contact them next?"
-        
-      - label: "💰 Estimated Deal Value"
-        name: "estimatedValue"
-        widget: "string"
-        required: false
-        hint: "Estimated annual lease value (e.g., $50,000/year)"
-        
-      # Timestamps
-      - label: "📅 Lead Created"
-        name: "createdAt"
-        widget: "datetime"
-        default: ""
-        format: "YYYY-MM-DD HH:mm"
-        required: true
-        
-      - label: "📞 Last Contact Date"
-        name: "lastContactDate"
-        widget: "datetime"
-        required: false
-        format: "YYYY-MM-DD"
-        time_format: false
-        hint: "When did you last contact this lead?"
+        hint: "When this listing was created"

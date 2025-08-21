@@ -4,6 +4,7 @@
   "slug": "test-warehouse",
   "featured": true,
   "address": "123 red st",
+  "county": "Broward",
   "location": "Hollywood",
   "title": "testing cms warehouse",
   "images": [

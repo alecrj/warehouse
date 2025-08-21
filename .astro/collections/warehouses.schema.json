@@ -22,6 +22,14 @@
         "address": {
           "type": "string"
         },
+        "county": {
+          "type": "string",
+          "enum": [
+            "Miami-Dade",
+            "Palm Beach",
+            "Broward"
+          ]
+        },
         "features": {
           "type": "array",
           "items": {

@@ -640,10 +640,3 @@ try {
   // Initial check
   animateOnScroll();
 
-  // Add stagger delay to grid children - FIXED TypeScript errors
-  document.querySelectorAll('.stagger-children').forEach(container => {
-    Array.from(container.children).forEach((child: HTMLElement, index: number) => {
-      child.style.setProperty('--stagger-delay', index.toString());
-    });
-  });
-</script>

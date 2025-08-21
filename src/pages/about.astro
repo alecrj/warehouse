@@ -1,5 +1,5 @@
 ---
-// Updated about page with consistent hero
+// Updated about page with consistent hero and glassmorphism cards
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -12,7 +12,7 @@ import Footer from '../components/Footer.astro';
   <Navigation />
   
   <main>
-    <!-- Hero Section - Consistent Sizing -->
+    <!-- Hero Section - Consistent Sizing with Glassmorphism Cards -->
     <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center">
       <!-- Background Elements -->
       <div class="absolute inset-0">
@@ -35,42 +35,35 @@ import Footer from '../components/Footer.astro';
           <p class="text-base text-gray-400 leading-relaxed mb-8 max-w-3xl mx-auto animate-on-scroll">
             <span class="text-white font-semibold">Fast, fairly priced, and on terms that protect you for the long haul.</span>
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Trust Indicators - Moved from Hero -->
-    <section class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-on-scroll">
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-            <div class="text-gray-900 font-semibold mb-2">Deep Market Knowledge</div>
-            <div class="text-gray-600 text-sm">Industrial expertise across South Florida</div>
-          </div>
           
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+          <!-- Trust Indicators - Now in Hero with Glassmorphism -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 animate-on-scroll mt-12">
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-green-200 transition-colors duration-300">
+                  Deep Market
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Knowledge</div>
+              </div>
             </div>
-            <div class="text-gray-900 font-semibold mb-2">Direct Access</div>
-            <div class="text-gray-600 text-sm">Landlords & off-market inventory</div>
-          </div>
-          
-          <div class="text-center p-6 bg-gray-50 rounded-2xl border border-gray-200">
-            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              </svg>
+            
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
+                  Direct
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Access</div>
+              </div>
             </div>
-            <div class="text-gray-900 font-semibold mb-2">Fast Turnarounds</div>
-            <div class="text-gray-600 text-sm">No retainer, no obligation</div>
+            
+            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-purple-200 transition-colors duration-300">
+                  Fast
+                </div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Turnarounds</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -97,29 +90,29 @@ import Footer from '../components/Footer.astro';
               and negotiate hard on your behalf. Our fee is paid by the landlord—you pay $0.
             </p>
             
-            <!-- Key Benefits -->
+            <!-- Key Benefits List -->
             <div class="space-y-4">
               <div class="flex items-start space-x-3">
-                <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
                 </div>
-                <p class="text-gray-600">Deep industrial market knowledge</p>
+                <p class="text-gray-600">Free tenant representation; no cost, no retainer, no obligation</p>
               </div>
               
               <div class="flex items-start space-x-3">
-                <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
                 </div>
-                <p class="text-gray-600">Direct access to landlords & off-market inventory</p>
+                <p class="text-gray-600">Industrial-only focus; deep market knowledge & strong relationships</p>
               </div>
               
               <div class="flex items-start space-x-3">
-                <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
                 </div>
@@ -148,183 +141,70 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- What We've Done Section -->
+    <!-- Our Approach Section -->
     <section class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-          <!-- Content -->
-          <div class="animate-on-scroll">
-            <h2 class="text-4xl lg:text-5xl font-black text-gray-900 leading-tight tracking-tight mb-6">
-              WHAT WE'VE
-              <span class="block bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">
-                DONE
-              </span>
-            </h2>
-            
-            <div class="space-y-6">
-              <div class="flex items-start space-x-4">
-                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">Guided tenants across the region</h3>
-                  <p class="text-gray-600 leading-relaxed">
-                    Helped businesses secure warehouse space across South Florida's industrial markets.
-                  </p>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-4">
-                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">Consistently deliver below-ask rents</h3>
-                  <p class="text-gray-600 leading-relaxed">
-                    Better TI/term structures through expert market knowledge and negotiation.
-                  </p>
-                </div>
-              </div>
-              
-              <div class="flex items-start space-x-4">
-                <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">Maintain strong relationships</h3>
-                  <p class="text-gray-600 leading-relaxed">
-                    Direct relationships with institutional owners and private landlords for better access and terms.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- How We Work -->
-          <div class="animate-on-scroll">
-            <div class="bg-gray-50 rounded-3xl p-8 shadow-soft">
-              <h3 class="text-2xl font-bold text-gray-900 mb-6">How We Work</h3>
-              
-              <div class="space-y-6">
-                <div>
-                  <h4 class="font-semibold text-gray-900 mb-2">No fluff</h4>
-                  <p class="text-gray-600">Clear criteria in, qualified options out.</p>
-                </div>
-                
-                <div>
-                  <h4 class="font-semibold text-gray-900 mb-2">We handle search, tours, comps, and negotiations</h4>
-                  <p class="text-gray-600">Full service from start to signing.</p>
-                </div>
-                
-                <div>
-                  <h4 class="font-semibold text-gray-900 mb-2">Our fee is paid by the landlord</h4>
-                  <p class="text-gray-600">You pay $0.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Who We Serve Section -->
-    <section class="py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 animate-on-scroll">
-          <h2 class="text-4xl lg:text-5xl font-black text-gray-900 leading-tight tracking-tight mb-6">
-            WHO WE
-            <span class="block bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">
-              SERVE
-            </span>
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            Our Approach
           </h2>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Distributors, e-commerce, light manufacturing, trades, automotive, building suppliers, food & beverage, logistics, and growing SMBs.
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Straightforward, efficient, and always in your best interests
           </p>
         </div>
 
-        <!-- Industries Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll">
-          <div class="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-              </svg>
+        <div class="grid md:grid-cols-3 gap-8 stagger-children">
+          <!-- Step 1 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-white">1</span>
             </div>
-            <h3 class="font-semibold text-gray-900 mb-2">Distributors</h3>
-            <p class="text-sm text-gray-600">Logistics & distribution centers</p>
-          </div>
-          
-          <div class="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-gray-900 mb-2">E-commerce</h3>
-            <p class="text-sm text-gray-600">Fulfillment & storage facilities</p>
-          </div>
-          
-          <div class="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
-            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-gray-900 mb-2">Light Manufacturing</h3>
-            <p class="text-sm text-gray-600">Assembly & production facilities</p>
-          </div>
-          
-          <div class="bg-white rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
-            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-gray-900 mb-2">More Industries</h3>
-            <p class="text-sm text-gray-600">Trades, automotive, food & beverage</p>
-          </div>
-        </div>
-
-        <!-- Any Size, Any Stage -->
-        <div class="text-center mt-16 animate-on-scroll">
-          <div class="bg-white rounded-3xl p-8 max-w-4xl mx-auto shadow-lg">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Any Size, Any Stage</h3>
-            <p class="text-lg text-gray-600 mb-4">
-              From 500 SF to 500,000 SF
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Understand Your Needs</h3>
+            <p class="text-gray-600 leading-relaxed">
+              We start by thoroughly understanding your specific requirements, timeline, and budget constraints.
             </p>
-            <p class="text-gray-600">
-              Start-ups, expansions, consolidations, relocations, renewals.
+          </div>
+
+          <!-- Step 2 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-white">2</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Surface Best Options</h3>
+            <p class="text-gray-600 leading-relaxed">
+              We leverage our network to find both on-market and off-market properties that match your criteria.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <span class="text-2xl font-bold text-white">3</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Negotiate Hard</h3>
+            <p class="text-gray-600 leading-relaxed">
+              We fight for the best terms, rates, and conditions to protect your interests for the long haul.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <!-- Call to Action -->
+    <section class="py-24 bg-primary-600">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6 animate-on-scroll">
-          Ready to Work
-          <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-            With Us?
-          </span>
+          Ready to Find Your Perfect Space?
         </h2>
-        <p class="text-xl text-gray-300 mb-10 animate-on-scroll">
-          Call (954) 937-9667 or get free tenant representation now.
+        <p class="text-xl text-primary-100 mb-10 animate-on-scroll">
+          Let us handle the search while you focus on growing your business.
         </p>
-        
         <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
           <a 
             href="/contact" 
-            class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+            class="bg-white text-primary-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 transform"
           >
-            Get Free Tenant Representation
+            Get Free Representation
           </a>
           <a 
             href="tel:954-937-9667" 
@@ -336,6 +216,6 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
   </main>
-
+  
   <Footer />
 </BaseLayout>

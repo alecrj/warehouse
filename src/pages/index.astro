@@ -1,366 +1,277 @@
 ---
-// Home page with hero form - using real CMS data
+// Clean homepage with proper TypeScript and consistent design
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import { getCollection } from 'astro:content';
 
-// Get real warehouse data from CMS
-const allWarehouses = await getCollection('warehouses');
-const featuredWarehouses = allWarehouses
-  .filter(warehouse => warehouse.data.featured)
-  .slice(0, 3);
+// Define proper types
+interface WarehouseData {
+  title: string;
+  location: string;
+  price: string;
+  size: number;
+  description: string;
+  images?: string[];
+  features?: string[];
+  featured?: boolean;
+  availability?: string;
+  slug: string;
+}
 
-// Calculate real stats from CMS data
-const availableWarehouses = allWarehouses.filter(w => w.data.availability === 'available');
-const totalSqFt = allWarehouses.reduce((sum, w) => sum + w.data.size, 0);
+interface Warehouse {
+  data: WarehouseData;
+}
+
+// Get warehouse data for featured properties
+let featuredWarehouses: Warehouse[] = [];
+try {
+  const allWarehouses = await getCollection('warehouses');
+  featuredWarehouses = allWarehouses.filter((w: any) => w.data.featured).slice(0, 3);
+} catch (error) {
+  console.log('No warehouse data yet');
+}
 ---
 
 <BaseLayout 
-  title="Premium Warehouse Rentals | Ariel Realty | South Florida Industrial"
-  description="Find premium warehouse and industrial space across South Florida. Expert tenant representation with zero fees. Modern facilities, competitive rates, personalized service."
+  title="Premium Warehouse Solutions | Ariel Realty Group"
+  description="South Florida's premier industrial tenant representation firm. Find your perfect warehouse space with zero fees and expert guidance."
 >
   <Navigation />
   
   <main>
-    <!-- Hero Section with Form -->
-    <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden pt-16">
-      <!-- Background Pattern -->
-      <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
-      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl float"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl float-reverse"></div>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute inset-0">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float-reverse"></div>
+        <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
+      </div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-          
-          <!-- Left Column - Hero Content -->
-          <div>
-            <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 gsap-fade-in">
-              FIND YOUR PERFECT
-              <span class="block text-gradient">WAREHOUSE SPACE</span>
-            </h1>
-            <p class="text-lg lg:text-xl text-slate-300 leading-relaxed mb-8 gsap-fade-in">
-              South Florida's premier industrial leasing experts. 
-              <span class="text-gradient font-semibold">Zero tenant fees, maximum results.</span>
-            </p>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center space-y-8">
+          <!-- Main Headline -->
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight animate-on-scroll">
+            FIND YOUR PERFECT
+            <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
+              WAREHOUSE SPACE
+            </span>
+          </h1>
 
-            <!-- Key Benefits -->
-            <div class="grid grid-cols-2 gap-4 mb-8 gsap-fade-in">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <span class="text-slate-300 font-medium">100% Free</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <span class="text-slate-300 font-medium">Expert Guidance</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <span class="text-slate-300 font-medium">15+ Years Experience</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <span class="text-slate-300 font-medium">Market Leaders</span>
-              </div>
+          <!-- Subheading -->
+          <p class="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed animate-on-scroll">
+            South Florida's premier industrial tenant representation firm. 
+            <span class="text-white font-semibold">Zero fees. Expert guidance. Perfect matches.</span>
+          </p>
+
+          <!-- Trust Indicators -->
+          <div class="flex flex-wrap justify-center items-center gap-6 text-gray-400 text-sm animate-on-scroll">
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>100% Free Service</span>
             </div>
-
-            <!-- Live Stats -->
-            <div class="grid grid-cols-2 gap-6 gsap-fade-in">
-              <div class="text-center">
-                <div class="text-3xl font-black text-white mb-1">{availableWarehouses.length}</div>
-                <div class="text-slate-400 text-sm">Available Now</div>
-              </div>
-              <div class="text-center">
-                <div class="text-3xl font-black text-white mb-1">{Math.round(totalSqFt / 1000)}K+</div>
-                <div class="text-slate-400 text-sm">Total Sq Ft</div>
-              </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span>Expert Representation</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+              </svg>
+              <span>20+ Years Experience</span>
             </div>
           </div>
 
-          <!-- Right Column - Lead Form -->
-          <div class="gsap-fade-in">
-            <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
-              <h2 class="text-2xl font-bold text-white mb-6 text-center">
-                Get Expert Help Today
-              </h2>
-              
-              <form 
-                name="hero-contact" 
-                method="POST" 
-                data-netlify="true" 
-                netlify-honeypot="bot-field"
-                class="space-y-4"
-              >
-                <!-- Hidden fields -->
-                <input type="hidden" name="form-name" value="hero-contact" />
-                <div class="hidden">
-                  <input name="bot-field" />
-                </div>
-
-                <!-- Name & Email -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label for="name" class="block text-sm font-medium text-slate-300 mb-2">
-                      Full Name *
-                    </label>
-                    <input 
-                      type="text" 
-                      id="name" 
-                      name="name" 
-                      required 
-                      class="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-slate-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
-                      placeholder="John Smith"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label for="email" class="block text-sm font-medium text-slate-300 mb-2">
-                      Email Address *
-                    </label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      name="email" 
-                      required 
-                      class="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-slate-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
-
-                <!-- Phone & Company -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label for="phone" class="block text-sm font-medium text-slate-300 mb-2">
-                      Phone Number
-                    </label>
-                    <input 
-                      type="tel" 
-                      id="phone" 
-                      name="phone" 
-                      class="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-slate-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
-                      placeholder="(555) 123-4567"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label for="company" class="block text-sm font-medium text-slate-300 mb-2">
-                      Company Name
-                    </label>
-                    <input 
-                      type="text" 
-                      id="company" 
-                      name="company" 
-                      class="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-slate-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
-                      placeholder="Acme Corp"
-                    />
-                  </div>
-                </div>
-
-                <!-- Space Size -->
-                <div>
-                  <label for="size" class="block text-sm font-medium text-slate-300 mb-2">
-                    Space Size Needed
-                  </label>
-                  <select 
-                    id="size" 
-                    name="size" 
-                    class="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all duration-300"
-                  >
-                    <option value="" class="bg-slate-800">Select size range</option>
-                    <option value="under-10k" class="bg-slate-800">Under 10,000 sq ft</option>
-                    <option value="10k-25k" class="bg-slate-800">10,000 - 25,000 sq ft</option>
-                    <option value="25k-50k" class="bg-slate-800">25,000 - 50,000 sq ft</option>
-                    <option value="50k-100k" class="bg-slate-800">50,000 - 100,000 sq ft</option>
-                    <option value="over-100k" class="bg-slate-800">Over 100,000 sq ft</option>
-                  </select>
-                </div>
-
-                <!-- Message -->
-                <div>
-                  <label for="message" class="block text-sm font-medium text-slate-300 mb-2">
-                    Tell us about your needs
-                  </label>
-                  <textarea 
-                    id="message" 
-                    name="message" 
-                    rows="3"
-                    class="w-full px-4 py-3 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-slate-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition-all duration-300 resize-none"
-                    placeholder="Describe your warehouse requirements..."
-                  ></textarea>
-                </div>
-
-                <!-- Submit Button -->
-                <button 
-                  type="submit" 
-                  class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-xl font-bold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-lg"
-                >
-                  Get Expert Help Now
-                </button>
-
-                <!-- Privacy Note -->
-                <p class="text-xs text-slate-400 text-center">
-                  Your information is secure. We'll contact you within 1 hour.
-                </p>
-              </form>
-            </div>
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
+            <a 
+              href="/contact" 
+              class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+            >
+              Get Expert Help Now
+            </a>
+            <a 
+              href="/warehouses" 
+              class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+            >
+              Browse Properties
+            </a>
           </div>
         </div>
       </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="relative py-20 bg-white overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-6 gsap-fade-in">
-            WHY CHOOSE
-            <span class="block text-gradient">ARIEL REALTY</span>
+    <!-- Services Preview -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            Why Choose Ariel Realty?
           </h2>
-          <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed gsap-fade-in">
-            Experience the difference of working with South Florida's most trusted warehouse leasing experts
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We specialize in industrial tenant representation across South Florida, 
+            offering comprehensive services at no cost to tenants.
           </p>
         </div>
 
-        <!-- Benefits Grid -->
-        <div class="grid lg:grid-cols-3 gap-8 gsap-stagger">
-          <!-- Benefit 1 -->
-          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift">
-            <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-3 gap-8 stagger-children">
+          <!-- Service 1 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-4">Zero Tenant Fees</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Our services are completely free for tenants. Landlords pay our commission, so you get expert representation at no cost.
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">100% Free Service</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Our comprehensive tenant representation services are completely free. 
+              We're compensated by landlords, never by tenants.
             </p>
           </div>
 
-          <!-- Benefit 2 -->
-          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift">
-            <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
-              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          <!-- Service 2 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-4">Market Expertise</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Deep knowledge of South Florida's industrial market helps you find the perfect space faster and negotiate better terms.
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Expert Negotiation</h3>
+            <p class="text-gray-600 leading-relaxed">
+              20+ years of experience negotiating the best terms for tenants. 
+              We know the market and fight for your interests.
             </p>
           </div>
 
-          <!-- Benefit 3 -->
-          <div class="bg-slate-50 rounded-3xl p-8 shadow-premium hover-lift">
-            <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
-              <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          <!-- Service 3 -->
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-4">Dedicated Support</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Personalized service from initial search through lease signing and beyond. We're your partners in growth.
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Perfect Matches</h3>
+            <p class="text-gray-600 leading-relaxed">
+              We understand your unique requirements and find properties that 
+              perfectly match your operational needs and budget.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured Properties Section -->
+    <!-- Featured Properties -->
     {featuredWarehouses.length > 0 && (
-      <section class="relative py-20 bg-slate-50 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-          <div class="text-center mb-16">
-            <h2 class="text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-6 gsap-fade-in">
-              FEATURED
-              <span class="block text-gradient">PROPERTIES</span>
+      <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- Section Header -->
+          <div class="text-center mb-16 animate-on-scroll">
+            <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              Featured Properties
             </h2>
-            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed gsap-fade-in">
-              Discover premium warehouse spaces across South Florida's most strategic locations
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Discover premium warehouse spaces across South Florida, 
+              from small bay warehouses to large distribution centers.
             </p>
           </div>
 
           <!-- Properties Grid -->
-          <div class="grid lg:grid-cols-3 gap-8 mb-12 gsap-stagger">
-            {featuredWarehouses.map((warehouse) => (
-              <div class="bg-white rounded-3xl overflow-hidden shadow-premium hover-lift">
-                <div class="relative h-48 bg-gradient-to-br from-slate-200 to-slate-300">
+          <div class="grid lg:grid-cols-3 gap-8 stagger-children">
+            {featuredWarehouses.map((warehouse: Warehouse) => (
+              <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform">
+                <!-- Property Image -->
+                <div class="relative h-64 bg-gradient-to-br from-gray-200 to-gray-300">
                   {warehouse.data.images && warehouse.data.images.length > 0 ? (
                     <img 
                       src={warehouse.data.images[0]} 
                       alt={warehouse.data.title}
                       class="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   ) : (
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20"></div>
+                    <div class="w-full h-full flex items-center justify-center">
+                      <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                      </svg>
+                    </div>
                   )}
-                  <div class="absolute top-4 right-4">
-                    <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                      {warehouse.data.availability.toUpperCase()}
+                  
+                  <!-- Featured Badge -->
+                  <div class="absolute top-4 left-4">
+                    <span class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      Featured
                     </span>
                   </div>
                 </div>
-                
+
+                <!-- Property Details -->
                 <div class="p-6">
-                  <div class="flex items-start justify-between mb-4">
+                  <div class="flex justify-between items-start mb-4">
                     <div>
-                      <h3 class="text-lg font-bold text-slate-900 mb-2">{warehouse.data.title}</h3>
-                      <div class="flex items-center text-slate-600 text-sm">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                        <span>{warehouse.data.location}</span>
-                      </div>
+                      <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
+                        {warehouse.data.title}
+                      </h3>
+                      <p class="text-gray-600 font-medium">
+                        {warehouse.data.location}
+                      </p>
                     </div>
                     <div class="text-right">
-                      <div class="text-lg font-black text-gradient">{warehouse.data.price}</div>
-                      <div class="text-sm text-slate-500">{warehouse.data.size.toLocaleString()} sq ft</div>
+                      <div class="text-2xl font-bold text-primary-600">
+                        {warehouse.data.price}
+                      </div>
+                      <div class="text-sm text-gray-500">
+                        {warehouse.data.size?.toLocaleString()} sq ft
+                      </div>
                     </div>
                   </div>
-                  
-                  <p class="text-slate-600 mb-4 leading-relaxed line-clamp-2">
+
+                  <p class="text-gray-600 mb-6 leading-relaxed line-clamp-2">
                     {warehouse.data.description}
                   </p>
-                  
+
                   <!-- Features -->
                   {warehouse.data.features && warehouse.data.features.length > 0 && (
-                    <div class="mb-4">
+                    <div class="mb-6">
                       <div class="flex flex-wrap gap-2">
-                        {warehouse.data.features.slice(0, 3).map(feature => (
-                          <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-1 rounded-full">
+                        {warehouse.data.features.slice(0, 3).map((feature: string) => (
+                          <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
                             {feature}
                           </span>
                         ))}
                         {warehouse.data.features.length > 3 && (
-                          <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-1 rounded-full">
+                          <span class="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
                             +{warehouse.data.features.length - 3} more
                           </span>
                         )}
                       </div>
                     </div>
                   )}
-                  
+
+                  <!-- Action Buttons -->
                   <div class="flex gap-3">
-                    <a href={`/warehouses/${warehouse.data.slug}`} class="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-center py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <a 
+                      href={`/warehouses/${warehouse.data.slug}`} 
+                      class="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-center py-3 rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 transform"
+                    >
                       View Details
                     </a>
-                    <a href="/contact" class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-50 hover:border-slate-400 transition-all duration-300">
+                    <a 
+                      href="/contact" 
+                      class="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
+                    >
                       Inquire
                     </a>
                   </div>
@@ -370,11 +281,14 @@ const totalSqFt = allWarehouses.reduce((sum, w) => sum + w.data.size, 0);
           </div>
 
           <!-- View All Button -->
-          <div class="text-center gsap-fade-in">
-            <a href="/warehouses" class="inline-flex items-center bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+          <div class="text-center mt-12 animate-on-scroll">
+            <a 
+              href="/warehouses" 
+              class="inline-flex items-center bg-gray-900 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-gray-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+            >
               View All Properties
-              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </a>
           </div>
@@ -382,28 +296,32 @@ const totalSqFt = allWarehouses.reduce((sum, w) => sum + w.data.size, 0);
       </section>
     )}
 
-    <!-- CTA Section -->
-    <section class="relative py-20 bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
-      <!-- Background Pattern -->
-      <div class="absolute inset-0 bg-pattern-grid opacity-10"></div>
-      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl float"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl float-reverse"></div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <h2 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6 gsap-fade-in">
-          READY TO FIND YOUR
-          <span class="block text-gradient">PERFECT SPACE?</span>
+    <!-- Call to Action -->
+    <section class="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mb-6 animate-on-scroll">
+          Ready to Find Your
+          <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
+            Perfect Warehouse?
+          </span>
         </h2>
-        <p class="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10 gsap-fade-in">
+        
+        <p class="text-xl text-gray-300 mb-10 animate-on-scroll">
           Let our experts guide you to the ideal warehouse solution. 
-          <span class="text-gradient font-semibold">It's completely free and takes less than 5 minutes to get started.</span>
+          <span class="text-white font-semibold">It's completely free and takes less than 5 minutes to get started.</span>
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-4 justify-center gsap-fade-in">
-          <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 shadow-xl">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
+          <a 
+            href="/contact" 
+            class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+          >
             Get Expert Help Now
           </a>
-          <a href="/warehouses" class="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300">
+          <a 
+            href="/warehouses" 
+            class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+          >
             Browse All Properties
           </a>
         </div>

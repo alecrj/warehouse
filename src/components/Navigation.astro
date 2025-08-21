@@ -1,0 +1,286 @@
+---
+// Navigation component for premium warehouse website
+---
+
+<nav class="premium-nav fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="main-nav">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="nav-logo group flex items-center space-x-3">
+        <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+        </div>
+        <div class="hidden sm:block">
+          <div class="font-black text-xl text-slate-900 nav-logo-text">ARIEL REALTY</div>
+          <div class="text-xs text-slate-500 -mt-1 tracking-wider">PREMIUM WAREHOUSES</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-1">
+        <a href="/" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
+          <span>Home</span>
+          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
+        </a>
+        <a href="/warehouses" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
+          <span>Properties</span>
+          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
+        </a>
+        <a href="/contact" class="nav-link px-4 py-2 rounded-lg text-slate-700 hover:text-slate-900 font-medium transition-all duration-300 relative group">
+          <span>Contact</span>
+          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></div>
+        </a>
+      </div>
+
+      <!-- CTA Button & Mobile Menu -->
+      <div class="flex items-center space-x-4">
+        <!-- Phone CTA -->
+        <a 
+          href="tel:+19549379667" 
+          class="hidden md:inline-flex items-center bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 group shadow-lg"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+          </svg>
+          <span class="hidden lg:inline">Call Now</span>
+          <span class="lg:hidden">(954) 937-9667</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button 
+          class="lg:hidden p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-300" 
+          id="mobile-menu-btn"
+          aria-label="Toggle mobile menu"
+        >
+          <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path class="menu-line-1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"></path>
+            <path class="menu-line-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"></path>
+            <path class="menu-line-3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu fixed inset-0 bg-slate-900/95 backdrop-blur-lg z-40 opacity-0 invisible transition-all duration-500" id="mobile-menu">
+    <div class="flex flex-col items-center justify-center h-full space-y-8">
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+        </div>
+        <div class="font-black text-2xl text-white">ARIEL REALTY</div>
+        <div class="text-slate-400 tracking-wider">PREMIUM WAREHOUSES</div>
+      </div>
+
+      <div class="space-y-6">
+        <a href="/" class="mobile-nav-link block text-2xl font-bold text-white hover:text-cyan-400 transition-colors duration-300 text-center">
+          Home
+        </a>
+        <a href="/warehouses" class="mobile-nav-link block text-2xl font-bold text-white hover:text-cyan-400 transition-colors duration-300 text-center">
+          Properties
+        </a>
+        <a href="/contact" class="mobile-nav-link block text-2xl font-bold text-white hover:text-cyan-400 transition-colors duration-300 text-center">
+          Contact
+        </a>
+      </div>
+
+      <div class="pt-8 space-y-4">
+        <a 
+          href="tel:+19549379667" 
+          class="block bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 text-center"
+        >
+          Call (954) 937-9667
+        </a>
+        <p class="text-slate-400 text-center text-sm">
+          Free consultation • Expert negotiation
+        </p>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Navigation Styles */
+  .premium-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .premium-nav.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-logo-text {
+    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-link {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .nav-link:hover::before {
+    left: 100%;
+  }
+
+  /* Mobile Menu Animations */
+  .mobile-menu.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-nav-link {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu.open .mobile-nav-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
+  .mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
+  .mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
+
+  /* Menu Icon Animation */
+  .menu-icon {
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-open .menu-line-1 {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-open .menu-line-2 {
+    opacity: 0;
+  }
+
+  .mobile-menu-open .menu-line-3 {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .premium-nav .max-w-7xl {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Simple JavaScript without TypeScript strict checking
+  function initNavigation() {
+    const nav = document.getElementById('main-nav');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
+
+    // Only proceed if elements exist
+    if (!nav || !mobileMenuBtn || !mobileMenu) return;
+
+    // Scroll effect for navigation
+    function handleScroll() {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        mobileMenu.classList.add('open');
+        mobileMenuBtn.classList.add('mobile-menu-open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.remove('open');
+        mobileMenuBtn.classList.remove('mobile-menu-open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Event listeners
+    window.addEventListener('scroll', handleScroll);
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+    // Close mobile menu when clicking on links
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (isMenuOpen) {
+          toggleMobileMenu();
+        }
+      });
+    });
+
+    // Close mobile menu when clicking overlay
+    mobileMenu.addEventListener('click', function(e) {
+      if (e.target === mobileMenu) {
+        toggleMobileMenu();
+      }
+    });
+
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isMenuOpen) {
+        toggleMobileMenu();
+      }
+    });
+
+    // Set active navigation link
+    function setActiveNavLink() {
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach(function(link) {
+        try {
+          const url = new URL(link.href);
+          if (url.pathname === currentPath) {
+            link.classList.add('active');
+            link.style.color = '#2563eb';
+          }
+        } catch (e) {
+          // Skip invalid URLs
+        }
+      });
+    }
+
+    setActiveNavLink();
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavigation);
+  } else {
+    initNavigation();
+  }
+</script>

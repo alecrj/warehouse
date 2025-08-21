@@ -1,4 +1,6 @@
 ---
+import Navigation from '../components/Navigation.astro';
+
 export interface Props {
   title: string;
   description?: string;
@@ -47,163 +49,85 @@ const socialImageURL = new URL(image, Astro.url);
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
-  <link rel="stylesheet" href="/src/styles/global.css" />
-  
-  <!-- GSAP -->
+  <!-- GSAP - Load first -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
-  <!-- Schema.org structured data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Ariel Realty Group",
-      "description": "South Florida industrial real estate and warehouse tenant representation specialists",
-      "url": "https://arielrealtygroup.com",
-      "telephone": "+1-954-937-9667",
-      "address": {
-        "@type": "PostalAddress",
-        "addressRegion": "Florida",
-        "addressCountry": "US"
-      },
-      "areaServed": [
-        {
-          "@type": "Place",
-          "name": "Miami-Dade County, Florida"
-        },
-        {
-          "@type": "Place", 
-          "name": "Broward County, Florida"
-        },
-        {
-          "@type": "Place",
-          "name": "Palm Beach County, Florida"
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          }
         }
-      ],
-      "serviceType": [
-        "Industrial Real Estate",
-        "Warehouse Leasing",
-        "Tenant Representation",
-        "Commercial Real Estate"
-      ]
+      }
     }
   </script>
   
+  <!-- Custom Styles -->
   <style>
-    /* Loading and Performance Styles */
-    .page-loading * {
-      transition: none !important;
-      animation-duration: 0s !important;
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-    
-    .loading-spinner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, #1e293b, #3b82f6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      opacity: 1;
-      transition: opacity 0.5s ease-out;
+
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
     }
-    
-    .loading-spinner.hidden {
-      opacity: 0;
-      pointer-events: none;
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+      border-radius: 4px;
     }
-    
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-left: 4px solid #ffffff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #0891b2 100%);
     }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+
+    /* Selection */
+    ::selection {
+      background: #2563eb;
+      color: white;
     }
-    
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, #3b82f6, #6366f1);
-      z-index: 9999;
-      transition: width 0.3s ease;
+
+    /* Focus styles */
+    :focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
     }
-    
-    /* Header Styles */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.95);
+
+    /* Premium background patterns */
+    .bg-pattern-dots {
+      background-image: radial-gradient(circle, rgb(148 163 184 / 0.3) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .bg-pattern-grid {
+      background-image: 
+        linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* Glass effects for premium feel */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.5);
-      z-index: 1000;
-      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    
-    .site-header.scrolled {
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Navigation Styles */
-    .nav-link {
-      position: relative;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #3b82f6, #6366f1);
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      width: 100%;
-    }
-    
-    /* Mobile Menu Styles */
-    .mobile-menu {
-      transform: translateY(-100%);
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-    
-    .mobile-menu.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    
-    /* Button Styles */
-    .cta-button {
+
+    /* Premium button hover effects */
+    .btn-premium {
       position: relative;
       overflow: hidden;
     }
-    
-    .cta-button::before {
+
+    .btn-premium::before {
       content: '';
       position: absolute;
       top: 0;
@@ -213,331 +137,216 @@ const socialImageURL = new URL(image, Astro.url);
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       transition: left 0.5s ease;
     }
-    
-    .cta-button:hover::before {
+
+    .btn-premium:hover::before {
       left: 100%;
     }
-    
-    /* Smooth Scroll Behavior */
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
+
+    /* Floating animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
       }
     }
-    
-    /* Main content spacing for fixed header */
-    main {
-      padding-top: 0;
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Premium card hover effects */
+    .card-3d {
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .card-3d:hover {
+      transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    }
+
+    /* Custom gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Form field enhancements */
+    .form-field {
+      transition: all 0.3s ease;
+    }
+
+    .form-field:focus {
+      transform: scale(1.02);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* Property card premium effects */
+    .property-card {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .property-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .property-image {
+      transition: transform 0.7s ease;
+    }
+
+    .property-card:hover .property-image {
+      transform: scale(1.1);
+    }
+
+    /* Hero section specific styles */
+    .hero-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    /* Ensure text is visible */
+    .hero-text h1 {
+      color: white !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .hero-subtitle p {
+      color: rgba(255, 255, 255, 0.8) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Form styling */
+    .hero-form {
+      background: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-form input,
+    .hero-form textarea {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      color: white !important;
+    }
+
+    .hero-form input::placeholder,
+    .hero-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    /* Ensure sections are visible */
+    section {
+      min-height: auto;
+      display: block;
+      position: relative;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 
-<body class="page-loading bg-white text-slate-900 antialiased">
-  <!-- Loading Spinner -->
-  <div class="loading-spinner">
-    <div class="spinner"></div>
-  </div>
+<body class="font-sans antialiased">
+  <!-- Navigation -->
+  <Navigation />
   
-  <!-- Scroll Progress Bar -->
-  <div class="scroll-progress"></div>
-  
-  <!-- Header -->
-  <header class="site-header">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        <!-- Logo -->
-        <div class="logo-container">
-          <a href="/" class="logo-link group flex items-center space-x-3">
-            <div class="logo-icon w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-              </svg>
-            </div>
-            <div class="logo-text">
-              <div class="text-xl font-black text-slate-900 leading-none">Ariel Realty</div>
-              <div class="text-sm text-slate-500 font-medium leading-none">Industrial Experts</div>
-            </div>
-          </a>
-        </div>
-        
-        <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center space-x-12">
-          <a href="/" class="nav-link text-slate-600 hover:text-slate-900 font-medium transition-colors duration-300">Home</a>
-          <a href="/warehouses" class="nav-link text-slate-600 hover:text-slate-900 font-medium transition-colors duration-300">Properties</a>
-          <a href="/about" class="nav-link text-slate-600 hover:text-slate-900 font-medium transition-colors duration-300">About</a>
-          <a href="/services" class="nav-link text-slate-600 hover:text-slate-900 font-medium transition-colors duration-300">Services</a>
-          <a href="/contact" class="nav-link text-slate-600 hover:text-slate-900 font-medium transition-colors duration-300">Contact</a>
-        </nav>
-        
-        <!-- CTA Button -->
-        <div class="hidden lg:flex items-center space-x-4">
-          <a 
-            href="tel:954-937-9667" 
-            class="cta-button bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
-          >
-            954-937-9667
-          </a>
-        </div>
-        
-        <!-- Mobile Menu Button -->
-        <button 
-          class="mobile-menu-button lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-300"
-          aria-expanded="false"
-          aria-label="Toggle navigation menu"
-        >
-          <svg class="menu-icon w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-          <svg class="close-icon w-6 h-6 text-slate-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu lg:hidden bg-white/95 backdrop-blur-xl border-t border-slate-200/50 hidden">
-      <div class="max-w-7xl mx-auto px-6 py-8">
-        <nav class="flex flex-col space-y-6">
-          <a href="/" class="mobile-nav-link text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors duration-300">Home</a>
-          <a href="/warehouses" class="mobile-nav-link text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors duration-300">Properties</a>
-          <a href="/about" class="mobile-nav-link text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors duration-300">About</a>
-          <a href="/services" class="mobile-nav-link text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors duration-300">Services</a>
-          <a href="/contact" class="mobile-nav-link text-xl font-semibold text-slate-900 hover:text-blue-600 transition-colors duration-300">Contact</a>
-        </nav>
-        
-        <div class="mt-8 pt-8 border-t border-slate-200">
-          <a 
-            href="tel:954-937-9667" 
-            class="w-full cta-button bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-4 rounded-xl font-semibold transition-all duration-300 text-center inline-block"
-          >
-            Call: 954-937-9667
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <!-- Main Content -->
   <main>
     <slot />
   </main>
-
+  
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-slate-900 to-blue-900 text-white py-16">
+  <footer class="bg-slate-900 text-white py-16">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div class="grid md:grid-cols-4 gap-8">
         <!-- Company Info -->
-        <div class="footer-section lg:col-span-2">
+        <div class="md:col-span-2">
           <div class="flex items-center space-x-3 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
             </div>
             <div>
-              <h3 class="text-2xl font-black text-white">Ariel Realty Group</h3>
-              <p class="text-slate-300 font-medium">South Florida Industrial Experts</p>
+              <div class="font-black text-xl">ARIEL REALTY GROUP</div>
+              <div class="text-slate-400 text-sm">Premium Warehouse Specialists</div>
             </div>
           </div>
-          <p class="text-slate-300 text-lg leading-relaxed mb-6 max-w-md">
-            Specializing in industrial tenant representation across South Florida. Over 500,000 SF leased with expert local market knowledge.
+          <p class="text-slate-300 mb-6 max-w-md leading-relaxed">
+            South Florida's premier warehouse tenant representation firm. We provide completely free services to help you find and negotiate the perfect industrial space.
           </p>
           <div class="flex space-x-4">
-            <a href="tel:954-937-9667" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 group">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-              <span>954-937-9667</span>
+            <a href="tel:+19549379667" class="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+              Call (954) 937-9667
             </a>
           </div>
         </div>
         
         <!-- Quick Links -->
-        <div class="footer-section">
-          <h4 class="text-xl font-bold text-white mb-6">Quick Links</h4>
-          <nav class="flex flex-col space-y-4">
-            <a href="/warehouses" class="text-white/70 hover:text-white transition-colors duration-300">Properties</a>
-            <a href="/about" class="text-white/70 hover:text-white transition-colors duration-300">About Us</a>
-            <a href="/services" class="text-white/70 hover:text-white transition-colors duration-300">Services</a>
-            <a href="/contact" class="text-white/70 hover:text-white transition-colors duration-300">Contact</a>
-          </nav>
+        <div>
+          <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a></li>
+            <li><a href="/warehouses" class="text-slate-300 hover:text-white transition-colors">Properties</a></li>
+            <li><a href="/contact" class="text-slate-300 hover:text-white transition-colors">Contact</a></li>
+          </ul>
         </div>
         
-        <!-- Services -->
-        <div class="footer-section">
-          <h4 class="text-xl font-bold text-white mb-6">Services</h4>
-          <ul class="flex flex-col space-y-4">
-            <li class="text-white/70">Tenant Representation</li>
-            <li class="text-white/70">Market Analysis</li>
-            <li class="text-white/70">Lease Negotiation</li>
-            <li class="text-white/70">Property Search</li>
+        <!-- Contact Info -->
+        <div>
+          <h3 class="font-bold text-lg mb-4">Contact</h3>
+          <ul class="space-y-3 text-slate-300">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              (954) 937-9667
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              South Florida
+            </li>
           </ul>
         </div>
       </div>
       
-      <!-- Bottom Footer -->
-      <div class="border-t border-white/20 mt-12 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="text-white/60 mb-4 md:mb-0">
-            <p>&copy; 2025 Ariel Realty Group. All rights reserved.</p>
-          </div>
-          <div class="flex items-center space-x-6">
-            <span class="text-white/60">South Florida Industrial Real Estate</span>
-          </div>
-        </div>
+      <div class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-400">
+        <p>&copy; 2025 Ariel Realty Group. All rights reserved. | Free tenant representation services.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Initialize GSAP -->
   <script>
-    // Page loading and scroll effects
     document.addEventListener('DOMContentLoaded', function() {
-      // Remove loading state
-      setTimeout(() => {
-        document.body.classList.remove('page-loading');
-        const loadingSpinner = document.querySelector('.loading-spinner') as HTMLElement;
-        if (loadingSpinner) {
-          loadingSpinner.classList.add('hidden');
-        }
-      }, 500);
-      
-      // Initialize GSAP and ScrollTrigger
       if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        gsap.registerPlugin(ScrollTrigger);
+        console.log('GSAP and ScrollTrigger initialized');
+      } else {
+        console.log('GSAP not loaded');
       }
-      
-      // Scroll progress bar
-      const progressBar = document.querySelector('.scroll-progress') as HTMLElement;
-      if (progressBar) {
-        window.addEventListener('scroll', () => {
-          const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-          progressBar.style.width = scrolled + '%';
-        });
-      }
-      
-      // Header scroll effect
-      const header = document.querySelector('.site-header') as HTMLElement;
-      if (header) {
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-          } else {
-            header.classList.remove('scrolled');
-          }
-        });
-      }
-      
-      // Mobile menu toggle
-      const mobileMenuButton = document.querySelector('.mobile-menu-button') as HTMLButtonElement;
-      const mobileMenu = document.querySelector('.mobile-menu') as HTMLElement;
-      const menuIcon = document.querySelector('.menu-icon') as HTMLElement;
-      const closeIcon = document.querySelector('.close-icon') as HTMLElement;
-      
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function(this: HTMLButtonElement) {
-          const isExpanded = this.getAttribute('aria-expanded') === 'true';
-          
-          if (isExpanded) {
-            this.setAttribute('aria-expanded', 'false');
-            mobileMenu.classList.add('hidden');
-            menuIcon?.classList.remove('hidden');
-            closeIcon?.classList.add('hidden');
-          } else {
-            this.setAttribute('aria-expanded', 'true');
-            mobileMenu.classList.remove('hidden');
-            menuIcon?.classList.add('hidden');
-            closeIcon?.classList.remove('hidden');
-          }
-        });
-      }
-      
-      // Logo hover animation
-      const logoLink = document.querySelector('.logo-link') as HTMLElement;
-      if (logoLink && typeof gsap !== 'undefined') {
-        logoLink.addEventListener('mouseenter', function(this: HTMLElement) {
-          const logoIcon = this.querySelector('.logo-icon') as HTMLElement;
-          if (logoIcon) {
-            gsap.to(logoIcon, {
-              rotation: 5,
-              scale: 1.1,
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          }
-        });
-        
-        logoLink.addEventListener('mouseleave', function(this: HTMLElement) {
-          const logoIcon = this.querySelector('.logo-icon') as HTMLElement;
-          if (logoIcon) {
-            gsap.to(logoIcon, {
-              rotation: 0,
-              scale: 1,
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          }
-        });
-      }
-      
-      // Footer animations
-      if (typeof gsap !== 'undefined') {
-        gsap.utils.toArray('.footer-section').forEach(function(section: any, index: number) {
-          gsap.from(section, {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            delay: index * 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 90%",
-              toggleActions: "play none none reverse"
-            }
-          });
-        });
-      }
-      
-      // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-        anchor.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
-          e.preventDefault();
-          const href = this.getAttribute('href');
-          if (href) {
-            const target = document.querySelector(href) as HTMLElement;
-            if (target && typeof gsap !== 'undefined') {
-              gsap.to(window, {
-                scrollTo: { y: target, offsetY: 100 },
-                duration: 1.2,
-                ease: "power2.inOut"
-              });
-            }
-          }
-        });
-      });
-      
-      // Close mobile menu when clicking outside
-      document.addEventListener('click', function(e: Event) {
-        const mobileMenu = document.querySelector('.mobile-menu') as HTMLElement;
-        const mobileMenuButton = document.querySelector('.mobile-menu-button') as HTMLElement;
-        const target = e.target as Node;
-        
-        if (mobileMenu && mobileMenuButton && target && !mobileMenu.contains(target) && !mobileMenuButton.contains(target)) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
-          const menuIcon = document.querySelector('.menu-icon') as HTMLElement;
-          const closeIcon = document.querySelector('.close-icon') as HTMLElement;
-          menuIcon?.classList.remove('hidden');
-          closeIcon?.classList.add('hidden');
-        }
-      });
-      
-      console.log('🚀 Ariel Realty Group website loaded successfully!');
     });
   </script>
 </body>

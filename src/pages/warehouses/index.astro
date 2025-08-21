@@ -1,5 +1,5 @@
 ---
-// Clean warehouses listing page with working search filters
+// Clean warehouses listing page with fixed syntax
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import { getCollection } from 'astro:content';
@@ -205,14 +205,14 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     <section class="py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {allWarehouses.length > 0 ? (
-          <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 stagger-children" id="properties-grid">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="properties-grid">
             {allWarehouses.map((warehouse: Warehouse) => (
               <div 
                 class={`property-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform h-full flex flex-col ${warehouse.data.availability} ${warehouse.data.featured ? 'featured' : ''}`}
                 data-warehouse={JSON.stringify(warehouse.data)}
               >
-                <!-- Property Image -->
-                <div class="relative h-56 bg-gradient-to-br from-gray-200 to-gray-300">
+                <!-- Property Image - Fixed Height -->
+                <div class="relative h-64 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
                   {warehouse.data.images && warehouse.data.images.length > 0 ? (
                     <img 
                       src={warehouse.data.images[0]} 
@@ -248,34 +248,47 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                   )}
                 </div>
 
-                <!-- Property Details -->
+                <!-- Property Details - Flex Column with Auto Spacing -->
                 <div class="p-6 flex-1 flex flex-col">
-                  <div class="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
-                        {warehouse.data.title}
-                      </h3>
-                      <p class="text-gray-600 font-medium">
-                        {warehouse.data.location}
-                      </p>
-                    </div>
-                    <div class="text-right">
-                      <div class="text-2xl font-bold text-primary-600">
-                        {warehouse.data.price}
-                      </div>
-                      <div class="text-sm text-gray-500">
-                        {warehouse.data.size?.toLocaleString()} sq ft
-                      </div>
+                  
+                  <!-- Header Section -->
+                  <div class="mb-4">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
+                      {warehouse.data.title}
+                    </h3>
+                    
+                    <div class="flex items-center text-gray-600 mb-3">
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      </svg>
+                      <span class="font-medium">{warehouse.data.location}</span>
                     </div>
                   </div>
                   
-                  <p class="text-gray-600 mb-4 leading-relaxed line-clamp-3">
+                  <!-- Stats Grid -->
+                  <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="text-center p-3 bg-gray-50 rounded-xl">
+                      <div class="text-lg font-bold text-gray-900">
+                        {warehouse.data.size?.toLocaleString()}
+                      </div>
+                      <div class="text-sm text-gray-600">Square Feet</div>
+                    </div>
+                    <div class="text-center p-3 bg-gray-50 rounded-xl">
+                      <div class="text-lg font-bold text-primary-600">
+                        {warehouse.data.price}
+                      </div>
+                      <div class="text-sm text-gray-600">per SF/year</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Description -->
+                  <p class="text-gray-600 mb-4 leading-relaxed line-clamp-3 min-h-[4.5rem]">
                     {warehouse.data.description}
                   </p>
                   
                   <!-- Features -->
                   {warehouse.data.features && warehouse.data.features.length > 0 && (
-                    <div class="mb-6">
+                    <div class="mb-6 flex-1">
                       <h4 class="text-sm font-semibold text-gray-900 mb-3">Key Features</h4>
                       <div class="flex flex-wrap gap-2">
                         {warehouse.data.features.slice(0, 4).map((feature: string) => (
@@ -292,7 +305,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                     </div>
                   )}
                   
-                  <!-- Action Buttons -->
+                  <!-- Action Buttons - Always at Bottom -->
                   <div class="flex gap-3 mt-auto">
                     <a 
                       href={`/warehouses/${warehouse.data.slug}`} 
@@ -391,7 +404,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           btn.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
         });
         
-        const activeBtn = document.querySelector(`[data-filter="${currentFilter}"]`);
+        const activeBtn = document.querySelector('[data-filter="' + currentFilter + '"]');
         if (activeBtn) {
           activeBtn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
           activeBtn.classList.add('bg-primary-600', 'text-white');
@@ -405,43 +418,42 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         let filtersHTML = '';
         
         if (currentFilters.minSize) {
-          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
-            Min: ${parseInt(currentFilters.minSize).toLocaleString()} SF
-            <button onclick="clearFilter('minSize')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
-          </span>`;
+          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
+            'Min: ' + parseInt(currentFilters.minSize).toLocaleString() + ' SF' +
+            '<button onclick="clearFilter(\'minSize\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
+            '</span>';
         }
         
         if (currentFilters.maxSize) {
-          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
-            Max: ${parseInt(currentFilters.maxSize).toLocaleString()} SF
-            <button onclick="clearFilter('maxSize')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
-          </span>`;
+          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
+            'Max: ' + parseInt(currentFilters.maxSize).toLocaleString() + ' SF' +
+            '<button onclick="clearFilter(\'maxSize\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
+            '</span>';
         }
         
         if (currentFilters.county) {
-          const countyName = currentFilters.county.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
-          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
-            ${countyName}
-            <button onclick="clearFilter('county')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
-          </span>`;
+          const countyName = currentFilters.county.replace('-', ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); });
+          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
+            countyName +
+            '<button onclick="clearFilter(\'county\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
+            '</span>';
         }
         
         if (currentFilter !== 'all') {
           const filterName = currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1);
-          filtersHTML += `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">
-            ${filterName}
-            <button onclick="clearFilter('status')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>
-          </span>`;
+          filtersHTML += '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary-100 text-primary-800">' +
+            filterName +
+            '<button onclick="clearFilter(\'status\')" class="ml-2 text-primary-600 hover:text-primary-800">×</button>' +
+            '</span>';
         }
         
         if (filtersHTML) {
-          activeFiltersContainer.innerHTML = `
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="text-sm text-gray-600">Active filters:</span>
-              ${filtersHTML}
-              <button onclick="clearAllFilters()" class="text-sm text-primary-600 hover:text-primary-800 font-medium">Clear all</button>
-            </div>
-          `;
+          activeFiltersContainer.innerHTML = 
+            '<div class="flex items-center gap-2 flex-wrap">' +
+              '<span class="text-sm text-gray-600">Active filters:</span>' +
+              filtersHTML +
+              '<button onclick="clearAllFilters()" class="text-sm text-primary-600 hover:text-primary-800 font-medium">Clear all</button>' +
+            '</div>';
         } else {
           activeFiltersContainer.innerHTML = '';
         }

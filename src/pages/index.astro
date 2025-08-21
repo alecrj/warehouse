@@ -1,5 +1,5 @@
 ---
-// Updated homepage with working search and mobile fixes
+// Updated homepage with proper hero sizing and standardized forms
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -40,8 +40,8 @@ try {
   <Navigation />
   
   <main>
-    <!-- Hero Section -->
-    <section class="relative pt-20 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+    <!-- Hero Section - Better Sized for Desktop -->
+    <section class="relative pt-20 pb-12 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
@@ -50,10 +50,11 @@ try {
       </div>
       
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <!-- Left Column - Hero Content -->
-          <div class="animate-on-scroll text-center lg:text-left">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6">
+        <div class="grid lg:grid-cols-2 gap-12 items-center py-8 lg:py-16">
+          
+          <!-- Left Column - Hero Content (Better Centered) -->
+          <div class="animate-on-scroll flex flex-col justify-center text-center lg:text-left">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-tight tracking-tight mb-6">
               FIND YOUR PERFECT
               <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
                 WAREHOUSE
@@ -61,25 +62,25 @@ try {
               <span class="block text-white">IN SOUTH FLORIDA</span>
             </h1>
             
-            <p class="text-lg lg:text-xl text-gray-300 leading-relaxed mb-8">
+            <p class="text-lg lg:text-xl text-gray-300 leading-relaxed mb-4 max-w-xl mx-auto lg:mx-0">
               Free tenant representation for warehouse leases—landlords pay our fee.
             </p>
 
-            <p class="text-base text-gray-400 leading-relaxed mb-8">
+            <p class="text-base text-gray-400 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
               From a 500 SF workshop to a 500,000 SF distribution hub—we've got you covered.
             </p>
 
             <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 mt-10 animate-on-scroll justify-center lg:justify-start">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a 
                 href="/contact" 
-                class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform text-center"
+                class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-2xl text-base font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform text-center"
               >
                 Get Free Tenant Representation
               </a>
               <a 
                 href="tel:954-937-9667" 
-                class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300 text-center"
+                class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 px-6 py-3 rounded-2xl text-base font-semibold hover:bg-white/20 hover:border-white/30 transition-all duration-300 text-center"
               >
                 Call (954) 937-9667
               </a>
@@ -88,7 +89,7 @@ try {
 
           <!-- Right Column - Search Form -->
           <div class="animate-on-scroll">
-            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 lg:p-8 shadow-2xl">
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 lg:p-8 shadow-2xl max-w-lg mx-auto">
               <div class="text-center mb-6">
                 <h2 class="text-xl lg:text-2xl font-bold text-white mb-2">Search Warehouses</h2>
                 <p class="text-gray-300">Find space that fits—fast</p>
@@ -181,8 +182,158 @@ try {
       </div>
     </section>
 
+    <!-- Contact Form Section - Using general-inquiry form -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-on-scroll">
+          <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            Ready to Find Your Warehouse?
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Tell us what you need. We'll send qualified options and set up tours.
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-gray-50 rounded-3xl p-8 lg:p-12 shadow-soft animate-on-scroll">
+            <form 
+              name="general-inquiry" 
+              method="POST" 
+              data-netlify="true" 
+              netlify-honeypot="bot-field"
+              action="/success"
+              class="space-y-6"
+            >
+              <!-- Hidden fields -->
+              <input type="hidden" name="form-name" value="general-inquiry" />
+              <input type="hidden" name="source" value="homepage" />
+              <div class="hidden">
+                <input name="bot-field" />
+              </div>
+
+              <!-- Name & Email Row -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Name *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required 
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
+                    placeholder="Your Name"
+                  />
+                </div>
+
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
+
+              <!-- Phone & Company Row -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Phone
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
+                    placeholder="(954) 123-4567"
+                  />
+                </div>
+
+                <div>
+                  <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Company
+                  </label>
+                  <input 
+                    type="text" 
+                    id="company" 
+                    name="company" 
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
+                    placeholder="Company Name"
+                  />
+                </div>
+              </div>
+
+              <!-- Size & Location Row -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="size" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Size Needed (SF)
+                  </label>
+                  <input 
+                    type="text" 
+                    id="size" 
+                    name="size" 
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
+                    placeholder="e.g., 10,000 SF"
+                  />
+                </div>
+
+                <div>
+                  <label for="timing" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Timing
+                  </label>
+                  <input 
+                    type="text" 
+                    id="timing" 
+                    name="timing" 
+                    class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300"
+                    placeholder="e.g., 90 days"
+                  />
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
+                  Requirements & Message
+                </label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 resize-none"
+                  placeholder="Tell us about your space requirements: loading docks, yard space, power needs, etc."
+                ></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="text-center">
+                <button 
+                  type="submit" 
+                  class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-12 py-4 rounded-xl text-lg font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform"
+                >
+                  Get Free Tenant Representation
+                </button>
+                <p class="text-sm text-gray-500 mt-4">
+                  Completely free service. Landlords pay our fees.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Warehouse Hero Image Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative rounded-3xl overflow-hidden shadow-2xl animate-on-scroll">
           <picture>
@@ -213,7 +364,7 @@ try {
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-24 bg-gray-50">
+    <section class="py-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-16 animate-on-scroll">
@@ -228,7 +379,7 @@ try {
         <!-- Services Grid -->
         <div class="grid md:grid-cols-3 gap-8 stagger-children">
           <!-- Step 1 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <span class="text-2xl font-bold text-white">1</span>
             </div>
@@ -239,7 +390,7 @@ try {
           </div>
 
           <!-- Step 2 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <span class="text-2xl font-bold text-white">2</span>
             </div>
@@ -250,7 +401,7 @@ try {
           </div>
 
           <!-- Step 3 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <span class="text-2xl font-bold text-white">3</span>
             </div>
@@ -265,7 +416,7 @@ try {
 
     <!-- Featured Properties -->
     {featuredWarehouses.length > 0 && (
-      <section class="py-24 bg-white">
+      <section class="py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <!-- Section Header -->
           <div class="text-center mb-16 animate-on-scroll">
@@ -390,7 +541,7 @@ try {
     )}
 
     <!-- Why Choose Us Section -->
-    <section class="py-24 bg-gray-50">
+    <section class="py-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-16 animate-on-scroll">
@@ -405,7 +556,7 @@ try {
         <!-- Trust Features Grid -->
         <div class="grid md:grid-cols-4 gap-8 stagger-children">
           <!-- Feature 1 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
@@ -418,7 +569,7 @@ try {
           </div>
 
           <!-- Feature 2 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -431,7 +582,7 @@ try {
           </div>
 
           <!-- Feature 3 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -444,7 +595,7 @@ try {
           </div>
 
           <!-- Feature 4 -->
-          <div class="text-center p-8 rounded-3xl bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+          <div class="text-center p-8 rounded-3xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
             <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -460,7 +611,7 @@ try {
     </section>
 
     <!-- Coverage Section -->
-    <section class="py-24 bg-white">
+    <section class="py-24 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center animate-on-scroll">
           <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">

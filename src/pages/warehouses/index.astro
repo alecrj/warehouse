@@ -1,7 +1,8 @@
 ---
-// Updated warehouses listing page with consistent hero
+// Updated warehouses listing page with video background hero
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 // Define proper types
@@ -54,31 +55,48 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
   <Navigation />
   
   <main>
-    <!-- Hero Section - Consistent Sizing with Stats Cards -->
-    <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center">
-      <!-- Background Elements -->
+    <!-- Enhanced Hero Section with Video Background -->
+    <section class="relative min-h-screen overflow-hidden flex items-center">
+      <!-- Video Background -->
+      <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline
+        class="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/warehousevid.mp4" type="video/mp4">
+        <!-- Fallback for browsers that don't support video -->
+      </video>
+      
+      <!-- Video Overlay -->
+      <div class="absolute inset-0 bg-black/60"></div>
+      
+      <!-- Gradient Overlay for extra depth -->
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/60 to-slate-900/80"></div>
+      
+      <!-- Background Elements (subtle over video) -->
       <div class="absolute inset-0">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float-reverse"></div>
-        <div class="absolute inset-0 bg-pattern-grid opacity-20"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-float-reverse"></div>
       </div>
       
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="text-center">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 animate-on-scroll">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 animate-on-scroll drop-shadow-2xl">
             BROWSE OUR
             <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
               PROPERTIES
             </span>
           </h1>
-          <p class="text-lg lg:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-2 animate-on-scroll">
+          <p class="text-lg lg:text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-2 animate-on-scroll drop-shadow-lg">
             Premium warehouse and industrial properties across South Florida.
           </p>
-          <p class="text-base text-gray-400 leading-relaxed mb-8 max-w-3xl mx-auto animate-on-scroll">
+          <p class="text-base text-gray-300 leading-relaxed mb-8 max-w-3xl mx-auto animate-on-scroll drop-shadow-lg">
             Expert representation. Zero fees. Perfect matches.
           </p>
           
-          <!-- Statistics Cards - Now in Hero -->
+          <!-- Enhanced Statistics Cards with Video Background -->
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll mt-12">
             <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
@@ -101,12 +119,12 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
                   {totalSqFt.toLocaleString()}
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total Sq Ft</div>
+                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total SQ FT</div>
               </div>
             </div>
             <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-purple-200 transition-colors duration-300">
+                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-cyan-200 transition-colors duration-300">
                   {averageSize.toLocaleString()}
                 </div>
                 <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Avg Size</div>
@@ -117,79 +135,80 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       </div>
     </section>
 
-    <!-- Filters & Search -->
-    <section class="py-8 bg-white border-b border-gray-200">
+    <!-- Enhanced Search & Filters Section -->
+    <section class="py-12 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row gap-6 items-center justify-between">
-          <!-- Search -->
-          <div class="w-full lg:w-96">
-            <div class="relative">
-              <input 
-                type="text" 
-                placeholder="Search properties..." 
-                id="search-input"
-                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-              />
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sort -->
-          <div class="flex gap-4">
-            <select 
-              id="sort-select"
-              class="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto mb-8">
+          <div class="relative">
+            <input 
+              type="text" 
+              id="search-input"
+              placeholder="Search by location, features, or property name..." 
+              class="w-full px-6 py-4 pl-12 text-lg border border-gray-300 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 shadow-sm"
             >
-              <option value="featured">Featured First</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="size-small">Size: Small to Large</option>
-              <option value="size-large">Size: Large to Small</option>
-            </select>
+            <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
           </div>
         </div>
-
-        <!-- Quick Filters -->
-        <div class="mt-6 flex flex-wrap gap-3">
+        
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
           <button 
-            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
+            data-filter="clear"
+            type="button"
+          >
+            All Properties
+          </button>
+          <button 
+            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
             data-filter="availability"
             data-value="available"
+            type="button"
           >
             Available Now
           </button>
           <button 
-            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
             data-filter="size"
             data-value="small"
+            type="button"
           >
             Under 10k SF
           </button>
           <button 
-            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
             data-filter="size"
             data-value="medium"
+            type="button"
           >
             10k-50k SF
           </button>
           <button 
-            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
             data-filter="size"
             data-value="large"
+            type="button"
           >
             50k+ SF
           </button>
           <button 
-            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors filter-btn"
+            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
             data-filter="featured"
             data-value="true"
+            type="button"
           >
             Featured Only
           </button>
+        </div>
+
+        <!-- Results Counter -->
+        <div class="text-center mb-8">
+          <p id="results-counter" class="text-gray-600 text-lg">
+            Showing <span id="visible-count">{allWarehouses.length}</span> of <span id="total-count">{allWarehouses.length}</span> properties
+          </p>
         </div>
       </div>
     </section>
@@ -218,63 +237,51 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                       ? 'bg-green-100 text-green-700' 
                       : 'bg-yellow-100 text-yellow-700'
                   }`}>
-                    {warehouse.data.availability === 'available' ? 'Available' : 'Coming Soon'}
+                    {warehouse.data.availability === 'available' ? 'Available Now' : 'Pending'}
                   </span>
                 </div>
 
+                <!-- Featured Badge -->
                 {warehouse.data.featured && (
                   <div class="absolute top-4 right-4">
-                    <span class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="px-3 py-1 bg-primary-500 text-white rounded-full text-xs font-semibold">
                       Featured
                     </span>
                   </div>
                 )}
               </div>
 
-              <!-- Property Details - Flex Column with Auto Spacing -->
+              <!-- Content Section -->
               <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{warehouse.data.title}</h3>
+                <p class="text-gray-600 mb-4 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  {warehouse.data.location}
+                </p>
                 
-                <!-- Header Section -->
-                <div class="mb-4">
-                  <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
-                    {warehouse.data.title}
-                  </h3>
-                  
-                  <div class="flex items-center text-gray-600 mb-3">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                    </svg>
-                    <span class="font-medium">{warehouse.data.location}</span>
-                  </div>
+                <!-- Price and Size -->
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-2xl font-bold text-primary-600">{warehouse.data.price}</span>
+                  <span class="text-gray-500 font-medium">{warehouse.data.size?.toLocaleString()} SF</span>
                 </div>
                 
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                  <div class="text-center p-3 bg-gray-50 rounded-xl">
-                    <div class="text-lg font-bold text-gray-900">
-                      {warehouse.data.size?.toLocaleString()}
-                    </div>
-                    <div class="text-gray-600 text-xs">Sq Ft</div>
-                  </div>
-                  <div class="text-center p-3 bg-gray-50 rounded-xl">
-                    <div class="text-lg font-bold text-primary-600">
-                      {warehouse.data.price}
-                    </div>
-                    <div class="text-gray-600 text-xs">per SF/Year</div>
-                  </div>
-                </div>
+                <!-- Description -->
+                <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">{warehouse.data.description}</p>
                 
-                <!-- Features (if available) -->
+                <!-- Features -->
                 {warehouse.data.features && warehouse.data.features.length > 0 && (
-                  <div class="mb-4 flex-1">
-                    <div class="flex flex-wrap gap-2">
+                  <div class="mb-4">
+                    <div class="flex flex-wrap gap-1">
                       {warehouse.data.features.slice(0, 3).map((feature) => (
-                        <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-lg">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
                           {feature}
                         </span>
                       ))}
                       {warehouse.data.features.length > 3 && (
-                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-lg">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
                           +{warehouse.data.features.length - 3} more
                         </span>
                       )}
@@ -282,47 +289,92 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                   </div>
                 )}
                 
-                <!-- CTA Button - Always at Bottom -->
-                <div class="mt-auto pt-4">
-                  <a 
-                    href={`/warehouses/${warehouse.data.slug}`}
-                    class="block w-full bg-primary-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200"
-                  >
-                    View Details
-                  </a>
-                </div>
+                <!-- CTA Button -->
+                <a 
+                  href={`/warehouses/${warehouse.data.slug}`}
+                  class="block w-full bg-primary-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 mt-auto"
+                >
+                  View Details
+                </a>
               </div>
             </div>
           ))}
         </div>
 
         <!-- No Results Message -->
-        <div id="no-results" class="hidden text-center py-12">
-          <div class="text-gray-400 text-lg mb-4">No properties match your criteria</div>
-          <button 
-            onclick="clearAllFilters()"
-            class="bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors"
+        <div id="no-results" class="hidden text-center py-16">
+          <div class="max-w-md mx-auto">
+            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">No properties found</h3>
+            <p class="text-gray-600 mb-4">Try adjusting your search or filters to find more results.</p>
+            <button 
+              class="px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
+              onclick="window.clearAllFilters()"
+              type="button"
+            >
+              Clear All Filters
+            </button>
+              Clear All Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-primary-600">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+          Don't See What You're Looking For?
+        </h2>
+        <p class="text-xl text-primary-100 mb-8 leading-relaxed">
+          We have access to off-market properties and can help you find exactly what you need. 
+          Our service is completely free - landlords pay our fee.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="px-8 py-4 bg-white text-primary-600 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200"
           >
-            Clear All Filters
-          </button>
+            Tell Us Your Requirements
+          </a>
+          <a 
+            href="tel:+1234567890" 
+            class="px-8 py-4 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-primary-600 transition-colors duration-200"
+          >
+            Call Now: (123) 456-7890
+          </a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Include Footer (assumed to be imported in BaseLayout) -->
-  
+  <Footer />
+
+  <!-- Enhanced JavaScript for Filtering and Search -->
   <script>
+    // Declare global function type
+    declare global {
+      interface Window {
+        clearAllFilters: () => void;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      const propertyCards = document.querySelectorAll('.property-card');
       const searchInput = document.getElementById('search-input') as HTMLInputElement;
-      const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const noResultsDiv = document.getElementById('no-results');
+      const propertiesGrid = document.getElementById('properties-grid') as HTMLElement;
+      const propertyCards = document.querySelectorAll('.property-card') as NodeListOf<HTMLElement>;
+      const filterButtons = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>;
+      const noResults = document.getElementById('no-results') as HTMLElement;
+      const visibleCount = document.getElementById('visible-count') as HTMLElement;
+      const totalCount = document.getElementById('total-count') as HTMLElement;
       
-      type FilterKeys = 'search' | 'availability' | 'size' | 'featured';
+      type FilterType = 'search' | 'availability' | 'size' | 'featured' | 'clear';
+      type FilterStateType = 'search' | 'availability' | 'size' | 'featured';
       
-      let currentFilters: Record<FilterKeys, string> = {
+      let currentFilters: Record<FilterStateType, string> = {
         search: '',
         availability: '',
         size: '',
@@ -340,219 +392,147 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         });
       }
 
-      // Sort functionality
-      if (sortSelect) {
-        sortSelect.addEventListener('change', function(e: Event) {
-          const target = e.target as HTMLSelectElement;
-          if (target) {
-            sortProperties(target.value);
-          }
-        });
-      }
-
       // Filter button functionality
-      filterButtons.forEach(function(button) {
-        button.addEventListener('click', function(this: HTMLElement) {
-          const filterType = this.getAttribute('data-filter') as FilterKeys;
-          const filterValue = this.getAttribute('data-value');
-          
-          if (!filterType || !filterValue) return;
-          
-          // Toggle filter
-          if (currentFilters[filterType] === filterValue) {
-            currentFilters[filterType] = '';
+      filterButtons.forEach((button: HTMLButtonElement) => {
+        button.addEventListener('click', function(this: HTMLButtonElement) {
+          const filterType = this.dataset.filter as FilterType;
+          const filterValue = this.dataset.value || '';
+
+          if (filterType === 'clear') {
+            clearAllFilters();
+            return;
+          }
+
+          // Reset other buttons of the same type
+          filterButtons.forEach((btn: HTMLButtonElement) => {
+            const btnFilterType = btn.dataset.filter as FilterType;
+            if (btnFilterType === filterType && btn !== this) {
+              btn.classList.remove('bg-primary-600', 'text-white');
+              btn.classList.add('bg-gray-100', 'text-gray-700');
+            }
+          });
+
+          // Toggle this button (filterType is guaranteed to be FilterStateType here)
+          const stateFilterType = filterType as FilterStateType;
+          if (currentFilters[stateFilterType] === filterValue) {
+            // Deactivate filter
+            currentFilters[stateFilterType] = '';
             this.classList.remove('bg-primary-600', 'text-white');
             this.classList.add('bg-gray-100', 'text-gray-700');
           } else {
-            // Clear other buttons of same type
-            filterButtons.forEach(function(btn) {
-              if (btn.getAttribute('data-filter') === filterType) {
-                btn.classList.remove('bg-primary-600', 'text-white');
-                btn.classList.add('bg-gray-100', 'text-gray-700');
-              }
-            });
-            
-            currentFilters[filterType] = filterValue;
+            // Activate filter
+            currentFilters[stateFilterType] = filterValue;
             this.classList.remove('bg-gray-100', 'text-gray-700');
             this.classList.add('bg-primary-600', 'text-white');
           }
-          
+
           filterProperties();
         });
       });
 
-      function filterProperties() {
-        let visibleCount = 0;
-        
-        propertyCards.forEach(function(card) {
-          let showCard = true;
+      function filterProperties(): void {
+        let visibleCards = 0;
+
+        propertyCards.forEach((card: HTMLElement) => {
+          const warehouseDataStr = card.dataset.warehouse;
+          if (!warehouseDataStr) return;
           
-          try {
-            const warehouseData = card.getAttribute('data-warehouse');
-            const warehouse = warehouseData ? JSON.parse(warehouseData) : {};
+          const warehouseData = JSON.parse(warehouseDataStr);
+          let isVisible = true;
+
+          // Search filter
+          if (currentFilters.search) {
+            const searchTerms = currentFilters.search.toLowerCase();
+            const searchableText = [
+              warehouseData.title || '',
+              warehouseData.location || '',
+              warehouseData.description || '',
+              ...(warehouseData.features || [])
+            ].join(' ').toLowerCase();
             
-            // Search filter
-            if (currentFilters.search) {
-              const searchableText = (
-                (warehouse.title || '') + ' ' +
-                (warehouse.location || '') + ' ' +
-                (warehouse.description || '') + ' ' +
-                (warehouse.features ? warehouse.features.join(' ') : '')
-              ).toLowerCase();
-              
-              if (!searchableText.includes(currentFilters.search)) {
-                showCard = false;
-              }
+            if (!searchableText.includes(searchTerms)) {
+              isVisible = false;
             }
-            
-            // Availability filter
-            if (currentFilters.availability && warehouse.availability !== currentFilters.availability) {
-              showCard = false;
-            }
-            
-            // Size filter
-            if (currentFilters.size) {
-              const size = warehouse.size || 0;
-              switch (currentFilters.size) {
-                case 'small':
-                  if (size >= 10000) showCard = false;
-                  break;
-                case 'medium':
-                  if (size < 10000 || size >= 50000) showCard = false;
-                  break;
-                case 'large':
-                  if (size < 50000) showCard = false;
-                  break;
-              }
-            }
-            
-            // Featured filter
-            if (currentFilters.featured === 'true' && !warehouse.featured) {
-              showCard = false;
-            }
-            
-          } catch (e) {
-            console.log('Error parsing warehouse data:', e);
           }
-          
-          // Show/hide card with animation
-          const cardElement = card as HTMLElement;
-          if (cardElement) {
-            if (showCard) {
-              cardElement.style.display = 'block';
-              visibleCount++;
-              if (typeof (window as any).gsap !== 'undefined') {
-                (window as any).gsap.fromTo(cardElement, 
-                  { opacity: 0, y: 20 },
-                  { opacity: 1, y: 0, duration: 0.3 }
-                );
-              }
-            } else {
-              if (typeof (window as any).gsap !== 'undefined') {
-                (window as any).gsap.to(cardElement, {
-                  opacity: 0,
-                  y: -20,
-                  duration: 0.3,
-                  onComplete: function() {
-                    cardElement.style.display = 'none';
-                  }
-                });
-              } else {
-                cardElement.style.display = 'none';
-              }
-            }
+
+          // Availability filter
+          if (currentFilters.availability && warehouseData.availability !== currentFilters.availability) {
+            isVisible = false;
+          }
+
+          // Size filter
+          if (currentFilters.size) {
+            const size = warehouseData.size || 0;
+            if (currentFilters.size === 'small' && size >= 10000) isVisible = false;
+            if (currentFilters.size === 'medium' && (size < 10000 || size >= 50000)) isVisible = false;
+            if (currentFilters.size === 'large' && size < 50000) isVisible = false;
+          }
+
+          // Featured filter
+          if (currentFilters.featured === 'true' && !warehouseData.featured) {
+            isVisible = false;
+          }
+
+          // Show/hide card
+          if (isVisible) {
+            card.style.display = 'flex';
+            visibleCards++;
+          } else {
+            card.style.display = 'none';
           }
         });
+
+        // Update results counter
+        if (visibleCount) visibleCount.textContent = visibleCards.toString();
 
         // Show/hide no results message
-        if (noResultsDiv) {
-          if (visibleCount === 0) {
-            noResultsDiv.classList.remove('hidden');
-          } else {
-            noResultsDiv.classList.add('hidden');
-          }
-        }
-      }
-      
-      function sortProperties(sortBy: string) {
-        const grid = document.getElementById('properties-grid');
-        if (!grid) return;
-        
-        const cards = Array.from(propertyCards);
-        
-        cards.sort(function(a, b) {
-          try {
-            const dataA = a.getAttribute('data-warehouse');
-            const dataB = b.getAttribute('data-warehouse');
-            const warehouseA = dataA ? JSON.parse(dataA) : {};
-            const warehouseB = dataB ? JSON.parse(dataB) : {};
-            
-            switch (sortBy) {
-              case 'price-low':
-                return parseInt((warehouseA.price || '0').replace(/\D/g, '')) - parseInt((warehouseB.price || '0').replace(/\D/g, ''));
-              case 'price-high':
-                return parseInt((warehouseB.price || '0').replace(/\D/g, '')) - parseInt((warehouseA.price || '0').replace(/\D/g, ''));
-              case 'size-small':
-                return (warehouseA.size || 0) - (warehouseB.size || 0);
-              case 'size-large':
-                return (warehouseB.size || 0) - (warehouseA.size || 0);
-              case 'featured':
-              default:
-                if (warehouseA.featured && !warehouseB.featured) return -1;
-                if (!warehouseA.featured && warehouseB.featured) return 1;
-                return 0;
-            }
-          } catch (e) {
-            console.log('Error sorting properties:', e);
-            return 0;
-          }
-        });
-        
-        // Re-append sorted cards
-        cards.forEach(function(card) {
-          grid.appendChild(card);
-        });
-        
-        // Re-animate
-        if (typeof (window as any).gsap !== 'undefined') {
-          (window as any).gsap.fromTo(cards, 
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
-          );
+        if (visibleCards === 0) {
+          noResults?.classList.remove('hidden');
+          propertiesGrid?.classList.add('hidden');
+        } else {
+          noResults?.classList.add('hidden');
+          propertiesGrid?.classList.remove('hidden');
         }
       }
 
-      // Clear all filters function
-      (window as any).clearAllFilters = function() {
+      function clearAllFilters(): void {
+        // Reset filters object
         currentFilters = {
           search: '',
           availability: '',
           size: '',
           featured: ''
         };
-        
-        // Reset form inputs
-        if (searchInput) (searchInput as HTMLInputElement).value = '';
-        if (sortSelect) (sortSelect as HTMLSelectElement).value = 'featured';
-        
-        // Reset filter buttons
-        filterButtons.forEach(function(button) {
-          button.classList.remove('bg-primary-600', 'text-white');
-          button.classList.add('bg-gray-100', 'text-gray-700');
+
+        // Reset search input
+        if (searchInput) {
+          searchInput.value = '';
+        }
+
+        // Reset all filter buttons
+        filterButtons.forEach((button: HTMLButtonElement) => {
+          const filterType = button.dataset.filter as FilterType;
+          if (filterType !== 'clear') {
+            button.classList.remove('bg-primary-600', 'text-white');
+            button.classList.add('bg-gray-100', 'text-gray-700');
+          }
         });
-        
+
+        // Show all properties
         filterProperties();
-        sortProperties('featured');
-      };
+      }
+
+      // Make clearAllFilters globally available
+      window.clearAllFilters = clearAllFilters;
 
       // Initialize from URL parameters
-      function initializeFromURL() {
+      function initializeFromURL(): void {
         const urlParams = new URLSearchParams(window.location.search);
         
         // Set search if provided
         const searchQuery = urlParams.get('search');
         if (searchQuery && searchInput) {
-          (searchInput as HTMLInputElement).value = searchQuery;
+          searchInput.value = searchQuery;
           currentFilters.search = searchQuery.toLowerCase();
         }
         
@@ -560,7 +540,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         const availability = urlParams.get('availability');
         if (availability) {
           currentFilters.availability = availability;
-          const button = document.querySelector(`[data-filter="availability"][data-value="${availability}"]`);
+          const button = document.querySelector(`[data-filter="availability"][data-value="${availability}"]`) as HTMLButtonElement;
           if (button) {
             button.classList.remove('bg-gray-100', 'text-gray-700');
             button.classList.add('bg-primary-600', 'text-white');
@@ -574,4 +554,70 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       initializeFromURL();
     });
   </script>
+
+  <style>
+    /* Enhanced animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    @keyframes float-reverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(20px) rotate(-3deg); }
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-float-reverse {
+      animation: float-reverse 8s ease-in-out infinite;
+    }
+
+    /* Line clamp utilities */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Video optimization */
+    video {
+      object-position: center;
+    }
+
+    /* Enhanced glassmorphism for video overlay */
+    .backdrop-blur-xl {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Scroll animation */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Enhanced shadow utilities */
+    .shadow-3xl {
+      box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
 </BaseLayout>

@@ -1,17 +1,17 @@
 ---
-// About page with unique business stats
+// About page with Ariel Realty Group messaging
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 ---
 
 <BaseLayout 
-  title="About Ariel Realty Group | Expert Warehouse Tenant Representation"
-  description="Learn about our expert team, proven track record, and commitment to providing free tenant representation for warehouse leasing in South Florida."
+  title="About Ariel Realty Group | Industrial Tenant Representation Specialists"
+  description="Ariel Realty Group specializes in industrial tenant representation. Over 500,000 SF leased for tenants across South Florida with local expertise and strong market relationships."
 >
   <Navigation />
   
   <main>
-    <!-- Hero Section with Company Stats -->
+    <!-- Hero Section -->
     <section class="relative pt-20 pb-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       <!-- Background Pattern -->
       <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
@@ -22,51 +22,33 @@ import Navigation from '../components/Navigation.astro';
         <div class="text-center mb-12">
           <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 gsap-fade-in">
             ABOUT
-            <span class="block text-gradient">ARIEL REALTY</span>
+            <span class="block text-gradient">ARIEL REALTY GROUP</span>
           </h1>
           <p class="text-lg lg:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed gsap-fade-in">
-            South Florida's most trusted warehouse leasing experts. 
-            <span class="text-gradient font-semibold">Experience, integrity, results.</span>
+            Specializing in industrial tenant representation across South Florida. 
+            <span class="text-gradient font-semibold">Concierge-style service, completely free for tenants.</span>
           </p>
         </div>
 
-        <!-- Company Achievement Stats -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto gsap-stagger">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
-              <svg class="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-1">15+</div>
-            <div class="text-slate-400 text-sm font-medium">Years in Business</div>
+        <!-- Trust Indicators -->
+        <div class="flex flex-wrap justify-center items-center gap-6 text-gray-400 text-sm animate-on-scroll">
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span>100% Free Service</span>
           </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
-              <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-              </svg>
-            </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-1">500+</div>
-            <div class="text-slate-400 text-sm font-medium">Happy Clients</div>
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>500K+ SF Leased</span>
           </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
-              <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-              </svg>
-            </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-1">$50M+</div>
-            <div class="text-slate-400 text-sm font-medium">Deals Closed</div>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-3 border border-white/20">
-              <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-              </svg>
-            </div>
-            <div class="text-3xl lg:text-4xl font-black text-white mb-1">98%</div>
-            <div class="text-slate-400 text-sm font-medium">Client Retention</div>
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+            <span>Local Expertise</span>
           </div>
         </div>
       </div>
@@ -79,28 +61,32 @@ import Navigation from '../components/Navigation.astro';
           <!-- Content -->
           <div class="gsap-fade-in-left">
             <h2 class="text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-6">
-              OUR
-              <span class="block text-gradient">STORY</span>
+              INDUSTRIAL TENANT
+              <span class="block text-gradient">REPRESENTATION SPECIALISTS</span>
             </h2>
             <p class="text-lg text-slate-600 leading-relaxed mb-6">
-              Founded on the principle that every business deserves expert representation in their real estate decisions, Ariel Realty Group has become South Florida's most trusted name in industrial leasing.
+              Ariel Realty Group specializes in industrial tenant representation across South Florida. 
+              With over 500,000 SF leased for tenants, we combine local expertise with strong market relationships 
+              to deliver exceptional results.
             </p>
             <p class="text-base text-slate-600 leading-relaxed mb-8">
-              Our team of seasoned professionals brings decades of combined experience, deep market knowledge, and an unwavering commitment to putting our clients' interests first. We believe that great partnerships are built on trust, transparency, and results.
+              Our concierge-style service is completely free for tenants. We believe every business deserves 
+              expert representation when making critical real estate decisions, which is why we provide 
+              comprehensive tenant advocacy at no cost to you.
             </p>
             <div class="grid grid-cols-2 gap-4">
               <div class="text-center bg-slate-50 rounded-xl p-4">
-                <div class="text-2xl font-black text-gradient mb-1">24/7</div>
-                <div class="text-sm text-slate-600">Availability</div>
+                <div class="text-2xl font-black text-gradient mb-1">500 SF</div>
+                <div class="text-sm text-slate-600">to 500,000 SF</div>
               </div>
               <div class="text-center bg-slate-50 rounded-xl p-4">
-                <div class="text-2xl font-black text-gradient mb-1">100%</div>
-                <div class="text-sm text-slate-600">Free Service</div>
+                <div class="text-2xl font-black text-gradient mb-1">3</div>
+                <div class="text-sm text-slate-600">Counties Served</div>
               </div>
             </div>
           </div>
 
-          <!-- Image/Visual -->
+          <!-- Visual -->
           <div class="gsap-fade-in-right">
             <div class="relative">
               <div class="w-full h-80 bg-gradient-to-br from-slate-200 to-slate-300 rounded-3xl">
@@ -128,7 +114,7 @@ import Navigation from '../components/Navigation.astro';
             <span class="block text-gradient">EXPERTISE</span>
           </h2>
           <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed gsap-fade-in">
-            Comprehensive warehouse and industrial real estate services designed to maximize your success
+            Comprehensive industrial tenant representation services designed to secure the best warehouse solutions for your business
           </p>
         </div>
 
@@ -141,9 +127,9 @@ import Navigation from '../components/Navigation.astro';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-4">Market Research</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Market Knowledge</h3>
             <p class="text-slate-600 leading-relaxed">
-              Deep market analysis and property identification to ensure you find the perfect space for your business needs.
+              Deep expertise in South Florida's industrial markets with access to both on-market and off-market opportunities across Miami-Dade, Broward, and Palm Beach counties.
             </p>
           </div>
 
@@ -156,7 +142,7 @@ import Navigation from '../components/Navigation.astro';
             </div>
             <h3 class="text-xl font-bold text-slate-900 mb-4">Lease Negotiation</h3>
             <p class="text-slate-600 leading-relaxed">
-              Expert negotiation skills to secure the best terms, conditions, and rental rates for your lease agreement.
+              Strong market relationships and expert negotiation skills to secure the best lease terms, rates, and conditions for your specific operational requirements.
             </p>
           </div>
 
@@ -164,13 +150,73 @@ import Navigation from '../components/Navigation.astro';
           <div class="bg-white rounded-3xl p-8 shadow-premium hover-lift">
             <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
               <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-4">Ongoing Support</h3>
+            <h3 class="text-xl font-bold text-slate-900 mb-4">Concierge Service</h3>
             <p class="text-slate-600 leading-relaxed">
-              Continued partnership throughout your lease term and beyond, supporting your business growth and expansion.
+              White-glove, personalized service from initial consultation through lease signing and beyond. We handle every detail so you can focus on your business.
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Coverage Area -->
+    <section class="relative py-20 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-6 gsap-fade-in">
+            SOUTH FLORIDA
+            <span class="block text-gradient">COVERAGE</span>
+          </h2>
+          <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed gsap-fade-in">
+            From 500 SF to 500,000 SF, we cover every warehouse need across South Florida's premier industrial markets
+          </p>
+        </div>
+
+        <!-- Coverage Areas -->
+        <div class="grid md:grid-cols-3 gap-8 gsap-stagger">
+          <!-- Miami-Dade -->
+          <div class="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl border border-blue-200">
+            <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Miami-Dade County</h3>
+            <p class="text-slate-600 leading-relaxed mb-4">
+              Miami, Doral, Hialeah, Miami Lakes, and surrounding industrial corridors.
+            </p>
+            <div class="text-sm text-blue-600 font-semibold">Major port and airport access</div>
+          </div>
+
+          <!-- Broward -->
+          <div class="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-3xl border border-green-200">
+            <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Broward County</h3>
+            <p class="text-slate-600 leading-relaxed mb-4">
+              Fort Lauderdale, Pompano Beach, Davie, Plantation, Sunrise, and industrial zones.
+            </p>
+            <div class="text-sm text-green-600 font-semibold">Port Everglades proximity</div>
+          </div>
+
+          <!-- Palm Beach -->
+          <div class="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl border border-purple-200">
+            <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Palm Beach County</h3>
+            <p class="text-slate-600 leading-relaxed mb-4">
+              West Palm Beach, Boca Raton, Delray Beach, and emerging industrial markets.
+            </p>
+            <div class="text-sm text-purple-600 font-semibold">Growing logistics hub</div>
           </div>
         </div>
       </div>
@@ -185,37 +231,37 @@ import Navigation from '../components/Navigation.astro';
         <div class="text-center mb-16">
           <h2 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6 gsap-fade-in">
             PROVEN
-            <span class="block text-gradient">RESULTS</span>
+            <span class="block text-gradient">TRACK RECORD</span>
           </h2>
           <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed gsap-fade-in">
-            Numbers that speak to our expertise and commitment to client success
+            Numbers that demonstrate our commitment to successful tenant representation across South Florida
           </p>
         </div>
 
         <!-- Stats Grid -->
         <div class="grid lg:grid-cols-4 gap-8 gsap-stagger">
           <div class="text-center bg-white/5 backdrop-blur-sm rounded-3xl p-6 border border-white/10">
-            <div class="text-3xl lg:text-4xl font-black text-white mb-3">15+</div>
-            <div class="text-slate-300 font-medium mb-1">Years in Business</div>
-            <div class="text-sm text-slate-400">Serving South Florida</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-3">500K+</div>
+            <div class="text-slate-300 font-medium mb-1">Square Feet Leased</div>
+            <div class="text-sm text-slate-400">For tenants across South Florida</div>
           </div>
           
           <div class="text-center bg-white/5 backdrop-blur-sm rounded-3xl p-6 border border-white/10">
-            <div class="text-3xl lg:text-4xl font-black text-white mb-3">500+</div>
-            <div class="text-slate-300 font-medium mb-1">Successful Deals</div>
-            <div class="text-sm text-slate-400">Completed transactions</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-3">100%</div>
+            <div class="text-slate-300 font-medium mb-1">Free Service</div>
+            <div class="text-sm text-slate-400">Concierge-style representation</div>
           </div>
           
           <div class="text-center bg-white/5 backdrop-blur-sm rounded-3xl p-6 border border-white/10">
-            <div class="text-3xl lg:text-4xl font-black text-white mb-3">5M+</div>
-            <div class="text-slate-300 font-medium mb-1">Square Feet</div>
-            <div class="text-sm text-slate-400">Total space leased</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-3">3</div>
+            <div class="text-slate-300 font-medium mb-1">Counties Served</div>
+            <div class="text-sm text-slate-400">Miami-Dade, Broward, Palm Beach</div>
           </div>
           
           <div class="text-center bg-white/5 backdrop-blur-sm rounded-3xl p-6 border border-white/10">
-            <div class="text-3xl lg:text-4xl font-black text-white mb-3">98%</div>
-            <div class="text-slate-300 font-medium mb-1">Client Satisfaction</div>
-            <div class="text-sm text-slate-400">Retention rate</div>
+            <div class="text-3xl lg:text-4xl font-black text-white mb-3">20+</div>
+            <div class="text-slate-300 font-medium mb-1">Years Experience</div>
+            <div class="text-sm text-slate-400">Industrial market expertise</div>
           </div>
         </div>
       </div>
@@ -226,19 +272,19 @@ import Navigation from '../components/Navigation.astro';
       <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
         <h2 class="text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight mb-6 gsap-fade-in">
           READY TO WORK
-          <span class="block text-gradient">TOGETHER?</span>
+          <span class="block text-gradient">WITH US?</span>
         </h2>
         <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed mb-10 gsap-fade-in">
-          Experience the Ariel Realty difference. 
-          <span class="text-gradient font-semibold">Expert guidance, zero fees, maximum results.</span>
+          Experience the Ariel Realty Group difference. Local expertise, strong market relationships, 
+          and concierge-style service — <span class="text-gradient font-semibold">completely free for tenants.</span>
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center gsap-fade-in">
-          <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 shadow-xl">
-            Start Your Search
+          <a href="/contact" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 shadow-xl">
+            Get Free Representation
           </a>
-          <a href="/warehouses" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 hover:-translate-y-1 transition-all duration-300 shadow-lg">
-            Browse Properties
+          <a href="tel:954-937-9667" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+            Call (954) 937-9667
           </a>
         </div>
       </div>

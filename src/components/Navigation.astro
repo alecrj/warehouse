@@ -1,5 +1,5 @@
 ---
-// Clean and consistent navigation component
+// Updated navigation component with Ariel Realty Group branding
 const currentPath = Astro.url.pathname;
 
 function isActive(path: string): boolean {
@@ -80,13 +80,22 @@ function isActive(path: string): boolean {
         </a>
       </div>
 
-      <!-- CTA Button -->
-      <div class="hidden lg:flex">
+      <!-- Phone & CTA Button -->
+      <div class="hidden lg:flex items-center space-x-4">
+        <!-- Phone Number -->
+        <a 
+          href="tel:954-937-9667" 
+          class="text-gray-600 hover:text-primary-600 font-medium text-sm transition-colors duration-200"
+        >
+          (954) 937-9667
+        </a>
+        
+        <!-- CTA Button -->
         <a 
           href="/contact" 
           class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 transform"
         >
-          Get Expert Help
+          Free Representation
         </a>
       </div>
 
@@ -157,13 +166,21 @@ function isActive(path: string): boolean {
           Contact
         </a>
         
-        <!-- Mobile CTA -->
-        <div class="pt-4">
+        <!-- Mobile Phone -->
+        <div class="pt-4 border-t border-gray-200">
+          <a 
+            href="tel:954-937-9667" 
+            class="block w-full text-center bg-gray-100 text-gray-700 px-4 py-3 rounded-xl font-medium hover:bg-gray-200 transition-all duration-200 mb-3"
+          >
+            Call (954) 937-9667
+          </a>
+          
+          <!-- Mobile CTA -->
           <a 
             href="/contact" 
             class="block w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 py-3 rounded-xl text-center font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-200"
           >
-            Get Expert Help
+            Get Free Representation
           </a>
         </div>
       </div>

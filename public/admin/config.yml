@@ -96,17 +96,39 @@ collections:
         step: 1000
         hint: "Total square footage"
         
-      - label: "📍 Location"
-        name: "location"
-        widget: "string"
-        required: true
-        hint: "City, State (e.g., 'Miami, FL')"
-        
-      - label: "🏠 Full Address"
+      # ENHANCED ADDRESS FIELDS - CLEAR AND ORGANIZED
+      - label: "🏠 Street Address"
         name: "address"
         widget: "string"
         required: true
-        hint: "Complete street address"
+        hint: "Complete street address (e.g., '1234 Industrial Blvd, Suite 100')"
+        pattern: ['^.{5,}$', "Please enter a complete street address"]
+        
+      - label: "🏙️ City"
+        name: "city"
+        widget: "string"
+        required: true
+        hint: "City name (e.g., 'Hollywood', 'Miami', 'Fort Lauderdale')"
+        
+      - label: "🗺️ State"
+        name: "state"
+        widget: "select"
+        required: true
+        default: "FL"
+        options:
+          - { label: "Florida", value: "FL" }
+          - { label: "Georgia", value: "GA" }
+          - { label: "Alabama", value: "AL" }
+          - { label: "South Carolina", value: "SC" }
+          - { label: "North Carolina", value: "NC" }
+        hint: "Select the state"
+        
+      - label: "📮 ZIP Code"
+        name: "zipCode"
+        widget: "string"
+        required: true
+        hint: "5-digit ZIP code (e.g., '33021')"
+        pattern: ['^[0-9]{5}$', "Please enter a 5-digit ZIP code"]
         
       - label: "🏛️ County"
         name: "county"
@@ -117,6 +139,13 @@ collections:
           - { label: "Palm Beach County", value: "Palm Beach" }
           - { label: "Broward County", value: "Broward" }
         hint: "Select the county where this property is located"
+        
+      # Keep this for backward compatibility with existing properties
+      - label: "📍 Legacy Location (for existing properties)"
+        name: "location"
+        widget: "string"
+        required: false
+        hint: "Legacy field - will be auto-generated from city/state for new properties"
         
       - label: "✨ Key Features"
         name: "features"
@@ -132,7 +161,7 @@ collections:
           name: "feature"
           widget: "string"
         
-      # 🎯 THIS IS THE KEY FIX FOR BLURRY IMAGES!
+      # 🎯 HIGH-QUALITY IMAGES (FIXED FOR NO BLUR)
       - label: "📸 Property Images"
         name: "images"
         widget: "list"

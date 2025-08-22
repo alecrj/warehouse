@@ -68,6 +68,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         loop 
         playsinline
         class="absolute inset-0 w-full h-full object-cover"
+        poster="/warehouse-hero.jpg"
       >
         <source src="/videos/warehousevid.mp4" type="video/mp4">
         <!-- Fallback for browsers that don't support video -->
@@ -85,53 +86,53 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-float-reverse"></div>
       </div>
       
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div class="text-center">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 animate-on-scroll drop-shadow-2xl">
+          <h1 class="text-3xl sm:text-4xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-4 sm:mb-6 animate-on-scroll drop-shadow-2xl">
             BROWSE OUR
             <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
               PROPERTIES
             </span>
           </h1>
-          <p class="text-lg lg:text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-2 animate-on-scroll drop-shadow-lg">
+          <p class="text-base sm:text-lg lg:text-xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-2 animate-on-scroll drop-shadow-lg">
             Premium warehouse and industrial properties across South Florida.
           </p>
-          <p class="text-base text-gray-300 leading-relaxed mb-8 max-w-3xl mx-auto animate-on-scroll drop-shadow-lg">
+          <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 sm:mb-8 max-w-3xl mx-auto animate-on-scroll drop-shadow-lg">
             Expert representation. Zero fees. Perfect matches.
           </p>
           
-          <!-- Enhanced Statistics Cards with Video Background -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll mt-12">
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+          <!-- Enhanced Statistics Cards with Mobile Optimization -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 animate-on-scroll mt-8 sm:mt-12">
+            <div class="group text-center p-4 sm:p-6 lg:p-8 bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-primary-200 transition-colors duration-300">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2 lg:mb-3 drop-shadow-lg group-hover:text-primary-200 transition-colors duration-300">
                   {allWarehouses.length}
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total Properties</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total Properties</div>
               </div>
             </div>
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+            <div class="group text-center p-4 sm:p-6 lg:p-8 bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-green-200 transition-colors duration-300">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2 lg:mb-3 drop-shadow-lg group-hover:text-green-200 transition-colors duration-300">
                   {availableWarehouses.length}
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Available Now</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Available Now</div>
               </div>
             </div>
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+            <div class="group text-center p-4 sm:p-6 lg:p-8 bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2 lg:mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
                   {totalSqFt.toLocaleString()}
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total SQ FT</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total SQ FT</div>
               </div>
             </div>
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+            <div class="group text-center p-4 sm:p-6 lg:p-8 bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-cyan-200 transition-colors duration-300">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2 lg:mb-3 drop-shadow-lg group-hover:text-cyan-200 transition-colors duration-300">
                   {averageSize.toLocaleString()}
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Avg Size</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Avg Size</div>
               </div>
             </div>
           </div>
@@ -140,16 +141,16 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     </section>
 
     <!-- Enhanced Search & Filters Section -->
-    <section class="py-12 bg-white border-b border-gray-200">
+    <section class="py-8 sm:py-12 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Advanced Search Form -->
-        <div class="max-w-6xl mx-auto mb-12">
-          <div class="bg-white rounded-3xl shadow-xl border border-gray-200 p-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Find Your Perfect Warehouse</h2>
+        <div class="max-w-6xl mx-auto mb-8 sm:mb-12">
+          <div class="bg-white rounded-2xl lg:rounded-3xl shadow-xl border border-gray-200 p-4 sm:p-6 lg:p-8">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">Find Your Perfect Warehouse</h2>
             
             <!-- Search Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               
               <!-- Text Search -->
               <div class="space-y-2">
@@ -159,7 +160,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                     type="text" 
                     id="search-input"
                     placeholder="Location, features, name..." 
-                    class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    class="w-full px-4 py-3 sm:py-4 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-base min-h-[48px] touch-manipulation"
                   >
                   <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -172,7 +173,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 <label class="block text-sm font-semibold text-gray-700">County</label>
                 <select 
                   id="county-select"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors appearance-none bg-white"
+                  class="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors appearance-none bg-white text-base min-h-[48px] touch-manipulation bg-select-arrow bg-no-repeat bg-[length:16px] bg-[right_12px_center]"
                 >
                   <option value="">All Counties</option>
                   {counties.map(county => (
@@ -189,13 +190,13 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                     type="number" 
                     id="min-size"
                     placeholder="Min"
-                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
                   >
                   <input 
                     type="number" 
                     id="max-size"
                     placeholder="Max"
-                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
                   >
                 </div>
               </div>
@@ -209,14 +210,14 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                     id="min-price"
                     placeholder="Min"
                     step="0.50"
-                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
                   >
                   <input 
                     type="number" 
                     id="max-price"
                     placeholder="Max"
                     step="0.50"
-                    class="w-full px-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm"
+                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
                   >
                 </div>
               </div>
@@ -224,10 +225,10 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             </div>
 
             <!-- Search Actions -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 sm:mt-8">
               <button 
                 id="apply-filters"
-                class="px-8 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2"
+                class="px-6 sm:px-8 py-3 sm:py-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2 min-h-[48px] touch-manipulation text-base"
                 type="button"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,7 +238,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
               </button>
               <button 
                 id="clear-search"
-                class="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200"
+                class="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 min-h-[48px] touch-manipulation text-base"
                 type="button"
               >
                 Clear All
@@ -245,61 +246,10 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             </div>
           </div>
         </div>
-        
-        <!-- Quick Filter Buttons -->
-        <div class="flex flex-wrap justify-center gap-3 mb-8">
-          <button 
-            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
-            data-filter="clear"
-            type="button"
-          >
-            All Properties
-          </button>
-          <button 
-            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
-            data-filter="availability"
-            data-value="available"
-            type="button"
-          >
-            Available Now
-          </button>
-          <button 
-            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
-            data-filter="size"
-            data-value="small"
-            type="button"
-          >
-            Under 10k SF
-          </button>
-          <button 
-            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
-            data-filter="size"
-            data-value="medium"
-            type="button"
-          >
-            10k-50k SF
-          </button>
-          <button 
-            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
-            data-filter="size"
-            data-value="large"
-            type="button"
-          >
-            50k+ SF
-          </button>
-          <button 
-            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors filter-btn font-medium"
-            data-filter="featured"
-            data-value="true"
-            type="button"
-          >
-            Featured Only
-          </button>
-        </div>
 
         <!-- Results Counter -->
-        <div class="text-center mb-8">
-          <p id="results-counter" class="text-gray-600 text-lg">
+        <div class="text-center mb-6 sm:mb-8">
+          <p id="results-counter" class="text-gray-600 text-base sm:text-lg">
             Showing <span id="visible-count">{allWarehouses.length}</span> of <span id="total-count">{allWarehouses.length}</span> properties
           </p>
         </div>
@@ -307,25 +257,26 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     </section>
 
     <!-- Properties Grid -->
-    <section class="py-12 bg-gray-50">
+    <section class="py-8 sm:py-12 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {allWarehouses.map((warehouse) => (
             <div 
               class="property-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
               data-warehouse={JSON.stringify(warehouse.data)}
             >
               <!-- Image Section -->
-              <div class="relative h-64 overflow-hidden">
+              <div class="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
                 <img 
                   src={warehouse.data.images && warehouse.data.images[0] ? warehouse.data.images[0] : '/placeholder.jpg'}
                   alt={warehouse.data.title}
                   class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
                 />
                 
                 <!-- Status Badge -->
-                <div class="absolute top-4 left-4">
-                  <span class={`px-3 py-1 rounded-full text-xs font-semibold ${
+                <div class="absolute top-3 sm:top-4 left-3 sm:left-4">
+                  <span class={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${
                     warehouse.data.availability === 'available' 
                       ? 'bg-green-100 text-green-700' 
                       : 'bg-yellow-100 text-yellow-700'
@@ -336,8 +287,8 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
                 <!-- Featured Badge -->
                 {warehouse.data.featured && (
-                  <div class="absolute top-4 right-4">
-                    <span class="px-3 py-1 bg-primary-500 text-white rounded-full text-xs font-semibold">
+                  <div class="absolute top-3 sm:top-4 right-3 sm:right-4">
+                    <span class="px-2 sm:px-3 py-1 bg-primary-500 text-white rounded-full text-xs font-semibold">
                       Featured
                     </span>
                   </div>
@@ -345,10 +296,10 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
               </div>
 
               <!-- Content Section -->
-              <div class="p-6 flex-1 flex flex-col">
-                <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{warehouse.data.title}</h3>
-                <p class="text-gray-600 mb-4 flex items-center">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="p-4 sm:p-6 flex-1 flex flex-col">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2">{warehouse.data.title}</h3>
+                <p class="text-gray-600 mb-3 sm:mb-4 flex items-center text-sm sm:text-base">
+                  <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
@@ -356,13 +307,13 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 </p>
                 
                 <!-- Price and Size -->
-                <div class="flex justify-between items-center mb-4">
-                  <span class="text-2xl font-bold text-primary-600">{warehouse.data.price}</span>
-                  <span class="text-gray-500 font-medium">{warehouse.data.size?.toLocaleString()} SF</span>
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-3 sm:mb-4">
+                  <span class="text-xl sm:text-2xl font-bold text-primary-600">{warehouse.data.price}</span>
+                  <span class="text-gray-500 font-medium text-sm sm:text-base">{warehouse.data.size?.toLocaleString()} SF</span>
                 </div>
                 
                 <!-- Description -->
-                <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">{warehouse.data.description}</p>
+                <p class="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-3 flex-1">{warehouse.data.description}</p>
                 
                 <!-- Features -->
                 {warehouse.data.features && warehouse.data.features.length > 0 && (
@@ -385,7 +336,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 <!-- CTA Button -->
                 <a 
                   href={`/warehouses/${warehouse.data.slug}`}
-                  class="block w-full bg-primary-600 text-white text-center py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 mt-auto"
+                  class="w-full bg-primary-600 text-white py-3 sm:py-4 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 mt-auto min-h-[48px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
                 >
                   View Details
                 </a>
@@ -395,15 +346,15 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         </div>
 
         <!-- No Results Message -->
-        <div id="no-results" class="hidden text-center py-16">
+        <div id="no-results" class="hidden text-center py-12 sm:py-16">
           <div class="max-w-md mx-auto">
-            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No properties found</h3>
-            <p class="text-gray-600 mb-4">Try adjusting your search criteria to find more results.</p>
+            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No properties found</h3>
+            <p class="text-gray-600 mb-4 text-sm sm:text-base">Try adjusting your search criteria to find more results.</p>
             <button 
-              class="px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
+              class="px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors min-h-[48px] touch-manipulation"
               onclick="window.clearAllFilters()"
               type="button"
             >
@@ -415,25 +366,25 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     </section>
 
     <!-- Call to Action Section -->
-    <section class="py-20 bg-primary-600">
+    <section class="py-12 sm:py-16 lg:py-20 bg-primary-600">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
           Don't See What You're Looking For?
         </h2>
-        <p class="text-xl text-primary-100 mb-8 leading-relaxed">
+        <p class="text-base sm:text-lg lg:text-xl text-primary-100 mb-6 sm:mb-8 leading-relaxed">
           We have access to off-market properties and can help you find exactly what you need. 
           Our service is completely free - landlords pay our fee.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           <a 
             href="/contact" 
-            class="px-8 py-4 bg-white text-primary-600 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200"
+            class="px-6 sm:px-8 py-3 sm:py-4 bg-white text-primary-600 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 min-h-[48px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
           >
             Tell Us Your Requirements
           </a>
           <a 
             href="tel:+19549379667" 
-            class="px-8 py-4 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-primary-600 transition-colors duration-200"
+            class="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-primary-600 transition-colors duration-200 min-h-[48px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
           >
             Call Now: (954) 937-9667
           </a>
@@ -465,19 +416,12 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       
       const propertiesGrid = document.getElementById('properties-grid') as HTMLElement;
       const propertyCards = document.querySelectorAll('.property-card') as NodeListOf<HTMLElement>;
-      const filterButtons = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>;
       const noResults = document.getElementById('no-results') as HTMLElement;
       const visibleCount = document.getElementById('visible-count') as HTMLElement;
       const totalCount = document.getElementById('total-count') as HTMLElement;
       
-      type FilterType = 'search' | 'availability' | 'size' | 'featured' | 'clear';
-      type FilterStateType = 'search' | 'availability' | 'size' | 'featured';
-      
-      let currentFilters: Record<FilterStateType, string> = {
-        search: '',
-        availability: '',
-        size: '',
-        featured: ''
+      let currentFilters = {
+        search: ''
       };
 
       let advancedFilters = {
@@ -528,44 +472,6 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         });
       }
 
-      // Quick filter button functionality
-      filterButtons.forEach((button: HTMLButtonElement) => {
-        button.addEventListener('click', function(this: HTMLButtonElement) {
-          const filterType = this.dataset.filter as FilterType;
-          const filterValue = this.dataset.value || '';
-
-          if (filterType === 'clear') {
-            clearAllFilters();
-            return;
-          }
-
-          // Reset other buttons of the same type
-          filterButtons.forEach((btn: HTMLButtonElement) => {
-            const btnFilterType = btn.dataset.filter as FilterType;
-            if (btnFilterType === filterType && btn !== this) {
-              btn.classList.remove('bg-primary-600', 'text-white');
-              btn.classList.add('bg-gray-100', 'text-gray-700');
-            }
-          });
-
-          // Toggle this button (filterType is guaranteed to be FilterStateType here)
-          const stateFilterType = filterType as FilterStateType;
-          if (currentFilters[stateFilterType] === filterValue) {
-            // Deactivate filter
-            currentFilters[stateFilterType] = '';
-            this.classList.remove('bg-primary-600', 'text-white');
-            this.classList.add('bg-gray-100', 'text-gray-700');
-          } else {
-            // Activate filter
-            currentFilters[stateFilterType] = filterValue;
-            this.classList.remove('bg-gray-100', 'text-gray-700');
-            this.classList.add('bg-primary-600', 'text-white');
-          }
-
-          filterProperties();
-        });
-      });
-
       function filterProperties(): void {
         let visibleCards = 0;
 
@@ -591,27 +497,9 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             }
           }
 
-          // Availability filter
-          if (currentFilters.availability && warehouseData.availability !== currentFilters.availability) {
-            isVisible = false;
-          }
-
-          // Size filter (quick buttons)
-          if (currentFilters.size) {
-            const size = warehouseData.size || 0;
-            if (currentFilters.size === 'small' && size >= 10000) isVisible = false;
-            if (currentFilters.size === 'medium' && (size < 10000 || size >= 50000)) isVisible = false;
-            if (currentFilters.size === 'large' && size < 50000) isVisible = false;
-          }
-
-          // Featured filter
-          if (currentFilters.featured === 'true' && !warehouseData.featured) {
-            isVisible = false;
-          }
-
           // Advanced filters
           
-          // FIXED: County filter - now works with both dedicated county field and location fallback
+          // County filter
           if (advancedFilters.county) {
             let countyMatch = false;
             
@@ -716,23 +604,11 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       function clearAllFilters(): void {
         // Reset filters object
         currentFilters = {
-          search: '',
-          availability: '',
-          size: '',
-          featured: ''
+          search: ''
         };
 
         // Clear search form
         clearAllSearchFilters();
-
-        // Reset all filter buttons
-        filterButtons.forEach((button: HTMLButtonElement) => {
-          const filterType = button.dataset.filter as FilterType;
-          if (filterType !== 'clear') {
-            button.classList.remove('bg-primary-600', 'text-white');
-            button.classList.add('bg-gray-100', 'text-gray-700');
-          }
-        });
 
         // Show all properties
         filterProperties();
@@ -752,17 +628,6 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           currentFilters.search = searchQuery.toLowerCase();
         }
         
-        // Set filters if provided
-        const availability = urlParams.get('availability');
-        if (availability) {
-          currentFilters.availability = availability;
-          const button = document.querySelector(`[data-filter="availability"][data-value="${availability}"]`) as HTMLButtonElement;
-          if (button) {
-            button.classList.remove('bg-gray-100', 'text-gray-700');
-            button.classList.add('bg-primary-600', 'text-white');
-          }
-        }
-
         // Set advanced filters from URL
         const urlCounty = urlParams.get('county');
         const urlMinSize = urlParams.get('min_size');
@@ -792,6 +657,49 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
   </script>
 
   <style>
+    /* Mobile-specific optimizations that don't affect desktop */
+    @media (max-width: 640px) {
+      /* Improve mobile typography */
+      h1 {
+        line-height: 1.1 !important;
+        letter-spacing: -0.01em;
+      }
+      
+      h2, h3 {
+        line-height: 1.2 !important;
+      }
+      
+      /* Mobile touch targets */
+      .touch-manipulation {
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      /* Improve form field focus on mobile */
+      input:focus, select:focus, textarea:focus {
+        transform: scale(1.01);
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+      }
+    }
+    
+    /* Custom select arrow for all screen sizes */
+    .bg-select-arrow {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    }
+    
+    /* iOS Safari specific fixes */
+    @supports (-webkit-touch-callout: none) {
+      input, textarea, select {
+        -webkit-appearance: none;
+      }
+      
+      button {
+        -webkit-appearance: none;
+      }
+    }
+
     /* Enhanced animations */
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -858,7 +766,6 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
     /* Custom select styling */
     select {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
       background-position: right 0.75rem center;
       background-repeat: no-repeat;
       background-size: 1.25em 1.25em;

@@ -1,15 +1,15 @@
 {
   "size": 25000,
   "price": "$12/sq ft/year",
+  "county": "Miami-Dade",
   "slug": "downtown-logistics-center",
   "featured": true,
   "address": "1234 Industrial Blvd, Miami, FL 33101",
-  "county": "Miami-Dade",
   "location": "Miami, FL",
   "title": "Downtown Logistics Center",
   "images": [
-    "/images/warehouses/download-2.jpg",
-    "/images/warehouses/download.jpg"
+    "/images/warehouses/ed767792-8c4a-468a-9e41-20b0634950be.png",
+    "/images/warehouses/wareint.png"
   ],
   "createdAt": "2025-08-17",
   "availability": "available",

@@ -1,5 +1,5 @@
 ---
-// Updated services page with streamlined 3-step process and glassmorphism cards (timeline section removed)
+// Updated services page with improved mobile centering and better text sizing
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -12,7 +12,7 @@ import Footer from '../components/Footer.astro';
   <Navigation />
   
   <main>
-    <!-- Hero Section - Consistent Sizing with Glassmorphism Cards -->
+    <!-- Hero Section - Fixed Mobile Centering -->
     <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center">
       <!-- Video Background -->
       <video 
@@ -53,38 +53,38 @@ import Footer from '../components/Footer.astro';
             <span class="text-white font-semibold">Cost to tenant: $0. Landlords pay brokerage fees.</span>
           </p>
           
-          <!-- Service Quality Stats - Now in Hero with Glassmorphism -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-on-scroll mt-12">
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
-              <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-primary-200 transition-colors duration-300">
+          <!-- Service Quality Stats - Fixed Mobile Centering -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 animate-on-scroll mt-12">
+            <div class="group bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10 flex flex-col items-center justify-center h-full min-h-[120px] sm:min-h-[140px] p-4 sm:p-6 lg:p-8">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3 drop-shadow-lg group-hover:text-primary-200 transition-colors duration-300">
                   100%
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Free Service</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm text-center">Free Service</div>
               </div>
             </div>
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
-              <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-green-200 transition-colors duration-300">
+            <div class="group bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10 flex flex-col items-center justify-center h-full min-h-[120px] sm:min-h-[140px] p-4 sm:p-6 lg:p-8">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3 drop-shadow-lg group-hover:text-green-200 transition-colors duration-300">
                   South FL
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Coverage</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm text-center">Coverage</div>
               </div>
             </div>
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
-              <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
+            <div class="group bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10 flex flex-col items-center justify-center h-full min-h-[120px] sm:min-h-[140px] p-4 sm:p-6 lg:p-8">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3 drop-shadow-lg group-hover:text-blue-200 transition-colors duration-300">
                   Local
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Expertise</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm text-center">Expertise</div>
               </div>
             </div>
-            <div class="group text-center p-8 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
-              <div class="relative z-10">
-                <div class="text-4xl font-black text-white mb-3 drop-shadow-lg group-hover:text-purple-200 transition-colors duration-300">
+            <div class="group bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
+              <div class="relative z-10 flex flex-col items-center justify-center h-full min-h-[120px] sm:min-h-[140px] p-4 sm:p-6 lg:p-8">
+                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3 drop-shadow-lg group-hover:text-purple-200 transition-colors duration-300">
                   Industrial
                 </div>
-                <div class="text-white/80 text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Only</div>
+                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm text-center">Only</div>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
-    <!-- Main Services - Streamlined 3-Step Process -->
+    <!-- Main Services - Improved Text Sizing -->
     <section class="py-24 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
@@ -106,93 +106,93 @@ import Footer from '../components/Footer.astro';
           </p>
         </div>
 
-        <!-- Services Grid - Now 3 Steps -->
-        <div class="grid md:grid-cols-3 gap-12 stagger-children">
+        <!-- Services Grid - Improved Text Sizing -->
+        <div class="grid md:grid-cols-3 gap-8 lg:gap-12 stagger-children">
           
           <!-- Step 1: Discovery & Search -->
-          <div class="text-center p-10 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-            <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+          <div class="text-center p-6 sm:p-8 lg:p-10 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-6 lg:mb-8 shadow-lg">
               <span class="text-3xl font-black text-white">1</span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">Discovery & Search</h3>
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Discovery & Search</h3>
             
-            <!-- Detailed breakdown -->
-            <div class="space-y-4 text-left">
+            <!-- Detailed breakdown - Improved Text Sizes -->
+            <div class="space-y-4 lg:space-y-5 text-left">
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Needs Analysis</p>
-                  <p class="text-gray-600 text-sm">Power, clear height, loading, yard, office %, zoning, sprinkler, trailer parking requirements</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Needs Analysis</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Power, clear height, loading, yard, office %, zoning, sprinkler, trailer parking requirements</p>
                 </div>
               </div>
               
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Market Access</p>
-                  <p class="text-gray-600 text-sm">On-market + off-market outreach to owners and brokers for comprehensive coverage</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Market Access</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">On-market + off-market outreach to owners and brokers for comprehensive coverage</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Step 2: Evaluation & Negotiation -->
-          <div class="text-center p-10 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-            <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+          <div class="text-center p-6 sm:p-8 lg:p-10 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+            <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 lg:mb-8 shadow-lg">
               <span class="text-3xl font-black text-white">2</span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">Evaluation & Negotiation</h3>
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Evaluation & Negotiation</h3>
             
-            <!-- Detailed breakdown -->
-            <div class="space-y-4 text-left">
+            <!-- Detailed breakdown - Improved Text Sizes -->
+            <div class="space-y-4 lg:space-y-5 text-left">
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Tours & Shortlist</p>
-                  <p class="text-gray-600 text-sm">Curated options, scheduled efficiently to maximize your time</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Tours & Shortlist</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Curated options, scheduled efficiently to maximize your time</p>
                 </div>
               </div>
               
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Financial Analysis</p>
-                  <p class="text-gray-600 text-sm">Market rent comps, OpEx/CAM review, escalation modeling</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Financial Analysis</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Market rent comps, OpEx/CAM review, escalation modeling</p>
                 </div>
               </div>
               
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Expert Negotiation</p>
-                  <p class="text-gray-600 text-sm">Base rent, free rent, tenant improvements, options, assignment/sublet terms</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Expert Negotiation</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Base rent, free rent, tenant improvements, options, assignment/sublet terms</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Step 3: Documentation & Move-In -->
-          <div class="text-center p-10 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
-            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+          <div class="text-center p-6 sm:p-8 lg:p-10 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border border-gray-100">
+            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 lg:mb-8 shadow-lg">
               <span class="text-3xl font-black text-white">3</span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">Documentation & Move-In</h3>
+            <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Documentation & Move-In</h3>
             
-            <!-- Detailed breakdown -->
-            <div class="space-y-4 text-left">
+            <!-- Detailed breakdown - Improved Text Sizes -->
+            <div class="space-y-4 lg:space-y-5 text-left">
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Legal Support</p>
-                  <p class="text-gray-600 text-sm">LOI strategy and lease term guidance (with your attorney) to protect your interests</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Legal Support</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">LOI strategy and lease term guidance (with your attorney) to protect your interests</p>
                 </div>
               </div>
               
               <div class="flex items-start space-x-3">
                 <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                 <div>
-                  <p class="font-semibold text-gray-900 text-sm">Move-In Coordination</p>
-                  <p class="text-gray-600 text-sm">Vendor intros for racking, security, utilities, and permits for smooth transition</p>
+                  <p class="font-semibold text-gray-900 text-sm sm:text-base">Move-In Coordination</p>
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed">Vendor intros for racking, security, utilities, and permits for smooth transition</p>
                 </div>
               </div>
             </div>

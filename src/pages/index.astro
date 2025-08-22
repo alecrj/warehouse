@@ -1,5 +1,5 @@
 ---
-// Updated homepage with improved hero layout and enhanced above-the-fold design + full-width contact form
+// Updated homepage with dramatically improved mobile hero layout
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -74,7 +74,7 @@ const sqftRanges = [
   <Navigation />
   
   <main>
-    <!-- Enhanced Hero Section - Above the Fold -->
+    <!-- Enhanced Hero Section - Mobile-First Design -->
     <section class="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center">
       <!-- Background Elements -->
       <div class="absolute inset-0">
@@ -83,7 +83,227 @@ const sqftRanges = [
         <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
       </div>
       
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <!-- Mobile Hero Layout -->
+      <div class="lg:hidden relative z-10 px-6 pt-20 pb-12 min-h-screen w-full">
+        <div class="max-w-sm mx-auto text-center space-y-10">
+          
+          <!-- Mobile Hero Content -->
+          <div class="mt-8">
+            <h1 class="text-5xl font-black text-white leading-[0.9] tracking-tight mb-6">
+              FIND YOUR PERFECT
+              <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent mt-2">
+                WAREHOUSE SPACE
+              </span>
+            </h1>
+            
+            <p class="text-xl text-gray-300 leading-relaxed mb-6 font-medium">
+              Free tenant concierge service across Miami-Dade, Broward & Palm Beach counties
+            </p>
+
+            <p class="text-lg text-gray-400 leading-relaxed mb-8">
+              <span class="text-white font-semibold">Zero cost to you.</span> Our fee is paid by landlords. From 500 SF to 500,000 SF—we'll find qualified options and negotiate on your behalf.
+            </p>
+          </div>
+
+          <!-- Mobile Value Props - Enhanced -->
+          <div class="space-y-5">
+            <div class="flex items-center space-x-4 p-5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl">
+              <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div class="text-left">
+                <div class="text-white font-bold text-base">100% Free Service</div>
+                <div class="text-white/80 text-sm">No cost, no retainer, no obligation</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4 p-5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl">
+              <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div class="text-left">
+                <div class="text-white font-bold text-base">Industrial Experts</div>
+                <div class="text-white/80 text-sm">Warehouses only, deep market knowledge</div>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4 p-5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div class="text-left">
+                <div class="text-white font-bold text-base">Fast Results</div>
+                <div class="text-white/80 text-sm">Qualified options within 24 hours</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Action Buttons - Enhanced -->
+          <div class="space-y-4">
+            <button 
+              onclick="openContactModal('hero-main-cta')"
+              class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-5 rounded-2xl text-xl font-black hover:from-primary-700 hover:to-primary-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 transform shadow-xl"
+            >
+              Get Matched Today
+            </button>
+            <a 
+              href="tel:954-937-9667" 
+              class="w-full bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-5 rounded-2xl text-xl font-black hover:bg-white/20 hover:border-white/50 transition-all duration-300 block text-center shadow-xl"
+            >
+              Call (954) 937-9667
+            </a>
+          </div>
+
+          <!-- Mobile Contact Form - Streamlined -->
+          <div class="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl p-6">
+            <div class="text-center mb-5">
+              <h2 class="text-xl font-bold text-white mb-2">Find Your Perfect Warehouse Space</h2>
+              <p class="text-white/80 text-sm">We'll get back to you within 24 hours with qualified options.</p>
+            </div>
+            
+            <form 
+              name="warehouse-inquiry-modal" 
+              method="POST" 
+              data-netlify="true" 
+              netlify-honeypot="bot-field"
+              action="/success"
+              class="space-y-4"
+            >
+              <!-- Hidden fields -->
+              <input type="hidden" name="form-name" value="warehouse-inquiry-modal" />
+              <input type="hidden" name="source" value="homepage-hero-mobile" />
+              <div class="hidden">
+                <input name="bot-field" />
+              </div>
+
+              <!-- Name & Email Row -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-white/90 text-sm font-medium mb-2">Name *</label>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    required 
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div>
+                  <label class="block text-white/90 text-sm font-medium mb-2">Email *</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    required 
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
+
+              <!-- Phone & Company Row -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-white/90 text-sm font-medium mb-2">Phone</label>
+                  <input 
+                    type="tel" 
+                    name="phone" 
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+                <div>
+                  <label class="block text-white/90 text-sm font-medium mb-2">Company</label>
+                  <input 
+                    type="text" 
+                    name="company" 
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                    placeholder="Company Name"
+                  />
+                </div>
+              </div>
+
+              <!-- Property Interest -->
+              <div>
+                <label class="block text-white/90 text-sm font-medium mb-2">Property Interest *</label>
+                <select 
+                  name="property-interest" 
+                  required
+                  class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                >
+                  <option value="" class="bg-gray-800">Select property...</option>
+                  <option value="any" class="bg-gray-800">Any Available Property</option>
+                  {availableWarehouses.map(warehouse => (
+                    <option value={warehouse.data.slug} class="bg-gray-800">
+                      {warehouse.data.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <!-- Size & County Row -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-white/90 text-sm font-medium mb-2">Size (SF)</label>
+                  <select 
+                    name="size-needed" 
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                  >
+                    <option value="" class="bg-gray-800">Select size...</option>
+                    {sqftRanges.map(range => (
+                      <option value={range} class="bg-gray-800">{range}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-white/90 text-sm font-medium mb-2">County</label>
+                  <select 
+                    name="county" 
+                    class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 text-base"
+                  >
+                    <option value="" class="bg-gray-800">Select county...</option>
+                    <option value="any" class="bg-gray-800">Any County</option>
+                    {counties.map(county => (
+                      <option value={county} class="bg-gray-800">{county}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <!-- Requirements -->
+              <div>
+                <label class="block text-white/90 text-sm font-medium mb-2">Requirements & Message</label>
+                <textarea 
+                  name="requirements" 
+                  rows="3"
+                  class="w-full px-4 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-2 focus:ring-primary-400/20 transition-all duration-300 resize-vertical text-base"
+                  placeholder="Loading docks, clear height, special features, budget, location preferences..."
+                ></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <button 
+                type="submit" 
+                class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-4 rounded-xl text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
+              >
+                Get Matched With Warehouses
+              </button>
+
+              <p class="text-sm text-white/60 text-center">
+                Free service • Landlords pay our fees • No obligation
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Hero Layout (unchanged) -->
+      <div class="hidden lg:block relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center min-h-[85vh]">
           
           <!-- Left Column: Hero Content -->
@@ -138,7 +358,7 @@ const sqftRanges = [
                 onclick="openContactModal('hero-main-cta')"
                 class="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 transform text-center min-h-[48px] touch-manipulation"
               >
-                Get Matched Today
+                Work With Us
               </button>
               <a 
                 href="tel:954-937-9667" 
@@ -363,7 +583,7 @@ const sqftRanges = [
                   
                   <div class="flex flex-col sm:flex-row gap-2">
                     <a 
-                      href={`/warehouses/${warehouse.data.slug}`}
+                      href={`/properties/${warehouse.data.slug}`}
                       class="flex-1 bg-gray-100 text-gray-700 text-center py-2 sm:py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors duration-200 min-h-[44px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
                     >
                       View Details
@@ -382,7 +602,7 @@ const sqftRanges = [
 
           <div class="text-center mt-8 sm:mt-12">
             <a 
-              href="/warehouses" 
+              href="/properties" 
               class="inline-flex items-center bg-gray-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-800 transition-colors duration-200 min-h-[48px] touch-manipulation text-sm sm:text-base"
             >
               View All Properties
@@ -680,7 +900,7 @@ const sqftRanges = [
             Get Free Representation
           </button>
           <a 
-            href="/warehouses" 
+            href="/properties" 
             class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 hover:border-white/50 transition-all duration-300 min-h-[48px] flex items-center justify-center touch-manipulation"
           >
             Browse Properties

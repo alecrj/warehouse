@@ -169,7 +169,7 @@ const county = getCounty(addressInfo.city);
           </div>
 
           <!-- Key Stats Grid -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto stats-grid">
             <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
               <div class="text-2xl font-bold text-white">{data.price}</div>
               <div class="text-gray-300 text-sm">Lease Rate</div>
@@ -564,6 +564,22 @@ const county = getCounty(addressInfo.city);
     @media print {
       .no-print, nav, footer, .sticky {
         display: none !important;
+      }
+    }
+    
+    /* Fix mobile stat card text centering */
+    @media (max-width: 640px) {
+      .stats-grid > div {
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+      
+      .stats-grid > div > div {
+        text-align: center !important;
+        width: 100% !important;
       }
     }
   </style>

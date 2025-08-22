@@ -8,8 +8,8 @@
   "location": "Hollywood",
   "title": "testing cms warehouse",
   "images": [
-    "/images/warehouses/download-1.jpg",
-    "/images/warehouses/warehouse-hero.png"
+    "/images/warehouses/warehouse-hero.png",
+    "/images/warehouses/wrh.png"
   ],
   "createdAt": "2025-08-17",
   "availability": "available",

@@ -14,6 +14,23 @@ import Footer from '../components/Footer.astro';
   <main>
     <!-- Hero Section - Consistent Sizing with Glassmorphism Cards -->
     <section class="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden flex items-center">
+      <!-- Video Background -->
+      <video 
+        class="absolute inset-0 w-full h-full object-cover"
+        autoplay 
+        muted 
+        loop 
+        playsinline
+      >
+        <source src="/videos/video2.mp4" type="video/mp4">
+      </video>
+      
+      <!-- Video Overlay -->
+      <div class="absolute inset-0 bg-black/60"></div>
+      
+      <!-- Gradient Overlay for extra depth -->
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/60 to-slate-900/80"></div>
+      
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>

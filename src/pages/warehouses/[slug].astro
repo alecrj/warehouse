@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import ImageGallery from '../../components/ImageGallery.astro';
-import StandardizedContactForm from '../../components/StandardizedContactForm.astro';
+// REMOVED: StandardizedContactForm import - no longer needed
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -263,7 +263,7 @@ const county = getCounty(addressInfo.city);
             <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Property Details</h2>
             <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               
-              <!-- ENHANCED Location Info (ONLY CHANGE) -->
+              <!-- ENHANCED Location Info -->
               <div class="bg-gray-50 rounded-xl p-6">
                 <h3 class="font-semibold text-gray-900 mb-4 text-center">Location Information</h3>
                 <div class="space-y-3">
@@ -291,7 +291,7 @@ const county = getCounty(addressInfo.city);
                       <span class="font-medium text-gray-900">{addressInfo.zipCode}</span>
                     </div>
                   )}
-                  <!-- NEW: Google Maps Button -->
+                  <!-- Google Maps Button -->
                   <div class="pt-3 border-t border-gray-200">
                     <a 
                       href={`https://www.google.com/maps/search/${encodeURIComponent(addressInfo.fullAddress)}`}
@@ -361,7 +361,7 @@ const county = getCounty(addressInfo.city);
       </div>
     </section>
 
-    <!-- Contact Form -->
+    <!-- UPDATED Contact Form - Now redirects to success page -->
     <section class="py-12 bg-gray-50" id="contact-form">
       <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
@@ -379,12 +379,26 @@ const county = getCounty(addressInfo.city);
             <p class="text-primary-100">Professional warehouse representation at no cost to you</p>
           </div>
           <div class="p-8">
-            <form name="property-inquiry" method="POST" data-netlify="true" class="space-y-6">
+            <form 
+              name="property-inquiry" 
+              method="POST" 
+              data-netlify="true" 
+              netlify-honeypot="bot-field"
+              action="/success"
+              class="space-y-6"
+            >
+              <!-- Hidden fields with enhanced property tracking -->
               <input type="hidden" name="form-name" value="property-inquiry" />
               <input type="hidden" name="property" value={data.title} />
-              <input type="hidden" name="source" value="property-page" />
+              <input type="hidden" name="property-size" value={data.size} />
+              <input type="hidden" name="property-price" value={data.price} />
+              <input type="hidden" name="property-location" value={addressInfo.displayLocation} />
+              <input type="hidden" name="source" value={`Property Page - ${data.title}`} />
+              <div class="hidden">
+                <input name="bot-field" />
+              </div>
               
-              <!-- Contact Info -->
+              <!-- Contact Info Cards -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div class="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
                   <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

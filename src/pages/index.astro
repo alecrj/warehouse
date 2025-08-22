@@ -1,5 +1,5 @@
 ---
-// Updated homepage with perfectly fitted above-the-fold hero section
+// Updated homepage with perfect desktop above-the-fold + original mobile layout
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
@@ -74,7 +74,7 @@ const sqftRanges = [
   <Navigation />
   
   <main>
-    <!-- Enhanced Hero Section - Perfect Above-the-Fold Fit -->
+    <!-- Enhanced Hero Section - Mobile-First Design -->
     <section class="relative h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center">
       <!-- Background Elements -->
       <div class="absolute inset-0">
@@ -83,7 +83,7 @@ const sqftRanges = [
         <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
       </div>
       
-      <!-- Mobile Hero Layout -->
+      <!-- Mobile Hero Layout - UNCHANGED -->
       <div class="lg:hidden relative z-10 px-6 pt-20 pb-12 min-h-screen w-full">
         <div class="max-w-sm mx-auto text-center space-y-6">
           
@@ -327,7 +327,7 @@ const sqftRanges = [
         </div>
       </div>
 
-      <!-- Desktop Hero Layout - Perfect Above-the-Fold Fit -->
+      <!-- Desktop Hero Layout - UPDATED FOR PERFECT ABOVE-THE-FOLD FIT -->
       <div class="hidden lg:block relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center h-[calc(100vh-100px)]">
           
@@ -608,7 +608,7 @@ const sqftRanges = [
                   
                   <div class="flex flex-col sm:flex-row gap-2">
                     <a 
-                      href={`/properties/${warehouse.data.slug}`}
+                      href={`/warehouses/${warehouse.data.slug}`}
                       class="flex-1 bg-gray-100 text-gray-700 text-center py-2 sm:py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors duration-200 min-h-[44px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
                     >
                       View Details
@@ -627,7 +627,7 @@ const sqftRanges = [
 
           <div class="text-center mt-8 sm:mt-12">
             <a 
-              href="/properties" 
+              href="/warehouses" 
               class="inline-flex items-center bg-gray-900 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-800 transition-colors duration-200 min-h-[48px] touch-manipulation text-sm sm:text-base"
             >
               View All Properties
@@ -925,7 +925,7 @@ const sqftRanges = [
             Get Free Representation
           </button>
           <a 
-            href="/properties" 
+            href="/warehouses" 
             class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 hover:border-white/50 transition-all duration-300 min-h-[48px] flex items-center justify-center touch-manipulation"
           >
             Browse Properties

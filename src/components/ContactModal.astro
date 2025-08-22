@@ -1,5 +1,5 @@
 ---
-// Modal component for the standardized contact form - Improved with glassmorphism and responsive design
+// Modal component for the standardized contact form - Updated for CRM integration
 interface Props {
   warehouses?: Array<{title: string, slug: string}>;
 }
@@ -127,23 +127,22 @@ const sqftRanges = [
             </a>
           </div>
           
+          <!-- SUCCESS MESSAGE (Initially Hidden) -->
+          <div id="modal-success-message" class="hidden bg-green-500/20 border border-green-500/30 rounded-2xl p-8 text-center mb-6">
+            <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Thank You!</h3>
+            <p class="text-white/80">We've received your inquiry and will contact you within 24 hours with qualified warehouse options.</p>
+          </div>
+          
           <!-- Form -->
           <form 
-            name="warehouse-inquiry-modal" 
-            method="POST" 
-            data-netlify="true" 
-            netlify-honeypot="bot-field"
-            action="/success"
+            id="modal-contact-form"
             class="flex-1 flex flex-col space-y-5 sm:space-y-4"
-            onsubmit="closeContactModal()"
           >
-            <!-- Hidden fields -->
-            <input type="hidden" name="form-name" value="warehouse-inquiry-modal" />
-            <input type="hidden" name="source" id="modal-source" value="modal" />
-            <div class="hidden">
-              <input name="bot-field" />
-            </div>
-
             <!-- Form Grid - More compact layout -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 flex-1">
               <!-- Left Column -->
@@ -214,7 +213,7 @@ const sqftRanges = [
                     </label>
                     <select 
                       id="modal-property-interest" 
-                      name="property-interest" 
+                      name="warehouse_interest" 
                       required
                       class="w-full px-4 py-3 sm:px-3 sm:py-2 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-base sm:text-sm"
                     >
@@ -222,12 +221,13 @@ const sqftRanges = [
                       <option value="any" class="bg-gray-800">Any Available Property</option>
                       <optgroup label="Specific Properties" class="bg-gray-800">
                         {allWarehouses.map(warehouse => (
-                          <option value={warehouse.slug} class="bg-gray-800">
+                          <option value={warehouse.title} data-warehouse-id={warehouse.slug} class="bg-gray-800">
                             {warehouse.title}
                           </option>
                         ))}
                       </optgroup>
                     </select>
+                    <input type="hidden" id="modal-warehouse-id" name="warehouse_id" />
                   </div>
 
                   <div>
@@ -259,7 +259,7 @@ const sqftRanges = [
                     </label>
                     <select 
                       id="modal-size-needed" 
-                      name="size-needed" 
+                      name="size_needed" 
                       class="w-full px-4 py-3 sm:px-3 sm:py-2 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-base sm:text-sm"
                     >
                       <option value="" class="bg-gray-800">Select size range...</option>
@@ -275,7 +275,7 @@ const sqftRanges = [
                     </label>
                     <select 
                       id="modal-price-range" 
-                      name="price-range" 
+                      name="budget_range" 
                       class="w-full px-4 py-3 sm:px-3 sm:py-2 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-base sm:text-sm"
                     >
                       <option value="" class="bg-gray-800">Select price range...</option>
@@ -293,16 +293,16 @@ const sqftRanges = [
                   </label>
                   <select 
                     id="modal-timing" 
-                    name="timing" 
+                    name="timeline" 
                     class="w-full px-4 py-3 sm:px-3 sm:py-2 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 text-base sm:text-sm"
                   >
                     <option value="" class="bg-gray-800">Select timeline...</option>
-                    <option value="immediate" class="bg-gray-800">Immediate (0-30 days)</option>
-                    <option value="1-3-months" class="bg-gray-800">1-3 months</option>
-                    <option value="3-6-months" class="bg-gray-800">3-6 months</option>
-                    <option value="6-12-months" class="bg-gray-800">6-12 months</option>
-                    <option value="12-months-plus" class="bg-gray-800">12+ months</option>
-                    <option value="just-exploring" class="bg-gray-800">Just exploring options</option>
+                    <option value="Immediate (0-30 days)" class="bg-gray-800">Immediate (0-30 days)</option>
+                    <option value="1-3 months" class="bg-gray-800">1-3 months</option>
+                    <option value="3-6 months" class="bg-gray-800">3-6 months</option>
+                    <option value="6-12 months" class="bg-gray-800">6-12 months</option>
+                    <option value="12+ months" class="bg-gray-800">12+ months</option>
+                    <option value="Just exploring options" class="bg-gray-800">Just exploring options</option>
                   </select>
                 </div>
 
@@ -313,7 +313,7 @@ const sqftRanges = [
                   </label>
                   <textarea 
                     id="modal-requirements" 
-                    name="requirements" 
+                    name="message" 
                     rows="4"
                     class="w-full h-full min-h-[100px] sm:min-h-[80px] px-4 py-3 sm:px-3 sm:py-2 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/60 focus:border-primary-400 focus:ring-1 focus:ring-primary-400/20 transition-all duration-300 resize-none text-base sm:text-sm"
                     placeholder="Tell us about your specific requirements: loading docks, clear height, special features, budget, location preferences, etc."
@@ -326,9 +326,11 @@ const sqftRanges = [
             <div class="flex justify-center pt-6 sm:pt-4 flex-shrink-0">
               <button 
                 type="submit" 
+                id="modal-submit-btn"
                 class="w-full max-w-md bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-xl text-lg sm:text-lg font-bold hover:from-primary-700 hover:to-primary-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
               >
-                Submit
+                <span class="submit-text">Submit</span>
+                <span class="loading-text hidden">Submitting...</span>
               </button>
             </div>
 
@@ -345,16 +347,10 @@ const sqftRanges = [
 <script is:inline>
   function openContactModal(source = 'unknown') {
     const modal = document.getElementById('contact-modal');
-    const sourceInput = document.getElementById('modal-source');
     
     if (modal) {
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      
-      // Set the source for analytics
-      if (sourceInput) {
-        sourceInput.value = source;
-      }
       
       // Focus on first input
       setTimeout(() => {
@@ -369,8 +365,85 @@ const sqftRanges = [
     if (modal) {
       modal.classList.add('hidden');
       document.body.style.overflow = 'auto';
+      
+      // Reset form and hide success message
+      const form = document.getElementById('modal-contact-form');
+      const successMessage = document.getElementById('modal-success-message');
+      if (form) form.reset();
+      if (successMessage) successMessage.classList.add('hidden');
+      if (form) form.classList.remove('hidden');
     }
   }
+
+  // Handle warehouse selection to populate warehouse_id
+  document.addEventListener('DOMContentLoaded', function() {
+    const warehouseSelect = document.getElementById('modal-property-interest');
+    const warehouseIdInput = document.getElementById('modal-warehouse-id');
+    
+    if (warehouseSelect && warehouseIdInput) {
+      warehouseSelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const warehouseId = selectedOption.getAttribute('data-warehouse-id');
+        warehouseIdInput.value = warehouseId || '';
+      });
+    }
+
+    // Handle form submission
+    const modalForm = document.getElementById('modal-contact-form');
+    if (modalForm) {
+      modalForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('modal-submit-btn');
+        const submitText = submitBtn.querySelector('.submit-text');
+        const loadingText = submitBtn.querySelector('.loading-text');
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitText.classList.add('hidden');
+        loadingText.classList.remove('hidden');
+        
+        try {
+          // Collect form data
+          const formData = new FormData(modalForm);
+          const data = Object.fromEntries(formData.entries());
+          
+          // Add source
+          data.source = 'modal_form';
+          
+          // Submit to our CRM function
+          const response = await fetch('/.netlify/functions/process-lead', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            // Show success message
+            modalForm.classList.add('hidden');
+            document.getElementById('modal-success-message').classList.remove('hidden');
+            
+            // Auto-close after 3 seconds
+            setTimeout(() => {
+              closeContactModal();
+            }, 3000);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('There was an error submitting your inquiry. Please try again or call us directly at (954) 937-9667.');
+          
+          // Reset button state
+          submitBtn.disabled = false;
+          submitText.classList.remove('hidden');
+          loadingText.classList.add('hidden');
+        }
+      });
+    }
+  });
 
   // Close modal when clicking outside
   document.addEventListener('click', function(event) {

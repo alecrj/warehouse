@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import ImageGallery from '../../components/ImageGallery.astro';
-// REMOVED: StandardizedContactForm import - no longer needed
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -361,7 +360,7 @@ const county = getCounty(addressInfo.city);
       </div>
     </section>
 
-    <!-- UPDATED Contact Form - Now redirects to success page -->
+    <!-- UPDATED Contact Form - Now uses CRM system -->
     <section class="py-12 bg-gray-50" id="contact-form">
       <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8">
@@ -373,31 +372,27 @@ const county = getCounty(addressInfo.city);
           </p>
         </div>
         
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <!-- SUCCESS MESSAGE (Initially Hidden) -->
+        <div id="property-success-message" class="hidden bg-green-50 border border-green-200 rounded-2xl p-8 text-center mb-6">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Thank You!</h3>
+          <p class="text-gray-700">We've received your inquiry about {data.title} and will contact you within 24 hours with detailed information.</p>
+        </div>
+        
+        <div id="property-form-container" class="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div class="bg-primary-600 p-6 text-center">
             <h3 class="text-xl font-bold text-white mb-2">Contact Our Team</h3>
             <p class="text-primary-100">Professional warehouse representation at no cost to you</p>
           </div>
           <div class="p-8">
             <form 
-              name="property-inquiry" 
-              method="POST" 
-              data-netlify="true" 
-              netlify-honeypot="bot-field"
-              action="/success"
+              id="property-contact-form"
               class="space-y-6"
             >
-              <!-- Hidden fields with enhanced property tracking -->
-              <input type="hidden" name="form-name" value="property-inquiry" />
-              <input type="hidden" name="property" value={data.title} />
-              <input type="hidden" name="property-size" value={data.size} />
-              <input type="hidden" name="property-price" value={data.price} />
-              <input type="hidden" name="property-location" value={addressInfo.displayLocation} />
-              <input type="hidden" name="source" value={`Property Page - ${data.title}`} />
-              <div class="hidden">
-                <input name="bot-field" />
-              </div>
-              
               <!-- Contact Info Cards -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div class="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
@@ -421,15 +416,22 @@ const county = getCounty(addressInfo.city);
                 </div>
               </div>
               
+              <!-- Hidden fields for property tracking -->
+              <input type="hidden" name="warehouse_interest" value={data.title} />
+              <input type="hidden" name="warehouse_id" value={data.slug} />
+              <input type="hidden" name="property_size" value={data.size} />
+              <input type="hidden" name="property_price" value={data.price} />
+              <input type="hidden" name="property_location" value={addressInfo.displayLocation} />
+              
               <!-- Name & Email -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <label for="property-name" class="block text-sm font-semibold text-gray-700 mb-2">
                     Full Name *
                   </label>
                   <input
                     type="text"
-                    id="name"
+                    id="property-name"
                     name="name"
                     required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
@@ -438,12 +440,12 @@ const county = getCounty(addressInfo.city);
                 </div>
 
                 <div>
-                  <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <label for="property-email" class="block text-sm font-semibold text-gray-700 mb-2">
                     Email Address *
                   </label>
                   <input
                     type="email"
-                    id="email"
+                    id="property-email"
                     name="email"
                     required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
@@ -455,12 +457,12 @@ const county = getCounty(addressInfo.city);
               <!-- Phone & Company -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <label for="property-phone" class="block text-sm font-semibold text-gray-700 mb-2">
                     Phone Number *
                   </label>
                   <input
                     type="tel"
-                    id="phone"
+                    id="property-phone"
                     name="phone"
                     required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
@@ -469,12 +471,12 @@ const county = getCounty(addressInfo.city);
                 </div>
 
                 <div>
-                  <label for="company" class="block text-sm font-semibold text-gray-700 mb-2">
+                  <label for="property-company" class="block text-sm font-semibold text-gray-700 mb-2">
                     Company
                   </label>
                   <input
                     type="text"
-                    id="company"
+                    id="property-company"
                     name="company"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="Company Name"
@@ -482,13 +484,54 @@ const county = getCounty(addressInfo.city);
                 </div>
               </div>
 
+              <!-- Timeline & Budget -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="property-timeline" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Timeline
+                  </label>
+                  <select
+                    id="property-timeline"
+                    name="timeline"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  >
+                    <option value="">Select timeline...</option>
+                    <option value="Immediate (0-30 days)">Immediate (0-30 days)</option>
+                    <option value="1-3 months">1-3 months</option>
+                    <option value="3-6 months">3-6 months</option>
+                    <option value="6-12 months">6-12 months</option>
+                    <option value="12+ months">12+ months</option>
+                    <option value="Just exploring options">Just exploring options</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="property-budget" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Budget Range
+                  </label>
+                  <select
+                    id="property-budget"
+                    name="budget_range"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  >
+                    <option value="">Select budget...</option>
+                    <option value="$3-5 per SF">$3-5 per SF</option>
+                    <option value="$5-7 per SF">$5-7 per SF</option>
+                    <option value="$7-10 per SF">$7-10 per SF</option>
+                    <option value="$10-15 per SF">$10-15 per SF</option>
+                    <option value="$15+ per SF">$15+ per SF</option>
+                    <option value="Negotiable">Negotiable</option>
+                  </select>
+                </div>
+              </div>
+
               <!-- Message -->
               <div>
-                <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
+                <label for="property-message" class="block text-sm font-semibold text-gray-700 mb-2">
                   Message
                 </label>
                 <textarea
-                  id="message"
+                  id="property-message"
                   name="message"
                   rows="4"
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
@@ -500,9 +543,11 @@ const county = getCounty(addressInfo.city);
               <div class="text-center">
                 <button
                   type="submit"
+                  id="property-submit-btn"
                   class="w-full bg-primary-600 text-white py-4 px-8 rounded-lg font-semibold hover:bg-primary-700 transition-colors focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
-                  Send Inquiry About This Property
+                  <span class="submit-text">Send Inquiry About This Property</span>
+                  <span class="loading-text hidden">Submitting...</span>
                 </button>
                 <p class="mt-3 text-sm text-gray-500">
                   We'll respond within 24 hours with detailed information and tour availability.
@@ -597,4 +642,83 @@ const county = getCounty(addressInfo.city);
       }
     }
   </style>
+
+<script>
+  // Handle property form submission - Fixed TypeScript errors
+  document.addEventListener('DOMContentLoaded', function() {
+    const propertyForm = document.getElementById('property-contact-form') as HTMLFormElement | null;
+    if (propertyForm) {
+      propertyForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('property-submit-btn') as HTMLButtonElement | null;
+        const submitText = submitBtn?.querySelector('.submit-text') as HTMLElement | null;
+        const loadingText = submitBtn?.querySelector('.loading-text') as HTMLElement | null;
+        
+        // Show loading state
+        if (submitBtn) {
+          submitBtn.disabled = true;
+        }
+        if (submitText) {
+          submitText.classList.add('hidden');
+        }
+        if (loadingText) {
+          loadingText.classList.remove('hidden');
+        }
+        
+        try {
+          // Collect form data
+          const formData = new FormData(propertyForm);
+          const data = Object.fromEntries(formData.entries());
+          
+          // Add source
+          data.source = `property_page_${data.warehouse_id}`;
+          
+          // Submit to our CRM function
+          const response = await fetch('/.netlify/functions/process-lead', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            // Show success message
+            const formContainer = document.getElementById('property-form-container');
+            const successMessage = document.getElementById('property-success-message');
+            
+            if (formContainer) {
+              formContainer.classList.add('hidden');
+            }
+            if (successMessage) {
+              successMessage.classList.remove('hidden');
+              // Scroll to success message
+              successMessage.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+            }
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('There was an error submitting your inquiry. Please try again or call us directly at (954) 937-9667.');
+          
+          // Reset button state
+          if (submitBtn) {
+            submitBtn.disabled = false;
+          }
+          if (submitText) {
+            submitText.classList.remove('hidden');
+          }
+          if (loadingText) {
+            loadingText.classList.add('hidden');
+          }
+        }
+      });
+    }
+  });
+</script>
 </BaseLayout>

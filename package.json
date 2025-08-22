@@ -1,31 +1,32 @@
 {
-  "name": "warehouse-listings",
+  "name": "warehouse-locating",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/netlify": "^6.5.7",
-    "@astrojs/tailwind": "^6.0.2",
-    "@cloudinary/url-gen": "^1.21.0",
-    "astro": "^5.13.2",
-    "cloudinary": "^2.7.0",
-    "cloudinary-react": "^1.8.1",
-    "gsap": "^3.13.0",
-    "netlify-cms-app": "^2.15.72",
-    "tailwindcss": "^3.4.0"
+    "@astrojs/netlify": "^5.5.3",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.1",
+    "@octokit/rest": "^20.1.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "astro": "^4.16.10",
+    "emailjs-com": "^3.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^20.0.0",
-    "typescript": "^5.9.2"
+    "@tailwindcss/typography": "^0.5.15"
   }
 }

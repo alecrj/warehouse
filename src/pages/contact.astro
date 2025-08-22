@@ -56,7 +56,7 @@ const sqftRanges = [
   <Navigation />
   
   <main>
-    <!-- Hero Section - Perfectly Centered on Mobile -->
+    <!-- Hero Section - Mobile-First Redesign -->
     <section class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
       <!-- Background Pattern -->
       <div class="absolute inset-0">
@@ -65,8 +65,175 @@ const sqftRanges = [
         <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
       </div>
       
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-8 pt-8 pb-8 lg:pt-16">
-        <div class="grid lg:grid-cols-2 gap-8 lg:gap-6 items-start lg:items-center min-h-[90vh] lg:min-h-[55vh]">
+      <!-- Mobile Layout -->
+      <div class="lg:hidden relative z-10 px-6 pt-12 pb-8 min-h-screen">
+        <div class="max-w-sm mx-auto text-center space-y-8">
+          
+          <!-- Headline -->
+          <div class="mt-8">
+            <h1 class="text-3xl font-black text-white leading-tight mb-4">
+              FIND YOUR
+              <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
+                WAREHOUSE TODAY
+              </span>
+            </h1>
+            
+            <p class="text-base text-gray-300 leading-relaxed mb-3">
+              Tell us what you need. We'll send qualified options and set up tours.
+            </p>
+
+            <p class="text-sm text-gray-400 leading-relaxed">
+              <span class="text-white font-semibold">Completely free service.</span> Our fee is paid by landlords.
+            </p>
+          </div>
+
+          <!-- Contact Cards -->
+          <div class="space-y-4">
+            <!-- Phone Card -->
+            <a 
+              href="tel:954-937-9667" 
+              class="block p-4 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl"
+            >
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                  <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                </div>
+                <div class="text-left">
+                  <div class="text-xs font-semibold text-white/80">Call Us Direct</div>
+                  <div class="text-lg font-black text-white">(954) 937-9667</div>
+                  <div class="text-xs text-white/60">Available 7 days</div>
+                </div>
+              </div>
+            </a>
+
+            <!-- Email Card -->
+            <a 
+              href="mailto:info@warehouselocating.com" 
+              class="block p-4 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl"
+            >
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                  <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div class="text-left min-w-0 flex-1">
+                  <div class="text-xs font-semibold text-white/80">Email Us</div>
+                  <div class="text-sm font-black text-white truncate">info@warehouselocating.com</div>
+                  <div class="text-xs text-white/60">Fast response</div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl p-4">
+            <div class="text-center mb-4">
+              <h2 class="text-lg font-bold text-white mb-1">Tell Us What You Need</h2>
+              <p class="text-white/80 text-xs">We'll send you options within 24 hours.</p>
+            </div>
+            
+            <form 
+              name="warehouse-inquiry-modal" 
+              method="POST" 
+              data-netlify="true" 
+              netlify-honeypot="bot-field"
+              action="/success"
+              class="space-y-3"
+            >
+              <!-- Hidden fields -->
+              <input type="hidden" name="form-name" value="warehouse-inquiry-modal" />
+              <input type="hidden" name="source" value="contact-page-hero-mobile" />
+              <div class="hidden">
+                <input name="bot-field" />
+              </div>
+
+              <!-- Name & Email -->
+              <div class="grid grid-cols-2 gap-2">
+                <input 
+                  type="text" 
+                  name="name" 
+                  required 
+                  class="w-full px-3 py-2 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/60 text-sm"
+                  placeholder="Name"
+                />
+                <input 
+                  type="email" 
+                  name="email" 
+                  required 
+                  class="w-full px-3 py-2 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/60 text-sm"
+                  placeholder="Email"
+                />
+              </div>
+
+              <!-- Phone & Company -->
+              <div class="grid grid-cols-2 gap-2">
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  class="w-full px-3 py-2 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/60 text-sm"
+                  placeholder="Phone"
+                />
+                <input 
+                  type="text" 
+                  name="company" 
+                  class="w-full px-3 py-2 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/60 text-sm"
+                  placeholder="Company"
+                />
+              </div>
+
+              <!-- Property Interest -->
+              <select 
+                name="property-interest" 
+                required
+                class="w-full px-3 py-2 rounded-lg border border-white/20 bg-white/10 text-white text-sm"
+              >
+                <option value="" class="bg-gray-800">Property Interest</option>
+                <option value="any" class="bg-gray-800">Any Available Property</option>
+                {allWarehouses.map(warehouse => (
+                  <option value={warehouse.slug} class="bg-gray-800">
+                    {warehouse.title}
+                  </option>
+                ))}
+              </select>
+
+              <!-- Message -->
+              <textarea 
+                name="requirements" 
+                rows="2"
+                class="w-full px-3 py-2 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/60 text-sm"
+                placeholder="Requirements..."
+              ></textarea>
+
+              <!-- Submit -->
+              <button 
+                type="submit" 
+                class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-4 py-3 rounded-lg text-sm font-bold"
+              >
+                Get Matched With Warehouses
+              </button>
+
+              <p class="text-xs text-white/60 text-center">
+                Free service • No obligation
+              </p>
+            </form>
+          </div>
+
+          <!-- Value Prop -->
+          <div class="flex items-center justify-center space-x-2">
+            <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-white font-medium text-sm">100% free consultation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Layout (unchanged) -->
+      <div class="hidden lg:block relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8 lg:pt-16">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-6 items-center min-h-[90vh] lg:min-h-[55vh]">
           
           <!-- Left Column: Centered Content for Mobile -->
           <div class="animate-on-scroll text-center lg:text-left flex flex-col justify-start lg:justify-center items-center lg:items-start space-y-6 lg:space-y-4 mt-8 lg:mt-0">

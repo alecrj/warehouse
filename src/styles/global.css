@@ -206,3 +206,64 @@ textarea:invalid:not(:focus) {
   white-space: nowrap;
   border: 0;
 }
+/* ============= HIGH-QUALITY IMAGE FIX ============= */
+/* Add this to the END of your existing global.css file */
+
+/* Force high-quality rendering for all images */
+.high-quality-image,
+img {
+  /* Prevent browser compression that causes blurriness */
+  image-rendering: auto !important;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  
+  /* Force GPU acceleration for better quality */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  
+  /* Smooth loading */
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* High-DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), 
+       (min-resolution: 192dpi) {
+  .high-quality-image,
+  img {
+    /* Force highest quality on retina displays */
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: auto !important;
+  }
+}
+
+/* Gallery and property images specific */
+.warehouse-image,
+.property-image,
+.gallery-image {
+  /* Maximum quality for property photos */
+  image-rendering: auto !important;
+  object-fit: cover;
+  object-position: center;
+  
+  /* Prevent blurry scaling */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Thumbnail quality */
+.thumbnail img,
+.image-thumbnail {
+  /* Keep thumbnails sharp */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Browser-specific fixes */
+@supports (-webkit-appearance: none) {
+  /* Chrome/Safari specific */
+  .high-quality-image,
+  img {
+    -webkit-transform: translate3d(0, 0, 0);
+    image-rendering: -webkit-optimize-contrast;
+  }
+}

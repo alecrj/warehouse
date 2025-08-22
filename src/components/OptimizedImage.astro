@@ -17,7 +17,7 @@ const {
   height = 600,
 } = Astro.props;
 
-// For CMS images (public folder), we'll use regular img tag with loading optimization
+// For CMS images (public folder), we'll use regular img tag with high-quality rendering
 const isPublicImage = src && src.startsWith('/images/');
 ---
 
@@ -26,10 +26,11 @@ const isPublicImage = src && src.startsWith('/images/');
     src={src}
     alt={alt}
     loading={loading}
-    class={className}
+    class={`high-quality-image ${className}`}
     width={width}
     height={height}
     decoding="async"
+    style="image-rendering: auto; image-rendering: -webkit-optimize-contrast;"
   />
 ) : (
   <div class={`bg-gray-200 flex items-center justify-center ${className}`}>

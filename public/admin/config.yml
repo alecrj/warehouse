@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-# Media optimized for mobile
+# Media optimized for high-quality images
 media_folder: "public/images/warehouses"
 public_folder: "/images/warehouses"
 
@@ -132,6 +132,7 @@ collections:
           name: "feature"
           widget: "string"
         
+      # 🎯 THIS IS THE KEY FIX FOR BLURRY IMAGES!
       - label: "📸 Property Images"
         name: "images"
         widget: "list"
@@ -139,15 +140,21 @@ collections:
         allow_add: true
         min: 1
         max: 10
-        hint: "Upload high-quality photos (max 10)"
+        hint: "Upload high-quality photos (recommended: 1920x1080 or higher)"
         summary: "Photo {{fields.image}}"
         field:
           label: "Image"
           name: "image"
           widget: "image"
+          # THIS PREVENTS THE BLURRY COMPRESSION:
           media_library:
             config:
-              max_file_size: 5000000  # 5MB limit
+              max_file_size: 10000000  # 10MB for high quality
+              multiple: false
+              choose_url: false
+              # These settings preserve image quality:
+              default_transformations: []  # No automatic compression
+              manual_transformations: []   # No manual compression
               
       - label: "📝 Description"
         name: "description"

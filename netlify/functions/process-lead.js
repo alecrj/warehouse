@@ -1,3 +1,4 @@
+// Fixed process-lead.js function
 const { Octokit } = require("@octokit/rest");
 const crypto = require('crypto');
 
@@ -37,6 +38,8 @@ exports.handler = async (event, context) => {
     const leadId = `lead-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
     const submittedDate = new Date().toISOString();
 
+    console.log(`Processing lead from ${name} (${email})`);
+
     // Create lead content
     const leadContent = `---
 name: "${name}"
@@ -65,7 +68,7 @@ ${message ? `Initial inquiry: ${message}` : ''}
       auth: process.env.GITHUB_TOKEN
     });
 
-    // Get repository info from environment or set defaults
+    // Get repository info from environment
     const owner = process.env.GITHUB_REPO_OWNER;
     const repo = process.env.GITHUB_REPO_NAME;
     const branch = process.env.GITHUB_BRANCH || 'main';
@@ -86,29 +89,45 @@ ${message ? `Initial inquiry: ${message}` : ''}
       branch
     });
 
-    // Trigger notification functions
-    const baseUrl = event.headers.origin || process.env.URL;
-    
-    // Send client notification
-    try {
-      await fetch(`${baseUrl}/.netlify/functions/send-client-notification`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ leadData: formData, leadId })
-      });
-    } catch (error) {
-      console.error('Client notification failed:', error);
-    }
+    console.log(`Lead file created: ${filePath}`);
 
-    // Send auto-response
-    try {
-      await fetch(`${baseUrl}/.netlify/functions/send-auto-response`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ leadData: formData, leadId })
-      });
-    } catch (error) {
-      console.error('Auto-response failed:', error);
+    // Trigger notification functions
+    const baseUrl = process.env.URL;
+    
+    if (baseUrl) {
+      // Send client notification
+      try {
+        const clientResponse = await fetch(`${baseUrl}/.netlify/functions/send-client-notification`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ leadData: formData, leadId })
+        });
+        
+        if (!clientResponse.ok) {
+          console.error('Client notification failed:', await clientResponse.text());
+        } else {
+          console.log('Client notification sent successfully');
+        }
+      } catch (error) {
+        console.error('Client notification error:', error);
+      }
+
+      // Send auto-response
+      try {
+        const autoResponse = await fetch(`${baseUrl}/.netlify/functions/send-auto-response`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ leadData: formData, leadId })
+        });
+        
+        if (!autoResponse.ok) {
+          console.error('Auto-response failed:', await autoResponse.text());
+        } else {
+          console.log('Auto-response sent successfully');
+        }
+      } catch (error) {
+        console.error('Auto-response error:', error);
+      }
     }
 
     return {

@@ -1,4 +1,4 @@
-// Updated send-auto-response.js - Works with your existing template
+// Fixed send-auto-response.js function
 const emailjs = require('emailjs-com');
 
 exports.handler = async (event, context) => {
@@ -15,6 +15,8 @@ exports.handler = async (event, context) => {
     // Determine if this is a property-specific inquiry
     const isPropertyInquiry = leadData.source && leadData.source.includes('property_page');
     
+    console.log(`Processing ${isPropertyInquiry ? 'property' : 'general'} inquiry for ${leadData.name}`);
+    
     // Generate content based on form type
     let emailContent = {
       to_email: leadData.email,
@@ -23,10 +25,9 @@ exports.handler = async (event, context) => {
       company_name: leadData.company || 'your company',
       message: leadData.message || 'No additional requirements specified',
       timeline: leadData.timeline || 'Flexible',
-      client_name: process.env.CLIENT_NAME || 'Our Team',
-      client_phone: process.env.CLIENT_PHONE || '',
-      client_email: process.env.CLIENT_EMAIL || '',
-      whatsapp_number: process.env.WHATSAPP_NUMBER || ''
+      client_name: 'Warehouse Locating Team',
+      specialist_title: isPropertyInquiry ? 'Senior Leasing Specialist' : 'Senior Warehouse Specialist',
+      whatsapp_message: encodeURIComponent(`Hi, I'm ${leadData.name} and I just submitted a warehouse inquiry. I'd like to discuss my options.`)
     };
     
     if (isPropertyInquiry) {
@@ -34,10 +35,8 @@ exports.handler = async (event, context) => {
       emailContent = {
         ...emailContent,
         subject: `Thank you for your interest in ${leadData.warehouse_interest || 'our warehouse property'}!`,
-        email_subject: "Thank you for your property inquiry",
         
         // Header
-        header_title: "🏢 Property Inquiry Received",
         header_subtitle: "Your Warehouse Tour Awaits",
         
         // Greeting and opening
@@ -54,48 +53,31 @@ exports.handler = async (event, context) => {
         budget_label: "Rate",
         budget_value: leadData.budget_range || leadData.property_price || 'Contact for pricing',
         
-        // Personalized response
-        personalized_response: `Thank you for your interest in ${leadData.warehouse_interest}. This property appears to be an excellent match for your ${leadData.timeline || 'timeline'} and requirements. We'll provide you with complete details, current availability, and can schedule a tour at your convenience.`,
-        
         // Process section
         process_title: "What happens next:",
-        process_content: `✅ <strong>Property Verification:</strong> We'll confirm current availability and terms<br><br>📞 <strong>Personal Call:</strong> Our specialist will contact you within 24 hours<br><br>📅 <strong>Tour Scheduling:</strong> We'll arrange a convenient viewing time<br><br>📋 <strong>Detailed Information:</strong> You'll receive complete property specs and pricing<br><br>🤝 <strong>Lease Assistance:</strong> We'll help negotiate the best terms`,
+        process_content: "✅ <strong>Property Verification:</strong> We'll confirm current availability and terms<br><br>📞 <strong>Personal Call:</strong> Our specialist will contact you within 24 hours<br><br>📅 <strong>Tour Scheduling:</strong> We'll arrange a convenient viewing time<br><br>📋 <strong>Detailed Information:</strong> You'll receive complete property specs and pricing<br><br>🤝 <strong>Lease Assistance:</strong> We'll help negotiate the best terms",
         
         // Contact section
         contact_title: "Want to Tour This Property Today?",
         contact_subtitle: "Call us now to schedule an immediate viewing!",
-        contact_subtitle_weight: "bold",
         
         // WhatsApp message
-        whatsapp_message: encodeURIComponent(`Hi, I'm ${leadData.name} and I'm interested in touring ${leadData.warehouse_interest}. When can we schedule a viewing?`),
-        
-        // Value proposition
-        value_prop_title: "🎯 Want to See Similar Properties?",
-        value_prop_content: `We have several other warehouses that might match your needs:<br><br>• Properties in the same area with similar specs<br>• Alternative budget-friendly options<br>• Larger/smaller spaces if your needs are flexible<br>• Properties available for immediate move-in<br><br><strong>Ask us about additional options during our call!</strong>`,
-        
-        // Signature
-        specialist_title: "Senior Leasing Specialist",
-        
-        // Footer
-        footer_line1: "This is an automated response confirming we received your property inquiry.",
-        footer_line2: `For immediate assistance regarding ${leadData.warehouse_interest || 'this property'}, call ${process.env.CLIENT_PHONE}.`
+        whatsapp_message: encodeURIComponent(`Hi, I'm ${leadData.name} and I'm interested in touring ${leadData.warehouse_interest}. When can we schedule a viewing?`)
       };
     } else {
-      // General matching service content (keeps your current style)
+      // General matching service content
       emailContent = {
         ...emailContent,
         subject: `We're finding your perfect warehouse space, ${leadData.name}!`,
-        email_subject: "We're finding your perfect warehouse space",
         
-        // Header (keeps your current header)
-        header_title: "🎯 Warehouse Locating",
+        // Header
         header_subtitle: "Finding Your Perfect South Florida Warehouse",
         
-        // Greeting and opening (keeps your current greeting)
+        // Greeting and opening
         greeting_message: `Great news, ${leadData.name}! We're on it! 🚀`,
         opening_message: `Thank you for using our warehouse matching service! We've received your requirements and our team is already searching our database to find the perfect warehouse options for ${leadData.company || 'your company'} in South Florida.`,
         
-        // Details section (keeps your current structure)
+        // Details section
         details_section_title: "Your Warehouse Requirements:",
         inquiry_focus: `🔍 Searching for: ${leadData.size_needed || 'Warehouse space'} in ${leadData.county || 'South Florida'}`,
         size_label: "Size Needed",
@@ -105,43 +87,30 @@ exports.handler = async (event, context) => {
         budget_label: "Budget Range",
         budget_value: leadData.budget_range || 'To be discussed',
         
-        // Personalized response
-        personalized_response: `Thank you for using our warehouse matching service. Based on your requirements, we're already searching our database of 500+ properties in South Florida.${leadData.budget_range ? ` We have several excellent options within your ${leadData.budget_range} budget range.` : ''}${leadData.timeline ? ` Given your ${leadData.timeline} timeline, we'll prioritize properties that can accommodate your schedule.` : ''} Our specialist will contact you within 24 hours with 3-5 curated warehouse options that match your specific needs.`,
-        
-        // Process section (keeps your current process)
+        // Process section
         process_title: "How our matching process works:",
-        process_content: `🔍 <strong>Database Search:</strong> We're scanning 500+ warehouses in our exclusive database<br><br>📋 <strong>Requirements Matching:</strong> Filtering options that meet your specific needs<br><br>💰 <strong>Pricing Analysis:</strong> Ensuring options fit within your budget range<br><br>📞 <strong>Personal Consultation:</strong> Our specialist will call you within 24 hours<br><br>📧 <strong>Curated Options:</strong> You'll receive 3-5 qualified warehouse matches`,
+        process_content: "🔍 <strong>Database Search:</strong> We're scanning our exclusive database of South Florida warehouses<br><br>📋 <strong>Requirements Matching:</strong> Filtering options that meet your specific needs<br><br>💰 <strong>Pricing Analysis:</strong> Ensuring options fit within your budget range<br><br>📞 <strong>Personal Consultation:</strong> Our specialist will call you within 24 hours<br><br>📧 <strong>Curated Options:</strong> You'll receive 3-5 qualified warehouse matches",
         
-        // Contact section (keeps your current contact style)
+        // Contact section
         contact_title: "Can't Wait? Contact Us Now!",
-        contact_subtitle: "", // No subtitle for general form
-        contact_subtitle_weight: "normal",
+        contact_subtitle: "",
         
         // WhatsApp message
-        whatsapp_message: encodeURIComponent(`Hi, I'm ${leadData.name} and I just submitted warehouse requirements. I'd like to discuss my options.`),
-        
-        // Value proposition (keeps your current value prop)
-        value_prop_title: "🌟 Why Our Matching Service Works",
-        value_prop_content: `• <strong>Exclusive Access</strong> - Many properties aren't publicly listed<br>• <strong>No Cost to You</strong> - Landlords pay our fees, always<br>• <strong>Time Saving</strong> - We do the searching, you do the choosing<br>• <strong>Expert Negotiation</strong> - We get you the best terms`,
-        
-        // Signature (keeps your current title)
-        specialist_title: "Senior Warehouse Specialist",
-        
-        // Footer (keeps your current footer)
-        footer_line1: "This is an automated confirmation. Our specialist will contact you within 24 hours.",
-        footer_line2: `For immediate assistance, call ${process.env.CLIENT_PHONE} or reply to this email.`
+        whatsapp_message: encodeURIComponent(`Hi, I'm ${leadData.name} and I just submitted warehouse requirements. I'd like to discuss my options.`)
       };
     }
 
-    console.log(`Sending auto-response for ${isPropertyInquiry ? 'property inquiry' : 'general matching'} to ${leadData.email}`);
+    console.log('Sending auto-response email via EmailJS...');
 
-    // Send auto-response email using your existing template
+    // Send auto-response email using EmailJS
     await emailjs.send(
       process.env.EMAILJS_SERVICE_ID,
-      process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID, // Your existing template ID
+      process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID,
       emailContent,
       process.env.EMAILJS_USER_ID
     );
+
+    console.log('Auto-response email sent successfully');
 
     return {
       statusCode: 200,

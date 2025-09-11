@@ -1095,5 +1095,30 @@ const sqftRanges = [
       --base-padding-x: clamp(4rem, 10vw, 12rem);
     }
   }
+  
+  /* Form container height constraints */
+  .hero-section .bg-white\/10 {
+    max-height: calc(100vh - var(--header-height) - 2 * var(--base-padding-y));
+    max-height: calc(100dvh - var(--header-height) - 2 * var(--base-padding-y));
+    overflow-y: auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Ensure form fits on very short screens */
+  @media (max-height: 600px) {
+    .hero-section .bg-white\/10 {
+      max-height: calc(100vh - var(--header-height) - 2rem);
+      max-height: calc(100dvh - var(--header-height) - 2rem);
+    }
+  }
+  
+  @media (max-height: 500px) {
+    .hero-section .bg-white\/10 {
+      max-height: calc(100vh - var(--header-height) - 1.5rem);
+      max-height: calc(100dvh - var(--header-height) - 1.5rem);
+    }
+  }
 </style>
 

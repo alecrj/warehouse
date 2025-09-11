@@ -12,8 +12,8 @@ import Footer from '../components/Footer.astro';
   <Navigation />
   
   <main>
-    <!-- Hero Section with Video Background -->
-    <section class="relative min-h-screen overflow-hidden flex items-center">
+    <!-- Hero Section - Matching Properties Page Structure -->
+    <section class="relative min-h-screen overflow-hidden flex items-start lg:items-center">
       <!-- Video Background -->
       <video 
         autoplay 
@@ -21,6 +21,7 @@ import Footer from '../components/Footer.astro';
         loop 
         playsinline
         class="absolute inset-0 w-full h-full object-cover"
+        poster="/warehouse-hero.jpg"
       >
         <source src="/videos/palms.mp4" type="video/mp4">
         <!-- Fallback for browsers that don't support video -->
@@ -38,7 +39,7 @@ import Footer from '../components/Footer.astro';
         <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-float-reverse"></div>
       </div>
       
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-16 pb-8">
         <div class="text-center">
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 animate-on-scroll drop-shadow-2xl">
             ABOUT

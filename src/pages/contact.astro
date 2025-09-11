@@ -629,7 +629,7 @@ const sqftRanges = [
   /* Dynamic viewport-based hero scaling - adapts to ANY screen size */
   .hero-section {
     --header-height: 60px;
-    --base-padding-y: clamp(1rem, 4vw, 6rem);
+    --base-padding-y: clamp(1rem, max(4vw, 3vh), 6rem);
     --base-padding-x: clamp(1rem, 3vw, 4rem);
     
     height: calc(100vh - var(--header-height));
@@ -644,7 +644,7 @@ const sqftRanges = [
   @media (max-width: 768px) {
     .hero-section {
       --header-height: 50px;
-      --base-padding-y: clamp(1.5rem, 6vw, 3rem);
+      --base-padding-y: clamp(1.5rem, max(6vw, 4vh), 3rem);
       --base-padding-x: clamp(1rem, 4vw, 2rem);
     }
   }
@@ -653,7 +653,7 @@ const sqftRanges = [
   @media (min-width: 769px) and (max-width: 1024px) {
     .hero-section {
       --header-height: 65px;
-      --base-padding-y: clamp(2rem, 5vw, 4rem);
+      --base-padding-y: clamp(2rem, max(5vw, 4vh), 4rem);
       --base-padding-x: clamp(1.5rem, 3vw, 3rem);
     }
   }
@@ -662,7 +662,7 @@ const sqftRanges = [
   @media (min-width: 1025px) {
     .hero-section {
       --header-height: 70px;
-      --base-padding-y: clamp(2.5rem, 4vw, 6rem);
+      --base-padding-y: clamp(2.5rem, max(4vw, 3vh), 6rem);
       --base-padding-x: clamp(2rem, 2.5vw, 4rem);
     }
   }
@@ -670,8 +670,21 @@ const sqftRanges = [
   /* Ultra-wide optimization */
   @media (min-width: 1920px) {
     .hero-section {
-      --base-padding-y: clamp(3rem, 3vw, 8rem);
+      --base-padding-y: clamp(3rem, max(3vw, 2vh), 8rem);
       --base-padding-x: clamp(3rem, 2vw, 6rem);
+    }
+  }
+  
+  /* Height-specific adjustments for very short viewports */
+  @media (max-height: 600px) {
+    .hero-section {
+      --base-padding-y: clamp(1rem, max(2vw, 2vh), 3rem);
+    }
+  }
+  
+  @media (max-height: 500px) {
+    .hero-section {
+      --base-padding-y: clamp(0.75rem, max(1.5vw, 1.5vh), 2rem);
     }
   }
   

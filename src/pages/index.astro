@@ -74,8 +74,8 @@ const sqftRanges = [
   <Navigation />
   
   <main>
-    <!-- Enhanced Hero Section - Mobile-First Design -->
-    <section class="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center">
+    <!-- Enhanced Hero Section - Full Screen -->
+    <section class="hero-section relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center">
       <!-- Background Elements -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
@@ -84,7 +84,7 @@ const sqftRanges = [
       </div>
       
       <!-- Mobile Hero Layout -->
-      <div class="md:hidden relative z-10 px-6 pt-20 pb-12 min-h-screen w-full">
+      <div class="md:hidden relative z-10 px-6 py-8 h-full w-full flex items-center">
         <div class="max-w-sm mx-auto text-center space-y-6">
           
           <!-- Mobile Hero Content -->
@@ -328,7 +328,7 @@ const sqftRanges = [
       </div>
 
       <!-- Desktop Hero Layout - TWO COLUMN WITH FORM -->
-      <div class="hidden md:block relative z-10 w-full px-4 md:px-6 lg:px-8 py-8 lg:py-12 min-h-[80vh] flex items-center">
+      <div class="hidden md:block relative z-10 w-full px-4 md:px-6 lg:px-8 py-8 h-full flex items-center">
         <div class="max-w-7xl mx-auto w-full">
           <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
             
@@ -1019,4 +1019,19 @@ const sqftRanges = [
   // Initial check
   animateOnScroll();
 </script>
+
+<style>
+  /* Full screen hero that accounts for navigation */
+  .hero-section {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  }
+  
+  /* Ensure hero fills screen perfectly on all devices */
+  @supports (height: 100dvh) {
+    .hero-section {
+      height: 100dvh;
+    }
+  }
+</style>
 

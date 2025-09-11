@@ -62,60 +62,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Cache bust: Force fresh deployment on 2025-09-11 -->
     <meta name="build-version" content="2025-09-11-hero-fix-v2" />
     
-    <!-- Critical CSS to prevent FOUC and fix desktop visibility -->
+    <!-- Critical CSS to prevent FOUC -->
     <style>
-      /* Ensure hero sections are never blank/white */
-      .hero-section-fix {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%) !important;
-        min-height: 100vh;
-      }
-      
       /* Prevent flash of white/blank content */
       main section:first-child {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      }
-      
-      /* Fix desktop layout visibility issues */
-      @media (min-width: 1024px) {
-        .hidden.lg\\:block {
-          display: block !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-        }
-        
-        /* Ensure desktop hero content is visible */
-        main section:first-child .hidden.lg\\:block {
-          min-height: 80vh;
-          position: relative;
-          z-index: 10;
-        }
-      }
-      
-      /* Fix for ultra-wide screens and full desktop */
-      @media (min-width: 1280px) {
-        /* Force visibility on XL+ screens */
-        .hidden.lg\\:block {
-          display: block !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-          width: 100% !important;
-          max-width: none !important;
-        }
-        
-        /* Remove max-width constraints that might hide content */
-        main section:first-child .hidden.lg\\:block {
-          max-width: 100vw !important;
-          margin: 0 !important;
-        }
-      }
-      
-      /* Debug styles - remove after fixing */
-      @media (min-width: 1024px) {
-        .debug-hero {
-          background: red !important;
-          border: 5px solid yellow !important;
-          min-height: 50vh !important;
-        }
       }
     </style>
   </head>

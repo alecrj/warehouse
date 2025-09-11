@@ -1,298 +1,10 @@
----
-// Updated homepage with perfect desktop above-the-fold + original mobile layout
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
-import { getCollection } from 'astro:content';
-
-// Define proper types
-interface WarehouseData {
-  title: string;
-  location: string;
-  price: string;
-  size: number;
-  description: string;
-  images?: string[];
-  features?: string[];
-  featured?: boolean;
-  availability?: string;
-  slug: string;
-}
-
-interface Warehouse {
-  data: WarehouseData;
-}
-
-// Get warehouse data for stats and featured properties
-let allWarehouses: Warehouse[] = [];
-let availableWarehouses: Warehouse[] = [];
-let featuredWarehouses: Warehouse[] = [];
-let totalSqFt = 0;
-let averageSize = 0;
-
-try {
-  allWarehouses = await getCollection('warehouses');
-  availableWarehouses = allWarehouses.filter((w: Warehouse) => w.data.availability === 'available');
-  featuredWarehouses = allWarehouses.filter((w: Warehouse) => w.data.featured).slice(0, 3);
-  totalSqFt = allWarehouses.reduce((sum: number, w: Warehouse) => sum + (w.data.size || 0), 0);
-  averageSize = allWarehouses.length > 0 ? Math.round(totalSqFt / allWarehouses.length) : 0;
-} catch (error) {
-  console.log('No warehouse data yet:', error);
-}
-
-// Form dropdown options (matching ContactModal exactly)
-const counties = [
-  'Miami-Dade County',
-  'Broward County', 
-  'Palm Beach County'
-];
-
-const priceRanges = [
-  '$3-5 per SF',
-  '$5-7 per SF',
-  '$7-10 per SF',
-  '$10-15 per SF',
-  '$15+ per SF',
-  'Negotiable'
-];
-
-const propertyInterests = [
-  'For Lease',
-  'For Sale',
-  'Sublease',
-  'Build to Suit'
-];
-
-const sizeRanges = [
-  '500-2,000 SF',
-  '2,000-5,000 SF',
-  '5,000-10,000 SF',
-  '10,000-25,000 SF',
-  '25,000-50,000 SF',
-  '50,000-100,000 SF',
-  '100,000+ SF'
-];
----
-
-<BaseLayout 
-  title="Find Your Perfect Warehouse in South Florida | Warehouse Locating"
-  description="Free tenant representation for warehouse leases—landlords pay our fee. From 500 SF to 500,000 SF across Miami-Dade, Broward, and Palm Beach."
->
-  <Navigation />
-  
-  <main>
-    <!-- Enhanced Hero Section - Unified Responsive Design -->
-    <section class="hero-section relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
-      <!-- Background Elements -->
-      <div class="absolute inset-0">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-float-reverse"></div>
-        <div class="absolute inset-0 bg-pattern-dots opacity-10"></div>
-      </div>
-      
-      <!-- Unified Hero Layout - Single Responsive Design -->
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-16 pb-8">
-        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          
-          <!-- Left Column: Hero Content -->
-          <div class="text-center lg:text-left">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-tight tracking-tight mb-4 sm:mb-6 animate-on-scroll drop-shadow-2xl">
-              FIND YOUR PERFECT
-              <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-                WAREHOUSE SPACE
-              </span>
-            </h1>
-            
-            <p class="text-base sm:text-lg lg:text-xl text-gray-200 max-w-4xl mx-auto lg:mx-0 leading-relaxed mb-2 animate-on-scroll drop-shadow-lg">
-              Free tenant concierge service across Miami-Dade, Broward & Palm Beach counties
-            </p>
-            
-            <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 sm:mb-8 max-w-3xl mx-auto lg:mx-0 animate-on-scroll drop-shadow-lg">
-              <span class="text-white font-semibold">Zero cost to you.</span> Our fee is paid by landlords. 
-              From 500 SF to 500,000 SF—we'll find qualified options and negotiate on your behalf.
-            </p>
-
-            <!-- Value Props -->
-            <div class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-              <div class="flex items-center justify-center lg:justify-start space-x-3">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span class="text-white font-medium text-sm sm:text-base">100% free service—no cost, no retainer, no obligation</span>
+                </form>
               </div>
-              <div class="flex items-center justify-center lg:justify-start space-x-3">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span class="text-white font-medium text-sm sm:text-base">Deep market knowledge and proven landlord relationships</span>
-              </div>
-              <div class="flex items-center justify-center lg:justify-start space-x-3">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span class="text-white font-medium text-sm sm:text-base">From 500 SF to 500,000 SF warehouses across South Florida</span>
-              </div>
-            </div>
-
-            <!-- CTAs -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button 
-                onclick="openContactModal('hero')"
-                class="bg-white text-primary-600 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 transform"
-              >
-                Work With Us
-              </button>
-              <a 
-                href="tel:954-937-9667" 
-                class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
-              >
-                Call (954) 937-9667
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Column: Intake Form -->
-          <div class="flex justify-center lg:justify-end">
-            <div class="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-4 lg:p-5 xl:p-6 w-full max-w-md">
-              <div class="text-center mb-3 lg:mb-4 xl:mb-5">
-                <h2 class="text-lg lg:text-xl xl:text-xl font-bold text-white mb-1 lg:mb-2">Find Your Perfect Warehouse Space</h2>
-                <p class="text-white/80 text-xs lg:text-sm xl:text-sm">We'll get back to you within 24 hours with qualified options.</p>
-              </div>
-              
-              <form 
-                name="warehouse-inquiry-hero" 
-                method="POST" 
-                data-netlify="true" 
-                netlify-honeypot="bot-field"
-                class="space-y-3"
-              >
-                <input type="hidden" name="form-name" value="warehouse-inquiry-hero" />
-                <input type="hidden" name="source" value="hero" />
-                <input type="hidden" name="bot-field" />
-                
-                <!-- Name & Email Row -->
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Name *</label>
-                    <input 
-                      type="text" 
-                      name="name" 
-                      required
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Email *</label>
-                    <input 
-                      type="email" 
-                      name="email" 
-                      required
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Your email"
-                    />
-                  </div>
-                </div>
-
-                <!-- Phone & Company Row -->
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Phone</label>
-                    <input 
-                      type="tel" 
-                      name="phone"
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Your phone"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Company</label>
-                    <input 
-                      type="text" 
-                      name="company"
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Company name"
-                    />
-                  </div>
-                </div>
-
-                <!-- Property Interest & County Row -->
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Property Interest *</label>
-                    <select 
-                      name="property_interest" 
-                      required
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent [&>option]:bg-gray-800 [&>option]:text-white"
-                    >
-                      <option value="" class="bg-gray-800 text-white">Select type</option>
-                      {propertyInterests.map(interest => (
-                        <option value={interest} class="bg-gray-800 text-white">{interest}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">County</label>
-                    <select 
-                      name="county"
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent [&>option]:bg-gray-800 [&>option]:text-white"
-                    >
-                      <option value="" class="bg-gray-800 text-white">Select county</option>
-                      {counties.map(county => (
-                        <option value={county} class="bg-gray-800 text-white">{county}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Size & Price Range Row -->
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Size (SF)</label>
-                    <select 
-                      name="size_needed"
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent [&>option]:bg-gray-800 [&>option]:text-white"
-                    >
-                      <option value="" class="bg-gray-800 text-white">Select size</option>
-                      {sizeRanges.map(range => (
-                        <option value={range} class="bg-gray-800 text-white">{range}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Budget</label>
-                    <input 
-                      type="text" 
-                      name="budget"
-                      class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Price range"
-                    />
-                  </div>
-                </div>
-
-                <!-- Message -->
-                <div>
-                  <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Tell us more about your needs</label>
-                  <textarea 
-                    name="message"
-                    rows="3"
-                    class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-                    placeholder="Specific requirements, timeline, etc."
-                  ></textarea>
-                </div>
-
-                <!-- Submit Button -->
-                <button 
-                  type="submit"
-                  class="w-full bg-white text-primary-600 px-6 py-3 rounded-lg text-sm xl:text-base font-bold hover:bg-gray-50 transition-colors duration-300"
-                >
-                  Find My Warehouse Space
-                </button>
-              </form>
             </div>
           </div>
         </div>
-      </div>    </section>
+      </div>
+    </section>
 
     {featuredWarehouses.length > 0 && (
       <!-- Featured Properties Section -->
@@ -566,7 +278,7 @@ const sizeRanges = [
                   class="w-full px-4 py-3 sm:py-4 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300 text-base min-h-[48px] touch-manipulation appearance-none bg-select-arrow bg-no-repeat bg-[length:16px] bg-[right_12px_center]"
                 >
                   <option value="">Select size range...</option>
-                  {sizeRanges.map(range => (
+                  {sqftRanges.map(range => (
                     <option value={range}>{range}</option>
                   ))}
                 </select>
@@ -778,3 +490,122 @@ const sizeRanges = [
   // Initial check
   animateOnScroll();
 </script>
+
+<style>
+  /* Dynamic viewport-based hero scaling - adapts to ANY screen size */
+  .hero-section {
+    --header-height: 60px;
+    --base-padding-y: clamp(1rem, max(4vw, 3vh), 6rem);
+    --base-padding-x: clamp(1rem, 3vw, 4rem);
+    
+    height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
+    padding: var(--base-padding-y) var(--base-padding-x);
+    
+    /* Dynamic content scaling based on viewport */
+    --content-scale: clamp(0.8, 1.2vw + 0.5rem, 1.2);
+  }
+  
+  /* Mobile optimization */
+  @media (max-width: 768px) {
+    .hero-section {
+      --header-height: 50px;
+      --base-padding-y: clamp(1.5rem, max(6vw, 4vh), 3rem);
+      --base-padding-x: clamp(1rem, 4vw, 2rem);
+    }
+  }
+  
+  /* Tablet optimization */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .hero-section {
+      --header-height: 65px;
+      --base-padding-y: clamp(2rem, max(5vw, 4vh), 4rem);
+      --base-padding-x: clamp(1.5rem, 3vw, 3rem);
+    }
+  }
+  
+  /* Desktop optimization */
+  @media (min-width: 1025px) {
+    .hero-section {
+      --header-height: 70px;
+      --base-padding-y: clamp(2.5rem, max(4vw, 3vh), 6rem);
+      --base-padding-x: clamp(2rem, 2.5vw, 4rem);
+    }
+  }
+  
+  /* Ultra-wide optimization */
+  @media (min-width: 1920px) {
+    .hero-section {
+      --base-padding-y: clamp(3rem, max(3vw, 2vh), 8rem);
+      --base-padding-x: clamp(3rem, 2vw, 6rem);
+    }
+  }
+  
+  /* Height-specific adjustments for very short viewports */
+  @media (max-height: 600px) {
+    .hero-section {
+      --base-padding-y: clamp(1rem, max(2vw, 2vh), 3rem);
+    }
+  }
+  
+  @media (max-height: 500px) {
+    .hero-section {
+      --base-padding-y: clamp(0.75rem, max(1.5vw, 1.5vh), 2rem);
+    }
+  }
+  
+  /* Ensure perfect scaling on very narrow or very wide screens */
+  @media (aspect-ratio < 1/1) {
+    .hero-section {
+      --base-padding-y: clamp(1rem, 8vh, 4rem);
+    }
+  }
+  
+  @media (aspect-ratio > 21/9) {
+    .hero-section {
+      --base-padding-x: clamp(4rem, 10vw, 12rem);
+    }
+  }
+  
+  /* Form container height constraints - Desktop only */
+  @media (min-width: 769px) {
+    .hero-section .bg-white\/10 {
+      max-height: calc(100vh - var(--header-height) - 2 * var(--base-padding-y));
+      max-height: calc(100dvh - var(--header-height) - 2 * var(--base-padding-y));
+      overflow-y: auto;
+      height: fit-content;
+    }
+    
+    /* Ensure form fits on very short desktop screens */
+    @media (max-height: 600px) {
+      .hero-section .bg-white\/10 {
+        max-height: calc(100vh - var(--header-height) - 2rem);
+        max-height: calc(100dvh - var(--header-height) - 2rem);
+      }
+    }
+    
+    @media (max-height: 500px) {
+      .hero-section .bg-white\/10 {
+        max-height: calc(100vh - var(--header-height) - 1.5rem);
+        max-height: calc(100dvh - var(--header-height) - 1.5rem);
+      }
+    }
+  }
+  
+  /* Mobile form constraints - Allow natural scrolling */
+  @media (max-width: 768px) {
+    .hero-section .bg-white\/10 {
+      max-height: none;
+      height: auto;
+      overflow-y: visible;
+    }
+    
+    /* Mobile hero should allow scrolling beyond viewport */
+    .hero-section {
+      min-height: calc(100vh - var(--header-height));
+      min-height: calc(100dvh - var(--header-height));
+      height: auto;
+    }
+  }
+</style>
+

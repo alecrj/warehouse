@@ -59,6 +59,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     
     <!-- Tailwind config is handled by tailwind.config.mjs -->
+    <!-- Cache bust: Force fresh deployment on 2025-09-11 -->
+    <meta name="build-version" content="2025-09-11-hero-fix" />
   </head>
   
   <body class="font-inter antialiased">

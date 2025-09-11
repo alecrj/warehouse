@@ -1023,14 +1023,41 @@ const sqftRanges = [
 <style>
   /* Full screen hero that accounts for navigation */
   .hero-section {
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    height: calc(100vh - 80px); /* Account for header height */
+    height: calc(100dvh - 80px); /* Dynamic viewport height for mobile browsers */
   }
   
   /* Ensure hero fills screen perfectly on all devices */
   @supports (height: 100dvh) {
     .hero-section {
-      height: 100dvh;
+      height: calc(100dvh - 80px);
+    }
+  }
+  
+  /* Responsive header heights */
+  @media (max-width: 768px) {
+    .hero-section {
+      height: calc(100vh - 70px);
+      height: calc(100dvh - 70px);
+    }
+    
+    @supports (height: 100dvh) {
+      .hero-section {
+        height: calc(100dvh - 70px);
+      }
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .hero-section {
+      height: calc(100vh - 90px);
+      height: calc(100dvh - 90px);
+    }
+    
+    @supports (height: 100dvh) {
+      .hero-section {
+        height: calc(100dvh - 90px);
+      }
     }
   }
 </style>

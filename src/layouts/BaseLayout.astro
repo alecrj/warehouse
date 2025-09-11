@@ -62,7 +62,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Cache bust: Force fresh deployment on 2025-09-11 -->
     <meta name="build-version" content="2025-09-11-hero-fix-v2" />
     
-    <!-- Critical CSS to prevent FOUC -->
+    <!-- Critical CSS to prevent FOUC and fix desktop visibility -->
     <style>
       /* Ensure hero sections are never blank/white */
       .hero-section-fix {
@@ -73,6 +73,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       /* Prevent flash of white/blank content */
       main section:first-child {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      }
+      
+      /* Fix desktop layout visibility issues */
+      @media (min-width: 1024px) {
+        .hidden.lg\\:block {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+        
+        /* Ensure desktop hero content is visible */
+        main section:first-child .hidden.lg\\:block {
+          min-height: 80vh;
+          position: relative;
+          z-index: 10;
+        }
       }
     </style>
   </head>

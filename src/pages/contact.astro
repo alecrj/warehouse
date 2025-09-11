@@ -56,8 +56,8 @@ const sqftRanges = [
   <Navigation />
   
   <main>
-    <!-- Hero Section - Mobile-First Redesign -->
-    <section class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+    <!-- Hero Section - Full Screen -->
+    <section class="hero-section relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center">
       <!-- Background Pattern -->
       <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
@@ -66,7 +66,7 @@ const sqftRanges = [
       </div>
       
       <!-- Mobile Layout -->
-      <div class="lg:hidden relative z-10 px-6 pt-12 pb-8 min-h-screen">
+      <div class="md:hidden relative z-10 h-full w-full flex items-center">
         <div class="max-w-sm mx-auto text-center space-y-8">
           
           <!-- Headline -->
@@ -309,31 +309,30 @@ const sqftRanges = [
         </div>
       </div>
 
-      <!-- Desktop Layout (unchanged) -->
-      <div class="max-md:hidden md:block desktop-hero-fix relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-8 pb-8 lg:pt-16" style="min-height: 80vh !important;">
-        <div class="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-6 items-center min-h-[80vh]">
-          
-          <!-- Left Column: Centered Content for Mobile -->
-          <div class="animate-on-scroll text-center md:text-left flex flex-col justify-start md:justify-center items-center md:items-start space-y-6 md:space-y-4 mt-8 md:mt-0">
-            <div class="w-full px-2 md:px-0">
-              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.9] tracking-tight mb-4">
+      <!-- Desktop Hero Layout - TWO COLUMN WITH CONTACT -->
+      <div class="hidden md:block relative z-10 w-full h-full flex items-center">
+        <div class="max-w-7xl mx-auto w-full h-full flex items-center">
+          <div class="grid md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 items-center w-full">
+            
+            <!-- Left Column: Hero Content -->
+            <div class="text-left">
+              <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-black text-white leading-tight mb-3 lg:mb-4 xl:mb-5 2xl:mb-6">
                 FIND YOUR
                 <span class="block bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
                   WAREHOUSE TODAY
                 </span>
               </h1>
               
-              <p class="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed mb-4 px-2 md:px-0">
+              <p class="text-base md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-gray-300 mb-2 lg:mb-3 xl:mb-4 2xl:mb-5">
                 Tell us what you need. We'll send qualified options and set up tours.
               </p>
 
-              <p class="text-sm sm:text-base text-gray-400 leading-relaxed mb-6 px-2 md:px-0">
+              <p class="text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl text-gray-400 mb-4 lg:mb-5 xl:mb-6 2xl:mb-7">
                 <span class="text-white font-semibold">Completely free service.</span> Our fee is paid by landlords.
               </p>
-            </div>
 
-            <!-- Contact Cards - Glassmorphism Style -->
-            <div class="w-full max-w-xs sm:max-w-sm lg:max-w-md mx-auto md:mx-0 space-y-4 px-2 md:px-0">
+              <!-- Contact Cards - Premium Style -->
+              <div class="space-y-4 lg:space-y-5 xl:space-y-6 2xl:space-y-7">
               <!-- Phone Card -->
               <a 
                 href="tel:954-937-9667" 
@@ -384,15 +383,15 @@ const sqftRanges = [
                 <span class="text-white font-medium text-sm">100% free consultation</span>
               </div>
             </div>
-          </div>
-
-          <!-- Right Column: Enhanced Contact Form -->
-          <div class="animate-on-scroll flex justify-center lg:justify-end mt-8 lg:mt-0">
-            <div class="w-full max-w-xs sm:max-w-sm lg:max-w-lg mx-auto bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-4 sm:p-6">
-              <div class="text-center mb-4">
-                <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Tell Us What You Need</h2>
-                <p class="text-white/80 text-xs">We'll send you qualified warehouse options within 24 hours.</p>
-              </div>
+            </div>
+            
+            <!-- Right Column: Contact Form -->
+            <div class="animate-on-scroll my-8 lg:my-12 xl:my-16 2xl:my-20">
+              <div class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-4 sm:p-5 lg:p-6 xl:p-7 2xl:p-8">
+                <div class="text-center mb-4 lg:mb-5 xl:mb-6">
+                  <h2 class="text-base md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl font-bold text-white mb-1 lg:mb-2">Tell Us What You Need</h2>
+                  <p class="text-white/80 text-xs lg:text-sm xl:text-base">We'll send you qualified warehouse options within 24 hours.</p>
+                </div>
               
               <form 
                 name="warehouse-inquiry-modal" 
@@ -556,6 +555,7 @@ const sqftRanges = [
                   Free service • Landlords pay our fees • No obligation
                 </p>
               </form>
+              </div>
             </div>
           </div>
         </div>
@@ -672,6 +672,39 @@ const sqftRanges = [
 </BaseLayout>
 
 <style>
+  /* Hero Section - Perfect Viewport Fit */
+  .hero-section {
+    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
+    padding: 2rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-section {
+      padding: 2.5rem 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      height: calc(100vh - 72px);
+      height: calc(100dvh - 72px);
+      padding: 3rem 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-section {
+      padding: 3.5rem 2.5rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .hero-section {
+      padding: 4rem 3rem;
+    }
+  }
+
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(30px);
@@ -724,14 +757,3 @@ const sqftRanges = [
   // Initial check
   animateOnScroll();
 </script>
-
-<style>
-  /* Force desktop hero visibility */
-  @media (min-width: 768px) {
-    .desktop-hero-fix {
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-  }
-</style>

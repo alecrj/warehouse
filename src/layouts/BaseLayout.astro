@@ -60,7 +60,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     
     <!-- Tailwind config is handled by tailwind.config.mjs -->
     <!-- Cache bust: Force fresh deployment on 2025-09-11 -->
-    <meta name="build-version" content="2025-09-11-hero-fix" />
+    <meta name="build-version" content="2025-09-11-hero-fix-v2" />
+    
+    <!-- Critical CSS to prevent FOUC -->
+    <style>
+      /* Ensure hero sections are never blank/white */
+      .hero-section-fix {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%) !important;
+        min-height: 100vh;
+      }
+      
+      /* Prevent flash of white/blank content */
+      main section:first-child {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      }
+    </style>
   </head>
   
   <body class="font-inter antialiased">

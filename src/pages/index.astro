@@ -1096,28 +1096,44 @@ const sqftRanges = [
     }
   }
   
-  /* Form container height constraints */
-  .hero-section .bg-white\/10 {
-    max-height: calc(100vh - var(--header-height) - 2 * var(--base-padding-y));
-    max-height: calc(100dvh - var(--header-height) - 2 * var(--base-padding-y));
-    overflow-y: auto;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Ensure form fits on very short screens */
-  @media (max-height: 600px) {
+  /* Form container height constraints - Desktop only */
+  @media (min-width: 769px) {
     .hero-section .bg-white\/10 {
-      max-height: calc(100vh - var(--header-height) - 2rem);
-      max-height: calc(100dvh - var(--header-height) - 2rem);
+      max-height: calc(100vh - var(--header-height) - 2 * var(--base-padding-y));
+      max-height: calc(100dvh - var(--header-height) - 2 * var(--base-padding-y));
+      overflow-y: auto;
+      height: fit-content;
+    }
+    
+    /* Ensure form fits on very short desktop screens */
+    @media (max-height: 600px) {
+      .hero-section .bg-white\/10 {
+        max-height: calc(100vh - var(--header-height) - 2rem);
+        max-height: calc(100dvh - var(--header-height) - 2rem);
+      }
+    }
+    
+    @media (max-height: 500px) {
+      .hero-section .bg-white\/10 {
+        max-height: calc(100vh - var(--header-height) - 1.5rem);
+        max-height: calc(100dvh - var(--header-height) - 1.5rem);
+      }
     }
   }
   
-  @media (max-height: 500px) {
+  /* Mobile form constraints - Allow natural scrolling */
+  @media (max-width: 768px) {
     .hero-section .bg-white\/10 {
-      max-height: calc(100vh - var(--header-height) - 1.5rem);
-      max-height: calc(100dvh - var(--header-height) - 1.5rem);
+      max-height: none;
+      height: auto;
+      overflow-y: visible;
+    }
+    
+    /* Mobile hero should allow scrolling beyond viewport */
+    .hero-section {
+      min-height: calc(100vh - var(--header-height));
+      min-height: calc(100dvh - var(--header-height));
+      height: auto;
     }
   }
 </style>

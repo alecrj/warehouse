@@ -84,7 +84,7 @@ const sqftRanges = [
       </div>
       
       <!-- Mobile Hero Layout -->
-      <div class="md:hidden relative z-10 px-6 py-8 h-full w-full flex items-center">
+      <div class="md:hidden relative z-10 h-full w-full flex items-center">
         <div class="max-w-sm mx-auto text-center space-y-6">
           
           <!-- Mobile Hero Content -->
@@ -328,7 +328,7 @@ const sqftRanges = [
       </div>
 
       <!-- Desktop Hero Layout - TWO COLUMN WITH FORM -->
-      <div class="hidden md:block relative z-10 w-full px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 py-6 md:py-8 lg:py-12 xl:py-16 2xl:py-20 h-full flex items-center">
+      <div class="hidden md:block relative z-10 w-full h-full flex items-center">
         <div class="max-w-7xl mx-auto w-full h-full flex items-center">
           <div class="grid md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 2xl:gap-20 items-center w-full">
             
@@ -1021,24 +1021,46 @@ const sqftRanges = [
 </script>
 
 <style>
-  /* Full screen hero that accounts for navigation */
+  /* Premium full screen hero with generous padding */
   .hero-section {
-    height: calc(100vh - 80px); /* Account for header height */
-    height: calc(100dvh - 80px); /* Dynamic viewport height for mobile browsers */
+    height: calc(100vh - 60px); /* More generous space - reduced header offset */
+    height: calc(100dvh - 60px); /* Dynamic viewport height for mobile browsers */
+    padding: 3rem 1rem; /* Premium base padding */
   }
   
   /* Ensure hero fills screen perfectly on all devices */
   @supports (height: 100dvh) {
     .hero-section {
-      height: calc(100dvh - 80px);
+      height: calc(100dvh - 60px);
     }
   }
   
-  /* Responsive header heights */
+  /* Responsive premium spacing */
   @media (max-width: 768px) {
     .hero-section {
-      height: calc(100vh - 70px);
+      height: calc(100vh - 50px); /* Mobile header offset */
+      height: calc(100dvh - 50px);
+      padding: 2rem 1rem; /* Mobile premium padding */
+    }
+    
+    @supports (height: 100dvh) {
+      .hero-section {
+        height: calc(100dvh - 50px);
+      }
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .hero-section {
+      padding: 3rem 1.5rem; /* Tablet premium padding */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .hero-section {
+      height: calc(100vh - 70px); /* Desktop header offset */
       height: calc(100dvh - 70px);
+      padding: 4rem 2rem; /* Desktop premium padding */
     }
     
     @supports (height: 100dvh) {
@@ -1048,16 +1070,15 @@ const sqftRanges = [
     }
   }
   
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     .hero-section {
-      height: calc(100vh - 90px);
-      height: calc(100dvh - 90px);
+      padding: 5rem 2.5rem; /* Large screen luxury padding */
     }
-    
-    @supports (height: 100dvh) {
-      .hero-section {
-        height: calc(100dvh - 90px);
-      }
+  }
+  
+  @media (min-width: 1536px) {
+    .hero-section {
+      padding: 6rem 3rem; /* Ultra-wide luxury padding */
     }
   }
 </style>

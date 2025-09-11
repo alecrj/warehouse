@@ -1021,64 +1021,65 @@ const sqftRanges = [
 </script>
 
 <style>
-  /* Premium full screen hero with generous padding */
+  /* Dynamic viewport-based hero scaling - adapts to ANY screen size */
   .hero-section {
-    height: calc(100vh - 60px); /* More generous space - reduced header offset */
-    height: calc(100dvh - 60px); /* Dynamic viewport height for mobile browsers */
-    padding: 3rem 1rem; /* Premium base padding */
+    --header-height: 60px;
+    --base-padding-y: clamp(1rem, 4vw, 6rem);
+    --base-padding-x: clamp(1rem, 3vw, 4rem);
+    
+    height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
+    padding: var(--base-padding-y) var(--base-padding-x);
+    
+    /* Dynamic content scaling based on viewport */
+    --content-scale: clamp(0.8, 1.2vw + 0.5rem, 1.2);
   }
   
-  /* Ensure hero fills screen perfectly on all devices */
-  @supports (height: 100dvh) {
-    .hero-section {
-      height: calc(100dvh - 60px);
-    }
-  }
-  
-  /* Responsive premium spacing */
+  /* Mobile optimization */
   @media (max-width: 768px) {
     .hero-section {
-      height: calc(100vh - 50px); /* Mobile header offset */
-      height: calc(100dvh - 50px);
-      padding: 2rem 1rem; /* Mobile premium padding */
-    }
-    
-    @supports (height: 100dvh) {
-      .hero-section {
-        height: calc(100dvh - 50px);
-      }
+      --header-height: 50px;
+      --base-padding-y: clamp(1.5rem, 6vw, 3rem);
+      --base-padding-x: clamp(1rem, 4vw, 2rem);
     }
   }
   
-  @media (min-width: 768px) {
+  /* Tablet optimization */
+  @media (min-width: 769px) and (max-width: 1024px) {
     .hero-section {
-      padding: 3rem 1.5rem; /* Tablet premium padding */
+      --header-height: 65px;
+      --base-padding-y: clamp(2rem, 5vw, 4rem);
+      --base-padding-x: clamp(1.5rem, 3vw, 3rem);
     }
   }
   
-  @media (min-width: 1024px) {
+  /* Desktop optimization */
+  @media (min-width: 1025px) {
     .hero-section {
-      height: calc(100vh - 70px); /* Desktop header offset */
-      height: calc(100dvh - 70px);
-      padding: 4rem 2rem; /* Desktop premium padding */
-    }
-    
-    @supports (height: 100dvh) {
-      .hero-section {
-        height: calc(100dvh - 70px);
-      }
+      --header-height: 70px;
+      --base-padding-y: clamp(2.5rem, 4vw, 6rem);
+      --base-padding-x: clamp(2rem, 2.5vw, 4rem);
     }
   }
   
-  @media (min-width: 1280px) {
+  /* Ultra-wide optimization */
+  @media (min-width: 1920px) {
     .hero-section {
-      padding: 5rem 2.5rem; /* Large screen luxury padding */
+      --base-padding-y: clamp(3rem, 3vw, 8rem);
+      --base-padding-x: clamp(3rem, 2vw, 6rem);
     }
   }
   
-  @media (min-width: 1536px) {
+  /* Ensure perfect scaling on very narrow or very wide screens */
+  @media (aspect-ratio < 1/1) {
     .hero-section {
-      padding: 6rem 3rem; /* Ultra-wide luxury padding */
+      --base-padding-y: clamp(1rem, 8vh, 4rem);
+    }
+  }
+  
+  @media (aspect-ratio > 21/9) {
+    .hero-section {
+      --base-padding-x: clamp(4rem, 10vw, 12rem);
     }
   }
 </style>

@@ -310,7 +310,7 @@ const sqftRanges = [
       </div>
 
       <!-- Desktop Layout (unchanged) -->
-      <div class="hidden lg:block relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-8 pb-8 lg:pt-16" style="display: block !important; visibility: visible !important; opacity: 1 !important; min-height: 80vh !important;">
+      <div class="max-lg:hidden lg:block desktop-hero-fix relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-8 pb-8 lg:pt-16" style="min-height: 80vh !important;">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-6 items-center min-h-[80vh]">
           
           <!-- Left Column: Centered Content for Mobile -->
@@ -724,3 +724,14 @@ const sqftRanges = [
   // Initial check
   animateOnScroll();
 </script>
+
+<style>
+  /* Force desktop hero visibility */
+  @media (min-width: 1024px) {
+    .desktop-hero-fix {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  }
+</style>

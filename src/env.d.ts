@@ -15,7 +15,7 @@ declare global {
   interface Window {
     gsap: typeof import('gsap').gsap;
     ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
-    ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin;
+    // ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin; // Temporarily removed
     tailwind?: {
       config: (config: any) => void;
     };
@@ -23,7 +23,7 @@ declare global {
   
   const gsap: typeof import('gsap').gsap;
   const ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger;
-  const ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin;
+  // const ScrollToPlugin: typeof import('gsap/ScrollToPlugin').ScrollToPlugin; // Temporarily removed
   
   // Fix for Tailwind variable
   const tailwind: {

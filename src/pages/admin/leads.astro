@@ -121,8 +121,21 @@ const thisWeekLeads = sortedLeads.filter(l => {
         </div>
       </div>
 
+      <!-- Debug Info -->
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <strong>Debug Info:</strong> 
+        Total Leads: {sortedLeads.length} | 
+        New: {leadsByStatus.new.length} | 
+        Contacted: {leadsByStatus.contacted.length} | 
+        Qualified: {leadsByStatus.qualified.length}
+      </div>
+
       <!-- Kanban Board View -->
       <div id="kanbanBoard" class="bg-gray-50 rounded-lg p-2 sm:p-4 overflow-x-auto">
+        <div class="bg-yellow-200 p-4 mb-4 rounded">
+          <h2 class="text-xl font-bold">🚨 KANBAN BOARD TEST - If you see this, the kanban div is rendering!</h2>
+          <p>Columns should appear below...</p>
+        </div>
         <div class="flex gap-3 sm:gap-4 min-h-screen pb-4" style="min-width: 1400px;">
           {statusConfig.map((column) => (
             <div class="bg-white rounded-lg shadow-sm p-3 sm:p-4 min-h-96 flex-shrink-0" style="width: 280px;">

@@ -827,19 +827,12 @@ const sizeRanges = [
           });
 
           if (response.ok) {
-            // Show success message
-            submitBtn.textContent = 'Success! We\'ll contact you soon.';
-            submitBtn.style.backgroundColor = '#10b981';
-            
-            // Reset form after delay
-            setTimeout(() => {
-              heroForm.reset();
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalText;
-              submitBtn.style.backgroundColor = '';
-            }, 3000);
+            console.log('Hero form submission successful, redirecting to success page');
+            window.location.href = '/success';
           } else {
-            throw new Error('Submission failed');
+            const errorText = await response.text();
+            console.error('Hero form submission failed:', response.status, errorText);
+            throw new Error(`Submission failed: ${response.status} ${errorText}`);
           }
         } catch (error) {
           console.error('Error submitting form:', error);
@@ -890,20 +883,12 @@ const sizeRanges = [
           });
 
           if (response.ok) {
-            console.log('Secondary form submission successful');
-            // Show success message
-            submitBtn.textContent = 'Success! We\'ll contact you soon.';
-            submitBtn.style.backgroundColor = '#10b981';
-            
-            // Reset form after delay
-            setTimeout(() => {
-              secondaryForm.reset();
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalText;
-              submitBtn.style.backgroundColor = '';
-            }, 3000);
+            console.log('Secondary form submission successful, redirecting to success page');
+            window.location.href = '/success';
           } else {
-            throw new Error('Submission failed');
+            const errorText = await response.text();
+            console.error('Secondary form submission failed:', response.status, errorText);
+            throw new Error(`Submission failed: ${response.status} ${errorText}`);
           }
         } catch (error) {
           console.error('Secondary form submission error:', error);

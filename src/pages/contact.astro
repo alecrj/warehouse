@@ -491,9 +491,12 @@ const sqftRanges = [
         });
 
         if (response.ok) {
+          console.log('Contact form submission successful, redirecting to success page');
           window.location.href = '/success';
         } else {
-          throw new Error('Form submission failed');
+          const errorText = await response.text();
+          console.error('Contact form submission failed:', response.status, errorText);
+          throw new Error(`Form submission failed: ${response.status} ${errorText}`);
         }
       } catch (error) {
         console.error('Form submission error:', error);

@@ -222,15 +222,22 @@ const sizeRanges = [
                   <div>
                     <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Property Interest *</label>
                     <select 
-                      name="property_interest" 
+                      id="hero-property-interest"
+                      name="warehouse_interest" 
                       required
                       class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent [&>option]:bg-gray-800 [&>option]:text-white"
                     >
-                      <option value="" class="bg-gray-800 text-white">Select type</option>
-                      {propertyInterests.map(interest => (
-                        <option value={interest} class="bg-gray-800 text-white">{interest}</option>
-                      ))}
+                      <option value="" class="bg-gray-800 text-white">Select property...</option>
+                      <option value="any" class="bg-gray-800 text-white">Any Available Property</option>
+                      <optgroup label="Specific Properties" class="bg-gray-800">
+                        {allWarehouses.map(warehouse => (
+                          <option value={warehouse.data.title} data-warehouse-id={warehouse.data.slug} class="bg-gray-800 text-white">
+                            {warehouse.data.title}
+                          </option>
+                        ))}
+                      </optgroup>
                     </select>
+                    <input type="hidden" id="hero-warehouse-id" name="warehouse_id" />
                   </div>
                   <div>
                     <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">County</label>
@@ -778,4 +785,75 @@ const sizeRanges = [
   
   // Initial check
   animateOnScroll();
+
+  // Handle hero form submission
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroForm = document.querySelector('form[name="warehouse-inquiry-hero"]');
+    const warehouseSelect = document.getElementById('hero-property-interest');
+    const warehouseIdInput = document.getElementById('hero-warehouse-id');
+    
+    // Handle warehouse selection to populate warehouse_id
+    if (warehouseSelect && warehouseIdInput) {
+      warehouseSelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const warehouseId = selectedOption.getAttribute('data-warehouse-id');
+        warehouseIdInput.value = warehouseId || '';
+      });
+    }
+
+    // Handle hero form submission via process-lead function
+    if (heroForm) {
+      heroForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = heroForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        
+        try {
+          // Collect form data
+          const formData = new FormData(heroForm);
+          const data = Object.fromEntries(formData.entries());
+          
+          // Add source
+          data.source = 'hero_form';
+          
+          // Submit to our CRM function
+          const response = await fetch('/.netlify/functions/process-lead', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            // Show success message
+            submitBtn.textContent = 'Success! We\'ll contact you soon.';
+            submitBtn.style.backgroundColor = '#10b981';
+            
+            // Reset form after delay
+            setTimeout(() => {
+              heroForm.reset();
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+              submitBtn.style.backgroundColor = '';
+            }, 3000);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('There was an error submitting your inquiry. Please try again or call us directly at (954) 937-9667.');
+          
+          // Reset button state
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    }
+  });
 </script>

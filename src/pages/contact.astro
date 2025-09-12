@@ -136,6 +136,7 @@ const sqftRanges = [
               </div>
               
               <form 
+                id="contact-hero-form"
                 name="warehouse-inquiry-hero" 
                 method="POST" 
                 data-netlify="true" 
@@ -146,6 +147,7 @@ const sqftRanges = [
                 <input type="hidden" name="form-name" value="warehouse-inquiry-hero" />
                 <input type="hidden" name="source" value="contact-page" />
                 <input type="hidden" name="bot-field" />
+                <input type="hidden" name="warehouse_id" id="contact-warehouse-id" />
                 
                 <!-- Name & Email Row -->
                 <div class="grid grid-cols-2 gap-2">
@@ -198,6 +200,7 @@ const sqftRanges = [
                   <div>
                     <label class="block text-white/90 text-xs xl:text-sm font-medium mb-1 xl:mb-2">Property Interest *</label>
                     <select 
+                      id="contact-property-select"
                       name="property_interest" 
                       required
                       class="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent [&>option]:bg-gray-800 [&>option]:text-white"
@@ -205,7 +208,7 @@ const sqftRanges = [
                       <option value="" class="bg-gray-800 text-white">Select property...</option>
                       <option value="any" class="bg-gray-800 text-white">Any Available Property</option>
                       {allWarehouses.map(warehouse => (
-                        <option value={warehouse.slug} class="bg-gray-800 text-white">
+                        <option value={warehouse.title} data-warehouse-id={warehouse.slug} class="bg-gray-800 text-white">
                           {warehouse.title}
                         </option>
                       ))}
@@ -444,4 +447,56 @@ const sqftRanges = [
   
   // Initial check
   animateOnScroll();
+
+  // Handle contact hero form submission via process-lead function
+  const contactHeroForm = document.getElementById('contact-hero-form');
+  const contactPropertySelect = document.getElementById('contact-property-select');
+  const contactWarehouseIdField = document.getElementById('contact-warehouse-id');
+
+  // Update warehouse_id when property selection changes
+  if (contactPropertySelect && contactWarehouseIdField) {
+    contactPropertySelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const warehouseId = selectedOption.getAttribute('data-warehouse-id') || '';
+      contactWarehouseIdField.value = warehouseId;
+    });
+  }
+
+  // Handle form submission
+  if (contactHeroForm) {
+    contactHeroForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitButton = this.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      
+      try {
+        submitButton.textContent = 'Submitting...';
+        submitButton.disabled = true;
+        
+        const formData = new FormData(contactHeroForm);
+        const data = Object.fromEntries(formData.entries());
+        data.source = 'contact_hero_form';
+        
+        const response = await fetch('/.netlify/functions/process-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          window.location.href = '/success';
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        submitButton.textContent = 'Error - Try Again';
+        setTimeout(() => {
+          submitButton.textContent = originalText;
+          submitButton.disabled = false;
+        }, 3000);
+      }
+    });
+  }
 </script>

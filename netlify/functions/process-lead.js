@@ -18,13 +18,22 @@ exports.handler = async (event, context) => {
       email,
       phone,
       company,
+      property_interest,
       warehouse_interest,
       warehouse_id,
       budget_range,
+      price_range,
+      size_needed,
+      county,
       timeline,
       message,
       source = 'website_form'
     } = formData;
+
+    // Handle different field names from different forms
+    const warehouseInterest = property_interest || warehouse_interest || '';
+    const budgetRange = budget_range || price_range || '';
+    const sizeRange = size_needed || '';
 
     // Validate required fields
     if (!name || !email) {
@@ -46,9 +55,11 @@ name: "${name}"
 email: "${email}"
 phone: "${phone || ''}"
 company: "${company || ''}"
-warehouse_interest: "${warehouse_interest || ''}"
+warehouse_interest: "${warehouseInterest}"
 warehouse_id: "${warehouse_id || ''}"
-budget_range: "${budget_range || ''}"
+budget_range: "${budgetRange}"
+size_needed: "${sizeRange}"
+county: "${county || ''}"
 timeline: "${timeline || ''}"
 message: "${message || ''}"
 status: "new"
@@ -59,7 +70,7 @@ priority: "medium"
 follow_up_date: ""
 ---
 
-Lead submitted through contact form${warehouse_interest ? ` for ${warehouse_interest}` : ''}.
+Lead submitted through contact form${warehouseInterest ? ` for ${warehouseInterest}` : ''}.
 ${message ? `Initial inquiry: ${message}` : ''}
 `;
 

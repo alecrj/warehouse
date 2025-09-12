@@ -478,7 +478,6 @@ const sizeRanges = [
             method="POST" 
             data-netlify="true" 
             netlify-honeypot="bot-field"
-            action="/success"
             class="space-y-4 sm:space-y-6"
           >
             <!-- Hidden fields -->
@@ -789,7 +788,9 @@ const sizeRanges = [
   animateOnScroll();
 
   // Handle hero form submission
+  console.log('Homepage JavaScript loading...');
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired on homepage');
     const heroForm = document.getElementById('hero-form') as HTMLFormElement | null;
     const warehouseSelect = document.getElementById('hero-property-interest') as HTMLSelectElement | null;
     const warehouseIdInput = document.getElementById('hero-warehouse-id') as HTMLInputElement | null;

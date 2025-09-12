@@ -141,7 +141,6 @@ const sqftRanges = [
                 method="POST" 
                 data-netlify="true" 
                 netlify-honeypot="bot-field"
-                action="/success"
                 class="space-y-3"
               >
                 <input type="hidden" name="form-name" value="warehouse-inquiry-hero" />
@@ -449,21 +448,32 @@ const sqftRanges = [
   animateOnScroll();
 
   // Handle contact hero form submission via process-lead function
-  const contactHeroForm = document.getElementById('contact-hero-form') as HTMLFormElement | null;
-  const contactPropertySelect = document.getElementById('contact-property-select') as HTMLSelectElement | null;
-  const contactWarehouseIdField = document.getElementById('contact-warehouse-id') as HTMLInputElement | null;
+  console.log('Contact page JavaScript loading...');
+  
+  function setupContactForm() {
+    console.log('Setting up contact form...');
+    const contactHeroForm = document.getElementById('contact-hero-form') as HTMLFormElement | null;
+    const contactPropertySelect = document.getElementById('contact-property-select') as HTMLSelectElement | null;
+    const contactWarehouseIdField = document.getElementById('contact-warehouse-id') as HTMLInputElement | null;
 
-  // Update warehouse_id when property selection changes
-  if (contactPropertySelect && contactWarehouseIdField) {
-    contactPropertySelect.addEventListener('change', function() {
-      const selectedOption = this.options[this.selectedIndex];
-      const warehouseId = selectedOption.getAttribute('data-warehouse-id') || '';
-      contactWarehouseIdField.value = warehouseId;
+    console.log('Contact form elements found:', { 
+      form: !!contactHeroForm, 
+      select: !!contactPropertySelect, 
+      hiddenField: !!contactWarehouseIdField 
     });
-  }
 
-  // Handle form submission
-  if (contactHeroForm) {
+    // Update warehouse_id when property selection changes
+    if (contactPropertySelect && contactWarehouseIdField) {
+      contactPropertySelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const warehouseId = selectedOption.getAttribute('data-warehouse-id') || '';
+        contactWarehouseIdField.value = warehouseId;
+      });
+    }
+
+    // Handle form submission
+    if (contactHeroForm) {
+      console.log('Adding submit handler to contact form');
     contactHeroForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -499,5 +509,15 @@ const sqftRanges = [
         }, 3000);
       }
     });
+  } else {
+    console.log('Contact form not found!');
   }
+}
+
+// Try to set up immediately
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupContactForm);
+} else {
+  setupContactForm();
+}
 </script>

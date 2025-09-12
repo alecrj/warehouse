@@ -221,7 +221,7 @@ const thisWeekLeads = sortedLeads.filter(l => {
       </div>
 
       <!-- Table View (Hidden by default) -->
-      <div id="tableView" class="hidden bg-white rounded-lg shadow">
+      <div id="tableViewContainer" class="hidden bg-white rounded-lg shadow">
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -286,20 +286,20 @@ const thisWeekLeads = sortedLeads.filter(l => {
       const kanbanViewBtn = document.getElementById('kanbanView');
       const tableViewBtn = document.getElementById('tableView');
       const kanbanBoard = document.getElementById('kanbanBoard');
-      const tableView = document.getElementById('tableView');
+      const tableView = document.getElementById('tableViewContainer');
 
       kanbanViewBtn?.addEventListener('click', () => {
         currentView = 'kanban';
-        kanbanViewBtn.className = 'px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold';
-        tableViewBtn!.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300';
+        kanbanViewBtn.className = 'px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm sm:text-base';
+        tableViewBtn!.className = 'px-3 py-2 sm:px-4 sm:py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 text-sm sm:text-base';
         kanbanBoard?.classList.remove('hidden');
         tableView?.classList.add('hidden');
       });
 
       tableViewBtn?.addEventListener('click', () => {
         currentView = 'table';
-        tableViewBtn.className = 'px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold';
-        kanbanViewBtn!.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300';
+        tableViewBtn.className = 'px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm sm:text-base';
+        kanbanViewBtn!.className = 'px-3 py-2 sm:px-4 sm:py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 text-sm sm:text-base';
         tableView?.classList.remove('hidden');
         kanbanBoard?.classList.add('hidden');
       });

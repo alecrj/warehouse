@@ -7,9 +7,26 @@ const sortedLeads = leads.sort((a, b) =>
   new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
 );
 
-// Group leads by status
-const newLeads = sortedLeads.filter(l => l.data.status === 'new');
-const qualifiedLeads = sortedLeads.filter(l => l.data.status === 'qualified');
+// Group leads by status for kanban columns
+const leadsByStatus = {
+  'new': sortedLeads.filter(l => l.data.status === 'new'),
+  'contacted': sortedLeads.filter(l => l.data.status === 'contacted'),
+  'qualified': sortedLeads.filter(l => l.data.status === 'qualified'),
+  'proposal': sortedLeads.filter(l => l.data.status === 'proposal'),
+  'negotiating': sortedLeads.filter(l => l.data.status === 'negotiating'),
+  'closed-won': sortedLeads.filter(l => l.data.status === 'closed-won'),
+  'closed-lost': sortedLeads.filter(l => l.data.status === 'closed-lost'),
+};
+
+const statusConfig = [
+  { key: 'new', title: 'New Leads', color: 'blue', icon: '📝' },
+  { key: 'contacted', title: 'Contacted', color: 'yellow', icon: '📞' },
+  { key: 'qualified', title: 'Qualified', color: 'green', icon: '✅' },
+  { key: 'proposal', title: 'Proposal Sent', color: 'purple', icon: '📄' },
+  { key: 'negotiating', title: 'Negotiating', color: 'orange', icon: '🤝' },
+  { key: 'closed-won', title: 'Won', color: 'emerald', icon: '🎉' },
+  { key: 'closed-lost', title: 'Lost', color: 'red', icon: '❌' },
+];
 
 // Calculate stats
 const thisWeekLeads = sortedLeads.filter(l => {
@@ -65,12 +82,12 @@ const thisWeekLeads = sortedLeads.filter(l => {
           <div class="text-gray-600">Total Leads</div>
         </div>
         <div class="bg-white rounded-lg shadow p-6">
-          <div class="text-2xl font-bold text-green-600">{newLeads.length}</div>
+          <div class="text-2xl font-bold text-green-600">{leadsByStatus.new.length}</div>
           <div class="text-gray-600">New Leads</div>
         </div>
         <div class="bg-white rounded-lg shadow p-6">
-          <div class="text-2xl font-bold text-purple-600">{qualifiedLeads.length}</div>
-          <div class="text-gray-600">Qualified</div>
+          <div class="text-2xl font-bold text-purple-600">{leadsByStatus['closed-won'].length}</div>
+          <div class="text-gray-600">Won Deals</div>
         </div>
         <div class="bg-white rounded-lg shadow p-6">
           <div class="text-2xl font-bold text-orange-600">{thisWeekLeads.length}</div>
@@ -78,116 +95,165 @@ const thisWeekLeads = sortedLeads.filter(l => {
         </div>
       </div>
 
-      <!-- Filters and Search -->
-      <div class="bg-white rounded-lg shadow mb-6">
-        <div class="p-6 border-b border-gray-200">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-            <h2 class="text-lg font-semibold text-gray-900">All Leads</h2>
-            <div class="flex space-x-4">
-              <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Search leads..." 
-                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <select 
-                id="statusFilter" 
-                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">All Status</option>
-                <option value="new">New</option>
-                <option value="contacted">Contacted</option>
-                <option value="qualified">Qualified</option>
-                <option value="closed">Closed</option>
-              </select>
-            </div>
-          </div>
+      <!-- View Toggle -->
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex space-x-4">
+          <button 
+            id="kanbanView" 
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold"
+          >
+            📋 Kanban Board
+          </button>
+          <button 
+            id="tableView" 
+            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300"
+          >
+            📄 Table View
+          </button>
         </div>
+        <div class="flex space-x-4">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search leads..." 
+            class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
 
-        <!-- Leads Table -->
+      <!-- Kanban Board View -->
+      <div id="kanbanBoard" class="bg-gray-50 rounded-lg p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4 min-h-screen">
+          {statusConfig.map((column) => (
+            <div class="bg-white rounded-lg shadow-sm p-4 min-h-96">
+              <!-- Column Header -->
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">{column.icon}</span>
+                  <h3 class="font-semibold text-gray-800">{column.title}</h3>
+                </div>
+                <span class={`px-2 py-1 text-xs rounded-full bg-${column.color}-100 text-${column.color}-800`}>
+                  {leadsByStatus[column.key as keyof typeof leadsByStatus].length}
+                </span>
+              </div>
+
+              <!-- Drop Zone -->
+              <div 
+                class={`lead-column min-h-80 space-y-3 p-2 rounded-lg border-2 border-dashed border-${column.color}-200`}
+                data-status={column.key}
+              >
+                {leadsByStatus[column.key as keyof typeof leadsByStatus].map((lead: CollectionEntry<'leads'>) => (
+                  <div 
+                    class="lead-card bg-white border border-gray-200 rounded-lg p-4 shadow-sm cursor-move hover:shadow-md transition-shadow"
+                    draggable="true"
+                    data-lead-id={lead.data.id}
+                    data-status={lead.data.status}
+                  >
+                    <!-- Lead Card Content -->
+                    <div class="space-y-2">
+                      <div class="flex justify-between items-start">
+                        <h4 class="font-semibold text-gray-900 text-sm truncate">{lead.data.name}</h4>
+                        <span class="text-xs text-gray-500">
+                          {new Date(lead.data.createdAt).toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </span>
+                      </div>
+                      
+                      {lead.data.company && (
+                        <p class="text-xs text-gray-600 truncate">{lead.data.company}</p>
+                      )}
+                      
+                      <div class="space-y-1">
+                        <a 
+                          href={`mailto:${lead.data.email}`} 
+                          class="text-xs text-blue-600 hover:text-blue-800 block truncate"
+                        >
+                          {lead.data.email}
+                        </a>
+                        <a 
+                          href={`tel:${lead.data.phone}`} 
+                          class="text-xs text-gray-600 hover:text-gray-800 block"
+                        >
+                          {lead.data.phone}
+                        </a>
+                      </div>
+                      
+                      {lead.data.propertyInterested && (
+                        <div class="pt-2 border-t border-gray-100">
+                          <p class="text-xs text-gray-600">
+                            <span class="font-medium">Interest:</span> {lead.data.propertyInterested}
+                          </p>
+                        </div>
+                      )}
+                      
+                      {lead.data.message && (
+                        <div class="pt-2">
+                          <p class="text-xs text-gray-600 line-clamp-2">
+                            {lead.data.message.substring(0, 100)}{lead.data.message.length > 100 ? '...' : ''}
+                          </p>
+                        </div>
+                      )}
+
+                      <!-- Quick Actions -->
+                      <div class="flex space-x-2 pt-2">
+                        <button 
+                          class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100 transition-colors"
+                          onclick={`callLead('${lead.data.phone}')`}
+                        >
+                          📞 Call
+                        </button>
+                        <button 
+                          class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded hover:bg-green-100 transition-colors"
+                          onclick={`emailLead('${lead.data.email}')`}
+                        >
+                          ✉️ Email
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Table View (Hidden by default) -->
+      <div id="tableView" class="hidden bg-white rounded-lg shadow">
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Contact
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Details
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Property Interest
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               </tr>
             </thead>
-            <tbody id="leadsTableBody" class="bg-white divide-y divide-gray-200">
-              {sortedLeads.map((lead: CollectionEntry<'leads'>) => (
-                <tr class="lead-row hover:bg-gray-50" 
-                    data-status={lead.data.status}
-                    data-name={lead.data.name.toLowerCase()}
-                    data-email={lead.data.email.toLowerCase()}
-                    data-company={(lead.data.company || '').toLowerCase()}
-                    data-date={lead.data.createdAt}>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {sortedLeads.map((lead) => (
+                <tr class="hover:bg-gray-50">
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {new Date(lead.data.createdAt).toLocaleDateString('en-US', { 
-                      month: 'short', 
-                      day: 'numeric',
-                      year: 'numeric'
+                      month: 'short', day: 'numeric', year: 'numeric' 
                     })}
                   </td>
                   <td class="px-6 py-4">
                     <div class="text-sm font-medium text-gray-900">{lead.data.name}</div>
-                    {lead.data.company && (
-                      <div class="text-sm text-gray-500">{lead.data.company}</div>
-                    )}
+                    {lead.data.company && <div class="text-sm text-gray-500">{lead.data.company}</div>}
                   </td>
                   <td class="px-6 py-4">
-                    <div class="text-sm text-gray-900">
-                      <a href={`mailto:${lead.data.email}`} class="text-blue-600 hover:text-blue-800">
-                        {lead.data.email}
-                      </a>
-                    </div>
-                    <div class="text-sm text-gray-500">
-                      <a href={`tel:${lead.data.phone}`} class="hover:text-gray-700">
-                        {lead.data.phone}
-                      </a>
-                    </div>
+                    <div class="text-sm text-blue-600">{lead.data.email}</div>
+                    <div class="text-sm text-gray-500">{lead.data.phone}</div>
                   </td>
-                  <td class="px-6 py-4 text-sm text-gray-900">
-                    {lead.data.propertyInterested || '-'}
-                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-900">{lead.data.propertyInterested || '-'}</td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      lead.data.status === 'new' ? 'bg-green-100 text-green-800' :
-                      lead.data.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
-                      lead.data.status === 'qualified' ? 'bg-purple-100 text-purple-800' :
-                      'bg-gray-100 text-gray-800'
-                    }`}>
-                      {lead.data.status.charAt(0).toUpperCase() + lead.data.status.slice(1)}
+                    <span class="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                      {lead.data.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                     </span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button 
-                      class="text-blue-600 hover:text-blue-900 mr-4"
-                      onclick={`updateStatus('${lead.data.id}', 'contacted')`}
-                    >
-                      Mark Contacted
-                    </button>
-                    <button 
-                      class="text-green-600 hover:text-green-900"
-                      onclick={`updateStatus('${lead.data.id}', 'qualified')`}
-                    >
-                      Qualify
-                    </button>
                   </td>
                 </tr>
               ))}
@@ -199,6 +265,9 @@ const thisWeekLeads = sortedLeads.filter(l => {
   </div>
 
   <script>
+    let draggedElement: HTMLElement | null = null;
+    let currentView = 'kanban';
+
     // Check if user is authenticated
     function checkAuth() {
       if (window.netlifyIdentity) {
@@ -212,84 +281,202 @@ const thisWeekLeads = sortedLeads.filter(l => {
       return true;
     }
 
-    // Search and filter functionality
-    function initializeFilters() {
-      const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-      const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
-      const leadRows = document.querySelectorAll('.lead-row');
+    // View switching functionality
+    function initializeViewSwitching() {
+      const kanbanViewBtn = document.getElementById('kanbanView');
+      const tableViewBtn = document.getElementById('tableView');
+      const kanbanBoard = document.getElementById('kanbanBoard');
+      const tableView = document.getElementById('tableView');
 
-      function filterLeads() {
-        const searchTerm = searchInput?.value.toLowerCase() || '';
-        const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
-        const selectedStatus = statusFilter?.value || '';
+      kanbanViewBtn?.addEventListener('click', () => {
+        currentView = 'kanban';
+        kanbanViewBtn.className = 'px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold';
+        tableViewBtn!.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300';
+        kanbanBoard?.classList.remove('hidden');
+        tableView?.classList.add('hidden');
+      });
 
-        leadRows.forEach(row => {
-          const rowElement = row as HTMLElement;
-          const name = rowElement.dataset.name || '';
-          const email = rowElement.dataset.email || '';
-          const company = rowElement.dataset.company || '';
-          const status = rowElement.dataset.status || '';
+      tableViewBtn?.addEventListener('click', () => {
+        currentView = 'table';
+        tableViewBtn.className = 'px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold';
+        kanbanViewBtn!.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300';
+        tableView?.classList.remove('hidden');
+        kanbanBoard?.classList.add('hidden');
+      });
+    }
 
-          const matchesSearch = !searchTerm || 
-            name.includes(searchTerm) || 
-            email.includes(searchTerm) || 
-            company.includes(searchTerm);
-          
-          const matchesStatus = !selectedStatus || status === selectedStatus;
+    // Drag and Drop functionality
+    function initializeDragAndDrop() {
+      const leadCards = document.querySelectorAll('.lead-card');
+      const leadColumns = document.querySelectorAll('.lead-column');
 
-          if (matchesSearch && matchesStatus) {
-            rowElement.style.display = '';
-          } else {
-            rowElement.style.display = 'none';
+      // Add drag event listeners to lead cards
+      leadCards.forEach(card => {
+        card.addEventListener('dragstart', (e) => {
+          draggedElement = e.target as HTMLElement;
+          card.classList.add('opacity-50');
+        });
+
+        card.addEventListener('dragend', (e) => {
+          card.classList.remove('opacity-50');
+          draggedElement = null;
+        });
+      });
+
+      // Add drop event listeners to columns
+      leadColumns.forEach(column => {
+        column.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          column.classList.add('bg-blue-50', 'border-blue-400');
+        });
+
+        column.addEventListener('dragleave', (e) => {
+          const dragEvent = e as DragEvent;
+          if (!column.contains(dragEvent.relatedTarget as Node)) {
+            column.classList.remove('bg-blue-50', 'border-blue-400');
           }
         });
-      }
 
-      searchInput?.addEventListener('input', filterLeads);
-      statusFilter?.addEventListener('change', filterLeads);
+        column.addEventListener('drop', (e) => {
+          e.preventDefault();
+          column.classList.remove('bg-blue-50', 'border-blue-400');
+
+          if (draggedElement) {
+            const newStatus = (column as HTMLElement).dataset.status;
+            const leadId = draggedElement.dataset.leadId;
+            const currentStatus = draggedElement.dataset.status;
+
+            if (newStatus !== currentStatus) {
+              // Move the card to the new column
+              column.appendChild(draggedElement);
+              draggedElement.dataset.status = newStatus;
+
+              // Update status counts
+              updateStatusCounts();
+
+              // Here you would typically send an API request to update the lead status
+              updateLeadStatus(leadId, newStatus);
+
+              // Show success notification
+              if (newStatus) {
+                showNotification(`Lead moved to ${newStatus.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}`, 'success');
+              }
+            }
+          }
+        });
+      });
+    }
+
+    // Update status count badges
+    function updateStatusCounts() {
+      const columns = document.querySelectorAll('.lead-column');
+      columns.forEach(column => {
+        const status = (column as HTMLElement).dataset.status;
+        const count = column.querySelectorAll('.lead-card').length;
+        const badge = column.parentElement?.querySelector('.bg-blue-100, .bg-yellow-100, .bg-green-100, .bg-purple-100, .bg-orange-100, .bg-emerald-100, .bg-red-100');
+        if (badge) {
+          badge.textContent = count.toString();
+        }
+      });
+    }
+
+    // Update lead status (this would integrate with your backend)
+    function updateLeadStatus(leadId: string | undefined, newStatus: string | undefined) {
+      if (!leadId || !newStatus) return;
+      
+      console.log(`Updating lead ${leadId} to status: ${newStatus}`);
+      // TODO: Implement API call to update lead status in your CMS
+      // fetch('/.netlify/functions/update-lead-status', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ leadId, status: newStatus })
+      // });
+    }
+
+    // Quick action functions
+    // Make functions global for onclick handlers
+    (window as any).callLead = function(phone: string) {
+      window.location.href = `tel:${phone}`;
+    };
+
+    (window as any).emailLead = function(email: string) {
+      window.location.href = `mailto:${email}`;
+    };
+
+    // Search functionality
+    function initializeSearch() {
+      const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+      
+      searchInput?.addEventListener('input', (e) => {
+        const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+        const leadCards = document.querySelectorAll('.lead-card');
+        
+        leadCards.forEach(card => {
+          const cardElement = card as HTMLElement;
+          const name = cardElement.querySelector('h4')?.textContent?.toLowerCase() || '';
+          const company = cardElement.querySelector('p')?.textContent?.toLowerCase() || '';
+          const email = cardElement.querySelector('a')?.textContent?.toLowerCase() || '';
+          
+          const matches = name.includes(searchTerm) || company.includes(searchTerm) || email.includes(searchTerm);
+          
+          if (matches || !searchTerm) {
+            cardElement.style.display = '';
+          } else {
+            cardElement.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // Show notification
+    function showNotification(message: string, type: 'success' | 'error' = 'success') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 px-4 py-2 rounded-lg text-white font-semibold z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      }`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
     }
 
     // Export to CSV
     function exportToCSV() {
-      const leads = Array.from(document.querySelectorAll('.lead-row')).map(row => {
-        const rowElement = row as HTMLElement;
-        const cells = row.querySelectorAll('td');
+      const leadCards = document.querySelectorAll('.lead-card');
+      const leads = Array.from(leadCards).map(card => {
+        const cardElement = card as HTMLElement;
         return {
-          date: cells[0]?.textContent?.trim(),
-          name: rowElement.dataset.name,
-          email: rowElement.dataset.email,
-          company: rowElement.dataset.company,
-          property: cells[3]?.textContent?.trim(),
-          status: rowElement.dataset.status
+          name: cardElement.querySelector('h4')?.textContent || '',
+          company: cardElement.querySelector('p')?.textContent || '',
+          email: cardElement.querySelector('a')?.textContent || '',
+          phone: cardElement.querySelectorAll('a')[1]?.textContent || '',
+          status: cardElement.dataset.status || '',
+          date: cardElement.querySelector('span')?.textContent || ''
         };
       });
 
       const csvContent = [
-        ['Date', 'Name', 'Email', 'Company', 'Property Interest', 'Status'],
-        ...leads.map(lead => [
-          lead.date, lead.name, lead.email, lead.company, lead.property, lead.status
-        ])
+        ['Name', 'Company', 'Email', 'Phone', 'Status', 'Date'],
+        ...leads.map(lead => [lead.name, lead.company, lead.email, lead.phone, lead.status, lead.date])
       ].map(row => row.join(',')).join('\n');
 
       const blob = new Blob([csvContent], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `leads-${new Date().toISOString().split('T')[0]}.csv`;
+      a.download = `leads-kanban-${new Date().toISOString().split('T')[0]}.csv`;
       a.click();
       window.URL.revokeObjectURL(url);
     }
 
-    // Update lead status (placeholder - would need backend integration)
-    function updateStatus(leadId: string, newStatus: string) {
-      alert(`Would update lead ${leadId} to status: ${newStatus}`);
-      // This would integrate with your CMS or API to update the lead status
-    }
-
-    // Initialize when page loads
+    // Initialize everything when page loads
     document.addEventListener('DOMContentLoaded', () => {
       if (checkAuth()) {
-        initializeFilters();
+        initializeViewSwitching();
+        initializeDragAndDrop();
+        initializeSearch();
         document.getElementById('exportCSV')?.addEventListener('click', exportToCSV);
       }
     });

@@ -39,7 +39,10 @@
             "new",
             "contacted",
             "qualified",
-            "closed"
+            "proposal",
+            "negotiating",
+            "closed-won",
+            "closed-lost"
           ],
           "default": "new"
         },

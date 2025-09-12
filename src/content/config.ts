@@ -33,7 +33,7 @@ const leadsCollection = defineCollection({
     message: z.string(),
     source: z.string().default('website'),
     createdAt: z.string(),
-    status: z.enum(['new', 'contacted', 'qualified', 'closed']).default('new'),
+    status: z.enum(['new', 'contacted', 'qualified', 'proposal', 'negotiating', 'closed-won', 'closed-lost']).default('new'),
     notes: z.string().optional(),
   }),
 });

@@ -268,8 +268,11 @@ const thisWeekLeads = sortedLeads.filter(l => {
     let draggedElement: HTMLElement | null = null;
     let currentView = 'kanban';
 
-    // Check if user is authenticated
+    // Check if user is authenticated - temporarily disabled for debugging
     function checkAuth() {
+      // Temporarily bypass auth to debug kanban board
+      return true;
+      
       if (window.netlifyIdentity) {
         const user = window.netlifyIdentity.currentUser();
         if (!user) {

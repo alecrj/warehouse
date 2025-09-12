@@ -91,16 +91,16 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
     console.log(`Lead file created: ${filePath}`);
 
-    // Trigger notification functions
+    // Send notification emails
     const baseUrl = process.env.URL;
     
     if (baseUrl) {
       // Send client notification
       try {
-        const clientResponse = await fetch(`${baseUrl}/.netlify/functions/send-client-notification`, {
+        const clientResponse = await fetch(`${baseUrl}/.netlify/functions/send-notification-email`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ leadData: formData, leadId })
+          body: JSON.stringify({ leadData: formData, leadId, type: 'notification' })
         });
         
         if (!clientResponse.ok) {
@@ -114,10 +114,10 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
       // Send auto-response
       try {
-        const autoResponse = await fetch(`${baseUrl}/.netlify/functions/send-auto-response`, {
+        const autoResponse = await fetch(`${baseUrl}/.netlify/functions/send-notification-email`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ leadData: formData, leadId })
+          body: JSON.stringify({ leadData: formData, leadId, type: 'autoresponse' })
         });
         
         if (!autoResponse.ok) {

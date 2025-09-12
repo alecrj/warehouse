@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+// Fixed email system - v2
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {

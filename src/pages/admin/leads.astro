@@ -53,19 +53,19 @@ const thisWeekLeads = sortedLeads.filter(l => {
   <div id="dashboard" class="min-h-screen bg-gray-50">
     <!-- Header -->
     <div class="bg-white shadow">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-6">
-          <h1 class="text-3xl font-bold text-gray-900">Lead Management Dashboard</h1>
-          <div class="space-x-4">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 sm:py-6 gap-4">
+          <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Lead Management Dashboard</h1>
+          <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
             <button 
               id="exportCSV" 
-              class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold"
+              class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg font-semibold text-sm sm:text-base w-full sm:w-auto"
             >
               Export to CSV
             </button>
             <a 
               href="/admin"
-              class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold"
+              class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg font-semibold text-sm sm:text-base text-center w-full sm:w-auto"
             >
               Back to Admin
             </a>
@@ -75,64 +75,64 @@ const thisWeekLeads = sortedLeads.filter(l => {
     </div>
 
     <!-- Stats Cards -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="text-2xl font-bold text-blue-600">{sortedLeads.length}</div>
-          <div class="text-gray-600">Total Leads</div>
+    <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-4 sm:mb-8">
+        <div class="bg-white rounded-lg shadow p-3 sm:p-6">
+          <div class="text-xl sm:text-2xl font-bold text-blue-600">{sortedLeads.length}</div>
+          <div class="text-gray-600 text-sm sm:text-base">Total Leads</div>
         </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="text-2xl font-bold text-green-600">{leadsByStatus.new.length}</div>
-          <div class="text-gray-600">New Leads</div>
+        <div class="bg-white rounded-lg shadow p-3 sm:p-6">
+          <div class="text-xl sm:text-2xl font-bold text-green-600">{leadsByStatus.new.length}</div>
+          <div class="text-gray-600 text-sm sm:text-base">New Leads</div>
         </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="text-2xl font-bold text-purple-600">{leadsByStatus['closed-won'].length}</div>
-          <div class="text-gray-600">Won Deals</div>
+        <div class="bg-white rounded-lg shadow p-3 sm:p-6">
+          <div class="text-xl sm:text-2xl font-bold text-purple-600">{leadsByStatus['closed-won'].length}</div>
+          <div class="text-gray-600 text-sm sm:text-base">Won Deals</div>
         </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="text-2xl font-bold text-orange-600">{thisWeekLeads.length}</div>
-          <div class="text-gray-600">This Week</div>
+        <div class="bg-white rounded-lg shadow p-3 sm:p-6">
+          <div class="text-xl sm:text-2xl font-bold text-orange-600">{thisWeekLeads.length}</div>
+          <div class="text-gray-600 text-sm sm:text-base">This Week</div>
         </div>
       </div>
 
       <!-- View Toggle -->
-      <div class="flex justify-between items-center mb-6">
-        <div class="flex space-x-4">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div class="flex space-x-2 sm:space-x-4">
           <button 
             id="kanbanView" 
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold"
+            class="px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm sm:text-base"
           >
-            📋 Kanban Board
+            📋 <span class="hidden sm:inline">Kanban Board</span><span class="sm:hidden">Kanban</span>
           </button>
           <button 
             id="tableView" 
-            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300"
+            class="px-3 py-2 sm:px-4 sm:py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 text-sm sm:text-base"
           >
-            📄 Table View
+            📄 <span class="hidden sm:inline">Table View</span><span class="sm:hidden">Table</span>
           </button>
         </div>
-        <div class="flex space-x-4">
+        <div class="w-full sm:w-auto">
           <input 
             type="text" 
             id="searchInput" 
             placeholder="Search leads..." 
-            class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full sm:w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
           />
         </div>
       </div>
 
       <!-- Kanban Board View -->
-      <div id="kanbanBoard" class="bg-gray-50 rounded-lg p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4 min-h-screen">
+      <div id="kanbanBoard" class="bg-gray-50 rounded-lg p-2 sm:p-4 overflow-x-auto">
+        <div class="flex gap-3 sm:gap-4 min-h-screen pb-4" style="min-width: 1400px;">
           {statusConfig.map((column) => (
-            <div class="bg-white rounded-lg shadow-sm p-4 min-h-96">
+            <div class="bg-white rounded-lg shadow-sm p-3 sm:p-4 min-h-96 flex-shrink-0" style="width: 280px;">
               <!-- Column Header -->
-              <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center justify-between mb-4 pb-3 border-b-2" style={`border-color: var(--${column.color}-400, #6b7280)`}>
                 <div class="flex items-center space-x-2">
-                  <span class="text-lg">{column.icon}</span>
-                  <h3 class="font-semibold text-gray-800">{column.title}</h3>
+                  <span class="text-base sm:text-lg">{column.icon}</span>
+                  <h3 class="font-bold text-gray-900 text-sm sm:text-base">{column.title}</h3>
                 </div>
-                <span class={`px-2 py-1 text-xs rounded-full bg-${column.color}-100 text-${column.color}-800`}>
+                <span class="px-2 py-1 text-xs font-bold rounded-full bg-gray-100 text-gray-700">
                   {leadsByStatus[column.key as keyof typeof leadsByStatus].length}
                 </span>
               </div>

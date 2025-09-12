@@ -28,14 +28,14 @@ let allWarehouses: Warehouse[] = [];
 let availableWarehouses: Warehouse[] = [];
 let featuredWarehouses: Warehouse[] = [];
 let totalSqFt = 0;
-let averageSize = 0;
+// let averageSize = 0; // Unused variable
 
 try {
   allWarehouses = await getCollection('warehouses');
   availableWarehouses = allWarehouses.filter((w: Warehouse) => w.data.availability === 'available');
   featuredWarehouses = allWarehouses.filter((w: Warehouse) => w.data.featured).slice(0, 3);
   totalSqFt = allWarehouses.reduce((sum: number, w: Warehouse) => sum + (w.data.size || 0), 0);
-  averageSize = allWarehouses.length > 0 ? Math.round(totalSqFt / allWarehouses.length) : 0;
+  // averageSize = allWarehouses.length > 0 ? Math.round(totalSqFt / allWarehouses.length) : 0; // Unused variable
 } catch (error) {
   console.log('No warehouse data yet:', error);
 }
@@ -56,12 +56,12 @@ const priceRanges = [
   'Negotiable'
 ];
 
-const propertyInterests = [
-  'For Lease',
-  'For Sale',
-  'Sublease',
-  'Build to Suit'
-];
+// const propertyInterests = [
+//   'For Lease',
+//   'For Sale',
+//   'Sublease',
+//   'Build to Suit'
+// ]; // Unused variable
 
 const sizeRanges = [
   '500-2,000 SF',
@@ -790,9 +790,9 @@ const sizeRanges = [
 
   // Handle hero form submission
   document.addEventListener('DOMContentLoaded', function() {
-    const heroForm = document.getElementById('hero-form');
-    const warehouseSelect = document.getElementById('hero-property-interest');
-    const warehouseIdInput = document.getElementById('hero-warehouse-id');
+    const heroForm = document.getElementById('hero-form') as HTMLFormElement | null;
+    const warehouseSelect = document.getElementById('hero-property-interest') as HTMLSelectElement | null;
+    const warehouseIdInput = document.getElementById('hero-warehouse-id') as HTMLInputElement | null;
     
     // Handle warehouse selection to populate warehouse_id
     if (warehouseSelect && warehouseIdInput) {
@@ -810,7 +810,8 @@ const sizeRanges = [
         e.preventDefault();
         console.log('Hero form submitted');
         
-        const submitBtn = heroForm.querySelector('button[type="submit"]');
+        const submitBtn = heroForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        if (!submitBtn) return;
         const originalText = submitBtn.textContent;
         
         // Show loading state
@@ -865,14 +866,15 @@ const sizeRanges = [
     }
 
     // Handle secondary form submission via process-lead function
-    const secondaryForm = document.getElementById('homepage-secondary-form');
+    const secondaryForm = document.getElementById('homepage-secondary-form') as HTMLFormElement | null;
     if (secondaryForm) {
       console.log('Secondary form found, adding submit handler');
       secondaryForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         console.log('Secondary form submitted');
         
-        const submitBtn = secondaryForm.querySelector('button[type="submit"]');
+        const submitBtn = secondaryForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        if (!submitBtn) return;
         const originalText = submitBtn.textContent;
         
         // Show loading state

@@ -449,9 +449,9 @@ const sqftRanges = [
   animateOnScroll();
 
   // Handle contact hero form submission via process-lead function
-  const contactHeroForm = document.getElementById('contact-hero-form');
-  const contactPropertySelect = document.getElementById('contact-property-select');
-  const contactWarehouseIdField = document.getElementById('contact-warehouse-id');
+  const contactHeroForm = document.getElementById('contact-hero-form') as HTMLFormElement | null;
+  const contactPropertySelect = document.getElementById('contact-property-select') as HTMLSelectElement | null;
+  const contactWarehouseIdField = document.getElementById('contact-warehouse-id') as HTMLInputElement | null;
 
   // Update warehouse_id when property selection changes
   if (contactPropertySelect && contactWarehouseIdField) {
@@ -467,7 +467,8 @@ const sqftRanges = [
     contactHeroForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      const submitButton = this.querySelector('button[type="submit"]');
+      const submitButton = this.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (!submitButton) return;
       const originalText = submitButton.textContent;
       
       try {

@@ -1,7 +1,7 @@
 // Test GitHub API connection
 const { Octokit } = require("@octokit/rest");
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, _context) => {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,

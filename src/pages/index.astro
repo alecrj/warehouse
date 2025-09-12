@@ -161,6 +161,7 @@ const sizeRanges = [
               </div>
               
               <form 
+                id="hero-form"
                 name="warehouse-inquiry-hero" 
                 method="POST" 
                 data-netlify="true" 
@@ -788,7 +789,7 @@ const sizeRanges = [
 
   // Handle hero form submission
   document.addEventListener('DOMContentLoaded', function() {
-    const heroForm = document.querySelector('form[name="warehouse-inquiry-hero"]');
+    const heroForm = document.getElementById('hero-form');
     const warehouseSelect = document.getElementById('hero-property-interest');
     const warehouseIdInput = document.getElementById('hero-warehouse-id');
     

@@ -473,6 +473,7 @@ const sizeRanges = [
         <div class="bg-gradient-to-br from-gray-50 to-gray-100 py-12 sm:py-16">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <form 
+            id="homepage-secondary-form"
             name="warehouse-inquiry-modal" 
             method="POST" 
             data-netlify="true" 
@@ -804,8 +805,10 @@ const sizeRanges = [
 
     // Handle hero form submission via process-lead function
     if (heroForm) {
+      console.log('Hero form found, adding submit handler');
       heroForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        console.log('Hero form submitted');
         
         const submitBtn = heroForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
@@ -818,6 +821,8 @@ const sizeRanges = [
           // Collect form data
           const formData = new FormData(heroForm);
           const data = Object.fromEntries(formData.entries());
+          
+          console.log('Hero form data:', data);
           
           // Add source
           data.source = 'hero_form';
@@ -855,6 +860,71 @@ const sizeRanges = [
           submitBtn.textContent = originalText;
         }
       });
+    } else {
+      console.log('Hero form not found');
+    }
+
+    // Handle secondary form submission via process-lead function
+    const secondaryForm = document.getElementById('homepage-secondary-form');
+    if (secondaryForm) {
+      console.log('Secondary form found, adding submit handler');
+      secondaryForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        console.log('Secondary form submitted');
+        
+        const submitBtn = secondaryForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        
+        try {
+          // Collect form data
+          const formData = new FormData(secondaryForm);
+          const data = Object.fromEntries(formData.entries());
+          
+          console.log('Secondary form data:', data);
+          
+          // Add source
+          data.source = 'homepage_secondary_form';
+          
+          // Submit to our CRM function
+          const response = await fetch('/.netlify/functions/process-lead', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            console.log('Secondary form submission successful');
+            // Show success message
+            submitBtn.textContent = 'Success! We\'ll contact you soon.';
+            submitBtn.style.backgroundColor = '#10b981';
+            
+            // Reset form after delay
+            setTimeout(() => {
+              secondaryForm.reset();
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+              submitBtn.style.backgroundColor = '';
+            }, 3000);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Secondary form submission error:', error);
+          alert('There was an error submitting your inquiry. Please try again or call us directly at (954) 937-9667.');
+          
+          // Reset button state
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    } else {
+      console.log('Secondary form not found');
     }
   });
 </script>

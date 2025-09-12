@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
     // For now, let's use Gmail SMTP (you'll need to provide app password)
     // We'll configure this in environment variables
     
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER, // Your Gmail address

@@ -12,16 +12,14 @@ exports.handler = async (event, context) => {
   try {
     const { leadData, leadId, type } = JSON.parse(event.body);
     
-    // Using custom SMTP configuration for professional email sending
-    // Configure SMTP settings in environment variables
-    
+    // For now, let's use Gmail SMTP (you'll need to provide app password)
+    // We'll configure this in environment variables
+
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST, // Your email provider's SMTP host
-      port: process.env.SMTP_PORT || 587,
-      secure: false, // true for 465, false for other ports
+      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // info@warehouselocating.com
-        pass: process.env.EMAIL_PASSWORD // Your email password or app password
+        user: process.env.EMAIL_USER, // Your Gmail address
+        pass: process.env.EMAIL_APP_PASSWORD // Gmail app password
       }
     });
 
@@ -84,7 +82,8 @@ exports.handler = async (event, context) => {
     }
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: '"Warehouse Locating" <info@warehouselocating.com>',
+      replyTo: process.env.EMAIL_USER, // Gmail account for replies
       to: to,
       subject: subject,
       html: emailContent

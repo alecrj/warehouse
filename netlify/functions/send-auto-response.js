@@ -19,6 +19,8 @@ exports.handler = async (event, context) => {
     
     // Generate content based on form type
     let emailContent = {
+      from_email: 'info@warehouselocating.com', // Override sender address
+      from_name: 'Warehouse Locating',
       to_email: leadData.email,
       to_name: leadData.name,
       lead_name: leadData.name,

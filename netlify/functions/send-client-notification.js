@@ -19,6 +19,8 @@ exports.handler = async (event, context) => {
     
     // Format the notification email content
     const emailContent = {
+      from_email: 'info@warehouselocating.com', // Override sender address
+      from_name: 'Warehouse Locating',
       to_email: 'info@warehouselocating.com', // Static client email
       to_name: 'Warehouse Locating Team', // Static client name
       subject: `🚨 New ${isPropertyInquiry ? 'Property' : 'Matching'} Lead: ${leadData.name} - ${leadData.warehouse_interest || 'General Inquiry'}`,

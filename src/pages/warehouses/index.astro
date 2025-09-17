@@ -102,7 +102,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           </p>
           
           <!-- Enhanced Statistics Cards with Mobile Optimization -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 animate-on-scroll mt-8 sm:mt-12">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 animate-on-scroll mt-8 sm:mt-12">
             <div class="group text-center p-4 sm:p-6 lg:p-8 bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
               <div class="relative z-10">
                 <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2 lg:mb-3 drop-shadow-lg group-hover:text-primary-200 transition-colors duration-300">
@@ -125,14 +125,6 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                   {totalSqFt.toLocaleString()}
                 </div>
                 <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Total SQ FT</div>
-              </div>
-            </div>
-            <div class="group text-center p-4 sm:p-6 lg:p-8 bg-white/10 backdrop-blur-xl rounded-2xl lg:rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white/15 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:via-transparent before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500">
-              <div class="relative z-10">
-                <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2 lg:mb-3 drop-shadow-lg group-hover:text-cyan-200 transition-colors duration-300">
-                  {averageSize.toLocaleString()}
-                </div>
-                <div class="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-wider drop-shadow-sm">Avg Size</div>
               </div>
             </div>
           </div>
@@ -201,25 +193,22 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
                 </div>
               </div>
 
-              <!-- Price Range -->
+              <!-- Monthly Budget -->
               <div class="space-y-2">
-                <label class="block text-sm font-semibold text-gray-700">Price Range ($/SF/yr)</label>
-                <div class="grid grid-cols-2 gap-2">
-                  <input 
-                    type="number" 
-                    id="min-price"
-                    placeholder="Min"
-                    step="0.50"
-                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
-                  >
-                  <input 
-                    type="number" 
-                    id="max-price"
-                    placeholder="Max"
-                    step="0.50"
-                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
-                  >
-                </div>
+                <label class="block text-sm font-semibold text-gray-700">Monthly Budget</label>
+                <select
+                  id="budget-select"
+                  class="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors appearance-none bg-white text-base min-h-[48px] touch-manipulation bg-select-arrow bg-no-repeat bg-[length:16px] bg-[right_12px_center]"
+                >
+                  <option value="">Select budget...</option>
+                  <option value="1000-3000">$1,000-3,000/month</option>
+                  <option value="3000-5000">$3,000-5,000/month</option>
+                  <option value="5000-10000">$5,000-10,000/month</option>
+                  <option value="10000-20000">$10,000-20,000/month</option>
+                  <option value="20000-50000">$20,000-50,000/month</option>
+                  <option value="50000+">$50,000+/month</option>
+                  <option value="negotiable">Negotiable</option>
+                </select>
               </div>
 
             </div>
@@ -409,8 +398,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       const countySelect = document.getElementById('county-select') as HTMLSelectElement;
       const minSizeInput = document.getElementById('min-size') as HTMLInputElement;
       const maxSizeInput = document.getElementById('max-size') as HTMLInputElement;
-      const minPriceInput = document.getElementById('min-price') as HTMLInputElement;
-      const maxPriceInput = document.getElementById('max-price') as HTMLInputElement;
+      const budgetSelect = document.getElementById('budget-select') as HTMLSelectElement;
       const applyFiltersBtn = document.getElementById('apply-filters') as HTMLButtonElement;
       const clearSearchBtn = document.getElementById('clear-search') as HTMLButtonElement;
       
@@ -428,18 +416,9 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         county: '',
         minSize: null as number | null,
         maxSize: null as number | null,
-        minPrice: null as number | null,
-        maxPrice: null as number | null
+        budget: ''
       };
 
-      // Extract price number from price string (e.g., "$14.50/sq ft/year" -> 14.50)
-      function extractPrice(priceString: string): number | null {
-        const match = priceString.match(/\$?([\d,]+\.?\d*)/);
-        if (match) {
-          return parseFloat(match[1].replace(',', ''));
-        }
-        return null;
-      }
 
       // Basic search functionality
       if (searchInput) {
@@ -458,9 +437,8 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           advancedFilters.county = countySelect?.value || '';
           advancedFilters.minSize = minSizeInput?.value ? parseInt(minSizeInput.value) : null;
           advancedFilters.maxSize = maxSizeInput?.value ? parseInt(maxSizeInput.value) : null;
-          advancedFilters.minPrice = minPriceInput?.value ? parseFloat(minPriceInput.value) : null;
-          advancedFilters.maxPrice = maxPriceInput?.value ? parseFloat(maxPriceInput.value) : null;
-          
+          advancedFilters.budget = budgetSelect?.value || '';
+
           filterProperties();
         });
       }
@@ -544,16 +522,9 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             isVisible = false;
           }
 
-          // Price range filter
-          const propertyPrice = extractPrice(warehouseData.price || '');
-          if (propertyPrice !== null) {
-            if (advancedFilters.minPrice && propertyPrice < advancedFilters.minPrice) {
-              isVisible = false;
-            }
-            if (advancedFilters.maxPrice && propertyPrice > advancedFilters.maxPrice) {
-              isVisible = false;
-            }
-          }
+          // Budget filter - for now, we'll skip filtering by budget since
+          // we'd need to estimate monthly costs from property size and price per SF
+          // This could be enhanced later with actual monthly budget calculations
 
           // Show/hide card
           if (isVisible) {
@@ -583,16 +554,14 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
         if (countySelect) countySelect.value = '';
         if (minSizeInput) minSizeInput.value = '';
         if (maxSizeInput) maxSizeInput.value = '';
-        if (minPriceInput) minPriceInput.value = '';
-        if (maxPriceInput) maxPriceInput.value = '';
+        if (budgetSelect) budgetSelect.value = '';
 
         // Reset advanced filters
         advancedFilters = {
           county: '',
           minSize: null,
           maxSize: null,
-          minPrice: null,
-          maxPrice: null
+          budget: ''
         };
 
         // Reset basic filters

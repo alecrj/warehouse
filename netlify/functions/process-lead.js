@@ -108,10 +108,10 @@ ${message ? `Initial inquiry: ${message}` : ''}
     if (baseUrl) {
       // Send client notification
       try {
-        const clientResponse = await fetch(`${baseUrl}/.netlify/functions/send-notification-email`, {
+        const clientResponse = await fetch(`${baseUrl}/.netlify/functions/send-client-notification`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ leadData: formData, leadId, type: 'notification' })
+          body: JSON.stringify({ leadData: formData, leadId })
         });
         
         if (!clientResponse.ok) {
@@ -125,10 +125,10 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
       // Send auto-response
       try {
-        const autoResponse = await fetch(`${baseUrl}/.netlify/functions/send-notification-email`, {
+        const autoResponse = await fetch(`${baseUrl}/.netlify/functions/send-auto-response`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ leadData: formData, leadId, type: 'autoresponse' })
+          body: JSON.stringify({ leadData: formData, leadId })
         });
         
         if (!autoResponse.ok) {

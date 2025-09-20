@@ -1,6 +1,7 @@
-// Fixed process-lead.js function
+// Fixed process-lead.js function with integrated email sending
 const { Octokit } = require("@octokit/rest");
 const crypto = require('crypto');
+const emailjs = require('@emailjs/nodejs');
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
@@ -102,43 +103,72 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
     console.log(`Lead file created: ${filePath}`);
 
-    // Send notification emails
-    const baseUrl = process.env.URL;
-    
-    if (baseUrl) {
-      // Send client notification
-      try {
-        const clientResponse = await fetch(`${baseUrl}/.netlify/functions/send-client-notification`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ leadData: formData, leadId })
-        });
-        
-        if (!clientResponse.ok) {
-          console.error('Client notification failed:', await clientResponse.text());
-        } else {
-          console.log('Client notification sent successfully');
-        }
-      } catch (error) {
-        console.error('Client notification error:', error);
-      }
+    // Send notification emails directly via EmailJS
+    try {
+      console.log('Sending emails via EmailJS...');
 
-      // Send auto-response
-      try {
-        const autoResponse = await fetch(`${baseUrl}/.netlify/functions/send-auto-response`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ leadData: formData, leadId })
-        });
-        
-        if (!autoResponse.ok) {
-          console.error('Auto-response failed:', await autoResponse.text());
-        } else {
-          console.log('Auto-response sent successfully');
-        }
-      } catch (error) {
-        console.error('Auto-response error:', error);
-      }
+      // Send client notification email
+      const clientEmailContent = {
+        from_email: 'info@warehouselocating.com',
+        from_name: 'Warehouse Locating',
+        to_email: 'info@warehouselocating.com',
+        to_name: 'Warehouse Locating Team',
+        subject: `🚨 New Lead: ${name} - ${warehouseInterest || 'General Inquiry'}`,
+
+        // Lead information
+        lead_name: name,
+        lead_email: email,
+        lead_phone: phone || 'Not provided',
+        lead_company: company || 'Not provided',
+
+        // Inquiry details
+        warehouse_interest: warehouseInterest || 'General inquiry',
+        budget_range: budgetRange || 'Not specified',
+        timeline: timeline || 'Not specified',
+        source: source || 'website_form',
+        submitted_date: new Date().toLocaleString(),
+        lead_id: leadId,
+        message: message || 'No additional message provided',
+
+        // CMS link
+        cms_link: `${process.env.URL}/admin/#/collections/leads`
+      };
+
+      await emailjs.send(
+        process.env.EMAILJS_SERVICE_ID,
+        process.env.EMAILJS_CLIENT_TEMPLATE_ID,
+        clientEmailContent,
+        process.env.EMAILJS_USER_ID
+      );
+      console.log('Client notification email sent successfully');
+
+      // Send auto-response email to lead
+      const autoResponseContent = {
+        from_email: 'info@warehouselocating.com',
+        from_name: 'Warehouse Locating',
+        to_email: email,
+        to_name: name,
+        subject: `Thank you for your warehouse inquiry, ${name}!`,
+
+        lead_name: name,
+        company_name: company || 'your company',
+        warehouse_interest: warehouseInterest || 'warehouse space',
+        budget_range: budgetRange || 'To be discussed',
+        timeline: timeline || 'Flexible',
+        message: message || 'No additional requirements specified'
+      };
+
+      await emailjs.send(
+        process.env.EMAILJS_SERVICE_ID,
+        process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID,
+        autoResponseContent,
+        process.env.EMAILJS_USER_ID
+      );
+      console.log('Auto-response email sent successfully');
+
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      // Don't fail the entire request if email fails
     }
 
     return {

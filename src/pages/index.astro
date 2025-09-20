@@ -311,43 +311,39 @@ const sizeRanges = [
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {featuredWarehouses.map((warehouse: Warehouse) => (
-              <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                {warehouse.data.images && warehouse.data.images[0] && (
-                  <div class="aspect-w-16 aspect-h-9">
-                    <img 
-                      src={warehouse.data.images[0]} 
-                      alt={warehouse.data.title}
-                      class="w-full h-40 sm:h-48 object-cover"
-                      loading="lazy"
-                    />
+              <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <a href={`/warehouses/${warehouse.data.slug}`} class="block">
+                  {warehouse.data.images && warehouse.data.images[0] && (
+                    <div class="aspect-w-16 aspect-h-9">
+                      <img
+                        src={warehouse.data.images[0]}
+                        alt={warehouse.data.title}
+                        class="w-full h-40 sm:h-48 object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  <div class="p-4 sm:p-6">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-200">{warehouse.data.title}</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">{warehouse.data.location}</p>
+
+                    <div class="flex justify-between items-center mb-3 sm:mb-4">
+                      <span class="text-xl sm:text-2xl font-bold text-primary-600">{warehouse.data.price}</span>
+                      <span class="text-gray-500 text-sm sm:text-base">{warehouse.data.size?.toLocaleString()} SF</span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-2">{warehouse.data.description}</p>
                   </div>
-                )}
-                
-                <div class="p-4 sm:p-6">
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2">{warehouse.data.title}</h3>
-                  <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">{warehouse.data.location}</p>
-                  
-                  <div class="flex justify-between items-center mb-3 sm:mb-4">
-                    <span class="text-xl sm:text-2xl font-bold text-primary-600">{warehouse.data.price}</span>
-                    <span class="text-gray-500 text-sm sm:text-base">{warehouse.data.size?.toLocaleString()} SF</span>
-                  </div>
-                  
-                  <p class="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-2">{warehouse.data.description}</p>
-                  
-                  <div class="flex flex-col sm:flex-row gap-2">
-                    <a 
-                      href={`/warehouses/${warehouse.data.slug}`}
-                      class="flex-1 bg-gray-100 text-gray-700 text-center py-2 sm:py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors duration-200 min-h-[44px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
-                    >
-                      View Details
-                    </a>
-                    <button 
-                      onclick={`openContactModal('featured-property-${warehouse.data.slug}')`}
-                      class="flex-1 bg-primary-600 text-white py-2 sm:py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 min-h-[44px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
-                    >
-                      Inquire Now
-                    </button>
-                  </div>
+                </a>
+
+                <div class="px-4 sm:px-6 pb-4 sm:pb-6">
+                  <button
+                    onclick={`openContactModal('featured-property-${warehouse.data.slug}'); event.stopPropagation();`}
+                    class="w-full bg-primary-600 text-white py-2 sm:py-3 rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 min-h-[44px] flex items-center justify-center touch-manipulation text-sm sm:text-base"
+                  >
+                    Inquire Now
+                  </button>
                 </div>
               </div>
             ))}

@@ -103,24 +103,15 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
     console.log(`Lead file created: ${filePath}`);
 
-    // Initialize debug info
+    // Initialize email status info
     let emailDebugInfo = {
-      environmentVars: {
-        emailUser: process.env.EMAIL_USER ? 'SET' : 'NOT SET',
-        emailAppPassword: process.env.EMAIL_APP_PASSWORD ? 'SET' : 'NOT SET',
-        notificationEmail: process.env.NOTIFICATION_EMAIL ? 'SET' : 'NOT SET'
-      },
       emailAttempts: [],
       errors: []
     };
 
     // Send notification emails directly via Nodemailer
     try {
-      console.log('=== EMAIL DEBUG START ===');
-      console.log('Environment variables check:');
-      console.log('EMAIL_USER:', process.env.EMAIL_USER ? 'SET' : 'NOT SET');
-      console.log('EMAIL_APP_PASSWORD:', process.env.EMAIL_APP_PASSWORD ? 'SET' : 'NOT SET');
-      console.log('NOTIFICATION_EMAIL:', process.env.NOTIFICATION_EMAIL ? 'SET' : 'NOT SET');
+      console.log('Sending notification emails...');
 
       // Create nodemailer transporter - trying Office365 with app password
       console.log('Creating nodemailer transporter...');
@@ -239,18 +230,11 @@ ${message ? `Initial inquiry: ${message}` : ''}
       });
 
     } catch (emailError) {
-      console.error('=== EMAIL ERROR ===');
-      console.error('Email sending error:', emailError);
-      console.error('Error message:', emailError.message);
-      console.error('Error stack:', emailError.stack);
-      console.error('=== EMAIL ERROR END ===');
+      console.error('Email sending failed:', emailError.message);
 
       emailDebugInfo.errors.push({
         message: emailError.message,
-        stack: emailError.stack,
-        toString: emailError.toString(),
-        name: emailError.name,
-        fullError: JSON.stringify(emailError, Object.getOwnPropertyNames(emailError))
+        type: emailError.name || 'EmailError'
       });
       // Don't fail the entire request if email fails
     }

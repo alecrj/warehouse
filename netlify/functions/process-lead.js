@@ -215,7 +215,9 @@ ${message ? `Initial inquiry: ${message}` : ''}
       emailDebugInfo.errors.push({
         message: emailError.message,
         stack: emailError.stack,
-        toString: emailError.toString()
+        toString: emailError.toString(),
+        name: emailError.name,
+        fullError: JSON.stringify(emailError, Object.getOwnPropertyNames(emailError))
       });
       // Don't fail the entire request if email fails
     }

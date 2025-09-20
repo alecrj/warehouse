@@ -1,5 +1,5 @@
 // Fixed send-auto-response.js function
-const emailjs = require('emailjs-com');
+const emailjs = require('@emailjs/nodejs');
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {

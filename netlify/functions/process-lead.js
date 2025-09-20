@@ -122,12 +122,12 @@ ${message ? `Initial inquiry: ${message}` : ''}
       console.log('EMAIL_APP_PASSWORD:', process.env.EMAIL_APP_PASSWORD ? 'SET' : 'NOT SET');
       console.log('NOTIFICATION_EMAIL:', process.env.NOTIFICATION_EMAIL ? 'SET' : 'NOT SET');
 
-      // Create nodemailer transporter - trying GoDaddy SMTP first
+      // Create nodemailer transporter - trying Office365 with app password
       console.log('Creating nodemailer transporter...');
       const transporter = nodemailer.createTransport({
-        host: 'smtpout.secureserver.net', // GoDaddy SMTP
-        port: 465,
-        secure: true, // true for 465, false for other ports
+        host: 'smtp.office365.com', // Office365 SMTP with app password
+        port: 587,
+        secure: false, // false for 587, true for 465
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_APP_PASSWORD

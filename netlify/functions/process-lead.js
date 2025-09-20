@@ -103,6 +103,18 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
     console.log(`Lead file created: ${filePath}`);
 
+    // Initialize debug info
+    let emailDebugInfo = {
+      environmentVars: {
+        serviceId: process.env.EMAILJS_SERVICE_ID ? 'SET' : 'NOT SET',
+        userId: process.env.EMAILJS_USER_ID ? 'SET' : 'NOT SET',
+        clientTemplateId: process.env.EMAILJS_CLIENT_TEMPLATE_ID ? 'SET' : 'NOT SET',
+        autoResponseTemplateId: process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID ? 'SET' : 'NOT SET'
+      },
+      emailAttempts: [],
+      errors: []
+    };
+
     // Send notification emails directly via EmailJS
     try {
       console.log('=== EMAIL DEBUG START ===');
@@ -150,6 +162,12 @@ ${message ? `Initial inquiry: ${message}` : ''}
       console.log('Client notification result:', clientResult);
       console.log('Client notification email sent successfully');
 
+      emailDebugInfo.emailAttempts.push({
+        type: 'client_notification',
+        status: 'success',
+        result: clientResult
+      });
+
       // Send auto-response email to lead
       const autoResponseContent = {
         from_email: 'info@warehouselocating.com',
@@ -176,12 +194,24 @@ ${message ? `Initial inquiry: ${message}` : ''}
       console.log('Auto-response result:', autoResult);
       console.log('Auto-response email sent successfully');
 
+      emailDebugInfo.emailAttempts.push({
+        type: 'auto_response',
+        status: 'success',
+        result: autoResult
+      });
+
     } catch (emailError) {
       console.error('=== EMAIL ERROR ===');
       console.error('Email sending error:', emailError);
       console.error('Error message:', emailError.message);
       console.error('Error stack:', emailError.stack);
       console.error('=== EMAIL ERROR END ===');
+
+      emailDebugInfo.errors.push({
+        message: emailError.message,
+        stack: emailError.stack,
+        toString: emailError.toString()
+      });
       // Don't fail the entire request if email fails
     }
 
@@ -191,9 +221,10 @@ ${message ? `Initial inquiry: ${message}` : ''}
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         message: 'Lead submitted successfully',
-        leadId: leadId
+        leadId: leadId,
+        emailDebug: emailDebugInfo
       })
     };
 

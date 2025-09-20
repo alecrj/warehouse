@@ -124,7 +124,7 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
       // Create nodemailer transporter
       console.log('Creating nodemailer transporter...');
-      const transporter = nodemailer.createTransporter({
+      const transporter = nodemailer.createTransport({
         host: 'smtp.office365.com', // Outlook/Office365 SMTP
         port: 587,
         secure: false, // true for 465, false for other ports

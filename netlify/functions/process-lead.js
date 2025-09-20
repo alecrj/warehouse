@@ -123,6 +123,13 @@ ${message ? `Initial inquiry: ${message}` : ''}
       console.log('EMAILJS_USER_ID:', process.env.EMAILJS_USER_ID ? 'SET' : 'NOT SET');
       console.log('EMAILJS_CLIENT_TEMPLATE_ID:', process.env.EMAILJS_CLIENT_TEMPLATE_ID ? 'SET' : 'NOT SET');
       console.log('EMAILJS_AUTORESPONSE_TEMPLATE_ID:', process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID ? 'SET' : 'NOT SET');
+
+      // Initialize EmailJS with public key
+      console.log('Initializing EmailJS...');
+      emailjs.init({
+        publicKey: process.env.EMAILJS_USER_ID,
+      });
+
       console.log('Sending emails via EmailJS...');
 
       // Send client notification email
@@ -156,8 +163,7 @@ ${message ? `Initial inquiry: ${message}` : ''}
       const clientResult = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
         process.env.EMAILJS_CLIENT_TEMPLATE_ID,
-        clientEmailContent,
-        process.env.EMAILJS_USER_ID
+        clientEmailContent
       );
       console.log('Client notification result:', clientResult);
       console.log('Client notification email sent successfully');
@@ -188,8 +194,7 @@ ${message ? `Initial inquiry: ${message}` : ''}
       const autoResult = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
         process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID,
-        autoResponseContent,
-        process.env.EMAILJS_USER_ID
+        autoResponseContent
       );
       console.log('Auto-response result:', autoResult);
       console.log('Auto-response email sent successfully');

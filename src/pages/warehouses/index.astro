@@ -142,23 +142,7 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">Find Your Perfect Warehouse</h2>
             
             <!-- Search Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              
-              <!-- Text Search -->
-              <div class="space-y-2">
-                <label class="block text-sm font-semibold text-gray-700">Search Properties</label>
-                <div class="relative">
-                  <input 
-                    type="text" 
-                    id="search-input"
-                    placeholder="Location, features, name..." 
-                    class="w-full px-4 py-3 sm:py-4 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-base min-h-[48px] touch-manipulation"
-                  >
-                  <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                  </svg>
-                </div>
-              </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
               <!-- County Filter -->
               <div class="space-y-2">
@@ -177,20 +161,17 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
               <!-- Size Range -->
               <div class="space-y-2">
                 <label class="block text-sm font-semibold text-gray-700">Size Range (SF)</label>
-                <div class="grid grid-cols-2 gap-2">
-                  <input 
-                    type="number" 
-                    id="min-size"
-                    placeholder="Min"
-                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
-                  >
-                  <input 
-                    type="number" 
-                    id="max-size"
-                    placeholder="Max"
-                    class="w-full px-3 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-sm min-h-[44px] touch-manipulation"
-                  >
-                </div>
+                <select
+                  id="size-range-select"
+                  class="w-full px-4 py-3 sm:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors appearance-none bg-white text-base min-h-[48px] touch-manipulation bg-select-arrow bg-no-repeat bg-[length:16px] bg-[right_12px_center]"
+                >
+                  <option value="">Select size range...</option>
+                  <option value="0-1000">0-1,000 SF</option>
+                  <option value="1000-2000">1,000-2,000 SF</option>
+                  <option value="2000-5000">2,000-5,000 SF</option>
+                  <option value="5000-10000">5,000-10,000 SF</option>
+                  <option value="10000+">10,000+ SF</option>
+                </select>
               </div>
 
               <!-- Monthly Budget -->
@@ -214,18 +195,8 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
             </div>
 
             <!-- Search Actions -->
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 sm:mt-8">
-              <button 
-                id="apply-filters"
-                class="px-6 sm:px-8 py-3 sm:py-4 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center gap-2 min-h-[48px] touch-manipulation text-base"
-                type="button"
-              >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                Search Properties
-              </button>
-              <button 
+            <div class="flex justify-center mt-6 sm:mt-8">
+              <button
                 id="clear-search"
                 class="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 min-h-[48px] touch-manipulation text-base"
                 type="button"
@@ -394,12 +365,9 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      const searchInput = document.getElementById('search-input') as HTMLInputElement;
       const countySelect = document.getElementById('county-select') as HTMLSelectElement;
-      const minSizeInput = document.getElementById('min-size') as HTMLInputElement;
-      const maxSizeInput = document.getElementById('max-size') as HTMLInputElement;
+      const sizeRangeSelect = document.getElementById('size-range-select') as HTMLSelectElement;
       const budgetSelect = document.getElementById('budget-select') as HTMLSelectElement;
-      const applyFiltersBtn = document.getElementById('apply-filters') as HTMLButtonElement;
       const clearSearchBtn = document.getElementById('clear-search') as HTMLButtonElement;
       
       const propertiesGrid = document.getElementById('properties-grid') as HTMLElement;
@@ -414,34 +382,22 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
       let advancedFilters = {
         county: '',
-        minSize: null as number | null,
-        maxSize: null as number | null,
+        sizeRange: '',
         budget: ''
       };
 
 
-      // Basic search functionality
-      if (searchInput) {
-        searchInput.addEventListener('input', function(e: Event) {
-          const target = e.target as HTMLInputElement;
-          if (target) {
-            currentFilters.search = target.value.toLowerCase();
+      // Auto-apply filters when selections change
+      [countySelect, sizeRangeSelect, budgetSelect].forEach(select => {
+        if (select) {
+          select.addEventListener('change', function() {
+            advancedFilters.county = countySelect?.value || '';
+            advancedFilters.sizeRange = sizeRangeSelect?.value || '';
+            advancedFilters.budget = budgetSelect?.value || '';
             filterProperties();
-          }
-        });
-      }
-
-      // Advanced search button
-      if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener('click', function() {
-          advancedFilters.county = countySelect?.value || '';
-          advancedFilters.minSize = minSizeInput?.value ? parseInt(minSizeInput.value) : null;
-          advancedFilters.maxSize = maxSizeInput?.value ? parseInt(maxSizeInput.value) : null;
-          advancedFilters.budget = budgetSelect?.value || '';
-
-          filterProperties();
-        });
-      }
+          });
+        }
+      });
 
       // Clear search button
       if (clearSearchBtn) {
@@ -514,12 +470,33 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
           }
 
           // Size range filter
-          const propertySize = warehouseData.size || 0;
-          if (advancedFilters.minSize && propertySize < advancedFilters.minSize) {
-            isVisible = false;
-          }
-          if (advancedFilters.maxSize && propertySize > advancedFilters.maxSize) {
-            isVisible = false;
+          if (advancedFilters.sizeRange) {
+            const propertySize = warehouseData.size || 0;
+            let sizeMatch = false;
+
+            switch (advancedFilters.sizeRange) {
+              case '0-1000':
+                sizeMatch = propertySize >= 0 && propertySize <= 1000;
+                break;
+              case '1000-2000':
+                sizeMatch = propertySize > 1000 && propertySize <= 2000;
+                break;
+              case '2000-5000':
+                sizeMatch = propertySize > 2000 && propertySize <= 5000;
+                break;
+              case '5000-10000':
+                sizeMatch = propertySize > 5000 && propertySize <= 10000;
+                break;
+              case '10000+':
+                sizeMatch = propertySize > 10000;
+                break;
+              default:
+                sizeMatch = true; // No filter applied
+            }
+
+            if (!sizeMatch) {
+              isVisible = false;
+            }
           }
 
           // Budget filter - for now, we'll skip filtering by budget since
@@ -550,17 +527,14 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
 
       function clearAllSearchFilters(): void {
         // Clear advanced search inputs
-        if (searchInput) searchInput.value = '';
         if (countySelect) countySelect.value = '';
-        if (minSizeInput) minSizeInput.value = '';
-        if (maxSizeInput) maxSizeInput.value = '';
+        if (sizeRangeSelect) sizeRangeSelect.value = '';
         if (budgetSelect) budgetSelect.value = '';
 
         // Reset advanced filters
         advancedFilters = {
           county: '',
-          minSize: null,
-          maxSize: null,
+          sizeRange: '',
           budget: ''
         };
 
@@ -589,34 +563,21 @@ const pageDescription = 'Browse premium warehouse and industrial properties acro
       // Initialize from URL parameters
       function initializeFromURL(): void {
         const urlParams = new URLSearchParams(window.location.search);
-        
-        // Set search if provided
-        const searchQuery = urlParams.get('search');
-        if (searchQuery && searchInput) {
-          searchInput.value = searchQuery;
-          currentFilters.search = searchQuery.toLowerCase();
-        }
-        
+
         // Set advanced filters from URL
         const urlCounty = urlParams.get('county');
-        const urlMinSize = urlParams.get('min_size');
-        const urlMaxSize = urlParams.get('max_size');
-        
+        const urlSizeRange = urlParams.get('size_range');
+
         if (urlCounty && countySelect) {
           countySelect.value = urlCounty;
           advancedFilters.county = urlCounty;
         }
-        
-        if (urlMinSize && minSizeInput) {
-          minSizeInput.value = urlMinSize;
-          advancedFilters.minSize = parseInt(urlMinSize);
+
+        if (urlSizeRange && sizeRangeSelect) {
+          sizeRangeSelect.value = urlSizeRange;
+          advancedFilters.sizeRange = urlSizeRange;
         }
-        
-        if (urlMaxSize && maxSizeInput) {
-          maxSizeInput.value = urlMaxSize;
-          advancedFilters.maxSize = parseInt(urlMaxSize);
-        }
-        
+
         filterProperties();
       }
 

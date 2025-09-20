@@ -4,7 +4,7 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   integrations: [tailwind()],
-  output: 'static', // This is the fix - changed from 'hybrid'
+  output: 'hybrid', // Changed back to hybrid to enable Netlify functions
   adapter: netlify(),
-  site: 'https://laec.netlify.app',
+  site: 'https://warehouse-locating.netlify.app',
 });

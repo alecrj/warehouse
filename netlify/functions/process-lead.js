@@ -105,6 +105,12 @@ ${message ? `Initial inquiry: ${message}` : ''}
 
     // Send notification emails directly via EmailJS
     try {
+      console.log('=== EMAIL DEBUG START ===');
+      console.log('Environment variables check:');
+      console.log('EMAILJS_SERVICE_ID:', process.env.EMAILJS_SERVICE_ID ? 'SET' : 'NOT SET');
+      console.log('EMAILJS_USER_ID:', process.env.EMAILJS_USER_ID ? 'SET' : 'NOT SET');
+      console.log('EMAILJS_CLIENT_TEMPLATE_ID:', process.env.EMAILJS_CLIENT_TEMPLATE_ID ? 'SET' : 'NOT SET');
+      console.log('EMAILJS_AUTORESPONSE_TEMPLATE_ID:', process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID ? 'SET' : 'NOT SET');
       console.log('Sending emails via EmailJS...');
 
       // Send client notification email
@@ -134,12 +140,14 @@ ${message ? `Initial inquiry: ${message}` : ''}
         cms_link: `${process.env.URL}/admin/#/collections/leads`
       };
 
-      await emailjs.send(
+      console.log('Sending client notification with data:', JSON.stringify(clientEmailContent, null, 2));
+      const clientResult = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
         process.env.EMAILJS_CLIENT_TEMPLATE_ID,
         clientEmailContent,
         process.env.EMAILJS_USER_ID
       );
+      console.log('Client notification result:', clientResult);
       console.log('Client notification email sent successfully');
 
       // Send auto-response email to lead
@@ -158,16 +166,22 @@ ${message ? `Initial inquiry: ${message}` : ''}
         message: message || 'No additional requirements specified'
       };
 
-      await emailjs.send(
+      console.log('Sending auto-response with data:', JSON.stringify(autoResponseContent, null, 2));
+      const autoResult = await emailjs.send(
         process.env.EMAILJS_SERVICE_ID,
         process.env.EMAILJS_AUTORESPONSE_TEMPLATE_ID,
         autoResponseContent,
         process.env.EMAILJS_USER_ID
       );
+      console.log('Auto-response result:', autoResult);
       console.log('Auto-response email sent successfully');
 
     } catch (emailError) {
+      console.error('=== EMAIL ERROR ===');
       console.error('Email sending error:', emailError);
+      console.error('Error message:', emailError.message);
+      console.error('Error stack:', emailError.stack);
+      console.error('=== EMAIL ERROR END ===');
       // Don't fail the entire request if email fails
     }
 

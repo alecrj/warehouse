@@ -14,6 +14,16 @@ exports.handler = async (event, context) => {
   try {
     // Parse form data
     const formData = JSON.parse(event.body);
+
+    // Honeypot spam protection - if this hidden field is filled, it's a bot
+    if (formData.website && formData.website.trim() !== '') {
+      console.log('Bot detected via honeypot field');
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Submission rejected' })
+      };
+    }
+
     const {
       name,
       email,

@@ -389,10 +389,13 @@ const county = getCounty(addressInfo.city);
             <p class="text-primary-100">Professional warehouse representation at no cost to you</p>
           </div>
           <div class="p-8">
-            <form 
+            <form
               id="property-contact-form"
               class="space-y-6"
             >
+              <!-- Honeypot field for spam protection - hidden from users -->
+              <input type="text" name="website" value="" style="display:none !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+
               <!-- Contact Info Cards -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div class="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">

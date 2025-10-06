@@ -136,14 +136,17 @@ const sqftRanges = [
                 <p class="text-white/80 text-xs lg:text-sm xl:text-sm">We'll get back to you within 24 hours with qualified options.</p>
               </div>
               
-              <form 
+              <form
                 id="contact-hero-form"
-                name="warehouse-inquiry-hero" 
+                name="warehouse-inquiry-hero"
                 class="space-y-3"
               >
                 <input type="hidden" name="source" value="contact-page" />
                 <input type="hidden" name="warehouse_id" id="contact-warehouse-id" />
-                
+
+                <!-- Honeypot field for spam protection - hidden from users -->
+                <input type="text" name="website" value="" style="display:none !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+
                 <!-- Name & Email Row -->
                 <div class="grid grid-cols-2 gap-2">
                   <div>

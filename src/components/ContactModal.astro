@@ -140,10 +140,13 @@ const sqftRanges = [
           </div>
           
           <!-- Form -->
-          <form 
+          <form
             id="modal-contact-form"
             class="flex-1 flex flex-col space-y-5 sm:space-y-4"
           >
+            <!-- Honeypot field for spam protection - hidden from users -->
+            <input type="text" name="website" value="" style="display:none !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+
             <!-- Form Grid - More compact layout -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 flex-1">
               <!-- Left Column -->

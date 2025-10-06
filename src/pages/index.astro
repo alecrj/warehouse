@@ -157,13 +157,16 @@ const sizeRanges = [
                 <p class="text-white/80 text-xs lg:text-sm xl:text-sm">We'll get back to you within 24 hours with qualified options.</p>
               </div>
               
-              <form 
+              <form
                 id="hero-form"
-                name="warehouse-inquiry-hero" 
+                name="warehouse-inquiry-hero"
                 class="space-y-3"
               >
                 <input type="hidden" name="source" value="hero" />
-                
+
+                <!-- Honeypot field for spam protection - hidden from users -->
+                <input type="text" name="website" value="" style="display:none !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+
                 <!-- Name & Email Row -->
                 <div class="grid grid-cols-2 gap-2">
                   <div>
@@ -463,13 +466,16 @@ const sizeRanges = [
         
         <div class="bg-gradient-to-br from-gray-50 to-gray-100 py-12 sm:py-16">
           <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <form 
+          <form
             id="homepage-secondary-form"
-            name="warehouse-inquiry-modal" 
+            name="warehouse-inquiry-modal"
             class="space-y-4 sm:space-y-6"
           >
             <!-- Hidden fields -->
             <input type="hidden" name="source" value="homepage-secondary" />
+
+            <!-- Honeypot field for spam protection - hidden from users -->
+            <input type="text" name="website" value="" style="display:none !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <!-- Name & Email Row -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">

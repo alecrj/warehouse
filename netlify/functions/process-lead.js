@@ -60,8 +60,15 @@ exports.handler = async (event, context) => {
         console.log('reCAPTCHA service unavailable - allowing submission');
       }
     } else {
-      // No reCAPTCHA token provided - might be an old form or direct API call
-      console.warn('No reCAPTCHA token provided - submission allowed but flagged');
+      // No reCAPTCHA token provided - REJECT the submission
+      console.warn('No reCAPTCHA token provided - blocking submission');
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          message: 'Security verification required',
+          error: 'No reCAPTCHA token provided'
+        })
+      };
     }
 
     const {

@@ -24,6 +24,46 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // reCAPTCHA v3 verification - verify the token from frontend
+    if (formData.recaptchaToken) {
+      try {
+        const verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+        const verifyResponse = await fetch(verifyURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${formData.recaptchaToken}`
+        });
+        const verifyData = await verifyResponse.json();
+
+        console.log('reCAPTCHA verification:', {
+          success: verifyData.success,
+          score: verifyData.score,
+          action: verifyData.action
+        });
+
+        // Reject if verification fails or score is too low (below 0.5 is likely a bot)
+        if (!verifyData.success || verifyData.score < 0.5) {
+          console.log('reCAPTCHA failed - blocking submission:', verifyData);
+          return {
+            statusCode: 400,
+            body: JSON.stringify({
+              message: 'Security verification failed',
+              score: verifyData.score
+            })
+          };
+        }
+
+        console.log(`reCAPTCHA passed with score: ${verifyData.score}`);
+      } catch (recaptchaError) {
+        console.error('reCAPTCHA verification error:', recaptchaError);
+        // If reCAPTCHA service fails, allow submission (graceful degradation)
+        console.log('reCAPTCHA service unavailable - allowing submission');
+      }
+    } else {
+      // No reCAPTCHA token provided - might be an old form or direct API call
+      console.warn('No reCAPTCHA token provided - submission allowed but flagged');
+    }
+
     const {
       name,
       email,

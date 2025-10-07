@@ -756,6 +756,9 @@ const sizeRanges = [
 </style>
 
 <script>
+  // Declare grecaptcha for TypeScript
+  declare const grecaptcha: any;
+
   // Scroll-triggered animations
   const animateOnScroll = () => {
     const elements = document.querySelectorAll('.animate-on-scroll');
@@ -820,12 +823,16 @@ const sizeRanges = [
           // Collect form data
           const formData = new FormData(heroForm);
           const data = Object.fromEntries(formData.entries());
-          
+
           console.log('Hero form data:', data);
-          
+
           // Add source
           data.source = 'hero_form';
-          
+
+          // Get reCAPTCHA token (invisible to user)
+          const token = await grecaptcha.execute('6Lf0rOErAAAAADR0uVn9dRAdeLXYluqsankNhTDy', {action: 'submit'});
+          data.recaptchaToken = token;
+
           // Submit to our CRM function
           const response = await fetch('/.netlify/functions/process-lead', {
             method: 'POST',
@@ -876,12 +883,16 @@ const sizeRanges = [
           // Collect form data
           const formData = new FormData(secondaryForm);
           const data = Object.fromEntries(formData.entries());
-          
+
           console.log('Secondary form data:', data);
-          
+
           // Add source
           data.source = 'homepage_secondary_form';
-          
+
+          // Get reCAPTCHA token (invisible to user)
+          const token = await grecaptcha.execute('6Lf0rOErAAAAADR0uVn9dRAdeLXYluqsankNhTDy', {action: 'submit'});
+          data.recaptchaToken = token;
+
           // Submit to our CRM function
           const response = await fetch('/.netlify/functions/process-lead', {
             method: 'POST',

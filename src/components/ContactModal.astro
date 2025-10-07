@@ -411,10 +411,14 @@ const sqftRanges = [
           // Collect form data
           const formData = new FormData(modalForm);
           const data = Object.fromEntries(formData.entries());
-          
+
           // Add source
           data.source = 'modal_form';
-          
+
+          // Get reCAPTCHA token (invisible to user)
+          const token = await grecaptcha.execute('6Lf0rOErAAAAADR0uVn9dRAdeLXYluqsankNhTDy', {action: 'submit'});
+          data.recaptchaToken = token;
+
           // Submit to our CRM function
           const response = await fetch('/.netlify/functions/process-lead', {
             method: 'POST',

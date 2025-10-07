@@ -425,6 +425,9 @@ const sqftRanges = [
 </style>
 
 <script>
+  // Declare grecaptcha for TypeScript
+  declare const grecaptcha: any;
+
   // Scroll-triggered animations
   const animateOnScroll = () => {
     const elements = document.querySelectorAll('.animate-on-scroll');
@@ -483,11 +486,15 @@ const sqftRanges = [
       try {
         submitButton.textContent = 'Submitting...';
         submitButton.disabled = true;
-        
+
         const formData = new FormData(contactHeroForm);
         const data = Object.fromEntries(formData.entries());
         data.source = 'contact_hero_form';
-        
+
+        // Get reCAPTCHA token (invisible to user)
+        const token = await grecaptcha.execute('6Lf0rOErAAAAADR0uVn9dRAdeLXYluqsankNhTDy', {action: 'submit'});
+        data.recaptchaToken = token;
+
         const response = await fetch('/.netlify/functions/process-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

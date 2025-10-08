@@ -6,5 +6,5 @@ export default defineConfig({
   integrations: [tailwind()],
   output: 'hybrid', // Changed back to hybrid to enable Netlify functions
   adapter: netlify(),
-  site: 'https://warehouse-locating.netlify.app',
+  site: 'https://warehouselocating.com',
 });
